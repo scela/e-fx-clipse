@@ -53,8 +53,9 @@ public class RepackageJavaFXWizard extends BasicNewResourceWizard {
 		File win64 = new File(page.win64.getText());
 		File mac = new File(page.mac.getText());
 		File lin32 = new File(page.lin32.getText());
+		File lin64 = new File(page.lin64.getText());
 
-		if (win32.exists() || win64.exists() || mac.exists() || lin32.exists()) {
+		if (win32.exists() || win64.exists() || mac.exists() || lin32.exists() || lin64.exists()) {
 			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject("javafx.osgi");
 			try {
 				if (!p.exists()) {
@@ -109,6 +110,10 @@ public class RepackageJavaFXWizard extends BasicNewResourceWizard {
 
 				if (lin32 != null && lin32.exists()) {
 					explode(p, Constants.OS_LINUX, Constants.ARCH_X86, lin32);
+				}
+				
+				if (lin64 != null && lin64.exists()) {
+					explode(p, Constants.OS_LINUX, Constants.ARCH_X86_64, lin64);
 				}
 				
 			} catch (CoreException e) {
@@ -181,6 +186,7 @@ public class RepackageJavaFXWizard extends BasicNewResourceWizard {
 		private Text win64;
 		private Text mac;
 		private Text lin32;
+		private Text lin64;
 		private Text version;
 		private Combo combo;
 
@@ -291,6 +297,26 @@ public class RepackageJavaFXWizard extends BasicNewResourceWizard {
 						File f = openZip(".so");
 						if (f != null) {
 							lin32.setText(f.getAbsolutePath());
+						}
+					}
+				});
+			}
+			
+			{
+				Label l = new Label(container, SWT.NONE);
+				l.setText("Linux 64bit SDK");
+
+				lin64 = new Text(container, SWT.BORDER);
+				lin64.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+				Button b = new Button(container, SWT.PUSH);
+				b.setText("Browse ...");
+				b.addSelectionListener(new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						File f = openZip(".so");
+						if (f != null) {
+							lin64.setText(f.getAbsolutePath());
 						}
 					}
 				});
