@@ -72,7 +72,7 @@ public class BuildPathSupport {
 			}
 			
 			jarLocationPath = new Path(javaHome.getAbsolutePath()).append("lib").append("jfxrt.jar");
-			javadocLocation = null; //TODO Fix with JDK-7u6 for OS-X
+			javadocLocation = new Path(javaHome.getParentFile().getAbsolutePath()).append("docs").append("api"); //TODO Fix with JDK-7u6 for OS-X
 			antJarLocationPath = new Path(javaHome.getParent()).append("lib").append("ant-javafx.jar");
 		} else if( type.equals(JavaFXPreferencesConstants.CONFIG_TYPE_CUSTOM) ) {
 			String jar = pref.get(JavaFXPreferencesConstants.JAVAFX_JAR, null);
