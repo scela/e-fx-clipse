@@ -10,10 +10,10 @@ import at.bestsolution.efxclipse.formats.svg.svg.SvgSvgElement;
 public class ConvertSVGHandler extends AbstractConverterHandler {
 
 	@Override
-	protected String convert(IFile file) throws ExecutionException {
+	protected String convert(IFile outFile, IFile file) throws ExecutionException {
 		try {
 			XMLLoader loader = new XMLLoader();
-			SvgSvgElement root = loader.loadDocument(file.getContents());
+			SvgSvgElement root = loader.loadDocument(outFile.getFullPath().toOSString(), file.getContents());
 			return new FXMLConverter(root).generate().toString();
 		} catch (Exception e) {
 			throw new ExecutionException("Conversion failed", e);

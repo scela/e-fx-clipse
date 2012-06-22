@@ -25,9 +25,10 @@ public abstract class AbstractConverterHandler extends AbstractHandler {
 			Object o = ((IStructuredSelection) s).getFirstElement();
 			if( o instanceof IFile ) {
 				IFile f = (IFile) o;
-				String content = convert(f);
 				IContainer folder = f.getParent();
 				IFile outFile = folder.getFile(new Path(f.getName().substring(0,f.getName().length()-f.getFileExtension().length()-1)+".fxml"));
+				String content = convert(outFile, f);
+				
 				if( ! outFile.exists() ) {
 					try {
 						outFile.create(new ByteArrayInputStream(content.getBytes()), true, new NullProgressMonitor());
@@ -48,5 +49,5 @@ public abstract class AbstractConverterHandler extends AbstractHandler {
 		return null;
 	}
 	
-	protected abstract String convert(IFile file) throws ExecutionException;
+	protected abstract String convert(IFile outFile, IFile file) throws ExecutionException;
 }

@@ -11,7 +11,7 @@ import at.bestsolution.efxclipse.formats.fxg.handler.XMLLoader;
 public class ConvertFXGHandler extends AbstractConverterHandler {
 
 	@Override
-	protected String convert(IFile file) throws ExecutionException {
+	protected String convert(IFile outFile, IFile file) throws ExecutionException {
 		try {
 			XMLLoader loader = new XMLLoader();
 			Graphic g = loader.loadGrapic(file.getContents());
