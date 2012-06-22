@@ -1,7 +1,9 @@
 package at.bestsolution.efxclipse.formats.svg.handler;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.Stack;
 import java.util.zip.GZIPInputStream;
 
+import javax.xml.bind.DatatypeConverter;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -30,10 +33,19 @@ import at.bestsolution.efxclipse.formats.svg.svg.SvgPackage;
 import at.bestsolution.efxclipse.formats.svg.svg.SvgSvgElement;
 
 public class XMLLoader {
+	private static final Map<String, String> SUFFIXMAP = new HashMap<String, String>();
+	
+	{
+		SUFFIXMAP.put("image/png", "png");
+		SUFFIXMAP.put("image/jpeg", "jpg");
+		SUFFIXMAP.put("image/jpg", "jpg");
+		SUFFIXMAP.put("image/gif", "gif");
+	}
+	
 	public static void main(String[] args) {
 		XMLLoader l = new XMLLoader();
 		try {
-			File f = new File("/Users/tomschindl/git/e-fx-clipse/at.bestsolution.efxclipse.formats.svg/samples/oxygen/test2.svg");
+			File f = new File("/Users/tomschindl/git/e-fx-clipse/at.bestsolution.efxclipse.formats.svg/samples/player.svg");
 			InputStream in;
 			
 			if( f.getName().endsWith("svgz") ) {
@@ -43,7 +55,7 @@ public class XMLLoader {
 			}
 			
 			
-			SvgSvgElement g = l.loadDocument(in);
+			SvgSvgElement g = l.loadDocument("/Users/tomschindl/git/e-fx-clipse/at.bestsolution.efxclipse.formats.svg/samples/test.fxml",in);
 //			SvgSvgElement g = l.loadDocument(new File("/Users/tomschindl/git/e-fx-clipse/at.bestsolution.efxclipse.formats.svg/samples/w3/images/shapes/rect01.svg").toURL().openStream());
 //			SvgSvgElement g = l.loadDocument(new File("/Users/tomschindl/git/e-fx-clipse/at.bestsolution.efxclipse.formats.svg/samples/w3/images/filters/filters01.svg").toURL().openStream());
 			FXMLConverter c = new FXMLConverter(g);
@@ -60,21 +72,22 @@ public class XMLLoader {
 		}
 	}
 	
-	public SvgSvgElement loadDocument(InputStream in) {
+	public SvgSvgElement loadDocument(String outFile, InputStream in) {
 		try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			factory.setNamespaceAware(true);
 			SAXParser parser = factory.newSAXParser();
 			Handler handler = new Handler();
 			parser.parse(in, handler);
-			postProcess(handler.root);
+			postProcess(outFile, handler.root);
 			return handler.root;
 		} catch (Throwable e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
-	private void postProcess(SvgSvgElement root) {
+	private void postProcess(String outFile, SvgSvgElement root) {
+		int imageCount = 0;
 		TreeIterator<EObject> it = EcoreUtil.getAllContents(root, true);
 		while( it.hasNext() ) {
 			EObject o = it.next();
@@ -99,18 +112,44 @@ public class XMLLoader {
 			if( f != null ) {
 				EStructuralFeature instanceFeature = o.eClass().getEStructuralFeature("resolvedInstance");
 				String link = (String) o.eGet(f);
-				if( link != null && link.trim().length() > 0 ) {
-					link = link.substring(1);
-					TreeIterator<EObject> internalIt = EcoreUtil.getAllContents(root, true);
-					while( internalIt.hasNext() ) {
-						EObject internalO = internalIt.next();
-						if( internalO instanceof CoreAttributes ) {
-							if( link.equals(internalO.eGet(SvgPackage.Literals.CORE_ATTRIBUTES__ID))) {
-								o.eSet(instanceFeature, internalO);
-								break;
+				if( link != null && link.startsWith("data:") ) {
+					String type = link.substring(0,link.indexOf(';'));
+					String encoding = link.substring(link.indexOf(';')+1,link.indexOf(','));
+					String data = link.substring(link.indexOf(',')+1);
+					byte[] b = DatatypeConverter.parseBase64Binary(data);
+					try {
+						String suffix = SUFFIXMAP.get(type.toLowerCase());
+						if( suffix == null ) {
+							suffix = type.substring(type.indexOf('/')+1);
+						}
+						File outDir = new File(outFile+"img");
+						File outF = new File(outDir, "img_"+(imageCount++)+"."+suffix);
+						outDir.mkdir();
+						FileOutputStream out = new FileOutputStream(outF);
+						out.write(b);
+						out.close();
+						o.eSet(f, "@" + outDir.getName() + "/" + outF.getName());
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else {
+					if( link != null && link.trim().length() > 0 ) {
+						link = link.substring(1);
+						TreeIterator<EObject> internalIt = EcoreUtil.getAllContents(root, true);
+						while( internalIt.hasNext() ) {
+							EObject internalO = internalIt.next();
+							if( internalO instanceof CoreAttributes ) {
+								if( link.equals(internalO.eGet(SvgPackage.Literals.CORE_ATTRIBUTES__ID))) {
+									o.eSet(instanceFeature, internalO);
+									break;
+								}
 							}
 						}
-					}
+					}					
 				}
 			}
 		}		

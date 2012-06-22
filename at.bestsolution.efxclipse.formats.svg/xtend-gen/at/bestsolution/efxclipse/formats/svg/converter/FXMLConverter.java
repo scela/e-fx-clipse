@@ -17,10 +17,12 @@ import at.bestsolution.efxclipse.formats.svg.svg.SvgEllipseElement;
 import at.bestsolution.efxclipse.formats.svg.svg.SvgFeGaussianBlurElement;
 import at.bestsolution.efxclipse.formats.svg.svg.SvgFilterElement;
 import at.bestsolution.efxclipse.formats.svg.svg.SvgGElement;
+import at.bestsolution.efxclipse.formats.svg.svg.SvgImageElement;
 import at.bestsolution.efxclipse.formats.svg.svg.SvgLinearGradientElement;
 import at.bestsolution.efxclipse.formats.svg.svg.SvgPackage.Literals;
 import at.bestsolution.efxclipse.formats.svg.svg.SvgPathElement;
 import at.bestsolution.efxclipse.formats.svg.svg.SvgPolygonElement;
+import at.bestsolution.efxclipse.formats.svg.svg.SvgPolylineElement;
 import at.bestsolution.efxclipse.formats.svg.svg.SvgRadialGradientElement;
 import at.bestsolution.efxclipse.formats.svg.svg.SvgRectElement;
 import at.bestsolution.efxclipse.formats.svg.svg.SvgStopElement;
@@ -761,6 +763,232 @@ public class FXMLConverter {
       }
     }
     _builder.append("</Stop>");
+    _builder.newLine();
+    return _builder;
+  }
+  
+  protected CharSequence _handle(final SvgImageElement element) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<ImageView");
+    _builder.newLine();
+    _builder.append("\t");
+    {
+      String _x = element.getX();
+      boolean _notEquals = (!Objects.equal(_x, null));
+      if (_notEquals) {
+        _builder.append("x=\"");
+        String _x_1 = element.getX();
+        double _parseLength = this.parseLength(_x_1);
+        _builder.append(_parseLength, "	");
+        _builder.append("\"");
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    {
+      String _y = element.getY();
+      boolean _notEquals_1 = (!Objects.equal(_y, null));
+      if (_notEquals_1) {
+        _builder.append("y=\"");
+        String _y_1 = element.getY();
+        double _parseLength_1 = this.parseLength(_y_1);
+        _builder.append(_parseLength_1, "	");
+        _builder.append("\"");
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append(">");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<Image ");
+    _builder.newLine();
+    _builder.append("\t\t");
+    _builder.append("url=\"");
+    String _xlink__href = element.getXlink__href();
+    _builder.append(_xlink__href, "		");
+    _builder.append("\"");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("/>");
+    _builder.newLine();
+    {
+      String _transform = element.getTransform();
+      boolean _notEquals_2 = (!Objects.equal(_transform, null));
+      if (_notEquals_2) {
+        _builder.append("\t");
+        _builder.append("<transforms>");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("\t");
+        String _transform_1 = element.getTransform();
+        CharSequence _handleTransform = this.handleTransform(_transform_1);
+        _builder.append(_handleTransform, "		");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("</transforms>");
+        _builder.newLine();
+      }
+    }
+    {
+      String _filter = element.getFilter();
+      boolean _notEquals_3 = (!Objects.equal(_filter, null));
+      if (_notEquals_3) {
+        _builder.append("\t");
+        String _filter_1 = element.getFilter();
+        String _filter_2 = element.getFilter();
+        int _length = _filter_2.length();
+        int _minus = (_length - 1);
+        String _substring = _filter_1.substring(5, _minus);
+        String _trim = _substring.trim();
+        SvgElement _resolveElement = this.resolveElement(_trim);
+        final SvgFilterElement e = ((SvgFilterElement) _resolveElement);
+        _builder.newLineIfNotEmpty();
+        {
+          boolean _notEquals_4 = (!Objects.equal(e, null));
+          if (_notEquals_4) {
+            {
+              EList<SvgElement> _children = e.getChildren();
+              Iterable<FilterPrimitiveElement> _filter_3 = Iterables.<FilterPrimitiveElement>filter(_children, FilterPrimitiveElement.class);
+              int _size = IterableExtensions.size(_filter_3);
+              boolean _equals = (_size == 1);
+              if (_equals) {
+                _builder.append("\t");
+                EList<SvgElement> _children_1 = e.getChildren();
+                Iterable<FilterPrimitiveElement> _filter_4 = Iterables.<FilterPrimitiveElement>filter(_children_1, FilterPrimitiveElement.class);
+                FilterPrimitiveElement _head = IterableExtensions.<FilterPrimitiveElement>head(_filter_4);
+                final SvgElement fiElement = ((SvgElement) _head);
+                _builder.newLineIfNotEmpty();
+                _builder.append("\t");
+                _builder.append("<effect>");
+                _builder.newLine();
+                _builder.append("\t");
+                _builder.append("\t");
+                CharSequence _handleFilter = this.handleFilter(fiElement);
+                _builder.append(_handleFilter, "		");
+                _builder.newLineIfNotEmpty();
+                _builder.append("\t");
+                _builder.append("</effect>");
+                _builder.newLine();
+              } else {
+                _builder.append("\t");
+                _builder.append("<!-- Multi filter needs different handling -->");
+                _builder.newLine();
+              }
+            }
+          }
+        }
+      }
+    }
+    {
+      boolean _and = false;
+      boolean _and_1 = false;
+      String _clip_path = element.getClip_path();
+      boolean _notEquals_5 = (!Objects.equal(_clip_path, null));
+      if (!_notEquals_5) {
+        _and_1 = false;
+      } else {
+        String _clip_path_1 = element.getClip_path();
+        String _trim_1 = _clip_path_1.trim();
+        int _length_1 = _trim_1.length();
+        boolean _greaterThan = (_length_1 > 0);
+        _and_1 = (_notEquals_5 && _greaterThan);
+      }
+      if (!_and_1) {
+        _and = false;
+      } else {
+        String _clip_path_2 = element.getClip_path();
+        String _trim_2 = _clip_path_2.trim();
+        boolean _equals_1 = _trim_2.equals("none");
+        boolean _not = (!_equals_1);
+        _and = (_and_1 && _not);
+      }
+      if (_and) {
+        _builder.append("\t");
+        _builder.append("<clip>");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("\t");
+        String _clip_path_3 = element.getClip_path();
+        String _clip_path_4 = element.getClip_path();
+        int _length_2 = _clip_path_4.length();
+        int _minus_1 = (_length_2 - 1);
+        String _substring_1 = _clip_path_3.substring(5, _minus_1);
+        SvgElement _resolveElement_1 = this.resolveElement(_substring_1);
+        final SvgClipPathElement clipElement = ((SvgClipPathElement) _resolveElement_1);
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("\t");
+        _builder.append("<Group>");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("\t\t");
+        _builder.append("<children>");
+        _builder.newLine();
+        {
+          EList<SvgElement> _children_2 = clipElement.getChildren();
+          for(final SvgElement e_1 : _children_2) {
+            _builder.append("\t");
+            _builder.append("\t\t\t");
+            CharSequence _handle = this.handle(e_1);
+            _builder.append(_handle, "				");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.append("\t");
+        _builder.append("\t\t");
+        _builder.append("</children>");
+        _builder.newLine();
+        {
+          boolean _and_2 = false;
+          boolean _and_3 = false;
+          String _transform_2 = clipElement.getTransform();
+          boolean _notEquals_6 = (!Objects.equal(_transform_2, null));
+          if (!_notEquals_6) {
+            _and_3 = false;
+          } else {
+            String _transform_3 = clipElement.getTransform();
+            String _trim_3 = _transform_3.trim();
+            int _length_3 = _trim_3.length();
+            boolean _greaterThan_1 = (_length_3 > 0);
+            _and_3 = (_notEquals_6 && _greaterThan_1);
+          }
+          if (!_and_3) {
+            _and_2 = false;
+          } else {
+            String _clip_path_5 = element.getClip_path();
+            boolean _equals_2 = _clip_path_5.equals("none");
+            boolean _not_1 = (!_equals_2);
+            _and_2 = (_and_3 && _not_1);
+          }
+          if (_and_2) {
+            _builder.append("\t");
+            _builder.append("\t\t");
+            _builder.append("<transforms>");
+            _builder.newLine();
+            _builder.append("\t");
+            _builder.append("\t\t");
+            _builder.append("\t");
+            String _transform_4 = clipElement.getTransform();
+            CharSequence _handleTransform_1 = this.handleTransform(_transform_4);
+            _builder.append(_handleTransform_1, "				");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t");
+            _builder.append("\t\t");
+            _builder.append("</transforms>");
+            _builder.newLine();
+          }
+        }
+        _builder.append("\t");
+        _builder.append("\t");
+        _builder.append("</Group>");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("</clip>");
+        _builder.newLine();
+      }
+    }
+    _builder.append("</ImageView>");
     _builder.newLine();
     return _builder;
   }
@@ -1621,7 +1849,7 @@ public class FXMLConverter {
       Object _lookupFeature_6 = this.lookupFeature(Literals.PRESENTATION_ATTRIBUTES__STROKE_MITERLIMIT, element);
       boolean _notEquals_3 = (!Objects.equal(_lookupFeature_6, null));
       if (_notEquals_3) {
-        _builder.append("strokeLineJoin=\"");
+        _builder.append("strokeMiterLimit=\"");
         Object _lookupFeature_7 = this.lookupFeature(Literals.PRESENTATION_ATTRIBUTES__STROKE_MITERLIMIT, element);
         double _parseLength_1 = this.parseLength(((String) _lookupFeature_7));
         _builder.append(_parseLength_1, "");
@@ -2503,6 +2731,220 @@ public class FXMLConverter {
     return _builder;
   }
   
+  protected CharSequence _handle(final SvgPolylineElement element) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<Polyline");
+    _builder.newLine();
+    _builder.append("\t");
+    {
+      String _points = element.getPoints();
+      boolean _notEquals = (!Objects.equal(_points, null));
+      if (_notEquals) {
+        _builder.append("points=\"");
+        String _points_1 = element.getPoints();
+        String _replaceAll = _points_1.replaceAll("\\s+", ",");
+        _builder.append(_replaceAll, "	");
+        _builder.append("\"");
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    {
+      String _opacity = element.getOpacity();
+      boolean _notEquals_1 = (!Objects.equal(_opacity, null));
+      if (_notEquals_1) {
+        _builder.append("opacity=\"");
+        String _opacity_1 = element.getOpacity();
+        _builder.append(_opacity_1, "	");
+        _builder.append("\"");
+      }
+    }
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    CharSequence _handleShapePresentationAttributes = this.handleShapePresentationAttributes(element);
+    _builder.append(_handleShapePresentationAttributes, "	");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append(">");
+    _builder.newLine();
+    Object _lookupFeature = this.lookupFeature(Literals.PRESENTATION_ATTRIBUTES__FILL, element);
+    Object _lookupFeature_1 = this.lookupFeature(Literals.PRESENTATION_ATTRIBUTES__FILL_OPACITY, element);
+    CharSequence _handlePaint = this.handlePaint("fill", ((String) _lookupFeature), ((String) _lookupFeature_1));
+    _builder.append(_handlePaint, "");
+    _builder.newLineIfNotEmpty();
+    Object _lookupFeature_2 = this.lookupFeature(Literals.PRESENTATION_ATTRIBUTES__STROKE, element);
+    Object _lookupFeature_3 = this.lookupFeature(Literals.PRESENTATION_ATTRIBUTES__STROKE_OPACITY, element);
+    CharSequence _handlePaint_1 = this.handlePaint("stroke", ((String) _lookupFeature_2), ((String) _lookupFeature_3));
+    _builder.append(_handlePaint_1, "");
+    _builder.newLineIfNotEmpty();
+    _builder.newLine();
+    {
+      String _transform = element.getTransform();
+      boolean _notEquals_2 = (!Objects.equal(_transform, null));
+      if (_notEquals_2) {
+        _builder.append("<transforms>");
+        _builder.newLine();
+        _builder.append("\t");
+        String _transform_1 = element.getTransform();
+        CharSequence _handleTransform = this.handleTransform(_transform_1);
+        _builder.append(_handleTransform, "	");
+        _builder.newLineIfNotEmpty();
+        _builder.append("</transforms>");
+        _builder.newLine();
+      }
+    }
+    {
+      String _filter = element.getFilter();
+      boolean _notEquals_3 = (!Objects.equal(_filter, null));
+      if (_notEquals_3) {
+        _builder.append("\t");
+        String _filter_1 = element.getFilter();
+        String _filter_2 = element.getFilter();
+        int _length = _filter_2.length();
+        int _minus = (_length - 1);
+        String _substring = _filter_1.substring(5, _minus);
+        String _trim = _substring.trim();
+        SvgElement _resolveElement = this.resolveElement(_trim);
+        final SvgFilterElement e = ((SvgFilterElement) _resolveElement);
+        _builder.newLineIfNotEmpty();
+        {
+          boolean _notEquals_4 = (!Objects.equal(e, null));
+          if (_notEquals_4) {
+            {
+              EList<SvgElement> _children = e.getChildren();
+              Iterable<FilterPrimitiveElement> _filter_3 = Iterables.<FilterPrimitiveElement>filter(_children, FilterPrimitiveElement.class);
+              int _size = IterableExtensions.size(_filter_3);
+              boolean _equals = (_size == 1);
+              if (_equals) {
+                _builder.append("\t");
+                EList<SvgElement> _children_1 = e.getChildren();
+                Iterable<FilterPrimitiveElement> _filter_4 = Iterables.<FilterPrimitiveElement>filter(_children_1, FilterPrimitiveElement.class);
+                FilterPrimitiveElement _head = IterableExtensions.<FilterPrimitiveElement>head(_filter_4);
+                final SvgElement fiElement = ((SvgElement) _head);
+                _builder.newLineIfNotEmpty();
+                _builder.append("\t");
+                _builder.append("<effect>");
+                _builder.newLine();
+                _builder.append("\t");
+                _builder.append("\t");
+                CharSequence _handleFilter = this.handleFilter(fiElement);
+                _builder.append(_handleFilter, "		");
+                _builder.newLineIfNotEmpty();
+                _builder.append("\t");
+                _builder.append("</effect>");
+                _builder.newLine();
+              } else {
+                _builder.append("\t");
+                _builder.append("<!-- Multi filter needs different handling -->");
+                _builder.newLine();
+              }
+            }
+          }
+        }
+      }
+    }
+    {
+      boolean _and = false;
+      boolean _and_1 = false;
+      String _clip_path = element.getClip_path();
+      boolean _notEquals_5 = (!Objects.equal(_clip_path, null));
+      if (!_notEquals_5) {
+        _and_1 = false;
+      } else {
+        String _clip_path_1 = element.getClip_path();
+        String _trim_1 = _clip_path_1.trim();
+        int _length_1 = _trim_1.length();
+        boolean _greaterThan = (_length_1 > 0);
+        _and_1 = (_notEquals_5 && _greaterThan);
+      }
+      if (!_and_1) {
+        _and = false;
+      } else {
+        String _clip_path_2 = element.getClip_path();
+        String _trim_2 = _clip_path_2.trim();
+        boolean _equals_1 = _trim_2.equals("none");
+        boolean _not = (!_equals_1);
+        _and = (_and_1 && _not);
+      }
+      if (_and) {
+        _builder.append("<clip>");
+        _builder.newLine();
+        _builder.append("\t");
+        String _clip_path_3 = element.getClip_path();
+        String _clip_path_4 = element.getClip_path();
+        int _length_2 = _clip_path_4.length();
+        int _minus_1 = (_length_2 - 1);
+        String _substring_1 = _clip_path_3.substring(5, _minus_1);
+        SvgElement _resolveElement_1 = this.resolveElement(_substring_1);
+        final SvgClipPathElement clipElement = ((SvgClipPathElement) _resolveElement_1);
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        _builder.append("<Group>");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("<children>");
+        _builder.newLine();
+        {
+          EList<SvgElement> _children_2 = clipElement.getChildren();
+          for(final SvgElement e_1 : _children_2) {
+            _builder.append("\t\t\t");
+            CharSequence _handle = this.handle(e_1);
+            _builder.append(_handle, "			");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.append("\t\t");
+        _builder.append("</children>");
+        _builder.newLine();
+        {
+          boolean _and_2 = false;
+          boolean _and_3 = false;
+          String _transform_2 = clipElement.getTransform();
+          boolean _notEquals_6 = (!Objects.equal(_transform_2, null));
+          if (!_notEquals_6) {
+            _and_3 = false;
+          } else {
+            String _transform_3 = clipElement.getTransform();
+            String _trim_3 = _transform_3.trim();
+            int _length_3 = _trim_3.length();
+            boolean _greaterThan_1 = (_length_3 > 0);
+            _and_3 = (_notEquals_6 && _greaterThan_1);
+          }
+          if (!_and_3) {
+            _and_2 = false;
+          } else {
+            String _clip_path_5 = element.getClip_path();
+            boolean _equals_2 = _clip_path_5.equals("none");
+            boolean _not_1 = (!_equals_2);
+            _and_2 = (_and_3 && _not_1);
+          }
+          if (_and_2) {
+            _builder.append("\t\t");
+            _builder.append("<transforms>");
+            _builder.newLine();
+            _builder.append("\t\t");
+            _builder.append("\t");
+            String _transform_4 = clipElement.getTransform();
+            CharSequence _handleTransform_1 = this.handleTransform(_transform_4);
+            _builder.append(_handleTransform_1, "			");
+            _builder.newLineIfNotEmpty();
+            _builder.append("\t\t");
+            _builder.append("</transforms>");
+            _builder.newLine();
+          }
+        }
+        _builder.append("\t");
+        _builder.append("</Group>");
+        _builder.newLine();
+        _builder.append("</clip>");
+        _builder.newLine();
+      }
+    }
+    _builder.append("</Polyline>");
+    _builder.newLine();
+    return _builder;
+  }
+  
   protected CharSequence _handle(final SvgPolygonElement element) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("<Polygon");
@@ -3095,7 +3537,7 @@ public class FXMLConverter {
           } else {
             boolean _startsWith_3 = transform.startsWith("matrix");
             if (_startsWith_3) {
-              final String[] parts_3 = params.split(",");
+              final String[] parts_3 = params.split("[,\\s+]");
               _builder.newLineIfNotEmpty();
               _builder.append("<Affine");
               _builder.newLine();
@@ -3282,12 +3724,16 @@ public class FXMLConverter {
       return _handle((SvgFeGaussianBlurElement)element);
     } else if (element instanceof SvgFilterElement) {
       return _handle((SvgFilterElement)element);
+    } else if (element instanceof SvgImageElement) {
+      return _handle((SvgImageElement)element);
     } else if (element instanceof SvgLinearGradientElement) {
       return _handle((SvgLinearGradientElement)element);
     } else if (element instanceof SvgPathElement) {
       return _handle((SvgPathElement)element);
     } else if (element instanceof SvgPolygonElement) {
       return _handle((SvgPolygonElement)element);
+    } else if (element instanceof SvgPolylineElement) {
+      return _handle((SvgPolylineElement)element);
     } else if (element instanceof SvgRadialGradientElement) {
       return _handle((SvgRadialGradientElement)element);
     } else if (element instanceof SvgRectElement) {

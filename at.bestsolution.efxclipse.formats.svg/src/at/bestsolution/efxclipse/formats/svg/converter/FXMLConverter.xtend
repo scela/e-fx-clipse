@@ -34,6 +34,8 @@ import at.bestsolution.efxclipse.formats.svg.svg.SvgPackage$Literals
 import at.bestsolution.efxclipse.formats.svg.svg.PresentationAttributes
 import at.bestsolution.efxclipse.formats.svg.svg.FilterPrimitiveElement
 import at.bestsolution.efxclipse.formats.svg.svg.SvgUseElement
+import at.bestsolution.efxclipse.formats.svg.svg.SvgPolylineElement
+import at.bestsolution.efxclipse.formats.svg.svg.SvgImageElement
 
 class FXMLConverter {
 	private SvgSvgElement rootElement
@@ -302,6 +304,54 @@ class FXMLConverter {
 	</Stop>
 	'''
 	
+	def dispatch handle(SvgImageElement element) '''
+	<ImageView
+		«IF element.x != null»x="«element.x.parseLength»"«ENDIF»
+		«IF element.y != null»y="«element.y.parseLength»"«ENDIF»
+«««		«IF element.width != null»width="«element.width.parseLength»"«ENDIF»
+«««		«IF element.height != null»height="«element.height.parseLength»"«ENDIF»
+		>
+		<Image 
+			url="«element.xlink__href»"
+		/>
+		«IF element.transform != null»
+			<transforms>
+				«element.transform.handleTransform»
+			</transforms>
+		«ENDIF»
+		«IF element.filter != null»
+			«val e = resolveElement(element.filter.substring(5,element.filter.length-1).trim) as SvgFilterElement»
+			«IF e != null»
+				«IF e.children.filter(typeof(FilterPrimitiveElement)).size == 1»
+				«val fiElement = e.children.filter(typeof(FilterPrimitiveElement)).head as SvgElement»
+				<effect>
+					«handleFilter(fiElement)»
+				</effect>
+				«ELSE»
+				<!-- Multi filter needs different handling -->
+				«ENDIF»
+			«ENDIF»
+		«ENDIF»
+		«IF element.clip_path != null && element.clip_path.trim.length > 0 && ! element.clip_path.trim.equals("none")»
+			<clip>
+				«val clipElement = resolveElement(element.clip_path.substring(5,element.clip_path.length-1)) as SvgClipPathElement»
+				<Group>
+					<children>
+						«FOR e : clipElement.children»
+							«handle(e)»
+						«ENDFOR»
+					</children>
+					«IF clipElement.transform != null && clipElement.transform.trim.length > 0 && ! element.clip_path.equals("none")»
+					<transforms>
+						«handleTransform(clipElement.transform)»
+					</transforms>
+					«ENDIF»
+				</Group>
+			</clip>
+		«ENDIF»
+	</ImageView>
+	'''
+	
 	def dispatch handle(SvgRectElement element) '''
 	<Rectangle
 		«IF element.x != null»x="«element.x.parseLength»"«ENDIF»
@@ -470,7 +520,7 @@ class FXMLConverter {
 		«IF lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__STROKE_DASHOFFSET,element) != null»strokeDashOffset="«(lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__STROKE_DASHOFFSET,element) as String).parseLength»"«ENDIF»
 		«IF lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__STROKE_LINECAP,element) != null»strokeLineCap="«(lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__STROKE_LINECAP,element) as Stroke_linecap).toFx»"«ENDIF»
 		«IF lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__STROKE_LINEJOIN,element) != null»strokeLineJoin="«(lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__STROKE_LINEJOIN,element) as Stroke_linejoin).toFx»"«ENDIF»
-		«IF lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__STROKE_MITERLIMIT,element) != null»strokeLineJoin="«(lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__STROKE_MITERLIMIT,element) as String).parseLength»"«ENDIF»
+		«IF lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__STROKE_MITERLIMIT,element) != null»strokeMiterLimit="«(lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__STROKE_MITERLIMIT,element) as String).parseLength»"«ENDIF»
 		«IF lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__STROKE_WIDTH,element) != null»strokeWidth="«(lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__STROKE_WIDTH,element) as String).parseLength»"«ENDIF»
 	'''
 	
@@ -643,6 +693,53 @@ class FXMLConverter {
 			</clip>
 		«ENDIF»
 	</Circle>
+	'''
+	
+	def dispatch handle(SvgPolylineElement element) '''
+	<Polyline
+		«IF element.points != null»points="«element.points.replaceAll("\\s+",",")»"«ENDIF»
+		«IF element.opacity != null»opacity="«element.opacity»"«ENDIF»
+		«handleShapePresentationAttributes(element)»
+		>
+	«handlePaint("fill", lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__FILL,element) as String,lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__FILL_OPACITY,element) as String)»
+	«handlePaint("stroke",lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__STROKE,element) as String,lookupFeature(SvgPackage$Literals::PRESENTATION_ATTRIBUTES__STROKE_OPACITY,element) as String)»
+	
+	«IF element.transform != null»
+		<transforms>
+			«element.transform.handleTransform»
+		</transforms>
+	«ENDIF»
+		«IF element.filter != null»
+			«val e = resolveElement(element.filter.substring(5,element.filter.length-1).trim) as SvgFilterElement»
+			«IF e != null»
+				«IF e.children.filter(typeof(FilterPrimitiveElement)).size == 1»
+				«val fiElement = e.children.filter(typeof(FilterPrimitiveElement)).head as SvgElement»
+				<effect>
+					«handleFilter(fiElement)»
+				</effect>
+				«ELSE»
+				<!-- Multi filter needs different handling -->
+				«ENDIF»
+			«ENDIF»
+		«ENDIF»
+	«IF element.clip_path != null && element.clip_path.trim.length > 0 && ! element.clip_path.trim.equals("none")»
+		<clip>
+			«val clipElement = resolveElement(element.clip_path.substring(5,element.clip_path.length-1)) as SvgClipPathElement»
+			<Group>
+				<children>
+					«FOR e : clipElement.children»
+						«handle(e)»
+					«ENDFOR»
+				</children>
+				«IF clipElement.transform != null && clipElement.transform.trim.length > 0 && ! element.clip_path.equals("none")»
+				<transforms>
+					«handleTransform(clipElement.transform)»
+				</transforms>
+				«ENDIF»
+			</Group>
+		</clip>
+	«ENDIF»
+	</Polyline>
 	'''
 	
 	def dispatch handle(SvgPolygonElement element) '''
@@ -829,7 +926,7 @@ class FXMLConverter {
 	>
 	</Rotate>
 	«ELSEIF transform.startsWith("matrix")»
-	«val parts = params.split(",")»
+	«val parts = params.split("[,\\s+]")»
 	<Affine
 		mxx="«parts.get(0)»"
 		myx="«parts.get(1)»"
