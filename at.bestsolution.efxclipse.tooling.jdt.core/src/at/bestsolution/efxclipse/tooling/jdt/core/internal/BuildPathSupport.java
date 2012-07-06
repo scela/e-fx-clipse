@@ -57,6 +57,10 @@ public class BuildPathSupport {
 				jarLocationPath = new Path(dir).append("rt").append("lib").append("jfxrt.jar");
 				javadocLocation = new Path(dir).append("docs").append("api");
 				antJarLocationPath = new Path(dir).append("lib").append("ant-javafx.jar");
+				if( ! antJarLocationPath.toFile().exists() ) {
+					// Until 2.1 the jar was in the tools directory
+					antJarLocationPath = new Path(dir).append("tools").append("ant-javafx.jar");
+				}
 			}	
 		} else if( type.equals(JavaFXPreferencesConstants.CONFIG_TYPE_BUILTIN) ) {
 			File javaHome; 
