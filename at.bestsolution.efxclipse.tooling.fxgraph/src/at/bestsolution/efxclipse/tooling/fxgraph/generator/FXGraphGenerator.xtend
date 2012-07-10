@@ -647,13 +647,13 @@ class FXGraphGenerator implements IGenerator {
 			return true;
 		}
 		
-		if( element.staticCallProperties.size > 0) {
-			return ! element.staticCallProperties.filter([StaticCallValueProperty p|previewFilter(p,preview)]).filter([StaticCallValueProperty p|subelementFilter(p)]).nullOrEmpty;
-		}
-		
-		if( element.staticProperties.size > 0) {
-			return ! element.staticProperties.filter([StaticValueProperty p|previewFilter(p,preview)]).filter([StaticValueProperty p|subelementFilter(p)]).nullOrEmpty;
-		}
+//		if( element.staticCallProperties.size > 0) {
+//			return ! element.staticCallProperties.filter([StaticCallValueProperty p|previewFilter(p,preview)]).filter([StaticCallValueProperty p|subelementFilter(p)]).nullOrEmpty;
+//		}
+//		
+//		if( element.staticProperties.size > 0) {
+//			return ! element.staticProperties.filter([StaticValueProperty p|previewFilter(p,preview)]).filter([StaticValueProperty p|subelementFilter(p)]).nullOrEmpty;
+//		}
 		
 		if( element.properties.size > 0 ) {
 			return ! element.properties.filter([Property p|previewFilter(p,preview)]).filter([Property p|subelementFilter(p)]).nullOrEmpty;
