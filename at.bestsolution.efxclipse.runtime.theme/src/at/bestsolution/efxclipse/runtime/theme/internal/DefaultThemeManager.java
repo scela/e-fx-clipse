@@ -97,7 +97,7 @@ public class DefaultThemeManager implements ThemeManager {
 				String themeId = e.getAttribute(ATT_THEME_ID);
 				for (Theme t : themes) {
 					if (t.getId().equals(themeId)) {
-
+						((ThemeImpl)t).addStylesheet(e);
 					}
 				}
 			}
