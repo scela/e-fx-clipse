@@ -1,9 +1,13 @@
 package at.bestsolution.efxclipse.tooling.jdt.ui.internal.handler;
 
+import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.JFXBuildConfigurationEditor.BuildPropertyBean;
+import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.JFXBuildConfigurationEditor.BuildPropertyIcon;
+import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.JFXBuildConfigurationEditor.BuildPropertySplash;
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.handler.SetupDirectory;
 import com.google.common.base.Objects;
 import java.io.File;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import org.eclipse.xtend2.lib.StringConcatenation;
 
@@ -452,6 +456,8 @@ public class AntTemplate {
       final String preloaderClass = ((String) _get_7);
       Object _get_8 = properties.get("nativePackage");
       final Boolean nativePackage = Boolean.valueOf(((String) _get_8));
+      Object _get_9 = properties.get("propertyBean");
+      final BuildPropertyBean bean = ((BuildPropertyBean) _get_9);
       String preloaderPath = "";
       boolean _equals = Objects.equal(preloaderClass, null);
       if (_equals) {
@@ -460,16 +466,16 @@ public class AntTemplate {
         String _replace = preloaderClass.replace(".", "/");
         preloaderPath = _replace;
       }
-      Object _get_9 = properties.get("fallbackClass");
-      final String fallBackClass = ((String) _get_9);
-      Object _get_10 = properties.get("keyStore");
-      String keyStore = ((String) _get_10);
-      Object _get_11 = properties.get("keyStoreAlias");
-      String keyStoreAlias = ((String) _get_11);
-      Object _get_12 = properties.get("keyStorePass");
-      String keyStorePass = ((String) _get_12);
-      Object _get_13 = properties.get("keyPass");
-      String keyPass = ((String) _get_13);
+      Object _get_10 = properties.get("fallbackClass");
+      final String fallBackClass = ((String) _get_10);
+      Object _get_11 = properties.get("keyStore");
+      String keyStore = ((String) _get_11);
+      Object _get_12 = properties.get("keyStoreAlias");
+      String keyStoreAlias = ((String) _get_12);
+      Object _get_13 = properties.get("keyStorePass");
+      String keyStorePass = ((String) _get_13);
+      Object _get_14 = properties.get("keyPass");
+      String keyPass = ((String) _get_14);
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("<target name=\"do-deploy\" depends=\"setup-staging-area, do-compile, init-fx-tasks\">");
       _builder.newLine();
@@ -757,14 +763,122 @@ public class AntTemplate {
           }
           _builder.append(">");
           _builder.newLineIfNotEmpty();
-          _builder.append("\t");
-          _builder.append("\t");
-          _builder.append("<fx:info title=\"");
-          _builder.append(projectName, "		");
-          _builder.append("\" vendor=\"");
-          _builder.append(appVendor, "		");
-          _builder.append("\"/>");
-          _builder.newLineIfNotEmpty();
+          {
+            boolean _and_2 = false;
+            List<BuildPropertySplash> _deploySplashList = bean.getDeploySplashList();
+            boolean _isEmpty = _deploySplashList.isEmpty();
+            if (!_isEmpty) {
+              _and_2 = false;
+            } else {
+              List<BuildPropertyIcon> _deployIconList = bean.getDeployIconList();
+              boolean _isEmpty_1 = _deployIconList.isEmpty();
+              _and_2 = (_isEmpty && _isEmpty_1);
+            }
+            if (_and_2) {
+              _builder.append("\t");
+              _builder.append("\t");
+              _builder.append("<fx:info title=\"");
+              _builder.append(projectName, "		");
+              _builder.append("\" vendor=\"");
+              _builder.append(appVendor, "		");
+              _builder.append("\"/>");
+              _builder.newLineIfNotEmpty();
+            } else {
+              _builder.append("\t");
+              _builder.append("\t");
+              _builder.append("<fx:info title=\"");
+              _builder.append(projectName, "		");
+              _builder.append("\" vendor=\"");
+              _builder.append(appVendor, "		");
+              _builder.append("\">");
+              _builder.newLineIfNotEmpty();
+              {
+                List<BuildPropertySplash> _deploySplashList_1 = bean.getDeploySplashList();
+                for(final BuildPropertySplash s : _deploySplashList_1) {
+                  _builder.append("\t");
+                  _builder.append("\t");
+                  _builder.append("\t");
+                  _builder.append("<fx:splash href=\"");
+                  String _deploySplashHref = s.getDeploySplashHref();
+                  _builder.append(_deploySplashHref, "			");
+                  _builder.append("\" ");
+                  {
+                    String _deploySplashMode = s.getDeploySplashMode();
+                    boolean _notEquals_12 = (!Objects.equal(_deploySplashMode, null));
+                    if (_notEquals_12) {
+                      _builder.append("mode=\"");
+                      String _deploySplashMode_1 = s.getDeploySplashMode();
+                      _builder.append(_deploySplashMode_1, "			");
+                      _builder.append("\"");
+                    }
+                  }
+                  _builder.append(" />");
+                  _builder.newLineIfNotEmpty();
+                }
+              }
+              {
+                List<BuildPropertyIcon> _deployIconList_1 = bean.getDeployIconList();
+                for(final BuildPropertyIcon i : _deployIconList_1) {
+                  _builder.append("\t");
+                  _builder.append("\t");
+                  _builder.append("\t");
+                  _builder.append("<fx:icon href=\"");
+                  String _deployIconHref = i.getDeployIconHref();
+                  _builder.append(_deployIconHref, "			");
+                  _builder.append("\" ");
+                  {
+                    String _deployIconDepth = i.getDeployIconDepth();
+                    boolean _notEquals_13 = (!Objects.equal(_deployIconDepth, null));
+                    if (_notEquals_13) {
+                      _builder.append("depth=\"");
+                      String _deployIconDepth_1 = i.getDeployIconDepth();
+                      _builder.append(_deployIconDepth_1, "			");
+                      _builder.append("\"");
+                    }
+                  }
+                  _builder.append(" ");
+                  {
+                    String _deployIconHeight = i.getDeployIconHeight();
+                    boolean _notEquals_14 = (!Objects.equal(_deployIconHeight, null));
+                    if (_notEquals_14) {
+                      _builder.append("height=\"");
+                      String _deployIconHeight_1 = i.getDeployIconHeight();
+                      _builder.append(_deployIconHeight_1, "			");
+                      _builder.append("\"");
+                    }
+                  }
+                  _builder.append(" ");
+                  {
+                    String _deployIconKind = i.getDeployIconKind();
+                    boolean _notEquals_15 = (!Objects.equal(_deployIconKind, null));
+                    if (_notEquals_15) {
+                      _builder.append("kind=\"");
+                      String _deployIconKind_1 = i.getDeployIconKind();
+                      _builder.append(_deployIconKind_1, "			");
+                      _builder.append("\"");
+                    }
+                  }
+                  _builder.append(" ");
+                  {
+                    String _deployIconWidth = i.getDeployIconWidth();
+                    boolean _notEquals_16 = (!Objects.equal(_deployIconWidth, null));
+                    if (_notEquals_16) {
+                      _builder.append("width=\"");
+                      String _deployIconWidth_1 = i.getDeployIconWidth();
+                      _builder.append(_deployIconWidth_1, "			");
+                      _builder.append("\"");
+                    }
+                  }
+                  _builder.append(" />");
+                  _builder.newLineIfNotEmpty();
+                }
+              }
+              _builder.append("\t");
+              _builder.append("\t");
+              _builder.append("</fx:info>");
+              _builder.newLine();
+            }
+          }
           _builder.append("\t");
           _builder.append("\t");
           _builder.append("<fx:application refId=\"fxApplication\"/>");

@@ -11,6 +11,7 @@
 package at.bestsolution.efxclipse.tooling.jdt.ui.internal.handler;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -33,6 +34,7 @@ import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.ui.PlatformUI;
 
 import at.bestsolution.efxclipse.tooling.jdt.core.internal.BuildPathSupport;
+import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.JFXBuildConfigurationEditor.BuildPropertyBean;
 
 public abstract class AbstractAntHandler extends AbstractHandler {
 	protected IJavaProject project;
@@ -46,6 +48,9 @@ public abstract class AbstractAntHandler extends AbstractHandler {
 			map.put("jfxjar", paths[0].toFile().getAbsolutePath());
 			map.put("jfxantjar", paths[2].toFile().getAbsolutePath());
 		}
+		
+		BuildPropertyBean bean = new BuildPropertyBean(properties);
+		map.put("propertyBean", bean);
 		
 		if( properties.getProperty("jfx.build.stagingdir") == null ) {
 			DirectoryDialog dialog = new DirectoryDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
@@ -72,10 +77,12 @@ public abstract class AbstractAntHandler extends AbstractHandler {
 		map.put("appletWith", properties.getProperty("jfx.deploy.appletWith"));
 		map.put("appletHeight", properties.getProperty("jfx.deploy.appletHeight"));
 		
+		
 		map.put("keyStore", properties.getProperty("jfx.sign.keystore") != null ? properties.getProperty("jfx.sign.keystore").replace("${workspace}", workbench) : null);
 		map.put("keyStoreAlias", properties.getProperty("jfx.sign.alias"));
 		map.put("keyStorePass", properties.getProperty("jfx.sign.password"));
 		map.put("keyPass", properties.getProperty("jfx.sign.keypassword"));
+		
 		
 		try {
 			map.put("projectEncoding", f.getProject().getDefaultCharset());

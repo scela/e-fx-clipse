@@ -24,7 +24,10 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -62,13 +65,23 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.databinding.swt.IWidgetValueProperty;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.databinding.viewers.IViewerValueProperty;
+import org.eclipse.jface.databinding.viewers.ViewerProperties;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocumentListener;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
@@ -79,10 +92,13 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -134,6 +150,20 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 	public static final String DEPLOY_APPLET_WIDTH = "deployAppletWith";
 	public static final String DEPLOY_APPLET_HEIGHT = "deployAppletHeight";
 	public static final String DEPLOY_NATIVE_PACKAGE = "deployNativePackage";
+//	public static final String DEPLOY_DESCRIPTION = "deployDescription"; //fx:info description
+	public static final String DEPLOY_SPLASH_LIST = "deploySplashList";
+	public static final String DEPLOY_ICON_LIST = "deployIconList";
+	
+	// Sub-Elements Splash
+	public static final String DEPLOY_SPLASH_HREF = "deploySplashHref";
+	public static final String DEPLOY_SPLASH_MODE = "deploySplashMode";
+	
+	// Sub-Element Icon
+	public static final String DEPLOY_ICON_DEPTH = "deployIconDepth";
+	public static final String DEPLOY_ICON_HREF = "deployIconHref";
+	public static final String DEPLOY_ICON_HEIGHT = "deployIconHeight";
+	public static final String DEPLOY_ICON_KIND = "deployIconKind";
+	public static final String DEPLOY_ICON_WIDTH = "deployIconWidth";
 	
 	public static final String SIGN_KEYSTORE = "signKeystore";
 	public static final String SIGN_ALIAS    = "signAlias";
@@ -161,6 +191,8 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 			put(DEPLOY_APPLET_WIDTH,"jfx.deploy.appletWith");
 			put(DEPLOY_APPLET_HEIGHT,"jfx.deploy.appletHeight");
 			put(DEPLOY_NATIVE_PACKAGE,"jfx.deploy.nativePackage");
+			put(DEPLOY_SPLASH_LIST,"jfx.deploy.splashlist");
+			put(DEPLOY_ICON_LIST,"jfx.deploy.iconlist");
 			
 			put(SIGN_KEYSTORE,"jfx.sign.keystore");
 			put(SIGN_ALIAS,"jfx.sign.alias");
@@ -179,6 +211,7 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 	@Override
 	public void dispose() {
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
+		dbc.dispose();
 		super.dispose();
 	}
 
@@ -471,6 +504,198 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 				dbc.bindValue(textModify.observeDelayed(DELAY, t), BeanProperties.value(DEPLOY_APPLET_HEIGHT).observe(bean));
 			}
 			
+			{
+				toolkit.createLabel(sectionClient, "Splash:").setLayoutData(new GridData(GridData.BEGINNING,GridData.BEGINNING,false,false));
+				Composite container = toolkit.createComposite(sectionClient);
+				GridLayout gl = new GridLayout(2, false);
+				gl.marginBottom=gl.marginHeight=gl.marginLeft=gl.marginRight=gl.marginTop=gl.marginWidth=0;
+				container.setLayout(gl);
+				container.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+				
+				Table t = toolkit.createTable(container, SWT.FULL_SELECTION|SWT.H_SCROLL|SWT.V_SCROLL);
+				t.setHeaderVisible(true);
+				t.setLinesVisible(true);
+				
+				final TableViewer v = new TableViewer(t);
+				GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+				gd.heightHint = t.getItemHeight() * 5;
+				v.getControl().setLayoutData(gd);
+				v.setContentProvider(ArrayContentProvider.getInstance());
+				
+				{
+					TableViewerColumn c = new TableViewerColumn(v, SWT.NONE);
+					c.setLabelProvider(new ColumnLabelProvider() {
+						@Override
+						public String getText(Object element) {
+							return ((BuildPropertySplash)element).getDeploySplashMode();
+						}
+					});
+					c.getColumn().setWidth(100);
+					c.getColumn().setText("Mode");
+				}
+				
+				{
+					TableViewerColumn c = new TableViewerColumn(v, SWT.NONE);
+					c.setLabelProvider(new ColumnLabelProvider() {
+						@Override
+						public String getText(Object element) {
+							return ((BuildPropertySplash)element).getDeploySplashHref();
+						}
+					});
+					c.getColumn().setWidth(300);
+					c.getColumn().setText("URL");
+				}
+				
+				v.setInput(bean.getDeploySplashList());
+				
+				Composite buttonComp = toolkit.createComposite(container);
+				buttonComp.setLayoutData(new GridData(GridData.BEGINNING,GridData.END,false,false));
+				buttonComp.setLayout(new GridLayout());
+				
+				{
+					Button b = toolkit.createButton(buttonComp, "Add ...", SWT.PUSH);
+					b.setLayoutData(new GridData(GridData.FILL,GridData.BEGINNING,false,false));
+					b.addSelectionListener(new SelectionAdapter() {
+						@Override
+						public void widgetSelected(SelectionEvent e) {
+							if( handleAddSplash() ) {
+								v.setInput(bean.getDeploySplashList());
+							}
+						}
+					});
+				}
+				
+				{
+					Button b = toolkit.createButton(buttonComp, "Remove", SWT.PUSH);
+					b.setLayoutData(new GridData(GridData.FILL,GridData.BEGINNING,false,false));
+					b.addSelectionListener(new SelectionAdapter() {
+						@Override
+						public void widgetSelected(SelectionEvent e) {
+							BuildPropertySplash value = (BuildPropertySplash) ((IStructuredSelection)v.getSelection()).getFirstElement();
+							if( v != null ) {
+								if( handleRemoveSplash(value) ) {
+									v.setInput(bean.getDeploySplashList());
+								}
+							}
+						}
+					});
+				}
+			}
+			
+			{
+				toolkit.createLabel(sectionClient, "Icons:").setLayoutData(new GridData(GridData.BEGINNING,GridData.BEGINNING,false,false));
+				Composite container = toolkit.createComposite(sectionClient);
+				GridLayout gl = new GridLayout(2, false);
+				gl.marginBottom=gl.marginHeight=gl.marginLeft=gl.marginRight=gl.marginTop=gl.marginWidth=0;
+				container.setLayout(gl);
+				container.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+				
+				Table t = toolkit.createTable(container, SWT.FULL_SELECTION|SWT.H_SCROLL|SWT.V_SCROLL);
+				t.setHeaderVisible(true);
+				t.setLinesVisible(true);
+				
+				final TableViewer v = new TableViewer(t);
+				GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+				gd.heightHint = t.getItemHeight() * 5;
+				v.getControl().setLayoutData(gd);
+				v.setContentProvider(ArrayContentProvider.getInstance());
+				
+				{
+					TableViewerColumn c = new TableViewerColumn(v, SWT.NONE);
+					c.setLabelProvider(new ColumnLabelProvider() {
+						@Override
+						public String getText(Object element) {
+							return ((BuildPropertyIcon)element).getDeployIconDepth();
+						}
+					});
+					c.getColumn().setWidth(50);
+					c.getColumn().setText("Depth");
+				}
+				
+				{
+					TableViewerColumn c = new TableViewerColumn(v, SWT.NONE);
+					c.setLabelProvider(new ColumnLabelProvider() {
+						@Override
+						public String getText(Object element) {
+							return ((BuildPropertyIcon)element).getDeployIconKind();
+						}
+					});
+					c.getColumn().setWidth(50);
+					c.getColumn().setText("Kind");
+				}
+				
+				{
+					TableViewerColumn c = new TableViewerColumn(v, SWT.NONE);
+					c.setLabelProvider(new ColumnLabelProvider() {
+						@Override
+						public String getText(Object element) {
+							return ((BuildPropertyIcon)element).getDeployIconWidth();
+						}
+					});
+					c.getColumn().setWidth(50);
+					c.getColumn().setText("Width");
+				}
+				
+				{
+					TableViewerColumn c = new TableViewerColumn(v, SWT.NONE);
+					c.setLabelProvider(new ColumnLabelProvider() {
+						@Override
+						public String getText(Object element) {
+							return ((BuildPropertyIcon)element).getDeployIconHeight();
+						}
+					});
+					c.getColumn().setWidth(50);
+					c.getColumn().setText("Height");
+				}
+				
+				{
+					TableViewerColumn c = new TableViewerColumn(v, SWT.NONE);
+					c.setLabelProvider(new ColumnLabelProvider() {
+						@Override
+						public String getText(Object element) {
+							return ((BuildPropertyIcon)element).getDeployIconHref();
+						}
+					});
+					c.getColumn().setWidth(50);
+					c.getColumn().setText("Url");
+				}
+				
+				v.setInput(bean.getDeployIconList());
+				
+				Composite buttonComp = toolkit.createComposite(container);
+				buttonComp.setLayoutData(new GridData(GridData.BEGINNING,GridData.END,false,false));
+				buttonComp.setLayout(new GridLayout());
+				
+				{
+					Button b = toolkit.createButton(buttonComp, "Add ...", SWT.PUSH);
+					b.setLayoutData(new GridData(GridData.FILL,GridData.BEGINNING,false,false));
+					b.addSelectionListener(new SelectionAdapter() {
+						@Override
+						public void widgetSelected(SelectionEvent e) {
+							if( handleAddIcon() ) {
+								v.setInput(bean.getDeployIconList());
+							}
+						}
+					});
+				}
+				
+				{
+					Button b = toolkit.createButton(buttonComp, "Remove", SWT.PUSH);
+					b.setLayoutData(new GridData(GridData.FILL,GridData.BEGINNING,false,false));
+					b.addSelectionListener(new SelectionAdapter() {
+						@Override
+						public void widgetSelected(SelectionEvent e) {
+							BuildPropertyIcon value = (BuildPropertyIcon) ((IStructuredSelection)v.getSelection()).getFirstElement();
+							if( v != null ) {
+								if( handleRemoveIcon(value) ) {
+									v.setInput(bean.getDeployIconList());
+								}
+							}
+						}
+					});
+				}
+			}
+			
 			section.setClient(sectionClient);
 		}
 		
@@ -542,6 +767,163 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 		
 		int index = addPage(composite);
 		setPageText(index, "Build Properties");
+	}
+	
+	boolean handleRemoveIcon(BuildPropertyIcon value) {
+		if( MessageDialog.openConfirm(getSite().getShell(), "Confirm delete", "Would really like to remove the selected icon") ) {
+			bean.removeDeployIcon(value);
+			return true;
+		}
+		return false;
+	}
+
+	boolean handleAddIcon() {
+		TitleAreaDialog d = new TitleAreaDialog(getSite().getShell()) {
+			private BuildPropertyIcon o = new BuildPropertyIcon();
+			private DataBindingContext dbc = new DataBindingContext();
+			
+			@Override
+			protected Control createDialogArea(Composite parent) {
+				Composite area = (Composite) super.createDialogArea(parent);
+				
+				getShell().setText("Add splash icon");
+				setTitle("Add splash");
+				setMessage("Enter informations about the icon to add");
+				
+				Composite container = new Composite(area, SWT.NONE);
+				container.setLayout(new GridLayout(2, false));
+				container.setLayoutData(new GridData(GridData.FILL_BOTH));
+				
+				IViewerValueProperty selProp = ViewerProperties.singleSelection();
+				IWidgetValueProperty tProp = WidgetProperties.text(SWT.Modify);
+				
+				{
+					Label l = new Label(container, SWT.NONE);
+					l.setText("Kind:");
+					
+					ComboViewer v = new ComboViewer(container,SWT.READ_ONLY);
+					v.setLabelProvider(new LabelProvider());
+					v.setContentProvider(ArrayContentProvider.getInstance());
+					v.setInput(new String[] {"default","disabled","rollover","selected","shortcut"});
+					dbc.bindValue(selProp.observe(v), BeanProperties.value(DEPLOY_ICON_KIND).observe(o));
+				}
+				
+				{
+					Label l = new Label(container, SWT.NONE);
+					l.setText("URL*:");
+					
+					Text t = new Text(container, SWT.BORDER);
+					t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+					dbc.bindValue(tProp.observeDelayed(DELAY, t), BeanProperties.value(DEPLOY_ICON_HREF).observe(o));					
+				}
+				
+				{
+					Label l = new Label(container, SWT.NONE);
+					l.setText("Depth:");
+					
+					ComboViewer v = new ComboViewer(container,SWT.READ_ONLY);
+					v.setLabelProvider(new LabelProvider());
+					v.setContentProvider(ArrayContentProvider.getInstance());
+					v.setInput(new String[] {"8","24","32"});
+					dbc.bindValue(selProp.observe(v), BeanProperties.value(DEPLOY_ICON_DEPTH).observe(o));
+				}
+				
+				{
+					Label l = new Label(container, SWT.NONE);
+					l.setText("Width:");
+					
+					Text t = new Text(container, SWT.BORDER);
+					t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+					dbc.bindValue(tProp.observeDelayed(DELAY, t), BeanProperties.value(DEPLOY_ICON_WIDTH).observe(o));					
+				}
+				
+				{
+					Label l = new Label(container, SWT.NONE);
+					l.setText("Height:");
+					
+					Text t = new Text(container, SWT.BORDER);
+					t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+					dbc.bindValue(tProp.observeDelayed(DELAY, t), BeanProperties.value(DEPLOY_ICON_HEIGHT).observe(o));					
+				}
+
+				return area;
+			}
+			
+			
+			@Override
+			protected void okPressed() {
+				bean.addDeployIcon(o);
+				dbc.dispose();
+				super.okPressed();
+			}
+		};
+		return d.open() == TitleAreaDialog.OK;
+	}
+
+	boolean handleAddSplash() {
+		TitleAreaDialog d = new TitleAreaDialog(getSite().getShell()) {
+			private BuildPropertySplash o = new BuildPropertySplash();
+			private DataBindingContext dbc = new DataBindingContext();
+			
+			@Override
+			protected Control createDialogArea(Composite parent) {
+				Composite area = (Composite) super.createDialogArea(parent);
+				
+				getShell().setText("Add splash icon");
+				setTitle("Add splash");
+				setMessage("Enter informations about the splash to add");
+				
+				Composite container = new Composite(area, SWT.NONE);
+				container.setLayout(new GridLayout(2, false));
+				container.setLayoutData(new GridData(GridData.FILL_BOTH));
+				
+				IViewerValueProperty selProp = ViewerProperties.singleSelection();
+				IWidgetValueProperty tProp = WidgetProperties.text(SWT.Modify);
+				
+				{
+					Label l = new Label(container, SWT.NONE);
+					l.setText("Mode*:");
+					
+					ComboViewer v = new ComboViewer(container,SWT.READ_ONLY);
+					v.setLabelProvider(new LabelProvider());
+					v.setContentProvider(ArrayContentProvider.getInstance());
+					v.setInput(new String[] {"any","webstart"});
+					dbc.bindValue(selProp.observe(v), BeanProperties.value(DEPLOY_SPLASH_MODE).observe(o));
+				}
+				
+				{
+					Label l = new Label(container, SWT.NONE);
+					l.setText("URL*:");
+					
+					Text t = new Text(container, SWT.BORDER);
+					t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+					dbc.bindValue(tProp.observeDelayed(DELAY, t), BeanProperties.value(DEPLOY_SPLASH_HREF).observe(o));					
+				}
+				
+				return area;
+			}
+			
+			@Override
+			protected void okPressed() {
+				bean.addDeploySplash(o);
+				dbc.dispose();
+				super.okPressed();
+			}
+		};
+		return d.open() == TitleAreaDialog.OK;
+		
+	}
+	
+//	String handleImageSelection() {
+//		FileDialog d = new FileDialog(getSite().getShell());
+//	}
+	
+	boolean handleRemoveSplash(BuildPropertySplash value) {
+		if( MessageDialog.openConfirm(getSite().getShell(), "Confirm delete", "Would really like to remove the selected splash") ) {
+			bean.removeDeploySplash(value);
+			return true;
+		}
+		return false;
 	}
 	
 	void handleCreateKeyStore(Shell parent) {
@@ -634,7 +1016,6 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 			IType superType = project.findType("javafx.application.Preloader");
 			
 			IJavaSearchScope searchScope = SearchEngine.createStrictHierarchyScope(project, superType, true, false, null);		
-			BusyIndicatorRunnableContext context = new BusyIndicatorRunnableContext();
 			
 			SelectionDialog dialog = JavaUI.createTypeDialog(parent, PlatformUI.getWorkbench().getProgressService(), searchScope, IJavaElementSearchConstants.CONSIDER_CLASSES, false, "");
 			dialog.setTitle("Find Preloader");
@@ -995,5 +1376,272 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 		public String getDeployNativePackage() {
 			return get(DEPLOY_NATIVE_PACKAGE);
 		}
+		
+		public List<BuildPropertySplash> getDeploySplashList() {
+			return Collections.unmodifiableList(internalGetDeploySplashList());
+		}
+		
+		private List<BuildPropertySplash> internalGetDeploySplashList() {
+			String s = get(DEPLOY_SPLASH_LIST);
+			List<BuildPropertySplash> l = new ArrayList<BuildPropertySplash>();
+			if( s != null && s.trim().length() > 0 ) {
+				for( String i : s.split("##") ) {
+					String[] parts = i.split(";");
+					if( parts.length == 2 ) {
+						BuildPropertySplash splash = new BuildPropertySplash();
+						splash.setDeploySplashMode(nullHandler(parts[0]));
+						splash.setDeploySplashHref(nullHandler(parts[1]));
+						l.add(splash);
+					}
+				}
+			}
+			
+			return l;
+		}
+		
+		private void internalSetDeploySplashList(List<BuildPropertySplash> l) {
+			StringBuilder b = new StringBuilder();
+			for( BuildPropertySplash i : l ) {
+				if( b.length() > 0 ) {
+					b.append("##");
+				}
+				b.append(i.getDeploySplashMode());
+				b.append(";");
+				b.append(i.getDeploySplashHref());
+			}
+			set(DEPLOY_SPLASH_LIST, b.toString());
+		}
+		
+		public void addDeploySplash(BuildPropertySplash value) {
+			List<BuildPropertySplash> l = internalGetDeploySplashList();
+			l.add(value);
+			internalSetDeploySplashList(l);
+		}
+		
+		public void removeDeploySplash(BuildPropertySplash value) {
+			List<BuildPropertySplash> l = internalGetDeploySplashList();
+			l.remove(value);
+			internalSetDeploySplashList(l);
+		}
+		
+		
+		
+		public List<BuildPropertyIcon> getDeployIconList() {
+			return Collections.unmodifiableList(internalGetDeployIconList());
+		}
+		
+		private List<BuildPropertyIcon> internalGetDeployIconList() {
+			String s = get(DEPLOY_ICON_LIST);
+			List<BuildPropertyIcon> l = new ArrayList<BuildPropertyIcon>();
+			if( s != null && s.trim().length() > 0 ) {
+				for( String i : s.split("##") ) {
+					String[] parts = i.split(";");
+					if( parts.length == 5 ) {
+						BuildPropertyIcon splash = new BuildPropertyIcon();
+						splash.setDeployIconDepth(nullHandler(parts[0]));
+						splash.setDeployIconHeight(nullHandler(parts[1]));
+						splash.setDeployIconHref(nullHandler(parts[2]));
+						splash.setDeployIconKind(nullHandler(parts[3]));
+						splash.setDeployIconWidth(nullHandler(parts[4]));
+						l.add(splash);
+					}
+				}
+			}
+			
+			return l;
+		}
+		
+		private void internalSetDeployIconList(List<BuildPropertyIcon> l) {
+			StringBuilder b = new StringBuilder();
+			for( BuildPropertyIcon i : l ) {
+				if( b.length() > 0 ) {
+					b.append("##");
+				}
+				b.append(i.getDeployIconDepth());
+				b.append(";");
+				b.append(i.getDeployIconHeight());
+				b.append(";");
+				b.append(i.getDeployIconHref());
+				b.append(";");
+				b.append(i.getDeployIconKind());
+				b.append(";");
+				b.append(i.getDeployIconWidth());
+			}
+			set(DEPLOY_ICON_LIST, b.toString());
+		}
+		
+		public void addDeployIcon(BuildPropertyIcon value) {
+			List<BuildPropertyIcon> l = internalGetDeployIconList();
+			l.add(value);
+			internalSetDeployIconList(l);
+		}
+		
+		public void removeDeployIcon(BuildPropertyIcon value) {
+			List<BuildPropertyIcon> l = internalGetDeployIconList();
+			l.remove(value);
+			internalSetDeployIconList(l);
+		}
+	}
+	
+	public static class BuildPropertyIcon {
+		private PropertyChangeSupport support = new PropertyChangeSupport(this);
+		private Map<String, String> properties = new HashMap<String, String>();
+		
+		public void addPropertyChangeListener(PropertyChangeListener listener) {
+			support.addPropertyChangeListener(listener);
+		}
+		
+		public void removePropertyChangeListener(PropertyChangeListener listener) {
+			support.addPropertyChangeListener(listener);
+		}
+		
+		
+		private String get(String key) {
+			return properties.get(key);
+		}
+		
+		private void set(String key, String value) {
+			if( value == null || value.trim().isEmpty() ) {
+				support.firePropertyChange(key, properties.remove(key), null);
+			} else {
+				support.firePropertyChange(key, properties.put(key, value), value);
+			}
+		}
+		
+		public void setDeployIconDepth(String value) {
+			set(DEPLOY_ICON_DEPTH, value);
+		}
+		
+		public String getDeployIconDepth() {
+			return get(DEPLOY_ICON_DEPTH);
+		}
+		
+		public void setDeployIconHref(String value) {
+			set(DEPLOY_ICON_HREF,value);
+		}
+		
+		public String getDeployIconHref() {
+			return get(DEPLOY_ICON_HREF);
+		}
+		
+		public void setDeployIconHeight(String value) {
+			set(DEPLOY_ICON_HEIGHT,value);
+		}
+		
+		public String getDeployIconHeight() {
+			return get(DEPLOY_ICON_HEIGHT);
+		}
+		
+		public void setDeployIconKind(String value) {
+			set(DEPLOY_ICON_KIND,value);
+		}
+		
+		public String getDeployIconKind() {
+			return get(DEPLOY_ICON_KIND);
+		}
+		
+		public void setDeployIconWidth(String value) {
+			set(DEPLOY_ICON_WIDTH,value);
+		}
+		
+		public String getDeployIconWidth() {
+			return get(DEPLOY_ICON_WIDTH);
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((properties == null) ? 0 : properties.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			BuildPropertyIcon other = (BuildPropertyIcon) obj;
+			if (properties == null) {
+				if (other.properties != null)
+					return false;
+			} else if (!properties.equals(other.properties))
+				return false;
+			return true;
+		}
+	}
+	
+	public static class BuildPropertySplash {
+		private PropertyChangeSupport support = new PropertyChangeSupport(this);
+		private Map<String, String> properties = new HashMap<String, String>();
+		
+		public void addPropertyChangeListener(PropertyChangeListener listener) {
+			support.addPropertyChangeListener(listener);
+		}
+		
+		public void removePropertyChangeListener(PropertyChangeListener listener) {
+			support.addPropertyChangeListener(listener);
+		}
+		
+		
+		private String get(String key) {
+			return properties.get(key);
+		}
+		
+		private void set(String key, String value) {
+			if( value == null || value.trim().isEmpty() ) {
+				support.firePropertyChange(key, properties.remove(key), null);
+			} else {
+				support.firePropertyChange(key, properties.put(key, value), value);
+			}
+		}
+		
+		public void setDeploySplashHref(String value) {
+			set(DEPLOY_SPLASH_HREF,value);
+		}
+
+		public String getDeploySplashHref() {
+			return get(DEPLOY_SPLASH_HREF);
+		}
+
+		public void setDeploySplashMode(String value) {
+			set(DEPLOY_SPLASH_MODE,value);
+		}
+
+		public String getDeploySplashMode() {
+			return get(DEPLOY_SPLASH_MODE);
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((properties == null) ? 0 : properties.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			BuildPropertySplash other = (BuildPropertySplash) obj;
+			if (properties == null) {
+				if (other.properties != null)
+					return false;
+			} else if (!properties.equals(other.properties))
+				return false;
+			return true;
+		}
+	}
+	
+	private static String nullHandler(String value) {
+		return "null".equals(value) ? null : value;
 	}
 }

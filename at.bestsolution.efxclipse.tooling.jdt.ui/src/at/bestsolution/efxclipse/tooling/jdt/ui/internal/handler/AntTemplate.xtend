@@ -3,6 +3,7 @@ package at.bestsolution.efxclipse.tooling.jdt.ui.internal.handler
 import java.io.File
 import java.util.Collection
 import java.util.Map
+import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.JFXBuildConfigurationEditor$BuildPropertyBean
 
 class AntTemplate {
 	def generateAnt(Map<String,Object> properties) {
@@ -160,6 +161,7 @@ class AntTemplate {
 		val appVersion = properties.get("appVersion") as String;
 		val preloaderClass = properties.get("preloaderClass") as String;
 		val nativePackage = Boolean::valueOf(properties.get("nativePackage") as String);
+		val bean = properties.get("propertyBean") as BuildPropertyBean;
 		
 		var preloaderPath = "";
 		if( preloaderClass == null ) {
@@ -245,7 +247,18 @@ class AntTemplate {
 			<mkdir dir="deploy" />
 			<!-- Need to use ${basedir} because somehow the ant task is calculating the directory differently -->
 			<fx:deploy «IF appletWidth != null && appletHeight != null»width="«appletWidth»" height="«appletHeight»" embedJNLP="true"«ENDIF» outdir="${basedir}/deploy" outfile="«projectName»" «IF nativePackage»nativeBundles="all"«ENDIF»>
-				<fx:info title="«projectName»" vendor="«appVendor»"/>
+				«IF bean.deploySplashList.empty && bean.deployIconList.empty»
+					<fx:info title="«projectName»" vendor="«appVendor»"/>
+				«ELSE»
+					<fx:info title="«projectName»" vendor="«appVendor»">
+						«FOR s : bean.deploySplashList»
+							<fx:splash href="«s.deploySplashHref»" «IF s.deploySplashMode != null»mode="«s.deploySplashMode»"«ENDIF» />
+						«ENDFOR»
+						«FOR i : bean.deployIconList»
+							<fx:icon href="«i.deployIconHref»" «IF i.deployIconDepth != null»depth="«i.deployIconDepth»"«ENDIF» «IF i.deployIconHeight != null»height="«i.deployIconHeight»"«ENDIF» «IF i.deployIconKind != null»kind="«i.deployIconKind»"«ENDIF» «IF i.deployIconWidth != null»width="«i.deployIconWidth»"«ENDIF» />
+						«ENDFOR»
+					</fx:info>
+				«ENDIF»
 				<fx:application refId="fxApplication"/>
 				<fx:resources refid="appRes"/>
 				<fx:permissions elevated="true"/>
