@@ -647,6 +647,11 @@ public class FXClassLoader implements ClassLoadingHook, AdaptorHook {
 				
 				Version minVersion = bundledata.getVersion();
 
+				List<String> regKeys = WinRegistry.readStringSubKeys(WinRegistry.HKEY_LOCAL_MACHINE, "Software\\Oracle\\JavaFX\\");
+				
+				if( regKeys == null ) {
+					throw new IllegalStateException("Final fallback failed to locate JavaFX in the Windows Registry. Check your osg/arch '"+System.getProperty("osgi.os")+"/"+System.getProperty("osgi.arch")+"' in case you want to use repackaging");
+				}
 				List<Version> versions = new ArrayList<Version>();
 				for (String v : WinRegistry.readStringSubKeys(WinRegistry.HKEY_LOCAL_MACHINE, "Software\\Oracle\\JavaFX\\")) {
 					try {
@@ -690,7 +695,7 @@ public class FXClassLoader implements ClassLoadingHook, AdaptorHook {
 					throw new IllegalStateException("Could not find a JavaFX " + versionString + " Installation. Run with -Defxclipse.osgi.hook.debug=true to get debug output.");
 				}
 			} else {
-				throw new IllegalStateException("Could not find a JavaFX installation. Run with -Defxclipse.osgi.hook.debug=true to get debug output.");
+				throw new IllegalStateException("Could not find a JavaFX installation. Run with -Defxclipse.osgi.hook.debug=true to get debug output. Check your osg/arch '"+System.getProperty("osgi.os")+"/"+System.getProperty("osgi.arch")+"' in case you want to use repackaging.");
 			}
 		}
 
