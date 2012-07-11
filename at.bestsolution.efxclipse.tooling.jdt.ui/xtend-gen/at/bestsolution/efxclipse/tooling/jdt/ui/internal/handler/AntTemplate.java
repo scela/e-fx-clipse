@@ -2,6 +2,7 @@ package at.bestsolution.efxclipse.tooling.jdt.ui.internal.handler;
 
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.JFXBuildConfigurationEditor.BuildPropertyBean;
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.JFXBuildConfigurationEditor.BuildPropertyIcon;
+import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.JFXBuildConfigurationEditor.BuildPropertyManifestAttr;
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.JFXBuildConfigurationEditor.BuildPropertySplash;
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.handler.SetupDirectory;
 import com.google.common.base.Objects;
@@ -656,6 +657,32 @@ public class AntTemplate {
       _builder.append(appVersion, "			");
       _builder.append("\"/>");
       _builder.newLineIfNotEmpty();
+      {
+        String _buildSplashImage = bean.getBuildSplashImage();
+        boolean _notEquals_5 = (!Objects.equal(_buildSplashImage, null));
+        if (_notEquals_5) {
+          _builder.append("\t\t\t");
+          _builder.append("<attribute name=\"SplashScreen-Image\" value=\"");
+          String _buildSplashImage_1 = bean.getBuildSplashImage();
+          _builder.append(_buildSplashImage_1, "			");
+          _builder.append("\"/>");
+          _builder.newLineIfNotEmpty();
+        }
+      }
+      {
+        List<BuildPropertyManifestAttr> _buildManifestAttrList = bean.getBuildManifestAttrList();
+        for(final BuildPropertyManifestAttr a : _buildManifestAttrList) {
+          _builder.append("\t\t\t");
+          _builder.append("<attribute name=\"");
+          String _buildManifestAttrName = a.getBuildManifestAttrName();
+          _builder.append(_buildManifestAttrName, "			");
+          _builder.append("\" value=\"");
+          String _buildManifestAttrValue = a.getBuildManifestAttrValue();
+          _builder.append(_buildManifestAttrValue, "			");
+          _builder.append("\"/>");
+          _builder.newLineIfNotEmpty();
+        }
+      }
       _builder.append("\t\t");
       _builder.append("</manifest>");
       _builder.newLine();
@@ -665,8 +692,8 @@ public class AntTemplate {
       _builder.append("\t");
       _builder.newLine();
       {
-        boolean _notEquals_5 = (!Objects.equal(keyStore, null));
-        if (_notEquals_5) {
+        boolean _notEquals_6 = (!Objects.equal(keyStore, null));
+        if (_notEquals_6) {
           _builder.append("\t");
           _builder.append("<!-- Need to use ${basedir} because somehow the ant task is calculating the directory differently -->");
           _builder.newLine();
@@ -677,16 +704,16 @@ public class AntTemplate {
           _builder.append(keyStoreAlias, "	");
           _builder.append("\" ");
           {
-            boolean _notEquals_6 = (!Objects.equal(keyPass, null));
-            if (_notEquals_6) {
+            boolean _notEquals_7 = (!Objects.equal(keyPass, null));
+            if (_notEquals_7) {
               _builder.append("keypass=\"");
               _builder.append(keyPass, "	");
               _builder.append("\" ");
             }
           }
           {
-            boolean _notEquals_7 = (!Objects.equal(keyStorePass, null));
-            if (_notEquals_7) {
+            boolean _notEquals_8 = (!Objects.equal(keyStorePass, null));
+            if (_notEquals_8) {
               _builder.append("storepass=\"");
               _builder.append(keyStorePass, "	");
               _builder.append("\" ");
@@ -715,12 +742,12 @@ public class AntTemplate {
       {
         boolean _or = false;
         boolean _and = false;
-        boolean _notEquals_8 = (!Objects.equal(appletWidth, null));
-        if (!_notEquals_8) {
+        boolean _notEquals_9 = (!Objects.equal(appletWidth, null));
+        if (!_notEquals_9) {
           _and = false;
         } else {
-          boolean _notEquals_9 = (!Objects.equal(appletHeight, null));
-          _and = (_notEquals_8 && _notEquals_9);
+          boolean _notEquals_10 = (!Objects.equal(appletHeight, null));
+          _and = (_notEquals_9 && _notEquals_10);
         }
         if (_and) {
           _or = true;
@@ -738,12 +765,12 @@ public class AntTemplate {
           _builder.append("<fx:deploy ");
           {
             boolean _and_1 = false;
-            boolean _notEquals_10 = (!Objects.equal(appletWidth, null));
-            if (!_notEquals_10) {
+            boolean _notEquals_11 = (!Objects.equal(appletWidth, null));
+            if (!_notEquals_11) {
               _and_1 = false;
             } else {
-              boolean _notEquals_11 = (!Objects.equal(appletHeight, null));
-              _and_1 = (_notEquals_10 && _notEquals_11);
+              boolean _notEquals_12 = (!Objects.equal(appletHeight, null));
+              _and_1 = (_notEquals_11 && _notEquals_12);
             }
             if (_and_1) {
               _builder.append("width=\"");
@@ -804,8 +831,8 @@ public class AntTemplate {
                   _builder.append("\" ");
                   {
                     String _deploySplashMode = s.getDeploySplashMode();
-                    boolean _notEquals_12 = (!Objects.equal(_deploySplashMode, null));
-                    if (_notEquals_12) {
+                    boolean _notEquals_13 = (!Objects.equal(_deploySplashMode, null));
+                    if (_notEquals_13) {
                       _builder.append("mode=\"");
                       String _deploySplashMode_1 = s.getDeploySplashMode();
                       _builder.append(_deploySplashMode_1, "			");
@@ -828,8 +855,8 @@ public class AntTemplate {
                   _builder.append("\" ");
                   {
                     String _deployIconDepth = i.getDeployIconDepth();
-                    boolean _notEquals_13 = (!Objects.equal(_deployIconDepth, null));
-                    if (_notEquals_13) {
+                    boolean _notEquals_14 = (!Objects.equal(_deployIconDepth, null));
+                    if (_notEquals_14) {
                       _builder.append("depth=\"");
                       String _deployIconDepth_1 = i.getDeployIconDepth();
                       _builder.append(_deployIconDepth_1, "			");
@@ -839,8 +866,8 @@ public class AntTemplate {
                   _builder.append(" ");
                   {
                     String _deployIconHeight = i.getDeployIconHeight();
-                    boolean _notEquals_14 = (!Objects.equal(_deployIconHeight, null));
-                    if (_notEquals_14) {
+                    boolean _notEquals_15 = (!Objects.equal(_deployIconHeight, null));
+                    if (_notEquals_15) {
                       _builder.append("height=\"");
                       String _deployIconHeight_1 = i.getDeployIconHeight();
                       _builder.append(_deployIconHeight_1, "			");
@@ -850,8 +877,8 @@ public class AntTemplate {
                   _builder.append(" ");
                   {
                     String _deployIconKind = i.getDeployIconKind();
-                    boolean _notEquals_15 = (!Objects.equal(_deployIconKind, null));
-                    if (_notEquals_15) {
+                    boolean _notEquals_16 = (!Objects.equal(_deployIconKind, null));
+                    if (_notEquals_16) {
                       _builder.append("kind=\"");
                       String _deployIconKind_1 = i.getDeployIconKind();
                       _builder.append(_deployIconKind_1, "			");
@@ -861,8 +888,8 @@ public class AntTemplate {
                   _builder.append(" ");
                   {
                     String _deployIconWidth = i.getDeployIconWidth();
-                    boolean _notEquals_16 = (!Objects.equal(_deployIconWidth, null));
-                    if (_notEquals_16) {
+                    boolean _notEquals_17 = (!Objects.equal(_deployIconWidth, null));
+                    if (_notEquals_17) {
                       _builder.append("width=\"");
                       String _deployIconWidth_1 = i.getDeployIconWidth();
                       _builder.append(_deployIconWidth_1, "			");

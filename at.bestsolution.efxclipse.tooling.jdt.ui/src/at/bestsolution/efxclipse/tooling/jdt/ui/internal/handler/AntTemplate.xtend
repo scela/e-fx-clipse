@@ -231,6 +231,12 @@ class AntTemplate {
 					<attribute name="Implementation-Vendor" value="«appVendor»"/>
 					<attribute name="Implementation-Title" value="«appTitle»"/>
 					<attribute name="Implementation-Version" value="«appVersion»"/>
+					«IF bean.buildSplashImage != null»
+						<attribute name="SplashScreen-Image" value="«bean.buildSplashImage»"/>
+					«ENDIF»
+					«FOR a : bean.buildManifestAttrList»
+						<attribute name="«a.buildManifestAttrName»" value="«a.buildManifestAttrValue»"/>
+					«ENDFOR»
 				</manifest>
 			</fx:jar>
 			

@@ -41,6 +41,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -50,6 +51,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
@@ -108,7 +111,9 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
+import org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
+import org.eclipse.ui.dialogs.ResourceSelectionDialog;
 import org.eclipse.ui.dialogs.SelectionDialog;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.events.IHyperlinkListener;
@@ -146,6 +151,13 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 	public static final String BUILD_APP_VERSION = "buildAppVersion";
 	public static final String BUILD_APPLICATION_CLASS = "buildApplicationClass";
 	public static final String BUILD_PRELOADER_CLASS = "buildPreloaderClass";
+	public static final String BUILD_SPLASH_IMAGE = "buildSplashImage";
+	public static final String BUILD_MANIFEST_ATTR_LIST = "buildManifestAttrList";
+	
+	// Sub-Elements ManifestAttr
+	public static final String BUILD_MANIFEST_ATTR_NAME = "buildManifestAttrName";
+	public static final String BUILD_MANIFEST_ATTR_VALUE = "buildManifestAttrValue";
+	
 	
 	public static final String DEPLOY_APPLET_WIDTH = "deployAppletWith";
 	public static final String DEPLOY_APPLET_HEIGHT = "deployAppletHeight";
@@ -187,6 +199,8 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 			put(BUILD_APP_VERSION,"jfx.build.appversion");
 			put(BUILD_APPLICATION_CLASS,"jfx.build.applicationClass");
 			put(BUILD_PRELOADER_CLASS,"jfx.build.preloaderClass");
+			put(BUILD_SPLASH_IMAGE,"jfx.build.splashImage");
+			put(BUILD_MANIFEST_ATTR_LIST,"jfx.build.manifestAttrList");
 			
 			put(DEPLOY_APPLET_WIDTH,"jfx.deploy.appletWith");
 			put(DEPLOY_APPLET_HEIGHT,"jfx.deploy.appletHeight");
@@ -313,7 +327,7 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 			Section section = toolkit.createSection(sectionParent, 
 					  Section.DESCRIPTION|Section.TITLE_BAR|
 					  Section.TWISTIE|Section.EXPANDED);
-			section.setText("Build Properties");
+			section.setText("Build && Package Properties");
 			section.setDescription("The following properties are needed to build the JavaFX-Application");
 			section.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			
@@ -424,6 +438,101 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 				dbc.bindValue(textModify.observeDelayed(DELAY, t), BeanProperties.value(BUILD_PRELOADER_CLASS).observe(bean));
 			}
 			
+			{
+				toolkit.createLabel(sectionClient, "Splash:");
+				final Text t = toolkit.createText(sectionClient, "");
+				t.setLayoutData(new GridData(GridData.FILL,GridData.CENTER,true,false,2,1));
+				Button b = toolkit.createButton(sectionClient, "Browse ...", SWT.PUSH);
+				b.addSelectionListener(new SelectionAdapter() {
+					@Override
+					public void widgetSelected(SelectionEvent e) {
+						String name = handleSplashImage(t.getShell());
+						if( name != null ) {
+							t.setText(name);
+						}
+					}
+				});
+				b.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, false, false));
+				dbc.bindValue(textModify.observeDelayed(DELAY, t), BeanProperties.value(BUILD_SPLASH_IMAGE).observe(bean));
+			}
+			
+			{
+				toolkit.createLabel(sectionClient, "Manifest-Attributes:").setLayoutData(new GridData(GridData.BEGINNING,GridData.BEGINNING,false,false));
+				Composite container = toolkit.createComposite(sectionClient);
+				GridLayout gl = new GridLayout(2, false);
+				gl.marginBottom=gl.marginHeight=gl.marginLeft=gl.marginRight=gl.marginTop=gl.marginWidth=0;
+				container.setLayout(gl);
+				container.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+				
+				Table t = toolkit.createTable(container, SWT.FULL_SELECTION|SWT.H_SCROLL|SWT.V_SCROLL);
+				t.setHeaderVisible(true);
+				t.setLinesVisible(true);
+				
+				final TableViewer v = new TableViewer(t);
+				GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+				gd.heightHint = t.getItemHeight() * 5;
+				v.getControl().setLayoutData(gd);
+				v.setContentProvider(ArrayContentProvider.getInstance());
+				
+				{
+					TableViewerColumn c = new TableViewerColumn(v, SWT.NONE);
+					c.setLabelProvider(new ColumnLabelProvider() {
+						@Override
+						public String getText(Object element) {
+							return ((BuildPropertyManifestAttr)element).getBuildManifestAttrName();
+						}
+					});
+					c.getColumn().setWidth(100);
+					c.getColumn().setText("Name");
+				}
+				
+				{
+					TableViewerColumn c = new TableViewerColumn(v, SWT.NONE);
+					c.setLabelProvider(new ColumnLabelProvider() {
+						@Override
+						public String getText(Object element) {
+							return ((BuildPropertyManifestAttr)element).getBuildManifestAttrValue();
+						}
+					});
+					c.getColumn().setWidth(300);
+					c.getColumn().setText("Value");
+				}
+				
+				v.setInput(bean.getBuildManifestAttrList());
+				
+				Composite buttonComp = toolkit.createComposite(container);
+				buttonComp.setLayoutData(new GridData(GridData.BEGINNING,GridData.END,false,false));
+				buttonComp.setLayout(new GridLayout());
+				
+				{
+					Button b = toolkit.createButton(buttonComp, "Add ...", SWT.PUSH);
+					b.setLayoutData(new GridData(GridData.FILL,GridData.BEGINNING,false,false));
+					b.addSelectionListener(new SelectionAdapter() {
+						@Override
+						public void widgetSelected(SelectionEvent e) {
+							if( handleAddManifestAttr(getSite().getShell()) ) {
+								v.setInput(bean.getBuildManifestAttrList());
+							}
+						}
+					});
+				}
+				
+				{
+					Button b = toolkit.createButton(buttonComp, "Remove", SWT.PUSH);
+					b.setLayoutData(new GridData(GridData.FILL,GridData.BEGINNING,false,false));
+					b.addSelectionListener(new SelectionAdapter() {
+						@Override
+						public void widgetSelected(SelectionEvent e) {
+							BuildPropertyManifestAttr value = (BuildPropertyManifestAttr) ((IStructuredSelection)v.getSelection()).getFirstElement();
+							if( v != null ) {
+								if( handleRemoveManifestAttr(value) ) {
+									v.setInput(bean.getBuildManifestAttrList());
+								}
+							}
+						}
+					});
+				}
+			}
 			
 			section.setClient(sectionClient);
 		}
@@ -505,7 +614,7 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 			}
 			
 			{
-				toolkit.createLabel(sectionClient, "Splash:").setLayoutData(new GridData(GridData.BEGINNING,GridData.BEGINNING,false,false));
+				toolkit.createLabel(sectionClient, "Webstart Splash:").setLayoutData(new GridData(GridData.BEGINNING,GridData.BEGINNING,false,false));
 				Composite container = toolkit.createComposite(sectionClient);
 				GridLayout gl = new GridLayout(2, false);
 				gl.marginBottom=gl.marginHeight=gl.marginLeft=gl.marginRight=gl.marginTop=gl.marginWidth=0;
@@ -583,7 +692,7 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 			}
 			
 			{
-				toolkit.createLabel(sectionClient, "Icons:").setLayoutData(new GridData(GridData.BEGINNING,GridData.BEGINNING,false,false));
+				toolkit.createLabel(sectionClient, "Webstart Icons:").setLayoutData(new GridData(GridData.BEGINNING,GridData.BEGINNING,false,false));
 				Composite container = toolkit.createComposite(sectionClient);
 				GridLayout gl = new GridLayout(2, false);
 				gl.marginBottom=gl.marginHeight=gl.marginLeft=gl.marginRight=gl.marginTop=gl.marginWidth=0;
@@ -769,6 +878,94 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 		setPageText(index, "Build Properties");
 	}
 	
+	boolean handleRemoveManifestAttr(BuildPropertyManifestAttr value) {
+		if( MessageDialog.openConfirm(getSite().getShell(), "Confirm delete", "Would really like to remove the selected attribute") ) {
+			bean.removeBuildManifestAttr(value);
+			return true;
+		}
+		return false;
+	}
+
+	protected boolean handleAddManifestAttr(Shell shell) {
+		TitleAreaDialog d = new TitleAreaDialog(shell) {
+			private BuildPropertyManifestAttr o = new BuildPropertyManifestAttr();
+			private DataBindingContext dbc = new DataBindingContext();
+			
+			@Override
+			protected Control createDialogArea(Composite parent) {
+				Composite area = (Composite) super.createDialogArea(parent);
+				Composite container = new Composite(area, SWT.NONE);
+				container.setLayoutData(new GridData(GridData.FILL_BOTH));
+				container.setLayout(new GridLayout(2, false));
+				
+				getShell().setText("Add manifest attribute");
+				setTitle("Add manifest attribute");
+				setMessage("Enter informations about manifest header entry");
+				
+				IWidgetValueProperty tProp = WidgetProperties.text(SWT.Modify);
+				
+				{
+					Label l = new Label(container, SWT.NONE);
+					l.setText("Name*:");
+					
+					Text t = new Text(container, SWT.BORDER);
+					t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+					dbc.bindValue(tProp.observe(t), BeanProperties.value(BUILD_MANIFEST_ATTR_NAME).observe(o));
+				}
+				
+				{
+					Label l = new Label(container, SWT.NONE);
+					l.setText("Value*:");
+					
+					Text t = new Text(container, SWT.BORDER);
+					t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+					dbc.bindValue(tProp.observe(t), BeanProperties.value(BUILD_MANIFEST_ATTR_VALUE).observe(o));
+				}
+				
+				return area;
+			}
+			
+			@Override
+			protected void okPressed() {
+				bean.addBuildManifestAttr(o);
+				dbc.dispose();
+				super.okPressed();
+			}
+		};
+		
+		return d.open() == TitleAreaDialog.OK;
+	}
+
+	String handleSplashImage(Shell shell) {
+		FilteredResourcesSelectionDialog d = new FilteredResourcesSelectionDialog(shell, false, ((IFileEditorInput)getEditorInput()).getFile().getProject(), IResource.FILE) {
+			@Override
+			protected IStatus validateItem(Object item) {
+				IFile f = (IFile)item;
+				if( f.getParent() instanceof IProject ) {
+					return new Status(IStatus.ERROR, "at.bestsolution.efxclipse.tooling.jdt.ui", "The selected resource has to part of the source folder");
+				}
+				return super.validateItem(item);
+			}
+		};
+		if( d.open() == ResourceSelectionDialog.OK ) {
+			Object[] rv = d.getResult();
+			if( rv.length == 1 ) {
+				IFile f = (IFile)rv[0];
+				IJavaElement j = JavaCore.create(f.getParent());
+				if( j instanceof IPackageFragment ) {
+					IPackageFragment p = (IPackageFragment) j;
+					return p.getElementName().replace('.', '/') + "/" + f.getName();
+				} else if( j instanceof IPackageFragmentRoot ) {
+					return f.getName();
+				} else {
+					MessageDialog.openInformation(shell, "Not valid", "The selected resource has to part of the source folder");
+				}
+			}
+		}
+		
+		return null;
+	}
+
 	boolean handleRemoveIcon(BuildPropertyIcon value) {
 		if( MessageDialog.openConfirm(getSite().getShell(), "Confirm delete", "Would really like to remove the selected icon") ) {
 			bean.removeDeployIcon(value);
@@ -786,8 +983,8 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 			protected Control createDialogArea(Composite parent) {
 				Composite area = (Composite) super.createDialogArea(parent);
 				
-				getShell().setText("Add splash icon");
-				setTitle("Add splash");
+				getShell().setText("Add icon");
+				setTitle("Add icon");
 				setMessage("Enter informations about the icon to add");
 				
 				Composite container = new Composite(area, SWT.NONE);
@@ -1376,6 +1573,14 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 		public String getDeployNativePackage() {
 			return get(DEPLOY_NATIVE_PACKAGE);
 		}
+
+		public void setBuildSplashImage(String value) {
+			set(BUILD_SPLASH_IMAGE, value);
+		}
+		
+		public String getBuildSplashImage() {
+			return get(BUILD_SPLASH_IMAGE);
+		}
 		
 		public List<BuildPropertySplash> getDeploySplashList() {
 			return Collections.unmodifiableList(internalGetDeploySplashList());
@@ -1480,6 +1685,125 @@ public class JFXBuildConfigurationEditor extends MultiPageEditorPart implements
 			List<BuildPropertyIcon> l = internalGetDeployIconList();
 			l.remove(value);
 			internalSetDeployIconList(l);
+		}
+		
+		// =============================================
+		
+		
+		public List<BuildPropertyManifestAttr> getBuildManifestAttrList() {
+			return Collections.unmodifiableList(internalGetBuildManifestAttrList());
+		}
+		
+		private List<BuildPropertyManifestAttr> internalGetBuildManifestAttrList() {
+			String s = get(BUILD_MANIFEST_ATTR_LIST);
+			List<BuildPropertyManifestAttr> l = new ArrayList<BuildPropertyManifestAttr>();
+			if( s != null && s.trim().length() > 0 ) {
+				for( String i : s.split("##") ) {
+					String[] parts = i.split("_;_");
+					if( parts.length == 2 ) {
+						BuildPropertyManifestAttr splash = new BuildPropertyManifestAttr();
+						splash.setBuildManifestAttrName(nullHandler(parts[0]));
+						splash.setBuildManifestAttrValue(nullHandler(parts[1]));
+						l.add(splash);
+					}
+				}
+			}
+			
+			return l;
+		}
+		
+		private void internalSetBuildManifestAttrList(List<BuildPropertyManifestAttr> l) {
+			StringBuilder b = new StringBuilder();
+			for( BuildPropertyManifestAttr i : l ) {
+				if( b.length() > 0 ) {
+					b.append("##");
+				}
+				b.append(i.getBuildManifestAttrName());
+				b.append("_;_");
+				b.append(i.getBuildManifestAttrValue());
+			}
+			set(BUILD_MANIFEST_ATTR_LIST, b.toString());
+		}
+		
+		public void addBuildManifestAttr(BuildPropertyManifestAttr value) {
+			List<BuildPropertyManifestAttr> l = internalGetBuildManifestAttrList();
+			l.add(value);
+			internalSetBuildManifestAttrList(l);
+		}
+		
+		public void removeBuildManifestAttr(BuildPropertyManifestAttr value) {
+			List<BuildPropertyManifestAttr> l = internalGetBuildManifestAttrList();
+			l.remove(value);
+			internalSetBuildManifestAttrList(l);
+		}
+		
+		
+	}
+	
+	public static class BuildPropertyManifestAttr {
+		private PropertyChangeSupport support = new PropertyChangeSupport(this);
+		private Map<String, String> properties = new HashMap<String, String>();
+		
+		public void addPropertyChangeListener(PropertyChangeListener listener) {
+			support.addPropertyChangeListener(listener);
+		}
+		
+		public void removePropertyChangeListener(PropertyChangeListener listener) {
+			support.addPropertyChangeListener(listener);
+		}
+		
+		
+		private String get(String key) {
+			return properties.get(key);
+		}
+		
+		private void set(String key, String value) {
+			if( value == null || value.trim().isEmpty() ) {
+				support.firePropertyChange(key, properties.remove(key), null);
+			} else {
+				support.firePropertyChange(key, properties.put(key, value), value);
+			}
+		}
+		
+		public void setBuildManifestAttrValue(String value) {
+			set(BUILD_MANIFEST_ATTR_VALUE, value);
+		}
+		
+		public String getBuildManifestAttrValue() {
+			return get(BUILD_MANIFEST_ATTR_VALUE);
+		}
+		
+		public void setBuildManifestAttrName(String value) {
+			set(BUILD_MANIFEST_ATTR_NAME, value);
+		}
+		
+		public String getBuildManifestAttrName() {
+			return get(BUILD_MANIFEST_ATTR_NAME);
+		}
+		
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((properties == null) ? 0 : properties.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			BuildPropertyManifestAttr other = (BuildPropertyManifestAttr) obj;
+			if (properties == null) {
+				if (other.properties != null)
+					return false;
+			} else if (!properties.equals(other.properties))
+				return false;
+			return true;
 		}
 	}
 	
