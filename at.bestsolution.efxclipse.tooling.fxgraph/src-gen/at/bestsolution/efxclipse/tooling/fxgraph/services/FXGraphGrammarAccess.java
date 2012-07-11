@@ -1214,12 +1214,31 @@ public class FXGraphGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAsKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cNameAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final RuleCall cNameValidIDParserRuleCall_2_1_0 = (RuleCall)cNameAssignment_2_1.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cLeftCurlyBracketKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Alternatives cAlternatives_3_1 = (Alternatives)cGroup_3.eContents().get(1);
+		private final Assignment cStaticPropertiesAssignment_3_1_0 = (Assignment)cAlternatives_3_1.eContents().get(0);
+		private final RuleCall cStaticPropertiesStaticValuePropertyParserRuleCall_3_1_0_0 = (RuleCall)cStaticPropertiesAssignment_3_1_0.eContents().get(0);
+		private final Assignment cStaticCallPropertiesAssignment_3_1_1 = (Assignment)cAlternatives_3_1.eContents().get(1);
+		private final RuleCall cStaticCallPropertiesStaticCallValuePropertyParserRuleCall_3_1_1_0 = (RuleCall)cStaticCallPropertiesAssignment_3_1_1.eContents().get(0);
+		private final Group cGroup_3_2 = (Group)cGroup_3.eContents().get(2);
+		private final Keyword cCommaKeyword_3_2_0 = (Keyword)cGroup_3_2.eContents().get(0);
+		private final Alternatives cAlternatives_3_2_1 = (Alternatives)cGroup_3_2.eContents().get(1);
+		private final Assignment cStaticPropertiesAssignment_3_2_1_0 = (Assignment)cAlternatives_3_2_1.eContents().get(0);
+		private final RuleCall cStaticPropertiesStaticValuePropertyParserRuleCall_3_2_1_0_0 = (RuleCall)cStaticPropertiesAssignment_3_2_1_0.eContents().get(0);
+		private final Assignment cStaticCallPropertiesAssignment_3_2_1_1 = (Assignment)cAlternatives_3_2_1.eContents().get(1);
+		private final RuleCall cStaticCallPropertiesStaticCallValuePropertyParserRuleCall_3_2_1_1_0 = (RuleCall)cStaticCallPropertiesAssignment_3_2_1_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_3_3 = (Keyword)cGroup_3.eContents().get(3);
 		
 		//IncludeValueProperty:
-		//	"include" source=[ComponentDefinition|QualifiedName] ("as" name=ValidID)?;
+		//	"include" source=[ComponentDefinition|QualifiedName] ("as" name=ValidID)? ("{" (staticProperties+=StaticValueProperty
+		//	| staticCallProperties+=StaticCallValueProperty) ("," (staticProperties+=StaticValueProperty |
+		//	staticCallProperties+=StaticCallValueProperty))* "}")?;
 		public ParserRule getRule() { return rule; }
 
-		//"include" source=[ComponentDefinition|QualifiedName] ("as" name=ValidID)?
+		//"include" source=[ComponentDefinition|QualifiedName] ("as" name=ValidID)? ("{" (staticProperties+=StaticValueProperty |
+		//staticCallProperties+=StaticCallValueProperty) ("," (staticProperties+=StaticValueProperty |
+		//staticCallProperties+=StaticCallValueProperty))* "}")?
 		public Group getGroup() { return cGroup; }
 
 		//"include"
@@ -1245,6 +1264,52 @@ public class FXGraphGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ValidID
 		public RuleCall getNameValidIDParserRuleCall_2_1_0() { return cNameValidIDParserRuleCall_2_1_0; }
+
+		//("{" (staticProperties+=StaticValueProperty | staticCallProperties+=StaticCallValueProperty) (","
+		//(staticProperties+=StaticValueProperty | staticCallProperties+=StaticCallValueProperty))* "}")?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_3_0() { return cLeftCurlyBracketKeyword_3_0; }
+
+		//staticProperties+=StaticValueProperty | staticCallProperties+=StaticCallValueProperty
+		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
+
+		//staticProperties+=StaticValueProperty
+		public Assignment getStaticPropertiesAssignment_3_1_0() { return cStaticPropertiesAssignment_3_1_0; }
+
+		//StaticValueProperty
+		public RuleCall getStaticPropertiesStaticValuePropertyParserRuleCall_3_1_0_0() { return cStaticPropertiesStaticValuePropertyParserRuleCall_3_1_0_0; }
+
+		//staticCallProperties+=StaticCallValueProperty
+		public Assignment getStaticCallPropertiesAssignment_3_1_1() { return cStaticCallPropertiesAssignment_3_1_1; }
+
+		//StaticCallValueProperty
+		public RuleCall getStaticCallPropertiesStaticCallValuePropertyParserRuleCall_3_1_1_0() { return cStaticCallPropertiesStaticCallValuePropertyParserRuleCall_3_1_1_0; }
+
+		//("," (staticProperties+=StaticValueProperty | staticCallProperties+=StaticCallValueProperty))*
+		public Group getGroup_3_2() { return cGroup_3_2; }
+
+		//","
+		public Keyword getCommaKeyword_3_2_0() { return cCommaKeyword_3_2_0; }
+
+		//staticProperties+=StaticValueProperty | staticCallProperties+=StaticCallValueProperty
+		public Alternatives getAlternatives_3_2_1() { return cAlternatives_3_2_1; }
+
+		//staticProperties+=StaticValueProperty
+		public Assignment getStaticPropertiesAssignment_3_2_1_0() { return cStaticPropertiesAssignment_3_2_1_0; }
+
+		//StaticValueProperty
+		public RuleCall getStaticPropertiesStaticValuePropertyParserRuleCall_3_2_1_0_0() { return cStaticPropertiesStaticValuePropertyParserRuleCall_3_2_1_0_0; }
+
+		//staticCallProperties+=StaticCallValueProperty
+		public Assignment getStaticCallPropertiesAssignment_3_2_1_1() { return cStaticCallPropertiesAssignment_3_2_1_1; }
+
+		//StaticCallValueProperty
+		public RuleCall getStaticCallPropertiesStaticCallValuePropertyParserRuleCall_3_2_1_1_0() { return cStaticCallPropertiesStaticCallValuePropertyParserRuleCall_3_2_1_1_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_3_3() { return cRightCurlyBracketKeyword_3_3; }
 	}
 
 	public class CopyValuePropertyElements extends AbstractParserRuleElementFinder {
@@ -1787,7 +1852,9 @@ public class FXGraphGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//IncludeValueProperty:
-	//	"include" source=[ComponentDefinition|QualifiedName] ("as" name=ValidID)?;
+	//	"include" source=[ComponentDefinition|QualifiedName] ("as" name=ValidID)? ("{" (staticProperties+=StaticValueProperty
+	//	| staticCallProperties+=StaticCallValueProperty) ("," (staticProperties+=StaticValueProperty |
+	//	staticCallProperties+=StaticCallValueProperty))* "}")?;
 	public IncludeValuePropertyElements getIncludeValuePropertyAccess() {
 		return (pIncludeValueProperty != null) ? pIncludeValueProperty : (pIncludeValueProperty = new IncludeValuePropertyElements());
 	}

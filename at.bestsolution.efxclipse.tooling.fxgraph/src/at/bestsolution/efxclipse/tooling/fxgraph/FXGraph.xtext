@@ -100,7 +100,9 @@ ReferenceValueProperty:
 ;
 
 IncludeValueProperty:
-	'include' source=[ComponentDefinition|QualifiedName] ('as' name=ValidID)?
+	'include' source=[ComponentDefinition|QualifiedName] ('as' name=ValidID)? ('{'
+		(staticProperties+=StaticValueProperty | staticCallProperties+=StaticCallValueProperty) (',' (staticProperties+=StaticValueProperty | staticCallProperties+=StaticCallValueProperty))*
+	'}')?
 ;
 
 CopyValueProperty:

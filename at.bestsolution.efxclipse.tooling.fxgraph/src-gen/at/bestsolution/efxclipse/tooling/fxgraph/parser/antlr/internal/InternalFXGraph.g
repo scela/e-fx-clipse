@@ -2101,7 +2101,93 @@ ruleIncludeValueProperty returns [EObject current=null]
 	    }
 
 )
-))?)
+))?(	otherlv_4='{' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getIncludeValuePropertyAccess().getLeftCurlyBracketKeyword_3_0());
+    }
+((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getIncludeValuePropertyAccess().getStaticPropertiesStaticValuePropertyParserRuleCall_3_1_0_0()); 
+	    }
+		lv_staticProperties_5_0=ruleStaticValueProperty		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getIncludeValuePropertyRule());
+	        }
+       		add(
+       			$current, 
+       			"staticProperties",
+        		lv_staticProperties_5_0, 
+        		"StaticValueProperty");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getIncludeValuePropertyAccess().getStaticCallPropertiesStaticCallValuePropertyParserRuleCall_3_1_1_0()); 
+	    }
+		lv_staticCallProperties_6_0=ruleStaticCallValueProperty		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getIncludeValuePropertyRule());
+	        }
+       		add(
+       			$current, 
+       			"staticCallProperties",
+        		lv_staticCallProperties_6_0, 
+        		"StaticCallValueProperty");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))(	otherlv_7=',' 
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getIncludeValuePropertyAccess().getCommaKeyword_3_2_0());
+    }
+((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getIncludeValuePropertyAccess().getStaticPropertiesStaticValuePropertyParserRuleCall_3_2_1_0_0()); 
+	    }
+		lv_staticProperties_8_0=ruleStaticValueProperty		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getIncludeValuePropertyRule());
+	        }
+       		add(
+       			$current, 
+       			"staticProperties",
+        		lv_staticProperties_8_0, 
+        		"StaticValueProperty");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getIncludeValuePropertyAccess().getStaticCallPropertiesStaticCallValuePropertyParserRuleCall_3_2_1_1_0()); 
+	    }
+		lv_staticCallProperties_9_0=ruleStaticCallValueProperty		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getIncludeValuePropertyRule());
+	        }
+       		add(
+       			$current, 
+       			"staticCallProperties",
+        		lv_staticCallProperties_9_0, 
+        		"StaticCallValueProperty");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)))*	otherlv_10='}' 
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getIncludeValuePropertyAccess().getRightCurlyBracketKeyword_3_3());
+    }
+)?)
 ;
 
 

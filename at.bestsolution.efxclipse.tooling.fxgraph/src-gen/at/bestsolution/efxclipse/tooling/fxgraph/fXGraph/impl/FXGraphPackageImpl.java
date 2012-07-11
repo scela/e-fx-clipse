@@ -1023,6 +1023,26 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getIncludeValueProperty_StaticProperties()
+  {
+    return (EReference)includeValuePropertyEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getIncludeValueProperty_StaticCallProperties()
+  {
+    return (EReference)includeValuePropertyEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getCopyValueProperty()
   {
     return copyValuePropertyEClass;
@@ -1327,6 +1347,8 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
     includeValuePropertyEClass = createEClass(INCLUDE_VALUE_PROPERTY);
     createEReference(includeValuePropertyEClass, INCLUDE_VALUE_PROPERTY__SOURCE);
     createEAttribute(includeValuePropertyEClass, INCLUDE_VALUE_PROPERTY__NAME);
+    createEReference(includeValuePropertyEClass, INCLUDE_VALUE_PROPERTY__STATIC_PROPERTIES);
+    createEReference(includeValuePropertyEClass, INCLUDE_VALUE_PROPERTY__STATIC_CALL_PROPERTIES);
 
     copyValuePropertyEClass = createEClass(COPY_VALUE_PROPERTY);
     createEReference(copyValuePropertyEClass, COPY_VALUE_PROPERTY__REFERENCE);
@@ -1504,6 +1526,8 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
     initEClass(includeValuePropertyEClass, IncludeValueProperty.class, "IncludeValueProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getIncludeValueProperty_Source(), this.getComponentDefinition(), null, "source", null, 0, 1, IncludeValueProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getIncludeValueProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, IncludeValueProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIncludeValueProperty_StaticProperties(), this.getStaticValueProperty(), null, "staticProperties", null, 0, -1, IncludeValueProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getIncludeValueProperty_StaticCallProperties(), this.getStaticCallValueProperty(), null, "staticCallProperties", null, 0, -1, IncludeValueProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(copyValuePropertyEClass, CopyValueProperty.class, "CopyValueProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getCopyValueProperty_Reference(), this.getElement(), null, "reference", null, 0, 1, CopyValueProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

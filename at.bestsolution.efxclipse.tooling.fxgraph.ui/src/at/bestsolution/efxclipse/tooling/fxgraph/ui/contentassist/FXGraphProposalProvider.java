@@ -1265,6 +1265,12 @@ public class FXGraphProposalProvider extends AbstractFXGraphProposalProvider {
 	
 	}
 	
+//	@Override
+//	public void completeIncludeValueProperty_Source(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+//		// TODO Auto-generated method stub
+//		super.completeIncludeValueProperty_Source(model, assignment, context, acceptor);
+//	}
+	
 	public static class HoverImpl implements IEObjectHover, ITextHoverExtension {
 		private JavadocHoverWrapper javadocHover = new JavadocHoverWrapper();
 		private IJavaElement javaElement;

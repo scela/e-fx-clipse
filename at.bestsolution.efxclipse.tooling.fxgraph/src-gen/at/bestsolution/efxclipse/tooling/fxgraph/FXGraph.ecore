@@ -110,6 +110,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="IncludeValueProperty" eSuperTypes="#//SingleValueProperty #//ListValueElement #//ReferenceType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//ComponentDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="staticProperties" upperBound="-1"
+        eType="#//StaticValueProperty" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="staticCallProperties" upperBound="-1"
+        eType="#//StaticCallValueProperty" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CopyValueProperty" eSuperTypes="#//SingleValueProperty">
     <eStructuralFeatures xsi:type="ecore:EReference" name="reference" eType="#//Element"/>

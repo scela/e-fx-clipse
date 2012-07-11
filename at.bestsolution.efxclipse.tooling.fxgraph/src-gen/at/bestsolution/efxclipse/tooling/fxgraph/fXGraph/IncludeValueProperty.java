@@ -2,6 +2,7 @@
  */
 package at.bestsolution.efxclipse.tooling.fxgraph.fXGraph;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,6 +14,8 @@ package at.bestsolution.efxclipse.tooling.fxgraph.fXGraph;
  * <ul>
  *   <li>{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.IncludeValueProperty#getSource <em>Source</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.IncludeValueProperty#getName <em>Name</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.IncludeValueProperty#getStaticProperties <em>Static Properties</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.IncludeValueProperty#getStaticCallProperties <em>Static Call Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -73,5 +76,37 @@ public interface IncludeValueProperty extends SingleValueProperty, ListValueElem
    * @generated
    */
   void setName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Static Properties</b></em>' containment reference list.
+   * The list contents are of type {@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.StaticValueProperty}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Static Properties</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Static Properties</em>' containment reference list.
+   * @see at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.FXGraphPackage#getIncludeValueProperty_StaticProperties()
+   * @model containment="true"
+   * @generated
+   */
+  EList<StaticValueProperty> getStaticProperties();
+
+  /**
+   * Returns the value of the '<em><b>Static Call Properties</b></em>' containment reference list.
+   * The list contents are of type {@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.StaticCallValueProperty}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Static Call Properties</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Static Call Properties</em>' containment reference list.
+   * @see at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.FXGraphPackage#getIncludeValueProperty_StaticCallProperties()
+   * @model containment="true"
+   * @generated
+   */
+  EList<StaticCallValueProperty> getStaticCallProperties();
 
 } // IncludeValueProperty

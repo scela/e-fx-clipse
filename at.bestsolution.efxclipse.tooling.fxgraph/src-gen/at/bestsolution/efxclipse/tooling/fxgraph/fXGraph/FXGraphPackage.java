@@ -879,13 +879,31 @@ public interface FXGraphPackage extends EPackage
   int INCLUDE_VALUE_PROPERTY__NAME = SINGLE_VALUE_PROPERTY_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Static Properties</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INCLUDE_VALUE_PROPERTY__STATIC_PROPERTIES = SINGLE_VALUE_PROPERTY_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Static Call Properties</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INCLUDE_VALUE_PROPERTY__STATIC_CALL_PROPERTIES = SINGLE_VALUE_PROPERTY_FEATURE_COUNT + 3;
+
+  /**
    * The number of structural features of the '<em>Include Value Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INCLUDE_VALUE_PROPERTY_FEATURE_COUNT = SINGLE_VALUE_PROPERTY_FEATURE_COUNT + 2;
+  int INCLUDE_VALUE_PROPERTY_FEATURE_COUNT = SINGLE_VALUE_PROPERTY_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.impl.CopyValuePropertyImpl <em>Copy Value Property</em>}' class.
@@ -1888,6 +1906,28 @@ public interface FXGraphPackage extends EPackage
   EAttribute getIncludeValueProperty_Name();
 
   /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.IncludeValueProperty#getStaticProperties <em>Static Properties</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Static Properties</em>'.
+   * @see at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.IncludeValueProperty#getStaticProperties()
+   * @see #getIncludeValueProperty()
+   * @generated
+   */
+  EReference getIncludeValueProperty_StaticProperties();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.IncludeValueProperty#getStaticCallProperties <em>Static Call Properties</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Static Call Properties</em>'.
+   * @see at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.IncludeValueProperty#getStaticCallProperties()
+   * @see #getIncludeValueProperty()
+   * @generated
+   */
+  EReference getIncludeValueProperty_StaticCallProperties();
+
+  /**
    * Returns the meta object for class '{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.CopyValueProperty <em>Copy Value Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2703,6 +2743,22 @@ public interface FXGraphPackage extends EPackage
      * @generated
      */
     EAttribute INCLUDE_VALUE_PROPERTY__NAME = eINSTANCE.getIncludeValueProperty_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Static Properties</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INCLUDE_VALUE_PROPERTY__STATIC_PROPERTIES = eINSTANCE.getIncludeValueProperty_StaticProperties();
+
+    /**
+     * The meta object literal for the '<em><b>Static Call Properties</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INCLUDE_VALUE_PROPERTY__STATIC_CALL_PROPERTIES = eINSTANCE.getIncludeValueProperty_StaticCallProperties();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.impl.CopyValuePropertyImpl <em>Copy Value Property</em>}' class.
