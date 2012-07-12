@@ -21,6 +21,7 @@ import org.eclipse.pde.internal.core.bundle.BundlePluginBase;
 import org.eclipse.pde.internal.core.ibundle.IBundle;
 import org.eclipse.pde.ui.IFieldData;
 import org.eclipse.pde.ui.templates.PluginReference;
+import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Constants;
 
 public class E3PluginTemplate extends FXPDETemplateSection {
@@ -131,7 +132,7 @@ public class E3PluginTemplate extends FXPDETemplateSection {
 		
 		if( getBooleanOption(KEY_SHIP_WITH_JAVAFX) ) {
 			if( PluginRegistry.findModel("javafx.osgi") == null ) {
-				if( MessageDialog.openQuestion(getPage(0).getShell(), "No javafx.osgi bundle", "There's currently no javafx.osgi bundle in your workspace or target platform. Would you like to create one?") ) {
+				if( MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().getDisplay().getActiveShell(), "No javafx.osgi bundle", "There's currently no javafx.osgi bundle in your workspace or target platform. Would you like to create one?") ) {
 					WizardDialog d = new WizardDialog(getPage(0).getShell(), new RepackageJavaFXWizard());
 					d.open();
 				}
