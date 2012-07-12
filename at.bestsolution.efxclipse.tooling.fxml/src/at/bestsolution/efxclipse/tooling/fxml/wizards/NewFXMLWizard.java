@@ -32,8 +32,6 @@ public class NewFXMLWizard extends AbstractNewJDTElementWizard<FXMLElement> {
 			try {
 				settings.load(SETTINGS_FILE);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 			setDialogSettings(settings);
 		}
