@@ -45,7 +45,7 @@ public class XMLLoader {
 	public static void main(String[] args) {
 		XMLLoader l = new XMLLoader();
 		try {
-			File f = new File("/Users/tomschindl/git/e-fx-clipse/at.bestsolution.efxclipse.formats.svg/samples/example_cameras_1.svg");
+			File f = new File("/Users/tomschindl/git/e-fx-clipse/at.bestsolution.efxclipse.formats.svg/samples/HG_0001_inkscape.svg");
 			InputStream in;
 			
 			if( f.getName().endsWith("svgz") ) {

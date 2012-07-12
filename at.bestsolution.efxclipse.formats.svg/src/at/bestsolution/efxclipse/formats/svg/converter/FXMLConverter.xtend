@@ -583,15 +583,17 @@ class FXMLConverter {
 	'''
 	
 	def handlePaint(String type, String fillDefinition, String typeOpacity) '''
-	<«type»>
-		«IF fillDefinition.equals("none")»
-			TRANSPARENT
-		«ELSEIF typeOpacity != null && Double::parseDouble(typeOpacity) != Double::valueOf("1.0")»
-			«fillDefinition.fillPaint(Double::parseDouble(typeOpacity))»
-		«ELSE»
-			«fillDefinition.fillPaint»
-		«ENDIF»
-	</«type»>
+	«IF fillDefinition != null»
+		<«type»>
+			«IF fillDefinition.equals("none")»
+				TRANSPARENT
+			«ELSEIF typeOpacity != null && Double::parseDouble(typeOpacity) != Double::valueOf("1.0")»
+				«fillDefinition.fillPaint(Double::parseDouble(typeOpacity))»
+			«ELSE»
+				«fillDefinition.fillPaint»
+			«ENDIF»
+		</«type»>
+	«ENDIF»
 	'''
 	
 	def dispatch handle(SvgClipPathElement element) {
@@ -793,7 +795,8 @@ class FXMLConverter {
 		if( fill.startsWith("#") ) {
 			return fill.hexColor
 		} else if( fill.startsWith("rgb") ) {
-			
+			val c = fill.substring(fill.indexOf("(")+1,fill.indexOf(")"));
+			return c.rgbColor();
 		} else if( fill.startsWith("argb") ) {
 			
 		} else if( fill.startsWith("url") ) {
@@ -812,7 +815,7 @@ class FXMLConverter {
 		if( fill.startsWith("#") ) {
 			return fill.hexColor(opacity)
 		} else if( fill.toLowerCase.startsWith("rgb") ) {
-			val c = fill.substring(fill.indexOf("("),fill.indexOf(")"));
+			val c = fill.substring(fill.indexOf("(")+1,fill.indexOf(")"));
 			return c.rgbColor();
 		} else if( fill.startsWith("argb") ) {
 			
@@ -840,16 +843,25 @@ class FXMLConverter {
 	</Color>
 	'''
 	
+	def rgbColor(String fill, Double opacity) '''
+	<Color>
+		<red>«fill.rgbRed»</red>
+		<green>«fill.rgbGreen»</green>
+		<blue>«fill.rgbBlue»</blue>
+		<opacity>«opacity»</opacity>
+	</Color>
+	'''
+	
 	def rgbRed(String color) {
-		return Integer::parseInt(color.split(";").get(0))/Double::parseDouble("255");
+		return Integer::parseInt(color.split(",").get(0))/Double::parseDouble("255");
 	}
 	
 	def rgbGreen(String color) {
-		return Integer::parseInt(color.split(";").get(1))/Double::parseDouble("255");
+		return Integer::parseInt(color.split(",").get(1))/Double::parseDouble("255");
 	}
 	
 	def rgbBlue(String color) {
-		return Integer::parseInt(color.split(";").get(2))/Double::parseDouble("255");
+		return Integer::parseInt(color.split(",").get(2))/Double::parseDouble("255");
 	}
 	
 	def hexColor(String fill) '''

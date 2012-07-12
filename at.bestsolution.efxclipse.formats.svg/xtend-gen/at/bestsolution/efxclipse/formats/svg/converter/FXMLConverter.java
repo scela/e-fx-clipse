@@ -2153,45 +2153,50 @@ public class FXMLConverter {
   
   public CharSequence handlePaint(final String type, final String fillDefinition, final String typeOpacity) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("<");
-    _builder.append(type, "");
-    _builder.append(">");
-    _builder.newLineIfNotEmpty();
     {
-      boolean _equals = fillDefinition.equals("none");
-      if (_equals) {
-        _builder.append("\t");
-        _builder.append("TRANSPARENT");
-        _builder.newLine();
-      } else {
-        boolean _and = false;
-        boolean _notEquals = (!Objects.equal(typeOpacity, null));
-        if (!_notEquals) {
-          _and = false;
-        } else {
-          double _parseDouble = Double.parseDouble(typeOpacity);
-          Double _valueOf = Double.valueOf("1.0");
-          boolean _notEquals_1 = (_parseDouble != (_valueOf).doubleValue());
-          _and = (_notEquals && _notEquals_1);
+      boolean _notEquals = (!Objects.equal(fillDefinition, null));
+      if (_notEquals) {
+        _builder.append("<");
+        _builder.append(type, "");
+        _builder.append(">");
+        _builder.newLineIfNotEmpty();
+        {
+          boolean _equals = fillDefinition.equals("none");
+          if (_equals) {
+            _builder.append("\t");
+            _builder.append("TRANSPARENT");
+            _builder.newLine();
+          } else {
+            boolean _and = false;
+            boolean _notEquals_1 = (!Objects.equal(typeOpacity, null));
+            if (!_notEquals_1) {
+              _and = false;
+            } else {
+              double _parseDouble = Double.parseDouble(typeOpacity);
+              Double _valueOf = Double.valueOf("1.0");
+              boolean _notEquals_2 = (_parseDouble != (_valueOf).doubleValue());
+              _and = (_notEquals_1 && _notEquals_2);
+            }
+            if (_and) {
+              _builder.append("\t");
+              double _parseDouble_1 = Double.parseDouble(typeOpacity);
+              CharSequence _fillPaint = this.fillPaint(fillDefinition, Double.valueOf(_parseDouble_1));
+              _builder.append(_fillPaint, "	");
+              _builder.newLineIfNotEmpty();
+            } else {
+              _builder.append("\t");
+              CharSequence _fillPaint_1 = this.fillPaint(fillDefinition);
+              _builder.append(_fillPaint_1, "	");
+              _builder.newLineIfNotEmpty();
+            }
+          }
         }
-        if (_and) {
-          _builder.append("\t");
-          double _parseDouble_1 = Double.parseDouble(typeOpacity);
-          CharSequence _fillPaint = this.fillPaint(fillDefinition, Double.valueOf(_parseDouble_1));
-          _builder.append(_fillPaint, "	");
-          _builder.newLineIfNotEmpty();
-        } else {
-          _builder.append("\t");
-          CharSequence _fillPaint_1 = this.fillPaint(fillDefinition);
-          _builder.append(_fillPaint_1, "	");
-          _builder.newLineIfNotEmpty();
-        }
+        _builder.append("</");
+        _builder.append(type, "");
+        _builder.append(">");
+        _builder.newLineIfNotEmpty();
       }
     }
-    _builder.append("</");
-    _builder.append(type, "");
-    _builder.append(">");
-    _builder.newLineIfNotEmpty();
     return _builder;
   }
   
@@ -3161,7 +3166,11 @@ public class FXMLConverter {
       CharSequence _xifexpression_1 = null;
       boolean _startsWith_1 = fill.startsWith("rgb");
       if (_startsWith_1) {
-        _xifexpression_1 = null;
+        int _indexOf = fill.indexOf("(");
+        int _plus = (_indexOf + 1);
+        int _indexOf_1 = fill.indexOf(")");
+        final String c = fill.substring(_plus, _indexOf_1);
+        return this.rgbColor(c);
       } else {
         CharSequence _xifexpression_2 = null;
         boolean _startsWith_2 = fill.startsWith("argb");
@@ -3203,8 +3212,9 @@ public class FXMLConverter {
       boolean _startsWith_1 = _lowerCase.startsWith("rgb");
       if (_startsWith_1) {
         int _indexOf = fill.indexOf("(");
+        int _plus = (_indexOf + 1);
         int _indexOf_1 = fill.indexOf(")");
-        final String c = fill.substring(_indexOf, _indexOf_1);
+        final String c = fill.substring(_plus, _indexOf_1);
         return this.rgbColor(c);
       } else {
         CharSequence _xifexpression_2 = null;
@@ -3268,8 +3278,40 @@ public class FXMLConverter {
     return _builder;
   }
   
+  public CharSequence rgbColor(final String fill, final Double opacity) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<Color>");
+    _builder.newLine();
+    _builder.append("\t");
+    _builder.append("<red>");
+    double _rgbRed = this.rgbRed(fill);
+    _builder.append(_rgbRed, "	");
+    _builder.append("</red>");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<green>");
+    double _rgbGreen = this.rgbGreen(fill);
+    _builder.append(_rgbGreen, "	");
+    _builder.append("</green>");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<blue>");
+    double _rgbBlue = this.rgbBlue(fill);
+    _builder.append(_rgbBlue, "	");
+    _builder.append("</blue>");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("<opacity>");
+    _builder.append(opacity, "	");
+    _builder.append("</opacity>");
+    _builder.newLineIfNotEmpty();
+    _builder.append("</Color>");
+    _builder.newLine();
+    return _builder;
+  }
+  
   public double rgbRed(final String color) {
-    String[] _split = color.split(";");
+    String[] _split = color.split(",");
     String _get = ((List<String>)Conversions.doWrapArray(_split)).get(0);
     int _parseInt = Integer.parseInt(_get);
     double _parseDouble = Double.parseDouble("255");
@@ -3277,7 +3319,7 @@ public class FXMLConverter {
   }
   
   public double rgbGreen(final String color) {
-    String[] _split = color.split(";");
+    String[] _split = color.split(",");
     String _get = ((List<String>)Conversions.doWrapArray(_split)).get(1);
     int _parseInt = Integer.parseInt(_get);
     double _parseDouble = Double.parseDouble("255");
@@ -3285,7 +3327,7 @@ public class FXMLConverter {
   }
   
   public double rgbBlue(final String color) {
-    String[] _split = color.split(";");
+    String[] _split = color.split(",");
     String _get = ((List<String>)Conversions.doWrapArray(_split)).get(2);
     int _parseInt = Integer.parseInt(_get);
     double _parseDouble = Double.parseDouble("255");
