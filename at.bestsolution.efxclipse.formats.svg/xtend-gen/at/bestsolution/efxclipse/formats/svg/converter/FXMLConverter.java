@@ -2158,15 +2158,8 @@ public class FXMLConverter {
     _builder.append(">");
     _builder.newLineIfNotEmpty();
     {
-      boolean _or = false;
-      boolean _equals = Objects.equal(fillDefinition, null);
+      boolean _equals = fillDefinition.equals("none");
       if (_equals) {
-        _or = true;
-      } else {
-        boolean _equals_1 = fillDefinition.equals("none");
-        _or = (_equals || _equals_1);
-      }
-      if (_or) {
         _builder.append("\t");
         _builder.append("TRANSPARENT");
         _builder.newLine();

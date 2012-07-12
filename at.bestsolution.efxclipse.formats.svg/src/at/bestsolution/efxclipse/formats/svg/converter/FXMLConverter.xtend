@@ -584,7 +584,7 @@ class FXMLConverter {
 	
 	def handlePaint(String type, String fillDefinition, String typeOpacity) '''
 	<«type»>
-		«IF fillDefinition == null || fillDefinition.equals("none")»
+		«IF fillDefinition.equals("none")»
 			TRANSPARENT
 		«ELSEIF typeOpacity != null && Double::parseDouble(typeOpacity) != Double::valueOf("1.0")»
 			«fillDefinition.fillPaint(Double::parseDouble(typeOpacity))»
