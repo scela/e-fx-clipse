@@ -993,6 +993,26 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getReferenceValueProperty_StaticProperties()
+  {
+    return (EReference)referenceValuePropertyEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getReferenceValueProperty_StaticCallProperties()
+  {
+    return (EReference)referenceValuePropertyEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getIncludeValueProperty()
   {
     return includeValuePropertyEClass;
@@ -1343,6 +1363,8 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
 
     referenceValuePropertyEClass = createEClass(REFERENCE_VALUE_PROPERTY);
     createEReference(referenceValuePropertyEClass, REFERENCE_VALUE_PROPERTY__REFERENCE);
+    createEReference(referenceValuePropertyEClass, REFERENCE_VALUE_PROPERTY__STATIC_PROPERTIES);
+    createEReference(referenceValuePropertyEClass, REFERENCE_VALUE_PROPERTY__STATIC_CALL_PROPERTIES);
 
     includeValuePropertyEClass = createEClass(INCLUDE_VALUE_PROPERTY);
     createEReference(includeValuePropertyEClass, INCLUDE_VALUE_PROPERTY__SOURCE);
@@ -1522,6 +1544,8 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
 
     initEClass(referenceValuePropertyEClass, ReferenceValueProperty.class, "ReferenceValueProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getReferenceValueProperty_Reference(), this.getReferenceType(), null, "reference", null, 0, 1, ReferenceValueProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getReferenceValueProperty_StaticProperties(), this.getStaticValueProperty(), null, "staticProperties", null, 0, -1, ReferenceValueProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getReferenceValueProperty_StaticCallProperties(), this.getStaticCallValueProperty(), null, "staticCallProperties", null, 0, -1, ReferenceValueProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(includeValuePropertyEClass, IncludeValueProperty.class, "IncludeValueProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getIncludeValueProperty_Source(), this.getComponentDefinition(), null, "source", null, 0, 1, IncludeValueProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

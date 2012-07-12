@@ -1182,12 +1182,31 @@ public class FXGraphGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cReferenceAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final CrossReference cReferenceReferenceTypeCrossReference_1_0 = (CrossReference)cReferenceAssignment_1.eContents().get(0);
 		private final RuleCall cReferenceReferenceTypeValidIDParserRuleCall_1_0_1 = (RuleCall)cReferenceReferenceTypeCrossReference_1_0.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cLeftCurlyBracketKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Alternatives cAlternatives_2_1 = (Alternatives)cGroup_2.eContents().get(1);
+		private final Assignment cStaticPropertiesAssignment_2_1_0 = (Assignment)cAlternatives_2_1.eContents().get(0);
+		private final RuleCall cStaticPropertiesStaticValuePropertyParserRuleCall_2_1_0_0 = (RuleCall)cStaticPropertiesAssignment_2_1_0.eContents().get(0);
+		private final Assignment cStaticCallPropertiesAssignment_2_1_1 = (Assignment)cAlternatives_2_1.eContents().get(1);
+		private final RuleCall cStaticCallPropertiesStaticCallValuePropertyParserRuleCall_2_1_1_0 = (RuleCall)cStaticCallPropertiesAssignment_2_1_1.eContents().get(0);
+		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
+		private final Keyword cCommaKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
+		private final Alternatives cAlternatives_2_2_1 = (Alternatives)cGroup_2_2.eContents().get(1);
+		private final Assignment cStaticPropertiesAssignment_2_2_1_0 = (Assignment)cAlternatives_2_2_1.eContents().get(0);
+		private final RuleCall cStaticPropertiesStaticValuePropertyParserRuleCall_2_2_1_0_0 = (RuleCall)cStaticPropertiesAssignment_2_2_1_0.eContents().get(0);
+		private final Assignment cStaticCallPropertiesAssignment_2_2_1_1 = (Assignment)cAlternatives_2_2_1.eContents().get(1);
+		private final RuleCall cStaticCallPropertiesStaticCallValuePropertyParserRuleCall_2_2_1_1_0 = (RuleCall)cStaticCallPropertiesAssignment_2_2_1_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_2_3 = (Keyword)cGroup_2.eContents().get(3);
 		
 		//ReferenceValueProperty:
-		//	"idref" reference=[ReferenceType|ValidID];
+		//	"idref" reference=[ReferenceType|ValidID] ("{" (staticProperties+=StaticValueProperty |
+		//	staticCallProperties+=StaticCallValueProperty) ("," (staticProperties+=StaticValueProperty |
+		//	staticCallProperties+=StaticCallValueProperty))* "}")?;
 		public ParserRule getRule() { return rule; }
 
-		//"idref" reference=[ReferenceType|ValidID]
+		//"idref" reference=[ReferenceType|ValidID] ("{" (staticProperties+=StaticValueProperty |
+		//staticCallProperties+=StaticCallValueProperty) ("," (staticProperties+=StaticValueProperty |
+		//staticCallProperties+=StaticCallValueProperty))* "}")?
 		public Group getGroup() { return cGroup; }
 
 		//"idref"
@@ -1201,6 +1220,52 @@ public class FXGraphGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ValidID
 		public RuleCall getReferenceReferenceTypeValidIDParserRuleCall_1_0_1() { return cReferenceReferenceTypeValidIDParserRuleCall_1_0_1; }
+
+		//("{" (staticProperties+=StaticValueProperty | staticCallProperties+=StaticCallValueProperty) (","
+		//(staticProperties+=StaticValueProperty | staticCallProperties+=StaticCallValueProperty))* "}")?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_2_0() { return cLeftCurlyBracketKeyword_2_0; }
+
+		//staticProperties+=StaticValueProperty | staticCallProperties+=StaticCallValueProperty
+		public Alternatives getAlternatives_2_1() { return cAlternatives_2_1; }
+
+		//staticProperties+=StaticValueProperty
+		public Assignment getStaticPropertiesAssignment_2_1_0() { return cStaticPropertiesAssignment_2_1_0; }
+
+		//StaticValueProperty
+		public RuleCall getStaticPropertiesStaticValuePropertyParserRuleCall_2_1_0_0() { return cStaticPropertiesStaticValuePropertyParserRuleCall_2_1_0_0; }
+
+		//staticCallProperties+=StaticCallValueProperty
+		public Assignment getStaticCallPropertiesAssignment_2_1_1() { return cStaticCallPropertiesAssignment_2_1_1; }
+
+		//StaticCallValueProperty
+		public RuleCall getStaticCallPropertiesStaticCallValuePropertyParserRuleCall_2_1_1_0() { return cStaticCallPropertiesStaticCallValuePropertyParserRuleCall_2_1_1_0; }
+
+		//("," (staticProperties+=StaticValueProperty | staticCallProperties+=StaticCallValueProperty))*
+		public Group getGroup_2_2() { return cGroup_2_2; }
+
+		//","
+		public Keyword getCommaKeyword_2_2_0() { return cCommaKeyword_2_2_0; }
+
+		//staticProperties+=StaticValueProperty | staticCallProperties+=StaticCallValueProperty
+		public Alternatives getAlternatives_2_2_1() { return cAlternatives_2_2_1; }
+
+		//staticProperties+=StaticValueProperty
+		public Assignment getStaticPropertiesAssignment_2_2_1_0() { return cStaticPropertiesAssignment_2_2_1_0; }
+
+		//StaticValueProperty
+		public RuleCall getStaticPropertiesStaticValuePropertyParserRuleCall_2_2_1_0_0() { return cStaticPropertiesStaticValuePropertyParserRuleCall_2_2_1_0_0; }
+
+		//staticCallProperties+=StaticCallValueProperty
+		public Assignment getStaticCallPropertiesAssignment_2_2_1_1() { return cStaticCallPropertiesAssignment_2_2_1_1; }
+
+		//StaticCallValueProperty
+		public RuleCall getStaticCallPropertiesStaticCallValuePropertyParserRuleCall_2_2_1_1_0() { return cStaticCallPropertiesStaticCallValuePropertyParserRuleCall_2_2_1_1_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_2_3() { return cRightCurlyBracketKeyword_2_3; }
 	}
 
 	public class IncludeValuePropertyElements extends AbstractParserRuleElementFinder {
@@ -1842,7 +1907,9 @@ public class FXGraphGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ReferenceValueProperty:
-	//	"idref" reference=[ReferenceType|ValidID];
+	//	"idref" reference=[ReferenceType|ValidID] ("{" (staticProperties+=StaticValueProperty |
+	//	staticCallProperties+=StaticCallValueProperty) ("," (staticProperties+=StaticValueProperty |
+	//	staticCallProperties+=StaticCallValueProperty))* "}")?;
 	public ReferenceValuePropertyElements getReferenceValuePropertyAccess() {
 		return (pReferenceValueProperty != null) ? pReferenceValueProperty : (pReferenceValueProperty = new ReferenceValuePropertyElements());
 	}

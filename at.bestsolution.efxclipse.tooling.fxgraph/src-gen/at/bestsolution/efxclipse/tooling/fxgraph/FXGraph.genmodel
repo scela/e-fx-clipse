@@ -88,6 +88,8 @@
     <genClasses ecoreClass="FXGraph.ecore#//ReferenceType"/>
     <genClasses ecoreClass="FXGraph.ecore#//ReferenceValueProperty">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference FXGraph.ecore#//ReferenceValueProperty/reference"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FXGraph.ecore#//ReferenceValueProperty/staticProperties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference FXGraph.ecore#//ReferenceValueProperty/staticCallProperties"/>
     </genClasses>
     <genClasses ecoreClass="FXGraph.ecore#//IncludeValueProperty">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference FXGraph.ecore#//IncludeValueProperty/source"/>

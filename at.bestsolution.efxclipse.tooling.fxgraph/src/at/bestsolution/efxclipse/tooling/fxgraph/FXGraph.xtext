@@ -96,7 +96,9 @@ ReferenceType:
 ;
 
 ReferenceValueProperty:
-	'idref' reference=[ReferenceType|ValidID]
+	'idref' reference=[ReferenceType|ValidID] ('{'
+		(staticProperties+=StaticValueProperty | staticCallProperties+=StaticCallValueProperty) (',' (staticProperties+=StaticValueProperty | staticCallProperties+=StaticCallValueProperty))*
+	'}')?
 ;
 
 IncludeValueProperty:

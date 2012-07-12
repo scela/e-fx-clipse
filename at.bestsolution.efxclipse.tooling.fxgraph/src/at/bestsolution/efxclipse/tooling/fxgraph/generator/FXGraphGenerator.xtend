@@ -255,7 +255,7 @@ class FXGraphGenerator implements IGenerator {
 		«ELSEIF prop.value instanceof ReferenceValueProperty»
 			«IF !skipIncludes»
 				<«prop.name»>
-					<fx:reference source="«(prop.value as ReferenceValueProperty).reference.refname»" />
+					«referenceContent(prop.value as ReferenceValueProperty, importManager, preview, skipController, skipIncludes)»
 				</«prop.name»>
 			«ENDIF»
 		«ELSEIF prop.value instanceof IncludeValueProperty»
@@ -277,6 +277,15 @@ class FXGraphGenerator implements IGenerator {
 			«statCallPropContent(includeElement.staticCallProperties, importManager, preview, skipController, skipIncludes)»
 			«statPropContent(includeElement.staticProperties, importManager, preview, skipController, skipIncludes)»
 		</fx:include>
+		«ENDIF»
+	'''
+	
+	def referenceContent(ReferenceValueProperty referenceElement, ImportManager importManager, boolean preview, boolean skipController, boolean skipIncludes) '''
+		<fx:reference source="«referenceElement.reference.refname»"«elementStaticAttributes(referenceElement.staticProperties,importManager,preview,skipController)»«elementStaticCallAttributes(referenceElement.staticCallProperties,importManager,preview,skipController)» «IF !hasNestedProperties(referenceElement,preview)»/«ENDIF»>
+		«IF hasNestedProperties(referenceElement,preview)»
+			«statCallPropContent(referenceElement.staticCallProperties, importManager, preview, skipController, skipIncludes)»
+			«statPropContent(referenceElement.staticProperties, importManager, preview, skipController, skipIncludes)»
+		</fx:reference>
 		«ENDIF»
 	'''
 	
@@ -302,7 +311,7 @@ class FXGraphGenerator implements IGenerator {
 			</«prop.type.shortName(importManager)».«prop.name»>
 		«ELSEIF prop.value instanceof ReferenceValueProperty»
 			<«prop.type.shortName(importManager)».«prop.name»>
-				<fx:reference source="«(prop.value as ReferenceValueProperty).reference.refname»" />
+				«referenceContent(prop.value as ReferenceValueProperty, importManager, preview, skipController, skipIncludes)»
 			</«prop.type.shortName(importManager)».«prop.name»>
 		«ELSEIF prop.value instanceof IncludeValueProperty»
 			«IF ! skipIncludes»
@@ -340,7 +349,7 @@ class FXGraphGenerator implements IGenerator {
 			</«prop.type.shortName(importManager)».«prop.name»>
 		«ELSEIF prop.value instanceof ReferenceValueProperty»
 			<«prop.type.shortName(importManager)».«prop.name»>
-				<fx:reference source="«(prop.value as ReferenceValueProperty).reference.refname»" />
+				«referenceContent(prop.value as ReferenceValueProperty, importManager, preview, skipController, skipIncludes)»
 			</«prop.type.shortName(importManager)».«prop.name»>
 		«ELSEIF prop.value instanceof IncludeValueProperty»
 			«IF ! skipIncludes»
@@ -380,7 +389,7 @@ class FXGraphGenerator implements IGenerator {
 			«IF e instanceof Element»
 				«elementContent(e as Element,importManager,preview, skipController, skipIncludes)»
 			«ELSEIF e instanceof ReferenceValueProperty»
-				<fx:reference source="«(e as ReferenceValueProperty).reference.refname»" />
+				«referenceContent(e as ReferenceValueProperty, importManager, preview, skipController, skipIncludes)»
 			«ELSEIF e instanceof IncludeValueProperty»
 				«IF !skipIncludes»
 					«includeContent(e as IncludeValueProperty, importManager, preview, skipController, skipIncludes)»
@@ -553,7 +562,8 @@ class FXGraphGenerator implements IGenerator {
 		if( value instanceof SimpleValueProperty ) {
 			return true;
 		} else if( value instanceof ReferenceValueProperty ) {
-			return true;
+			val r = value as ReferenceValueProperty;
+			return r.staticCallProperties.empty && r.staticProperties.empty;
 		} else if( value instanceof ControllerHandledValueProperty ) {
 			return true;
 		} else if( value instanceof ScriptHandlerHandledValueProperty ) {
@@ -693,6 +703,22 @@ class FXGraphGenerator implements IGenerator {
 	}
 	
 	def hasNestedProperties(IncludeValueProperty element, boolean preview) {
+		if( element.staticCallProperties.size > 0) {
+			if( ! element.staticCallProperties.filter([StaticCallValueProperty p|previewFilter(p,preview)]).filter([StaticCallValueProperty p|subelementFilter(p)]).nullOrEmpty ) {
+				return true;
+			}
+		}
+		
+		if( element.staticProperties.size > 0) {
+			if( ! element.staticProperties.filter([StaticValueProperty p|previewFilter(p,preview)]).filter([StaticValueProperty p|subelementFilter(p)]).nullOrEmpty ) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	def hasNestedProperties(ReferenceValueProperty element, boolean preview) {
 		if( element.staticCallProperties.size > 0) {
 			if( ! element.staticCallProperties.filter([StaticCallValueProperty p|previewFilter(p,preview)]).filter([StaticCallValueProperty p|subelementFilter(p)]).nullOrEmpty ) {
 				return true;

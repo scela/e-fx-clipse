@@ -682,12 +682,9 @@ public class FXGraphGenerator implements IGenerator {
                     _builder.append(">");
                     _builder.newLineIfNotEmpty();
                     _builder.append("\t");
-                    _builder.append("<fx:reference source=\"");
                     ValueProperty _value_11 = prop.getValue();
-                    ReferenceType _reference = ((ReferenceValueProperty) _value_11).getReference();
-                    String _refname = this.refname(_reference);
-                    _builder.append(_refname, "	");
-                    _builder.append("\" />");
+                    CharSequence _referenceContent = this.referenceContent(((ReferenceValueProperty) _value_11), importManager, preview, skipController, skipIncludes);
+                    _builder.append(_referenceContent, "	");
                     _builder.newLineIfNotEmpty();
                     _builder.append("</");
                     String _name_11 = prop.getName();
@@ -730,8 +727,8 @@ public class FXGraphGenerator implements IGenerator {
                     _builder.append("\t");
                     _builder.append("<fx:copy source=\"");
                     ValueProperty _value_15 = prop.getValue();
-                    Element _reference_1 = ((CopyValueProperty) _value_15).getReference();
-                    String _name_15 = _reference_1.getName();
+                    Element _reference = ((CopyValueProperty) _value_15).getReference();
+                    String _name_15 = _reference.getName();
                     _builder.append(_name_15, "	");
                     _builder.append("\" />");
                     _builder.newLineIfNotEmpty();
@@ -800,6 +797,49 @@ public class FXGraphGenerator implements IGenerator {
         _builder.append(_statPropContent, "	");
         _builder.newLineIfNotEmpty();
         _builder.append("</fx:include>");
+        _builder.newLine();
+      }
+    }
+    return _builder;
+  }
+  
+  public CharSequence referenceContent(final ReferenceValueProperty referenceElement, final ImportManager importManager, final boolean preview, final boolean skipController, final boolean skipIncludes) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("<fx:reference source=\"");
+    ReferenceType _reference = referenceElement.getReference();
+    String _refname = this.refname(_reference);
+    _builder.append(_refname, "");
+    _builder.append("\"");
+    EList<StaticValueProperty> _staticProperties = referenceElement.getStaticProperties();
+    StringBuilder _elementStaticAttributes = this.elementStaticAttributes(_staticProperties, importManager, preview, skipController);
+    _builder.append(_elementStaticAttributes, "");
+    EList<StaticCallValueProperty> _staticCallProperties = referenceElement.getStaticCallProperties();
+    StringBuilder _elementStaticCallAttributes = this.elementStaticCallAttributes(_staticCallProperties, importManager, preview, skipController);
+    _builder.append(_elementStaticCallAttributes, "");
+    _builder.append(" ");
+    {
+      boolean _hasNestedProperties = this.hasNestedProperties(referenceElement, preview);
+      boolean _not = (!_hasNestedProperties);
+      if (_not) {
+        _builder.append("/");
+      }
+    }
+    _builder.append(">");
+    _builder.newLineIfNotEmpty();
+    {
+      boolean _hasNestedProperties_1 = this.hasNestedProperties(referenceElement, preview);
+      if (_hasNestedProperties_1) {
+        _builder.append("\t");
+        EList<StaticCallValueProperty> _staticCallProperties_1 = referenceElement.getStaticCallProperties();
+        CharSequence _statCallPropContent = this.statCallPropContent(_staticCallProperties_1, importManager, preview, skipController, skipIncludes);
+        _builder.append(_statCallPropContent, "	");
+        _builder.newLineIfNotEmpty();
+        _builder.append("\t");
+        EList<StaticValueProperty> _staticProperties_1 = referenceElement.getStaticProperties();
+        CharSequence _statPropContent = this.statPropContent(_staticProperties_1, importManager, preview, skipController, skipIncludes);
+        _builder.append(_statPropContent, "	");
+        _builder.newLineIfNotEmpty();
+        _builder.append("</fx:reference>");
         _builder.newLine();
       }
     }
@@ -967,12 +1007,9 @@ public class FXGraphGenerator implements IGenerator {
                     _builder.append(">");
                     _builder.newLineIfNotEmpty();
                     _builder.append("\t");
-                    _builder.append("<fx:reference source=\"");
                     ValueProperty _value_11 = prop.getValue();
-                    ReferenceType _reference = ((ReferenceValueProperty) _value_11).getReference();
-                    String _refname = this.refname(_reference);
-                    _builder.append(_refname, "	");
-                    _builder.append("\" />");
+                    CharSequence _referenceContent = this.referenceContent(((ReferenceValueProperty) _value_11), importManager, preview, skipController, skipIncludes);
+                    _builder.append(_referenceContent, "	");
                     _builder.newLineIfNotEmpty();
                     _builder.append("</");
                     JvmTypeReference _type_11 = prop.getType();
@@ -1029,8 +1066,8 @@ public class FXGraphGenerator implements IGenerator {
                         _builder.append("\t");
                         _builder.append("<fx:copy source=\"");
                         ValueProperty _value_15 = prop.getValue();
-                        Element _reference_1 = ((CopyValueProperty) _value_15).getReference();
-                        String _name_15 = _reference_1.getName();
+                        Element _reference = ((CopyValueProperty) _value_15).getReference();
+                        String _name_15 = _reference.getName();
                         _builder.append(_name_15, "	");
                         _builder.append("\" />");
                         _builder.newLineIfNotEmpty();
@@ -1217,12 +1254,9 @@ public class FXGraphGenerator implements IGenerator {
                     _builder.append(">");
                     _builder.newLineIfNotEmpty();
                     _builder.append("\t");
-                    _builder.append("<fx:reference source=\"");
                     ValueProperty _value_11 = prop.getValue();
-                    ReferenceType _reference = ((ReferenceValueProperty) _value_11).getReference();
-                    String _refname = this.refname(_reference);
-                    _builder.append(_refname, "	");
-                    _builder.append("\" />");
+                    CharSequence _referenceContent = this.referenceContent(((ReferenceValueProperty) _value_11), importManager, preview, skipController, skipIncludes);
+                    _builder.append(_referenceContent, "	");
                     _builder.newLineIfNotEmpty();
                     _builder.append("</");
                     JvmTypeReference _type_11 = this.type(prop);
@@ -1279,8 +1313,8 @@ public class FXGraphGenerator implements IGenerator {
                         _builder.append("\t");
                         _builder.append("<fx:copy source=\"");
                         ValueProperty _value_15 = prop.getValue();
-                        Element _reference_1 = ((CopyValueProperty) _value_15).getReference();
-                        String _name_15 = _reference_1.getName();
+                        Element _reference = ((CopyValueProperty) _value_15).getReference();
+                        String _name_15 = _reference.getName();
                         _builder.append(_name_15, "	");
                         _builder.append("\" />");
                         _builder.newLineIfNotEmpty();
@@ -1349,11 +1383,8 @@ public class FXGraphGenerator implements IGenerator {
             _builder.newLineIfNotEmpty();
           } else {
             if ((e instanceof ReferenceValueProperty)) {
-              _builder.append("<fx:reference source=\"");
-              ReferenceType _reference = ((ReferenceValueProperty) e).getReference();
-              String _refname = this.refname(_reference);
-              _builder.append(_refname, "");
-              _builder.append("\" />");
+              CharSequence _referenceContent = this.referenceContent(((ReferenceValueProperty) e), importManager, preview, skipController, skipIncludes);
+              _builder.append(_referenceContent, "");
               _builder.newLineIfNotEmpty();
             } else {
               if ((e instanceof IncludeValueProperty)) {
@@ -1999,7 +2030,18 @@ public class FXGraphGenerator implements IGenerator {
       return true;
     } else {
       if ((value instanceof ReferenceValueProperty)) {
-        return true;
+        final ReferenceValueProperty r = ((ReferenceValueProperty) value);
+        boolean _and = false;
+        EList<StaticCallValueProperty> _staticCallProperties = r.getStaticCallProperties();
+        boolean _isEmpty = _staticCallProperties.isEmpty();
+        if (!_isEmpty) {
+          _and = false;
+        } else {
+          EList<StaticValueProperty> _staticProperties = r.getStaticProperties();
+          boolean _isEmpty_1 = _staticProperties.isEmpty();
+          _and = (_isEmpty && _isEmpty_1);
+        }
+        return _and;
       } else {
         if ((value instanceof ControllerHandledValueProperty)) {
           return true;
@@ -2369,6 +2411,60 @@ public class FXGraphGenerator implements IGenerator {
   }
   
   public boolean hasNestedProperties(final IncludeValueProperty element, final boolean preview) {
+    EList<StaticCallValueProperty> _staticCallProperties = element.getStaticCallProperties();
+    int _size = _staticCallProperties.size();
+    boolean _greaterThan = (_size > 0);
+    if (_greaterThan) {
+      EList<StaticCallValueProperty> _staticCallProperties_1 = element.getStaticCallProperties();
+      final Function1<StaticCallValueProperty,Boolean> _function = new Function1<StaticCallValueProperty,Boolean>() {
+          public Boolean apply(final StaticCallValueProperty p) {
+            boolean _previewFilter = FXGraphGenerator.this.previewFilter(p, preview);
+            return Boolean.valueOf(_previewFilter);
+          }
+        };
+      Iterable<StaticCallValueProperty> _filter = IterableExtensions.<StaticCallValueProperty>filter(_staticCallProperties_1, _function);
+      final Function1<StaticCallValueProperty,Boolean> _function_1 = new Function1<StaticCallValueProperty,Boolean>() {
+          public Boolean apply(final StaticCallValueProperty p) {
+            boolean _subelementFilter = FXGraphGenerator.this.subelementFilter(p);
+            return Boolean.valueOf(_subelementFilter);
+          }
+        };
+      Iterable<StaticCallValueProperty> _filter_1 = IterableExtensions.<StaticCallValueProperty>filter(_filter, _function_1);
+      boolean _isNullOrEmpty = IterableExtensions.isNullOrEmpty(_filter_1);
+      boolean _not = (!_isNullOrEmpty);
+      if (_not) {
+        return true;
+      }
+    }
+    EList<StaticValueProperty> _staticProperties = element.getStaticProperties();
+    int _size_1 = _staticProperties.size();
+    boolean _greaterThan_1 = (_size_1 > 0);
+    if (_greaterThan_1) {
+      EList<StaticValueProperty> _staticProperties_1 = element.getStaticProperties();
+      final Function1<StaticValueProperty,Boolean> _function_2 = new Function1<StaticValueProperty,Boolean>() {
+          public Boolean apply(final StaticValueProperty p) {
+            boolean _previewFilter = FXGraphGenerator.this.previewFilter(p, preview);
+            return Boolean.valueOf(_previewFilter);
+          }
+        };
+      Iterable<StaticValueProperty> _filter_2 = IterableExtensions.<StaticValueProperty>filter(_staticProperties_1, _function_2);
+      final Function1<StaticValueProperty,Boolean> _function_3 = new Function1<StaticValueProperty,Boolean>() {
+          public Boolean apply(final StaticValueProperty p) {
+            boolean _subelementFilter = FXGraphGenerator.this.subelementFilter(p);
+            return Boolean.valueOf(_subelementFilter);
+          }
+        };
+      Iterable<StaticValueProperty> _filter_3 = IterableExtensions.<StaticValueProperty>filter(_filter_2, _function_3);
+      boolean _isNullOrEmpty_1 = IterableExtensions.isNullOrEmpty(_filter_3);
+      boolean _not_1 = (!_isNullOrEmpty_1);
+      if (_not_1) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  public boolean hasNestedProperties(final ReferenceValueProperty element, final boolean preview) {
     EList<StaticCallValueProperty> _staticCallProperties = element.getStaticCallProperties();
     int _size = _staticCallProperties.size();
     boolean _greaterThan = (_size > 0);
