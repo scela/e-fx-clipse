@@ -14,6 +14,7 @@ import java.io.File;
 
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -28,6 +29,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.PlatformUI;
 import org.osgi.service.prefs.BackingStoreException;
 
 import at.bestsolution.efxclipse.tooling.jdt.core.internal.JavaFXCorePlugin;
@@ -86,6 +88,10 @@ public class JavaFXPreferencePage extends PreferencePage implements IWorkbenchPr
 				}
 			});
 			
+			String jar = pref.get(JavaFXPreferencesConstants.JAVAFX_JAR, null);
+			String javadoc = pref.get(JavaFXPreferencesConstants.JAVAFX_JAVADOC, null);
+			String antjar = pref.get(JavaFXPreferencesConstants.JAVAFX_ANTJAR, null);
+			
 			{
 				Label l = new Label(container, SWT.NONE);
 				l.setText("Jar");
@@ -93,6 +99,9 @@ public class JavaFXPreferencePage extends PreferencePage implements IWorkbenchPr
 				customJarLocation = new Text(container, SWT.BORDER);
 				customJarLocation.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,true,false,2,1));
 				customJarLocation.setEnabled(selected);
+				if( jar != null ) {
+					customJarLocation.setText(jar);
+				}
 			}
 			
 			{
@@ -102,6 +111,9 @@ public class JavaFXPreferencePage extends PreferencePage implements IWorkbenchPr
 				customJavadocLocation = new Text(container, SWT.BORDER);
 				customJavadocLocation.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,true,false,2,1));
 				customJavadocLocation.setEnabled(selected);
+				if( javadoc != null ) {
+					customJavadocLocation.setText(javadoc);
+				}
 			}
 			
 			{
@@ -111,6 +123,9 @@ public class JavaFXPreferencePage extends PreferencePage implements IWorkbenchPr
 				customAntJarLocation = new Text(container, SWT.BORDER);
 				customAntJarLocation.setLayoutData(new GridData(SWT.FILL,SWT.CENTER,true,false,2,1));
 				customAntJarLocation.setEnabled(selected);
+				if( antjar != null ) {
+					customAntJarLocation.setText(antjar);
+				}
 			}
 		}
 		
@@ -173,8 +188,14 @@ public class JavaFXPreferencePage extends PreferencePage implements IWorkbenchPr
 	@Override
 	public boolean performOk() {
 		IEclipsePreferences pref = InstanceScope.INSTANCE.getNode(JavaFXCorePlugin.PLUGIN_ID);
+		boolean rv = false;
 		
 		if( builtinType != null && builtinType.getSelection() ) {
+			// Check that there's no change
+			if( pref.get(JavaFXPreferencesConstants.JAVAFX_CONFIGTYPE, JavaFXPreferencesConstants.DEFAULT_TYPE).equals(JavaFXPreferencesConstants.CONFIG_TYPE_BUILTIN) ) {
+				return true;
+			}
+			
 			pref.put(JavaFXPreferencesConstants.JAVAFX_CONFIGTYPE, JavaFXPreferencesConstants.CONFIG_TYPE_BUILTIN);
 			try {
 				pref.flush();
@@ -183,10 +204,17 @@ public class JavaFXPreferencePage extends PreferencePage implements IWorkbenchPr
 				e.printStackTrace();
 			}
 			
-			return super.performOk();
+			rv = super.performOk();
 		} else if( customType.getSelection() ) {
-			pref.put(JavaFXPreferencesConstants.JAVAFX_CONFIGTYPE, JavaFXPreferencesConstants.CONFIG_TYPE_CUSTOM);
-
+			// Check that there's no change
+			if( pref.get(JavaFXPreferencesConstants.JAVAFX_CONFIGTYPE, JavaFXPreferencesConstants.DEFAULT_TYPE).equals(JavaFXPreferencesConstants.CONFIG_TYPE_CUSTOM)
+					&& pref.get(JavaFXPreferencesConstants.JAVAFX_JAR, "__DUMMY__").equals(customJarLocation.getText())
+					&& pref.get(JavaFXPreferencesConstants.JAVAFX_JAVADOC, "__DUMMY__").equals(customJavadocLocation.getText())
+					&& pref.get(JavaFXPreferencesConstants.JAVAFX_ANTJAR, "__DUMMY__").equals(customAntJarLocation.getText())
+					) {
+				return true;
+			}
+			
 			File f = new File(customJarLocation.getText());
 			if( ! f.exists() ) {
 				setErrorMessage("The jar location is invalid");
@@ -209,6 +237,11 @@ public class JavaFXPreferencePage extends PreferencePage implements IWorkbenchPr
 				}
 			}
 			
+			pref.put(JavaFXPreferencesConstants.JAVAFX_CONFIGTYPE, JavaFXPreferencesConstants.CONFIG_TYPE_CUSTOM);
+			pref.put(JavaFXPreferencesConstants.JAVAFX_JAR, customJarLocation.getText());
+			pref.put(JavaFXPreferencesConstants.JAVAFX_JAVADOC, customJavadocLocation.getText());
+			pref.put(JavaFXPreferencesConstants.JAVAFX_ANTJAR, customAntJarLocation.getText());
+			
 			try {
 				pref.flush();
 			} catch (BackingStoreException e) {
@@ -216,8 +249,15 @@ public class JavaFXPreferencePage extends PreferencePage implements IWorkbenchPr
 				e.printStackTrace();
 			}
 			
-			return super.performOk();
+			rv = super.performOk();
 		} else if( sdkType.getSelection() ) {
+			// Check that there's no change
+			if( pref.get(JavaFXPreferencesConstants.JAVAFX_CONFIGTYPE, JavaFXPreferencesConstants.DEFAULT_TYPE).equals(JavaFXPreferencesConstants.CONFIG_TYPE_SDK)
+					&& pref.get(JavaFXPreferencesConstants.JAVAFX_DIR, "__DUMMY__").equals(sdkDirectoryLocation.getText())) {
+				return true;
+			}
+
+			
 			pref.put(JavaFXPreferencesConstants.JAVAFX_CONFIGTYPE, JavaFXPreferencesConstants.CONFIG_TYPE_SDK);
 			String dir = sdkDirectoryLocation.getText();
 			
@@ -230,11 +270,23 @@ public class JavaFXPreferencePage extends PreferencePage implements IWorkbenchPr
 					e.printStackTrace();
 				}
 				
-				return super.performOk();
+				rv = super.performOk();
 			}
 		}
 		
-		return false;
+		if( rv ) {
+			if( MessageDialog.openQuestion(getShell(), "Restart", "You should restart the IDE to pick up the new SDK setting. Would you like to restart now?") ) {
+				getShell().getDisplay().asyncExec(new Runnable() {
+					
+					@Override
+					public void run() {
+						PlatformUI.getWorkbench().restart();
+					}
+				});
+			}
+		}
+		
+		return rv;
 	}
 	
 	public static boolean validateSDKDirectory(String dir) {
