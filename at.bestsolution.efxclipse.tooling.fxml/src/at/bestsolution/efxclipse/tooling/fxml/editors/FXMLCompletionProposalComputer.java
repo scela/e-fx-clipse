@@ -158,16 +158,27 @@ public class FXMLCompletionProposalComputer extends AbstractXMLCompletionProposa
 
 				if (parent.getParentNode() != null) {
 					Node n = null;
-					if (Character.isUpperCase(parent.getParentNode().getNodeName().charAt(0))) {
+					
+					System.err.println(parent.getParentNode().getNodeName());
+					
+					if (Character.isUpperCase(parent.getParentNode().getNodeName().charAt(0)) || "fx:root".equals(parent.getParentNode().getNodeName())) {
 						n = parent.getParentNode();
 					} else if (parent.getParentNode().getParentNode() != null) {
-						if (Character.isUpperCase(parent.getParentNode().getParentNode().getNodeName().charAt(0))) {
+						if (Character.isUpperCase(parent.getParentNode().getParentNode().getNodeName().charAt(0)) || "fx:root".equals(parent.getParentNode().getParentNode().getNodeName())) {
 							n = parent.getParentNode().getParentNode();
 						}
 					}
-
+					
+					System.err.println(n);
+					
 					if (n != null) {
-						IType containerType = Util.findType(n.getNodeName(), parent.getOwnerDocument());
+						IType containerType;
+						if( "fx:root".equals(n.getNodeName()) ) {
+							containerType = Util.findType(n.getAttributes().getNamedItem("type").getNodeValue(), parent.getOwnerDocument());
+						} else {
+							containerType = Util.findType(n.getNodeName(), parent.getOwnerDocument());	
+						}
+						
 						if (containerType != null) {
 							IFXClass fxclass = FXPlugin.getClassmodel().findClass(type.getJavaProject(), containerType);
 							if (fxclass != null) {
@@ -387,7 +398,7 @@ public class FXMLCompletionProposalComputer extends AbstractXMLCompletionProposa
 						}
 					}
 				}
-			} else if (Character.isUpperCase(parent.getNodeName().charAt(0))) {
+			} else if (Character.isUpperCase(parent.getNodeName().charAt(0)) || "fx:root".equals(parent.getNodeName())) {
 				if (!contentAssistRequest.getMatchString().isEmpty() && Character.isUpperCase(contentAssistRequest.getMatchString().charAt(0))) {
 					// TODO This means we are static?
 					// IJavaProject jproject =
@@ -404,18 +415,31 @@ public class FXMLCompletionProposalComputer extends AbstractXMLCompletionProposa
 					// e.printStackTrace();
 					// }
 				} else {
+					
 					if (parent.getParentNode() != null) {
 						Node n = null;
-						if (Character.isUpperCase(parent.getParentNode().getNodeName().charAt(0))) {
+						System.err.println(parent.getParentNode().getNodeName());
+						
+						if( "fx:root".equals(parent.getNodeName()) ) {
+							n = parent;
+						} else if (Character.isUpperCase(parent.getParentNode().getNodeName().charAt(0)) || "fx:root".equals(parent.getParentNode().getNodeName())) {
 							n = parent.getParentNode();
 						} else if (parent.getParentNode().getParentNode() != null) {
-							if (Character.isUpperCase(parent.getParentNode().getParentNode().getNodeName().charAt(0))) {
+							if (Character.isUpperCase(parent.getParentNode().getParentNode().getNodeName().charAt(0)) || "fx:root".equals(parent.getParentNode().getParentNode().getNodeName())) {
 								n = parent.getParentNode().getParentNode();
 							}
 						}
 
+						System.err.println("NNN: " + n);
+						
 						if (n != null) {
-							IType type = Util.findType(n.getNodeName(), parent.getOwnerDocument());
+							IType type;
+							if( "fx:root".equals(n.getNodeName()) ) {
+								type = Util.findType(n.getAttributes().getNamedItem("type").getNodeValue(), parent.getOwnerDocument());
+							} else {
+								type = Util.findType(n.getNodeName(), parent.getOwnerDocument());	
+							}
+							
 							if (type != null) {
 								IFXClass fxclass = FXPlugin.getClassmodel().findClass(type.getJavaProject(), type);
 								if (fxclass != null) {
@@ -448,8 +472,14 @@ public class FXMLCompletionProposalComputer extends AbstractXMLCompletionProposa
 							}
 						}
 					}
+					IType type;
+					
+					if( "fx:root".equals(parent.getNodeName()) ) {
+						type = Util.findType(parent.getAttributes().getNamedItem("type").getNodeValue(), parent.getOwnerDocument());
+					} else {
+						type = Util.findType(parent.getNodeName(), parent.getOwnerDocument());	
+					}
 
-					IType type = findType(parent.getNodeName(), contentAssistRequest, context);
 					if (type != null) {
 						IFXClass fxClass = FXPlugin.getClassmodel().findClass(type.getJavaProject(), type);
 						if (fxClass != null) {
@@ -460,7 +490,14 @@ public class FXMLCompletionProposalComputer extends AbstractXMLCompletionProposa
 					}
 				}
 
-				IType type = findType(parent.getNodeName(), contentAssistRequest, context);
+				IType type;
+				
+				if( "fx:root".equals(parent.getNodeName()) ) {
+					type = Util.findType(parent.getAttributes().getNamedItem("type").getNodeValue(), parent.getOwnerDocument());
+				} else {
+					type = Util.findType(parent.getNodeName(), parent.getOwnerDocument());	
+				}
+				
 				if (type != null) {
 					IFXClass fxClass = FXPlugin.getClassmodel().findClass(type.getJavaProject(), type);
 					if (fxClass != null) {
@@ -482,7 +519,13 @@ public class FXMLCompletionProposalComputer extends AbstractXMLCompletionProposa
 		Node propertyType = contentAssistRequest.getParent();
 		Node elementType = propertyType.getParentNode();
 
-		IType type = findType(elementType.getNodeName(), contentAssistRequest, context);
+		IType type;
+		if( "fx:root".equals(elementType.getNodeName()) ) {
+			type = Util.findType(elementType.getAttributes().getNamedItem("type").getNodeValue(), elementType.getOwnerDocument());
+		} else {
+			type = findType(elementType.getNodeName(), contentAssistRequest, context);
+		}
+		
 		if (type != null) {
 			IFXClass fxClass = FXPlugin.getClassmodel().findClass(type.getJavaProject(), type);
 			if (fxClass != null) {

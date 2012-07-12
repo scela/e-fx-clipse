@@ -96,7 +96,6 @@ public class LivePreviewSynchronizer implements IPartListener, IPropertyListener
 	private ContentData createContentData(IFXMLProviderAdapter contentProvider) {
 		String contents = contentProvider.getPreviewFXML();
 		String previewSceneSetup = contentProvider.getPreviewSceneFXML();
-		String fxRoot = contentProvider.getFXRoot();
 		List<String> cssFiles = contentProvider.getPreviewCSSFiles();
 		String resourceBundle = contentProvider.getPreviewResourceBundle();
 		List<URL> previewUrls = contentProvider.getPreviewClasspath();
@@ -121,7 +120,7 @@ public class LivePreviewSynchronizer implements IPartListener, IPropertyListener
 			}
 		}
 		
-		return new ContentData(contents, previewSceneSetup, fxRoot, cssFiles, resourceBundle, extraJarPath, file);
+		return new ContentData(contents, previewSceneSetup, cssFiles, resourceBundle, extraJarPath, file);
 	}
 
 	

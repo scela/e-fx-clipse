@@ -448,11 +448,8 @@ public class LivePreviewPart extends ViewPart {
 			try {
 				document.set(contentData.contents);
 				ByteArrayInputStream out = new ByteArrayInputStream(contentData.contents.getBytes());
-				if( contentData.fxRoot != null ) {
-					Parent p = (Parent) Thread.currentThread().getContextClassLoader().loadClass(contentData.fxRoot).newInstance();
-					loader.setRoot(p);
-				}
 				Object root = loader.load(out);
+				System.err.println("ROOT: " + root);
 				out.close();
 
 				Scene scene = null;
@@ -621,12 +618,10 @@ public class LivePreviewPart extends ViewPart {
 		public String resourceBundle;
 		public List<URL> extraJarPath;
 		public IFile file;
-		public String fxRoot;
-
-		public ContentData(String contents, String previewSceneSetup, String fxRoot, List<String> cssFiles, String resourceBundle, List<URL> extraJarPath, IFile file) {
+		
+		public ContentData(String contents, String previewSceneSetup, List<String> cssFiles, String resourceBundle, List<URL> extraJarPath, IFile file) {
 			this.contents = contents;
 			this.previewSceneSetup = previewSceneSetup;
-			this.fxRoot = fxRoot;
 			this.cssFiles = new ArrayList<String>(cssFiles);
 			this.resourceBundle = resourceBundle;
 			this.extraJarPath = extraJarPath;

@@ -214,34 +214,4 @@ public class FXMLEditor extends StructuredTextEditor implements IFXMLProviderAda
 	public String getPreviewSceneFXML() {
 		return null;
 	}
-
-	@Override
-	public String getFXRoot() {
-		final AtomicReference<String> fxRoot = new AtomicReference<String>();
-		try {
-			SAXParser p = SAXParserFactory.newInstance().newSAXParser();
-			p.parse(new InputSource(new StringReader(getModel().getStructuredDocument().get())), new DefaultHandler() {
-				
-				@Override
-				public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-					if( FX_NAMESPACE.equals(uri) && localName.equals("root") ) {
-						fxRoot.set(attributes.getValue(FX_NAMESPACE,"type"));
-					} else if( "fx:root".equals(qName) ) {
-						fxRoot.set(attributes.getValue("type"));
-					}
-				}
-			});
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return fxRoot.get();
-	}
 }
