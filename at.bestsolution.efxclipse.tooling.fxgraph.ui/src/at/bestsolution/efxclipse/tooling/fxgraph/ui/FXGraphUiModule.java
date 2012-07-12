@@ -5,9 +5,11 @@ package at.bestsolution.efxclipse.tooling.fxgraph.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.common.types.xtext.ui.ITypesProposalProvider;
+import org.eclipse.xtext.formatting.IWhitespaceInformationProvider;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 
 import at.bestsolution.efxclipse.tooling.fxgraph.ui.contentassist.ImportingTypesProposalProvider;
+import at.bestsolution.efxclipse.tooling.fxgraph.ui.formatting.FXGraphWhitespaceInformationProvider;
 import at.bestsolution.efxclipse.tooling.fxgraph.ui.hover.FXHoverProvider;
 
 /**
@@ -26,5 +28,10 @@ public class FXGraphUiModule extends at.bestsolution.efxclipse.tooling.fxgraph.u
 	@Override
 	public Class<? extends ITypesProposalProvider> bindITypesProposalProvider() {
 		return ImportingTypesProposalProvider.class;
+	}
+	
+	@Override
+	public Class<? extends IWhitespaceInformationProvider> bindIWhitespaceInformationProvider() {
+		return FXGraphWhitespaceInformationProvider.class;
 	}
 }
