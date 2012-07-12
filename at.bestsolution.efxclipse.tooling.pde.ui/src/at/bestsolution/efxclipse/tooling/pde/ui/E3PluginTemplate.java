@@ -127,9 +127,13 @@ public class E3PluginTemplate extends FXPDETemplateSection {
 		return "views"; //$NON-NLS-1$
 	}
 	
+	@Override
+	public String[] getNewFiles() {
+		return new String[] { "icons/" };
+	}
+	
 	public void execute(IProject project, IPluginModelBase model,
 			IProgressMonitor monitor) throws CoreException {
-		
 		if( getBooleanOption(KEY_SHIP_WITH_JAVAFX) ) {
 			if( PluginRegistry.findModel("javafx.osgi") == null ) {
 				if( MessageDialog.openQuestion(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().getDisplay().getActiveShell(), "No javafx.osgi bundle", "There's currently no javafx.osgi bundle in your workspace or target platform. Would you like to create one?") ) {
