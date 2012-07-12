@@ -65,6 +65,11 @@ public class FXMLProviderAdapter implements IFXMLProviderAdapter {
 	}
 	
 	@Override
+	public String getFXRoot() {
+		return null;
+	}
+	
+	@Override
 	public String getPreviewSceneFXML() {
 		return editor.getDocument().readOnly(new IUnitOfWork<String, XtextResource>() {
 

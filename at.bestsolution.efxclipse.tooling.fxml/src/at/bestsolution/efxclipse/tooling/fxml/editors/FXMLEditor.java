@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
+import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -30,7 +31,7 @@ import at.bestsolution.efxclipse.tooling.ui.editor.IFXMLProviderAdapter;
 import at.bestsolution.efxclipse.tooling.ui.util.RelativeFileLocator;
 
 public class FXMLEditor extends StructuredTextEditor implements IFXMLProviderAdapter {
-
+	private static final String FX_NAMESPACE = "http://javafx.com/fxml";
 	@Override
 	public String getPreviewFXML() {
 		return getSourceViewer().getDocument().get();
@@ -214,4 +215,33 @@ public class FXMLEditor extends StructuredTextEditor implements IFXMLProviderAda
 		return null;
 	}
 
+	@Override
+	public String getFXRoot() {
+		final AtomicReference<String> fxRoot = new AtomicReference<String>();
+		try {
+			SAXParser p = SAXParserFactory.newInstance().newSAXParser();
+			p.parse(new InputSource(new StringReader(getModel().getStructuredDocument().get())), new DefaultHandler() {
+				
+				@Override
+				public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+					if( FX_NAMESPACE.equals(uri) && localName.equals("root") ) {
+						fxRoot.set(attributes.getValue(FX_NAMESPACE,"type"));
+					} else if( "fx:root".equals(qName) ) {
+						fxRoot.set(attributes.getValue("type"));
+					}
+				}
+			});
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return fxRoot.get();
+	}
 }
