@@ -17,7 +17,7 @@ Import:
 	'import' importedNamespace=QualifiedNameWithWildCard;
 
 ComponentDefinition:
-	'component' name=ValidID 
+	(dynamicRoot?='dynamic')? 'component' name=ValidID 
 		(
 			('controlledby' controller=JvmTypeReference)? & 
 			('styledwith' (previewCssFiles+=STRING | ('[' previewCssFiles+=STRING (',' previewCssFiles+=STRING)* ']')))? & 

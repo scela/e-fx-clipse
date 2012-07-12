@@ -143,7 +143,11 @@ class FXGraphGenerator implements IGenerator {
 	
 	def componentDefinition(ComponentDefinition definition, ImportManager importManager, LanguageManager languageManager, boolean preview, boolean skipController, boolean skipIncludes) '''
 		«val element = definition.rootNode»
+		«IF definition.dynamicRoot»
+		<fx:root xmlns:fx="http://javafx.com/fxml" type="«element.type.shortName(importManager)»"«fxElementAttributes(element,importManager,skipController)»«IF definition.controller != null && ! skipController » fx:controller="«definition.controller.qualifiedName»"«ENDIF»«IF hasAttributeProperties(element,preview)»«elementAttributes(element.properties,preview,skipController)»«elementStaticAttributes(element.staticProperties,importManager,preview,skipController)»«elementStaticCallAttributes(element.staticCallProperties,importManager,preview,skipController)»«ENDIF»>
+		«ELSE»
 		<«element.type.shortName(importManager)» xmlns:fx="http://javafx.com/fxml"«fxElementAttributes(element,importManager,skipController)»«IF definition.controller != null && ! skipController » fx:controller="«definition.controller.qualifiedName»"«ENDIF»«IF hasAttributeProperties(element,preview)»«elementAttributes(element.properties,preview,skipController)»«elementStaticAttributes(element.staticProperties,importManager,preview,skipController)»«elementStaticCallAttributes(element.staticCallProperties,importManager,preview,skipController)»«ENDIF»>
+		«ENDIF»
 			«IF definition.defines.size > 0»
 			<fx:define>
 				«FOR define : definition.defines»
@@ -177,8 +181,11 @@ class FXGraphGenerator implements IGenerator {
 				«statPropContent(element.staticProperties,importManager,preview,skipController,skipIncludes)»
 				«statCallPropContent(element.staticCallProperties,importManager,preview,skipController,skipIncludes)»
 			«ENDIF»
-		
+		«IF definition.dynamicRoot»
+		</fx:root>
+		«ELSE»
 		</«element.type.shortName(importManager)»>
+		«ENDIF»
 	'''
 	
 	def elementContent(Element element, ImportManager importManager, boolean preview, boolean skipController, boolean skipIncludes) '''

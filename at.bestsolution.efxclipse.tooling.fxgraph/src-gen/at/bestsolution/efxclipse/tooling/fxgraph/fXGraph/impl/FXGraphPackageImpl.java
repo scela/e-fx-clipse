@@ -423,7 +423,7 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getComponentDefinition_Name()
+  public EAttribute getComponentDefinition_DynamicRoot()
   {
     return (EAttribute)componentDefinitionEClass.getEStructuralFeatures().get(0);
   }
@@ -433,9 +433,19 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getComponentDefinition_Name()
+  {
+    return (EAttribute)componentDefinitionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getComponentDefinition_Controller()
   {
-    return (EReference)componentDefinitionEClass.getEStructuralFeatures().get(1);
+    return (EReference)componentDefinitionEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -445,7 +455,7 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
    */
   public EAttribute getComponentDefinition_PreviewCssFiles()
   {
-    return (EAttribute)componentDefinitionEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)componentDefinitionEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -455,7 +465,7 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
    */
   public EAttribute getComponentDefinition_PreviewResourceBundle()
   {
-    return (EAttribute)componentDefinitionEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)componentDefinitionEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -465,7 +475,7 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
    */
   public EAttribute getComponentDefinition_PreviewClasspathEntries()
   {
-    return (EAttribute)componentDefinitionEClass.getEStructuralFeatures().get(4);
+    return (EAttribute)componentDefinitionEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -475,7 +485,7 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
    */
   public EReference getComponentDefinition_SceneDefinition()
   {
-    return (EReference)componentDefinitionEClass.getEStructuralFeatures().get(5);
+    return (EReference)componentDefinitionEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -485,7 +495,7 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
    */
   public EReference getComponentDefinition_Scripts()
   {
-    return (EReference)componentDefinitionEClass.getEStructuralFeatures().get(6);
+    return (EReference)componentDefinitionEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -495,7 +505,7 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
    */
   public EReference getComponentDefinition_Defines()
   {
-    return (EReference)componentDefinitionEClass.getEStructuralFeatures().get(7);
+    return (EReference)componentDefinitionEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -505,7 +515,7 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
    */
   public EReference getComponentDefinition_RootNode()
   {
-    return (EReference)componentDefinitionEClass.getEStructuralFeatures().get(8);
+    return (EReference)componentDefinitionEClass.getEStructuralFeatures().get(9);
   }
 
   /**
@@ -1290,6 +1300,7 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
     createEAttribute(importEClass, IMPORT__IMPORTED_NAMESPACE);
 
     componentDefinitionEClass = createEClass(COMPONENT_DEFINITION);
+    createEAttribute(componentDefinitionEClass, COMPONENT_DEFINITION__DYNAMIC_ROOT);
     createEAttribute(componentDefinitionEClass, COMPONENT_DEFINITION__NAME);
     createEReference(componentDefinitionEClass, COMPONENT_DEFINITION__CONTROLLER);
     createEAttribute(componentDefinitionEClass, COMPONENT_DEFINITION__PREVIEW_CSS_FILES);
@@ -1471,6 +1482,7 @@ public class FXGraphPackageImpl extends EPackageImpl implements FXGraphPackage
     initEAttribute(getImport_ImportedNamespace(), ecorePackage.getEString(), "importedNamespace", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(componentDefinitionEClass, ComponentDefinition.class, "ComponentDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getComponentDefinition_DynamicRoot(), ecorePackage.getEBoolean(), "dynamicRoot", null, 0, 1, ComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getComponentDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, ComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getComponentDefinition_Controller(), theTypesPackage.getJvmTypeReference(), null, "controller", null, 0, 1, ComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getComponentDefinition_PreviewCssFiles(), ecorePackage.getEString(), "previewCssFiles", null, 0, -1, ComponentDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

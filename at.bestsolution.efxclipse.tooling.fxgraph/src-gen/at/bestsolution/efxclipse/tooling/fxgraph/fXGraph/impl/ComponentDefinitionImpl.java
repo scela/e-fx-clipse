@@ -34,6 +34,7 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.impl.ComponentDefinitionImpl#isDynamicRoot <em>Dynamic Root</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.impl.ComponentDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.impl.ComponentDefinitionImpl#getController <em>Controller</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.impl.ComponentDefinitionImpl#getPreviewCssFiles <em>Preview Css Files</em>}</li>
@@ -50,6 +51,26 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
  */
 public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implements ComponentDefinition
 {
+  /**
+   * The default value of the '{@link #isDynamicRoot() <em>Dynamic Root</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isDynamicRoot()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean DYNAMIC_ROOT_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isDynamicRoot() <em>Dynamic Root</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isDynamicRoot()
+   * @generated
+   * @ordered
+   */
+  protected boolean dynamicRoot = DYNAMIC_ROOT_EDEFAULT;
+
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -179,6 +200,29 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
   protected EClass eStaticClass()
   {
     return FXGraphPackage.Literals.COMPONENT_DEFINITION;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isDynamicRoot()
+  {
+    return dynamicRoot;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDynamicRoot(boolean newDynamicRoot)
+  {
+    boolean oldDynamicRoot = dynamicRoot;
+    dynamicRoot = newDynamicRoot;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, FXGraphPackage.COMPONENT_DEFINITION__DYNAMIC_ROOT, oldDynamicRoot, dynamicRoot));
   }
 
   /**
@@ -454,6 +498,8 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
+      case FXGraphPackage.COMPONENT_DEFINITION__DYNAMIC_ROOT:
+        return isDynamicRoot();
       case FXGraphPackage.COMPONENT_DEFINITION__NAME:
         return getName();
       case FXGraphPackage.COMPONENT_DEFINITION__CONTROLLER:
@@ -488,6 +534,9 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
+      case FXGraphPackage.COMPONENT_DEFINITION__DYNAMIC_ROOT:
+        setDynamicRoot((Boolean)newValue);
+        return;
       case FXGraphPackage.COMPONENT_DEFINITION__NAME:
         setName((String)newValue);
         return;
@@ -533,6 +582,9 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
+      case FXGraphPackage.COMPONENT_DEFINITION__DYNAMIC_ROOT:
+        setDynamicRoot(DYNAMIC_ROOT_EDEFAULT);
+        return;
       case FXGraphPackage.COMPONENT_DEFINITION__NAME:
         setName(NAME_EDEFAULT);
         return;
@@ -574,6 +626,8 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
+      case FXGraphPackage.COMPONENT_DEFINITION__DYNAMIC_ROOT:
+        return dynamicRoot != DYNAMIC_ROOT_EDEFAULT;
       case FXGraphPackage.COMPONENT_DEFINITION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case FXGraphPackage.COMPONENT_DEFINITION__CONTROLLER:
@@ -607,7 +661,9 @@ public class ComponentDefinitionImpl extends MinimalEObjectImpl.Container implem
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
+    result.append(" (dynamicRoot: ");
+    result.append(dynamicRoot);
+    result.append(", name: ");
     result.append(name);
     result.append(", previewCssFiles: ");
     result.append(previewCssFiles);

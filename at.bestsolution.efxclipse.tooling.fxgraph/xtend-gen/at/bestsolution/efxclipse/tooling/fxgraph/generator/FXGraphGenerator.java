@@ -238,47 +238,94 @@ public class FXGraphGenerator implements IGenerator {
     StringConcatenation _builder = new StringConcatenation();
     final Element element = definition.getRootNode();
     _builder.newLineIfNotEmpty();
-    _builder.append("<");
-    JvmTypeReference _type = element.getType();
-    String _shortName = this.shortName(_type, importManager);
-    _builder.append(_shortName, "");
-    _builder.append(" xmlns:fx=\"http://javafx.com/fxml\"");
-    String _fxElementAttributes = this.fxElementAttributes(element, importManager, skipController);
-    _builder.append(_fxElementAttributes, "");
     {
-      boolean _and = false;
-      JvmTypeReference _controller = definition.getController();
-      boolean _notEquals = (!Objects.equal(_controller, null));
-      if (!_notEquals) {
-        _and = false;
-      } else {
-        boolean _not = (!skipController);
-        _and = (_notEquals && _not);
-      }
-      if (_and) {
-        _builder.append(" fx:controller=\"");
-        JvmTypeReference _controller_1 = definition.getController();
-        String _qualifiedName = _controller_1.getQualifiedName();
-        _builder.append(_qualifiedName, "");
+      boolean _isDynamicRoot = definition.isDynamicRoot();
+      if (_isDynamicRoot) {
+        _builder.append("<fx:root xmlns:fx=\"http://javafx.com/fxml\" type=\"");
+        JvmTypeReference _type = element.getType();
+        String _shortName = this.shortName(_type, importManager);
+        _builder.append(_shortName, "");
         _builder.append("\"");
+        String _fxElementAttributes = this.fxElementAttributes(element, importManager, skipController);
+        _builder.append(_fxElementAttributes, "");
+        {
+          boolean _and = false;
+          JvmTypeReference _controller = definition.getController();
+          boolean _notEquals = (!Objects.equal(_controller, null));
+          if (!_notEquals) {
+            _and = false;
+          } else {
+            boolean _not = (!skipController);
+            _and = (_notEquals && _not);
+          }
+          if (_and) {
+            _builder.append(" fx:controller=\"");
+            JvmTypeReference _controller_1 = definition.getController();
+            String _qualifiedName = _controller_1.getQualifiedName();
+            _builder.append(_qualifiedName, "");
+            _builder.append("\"");
+          }
+        }
+        {
+          boolean _hasAttributeProperties = this.hasAttributeProperties(element, preview);
+          if (_hasAttributeProperties) {
+            EList<Property> _properties = element.getProperties();
+            StringBuilder _elementAttributes = this.elementAttributes(_properties, preview, skipController);
+            _builder.append(_elementAttributes, "");
+            EList<StaticValueProperty> _staticProperties = element.getStaticProperties();
+            StringBuilder _elementStaticAttributes = this.elementStaticAttributes(_staticProperties, importManager, preview, skipController);
+            _builder.append(_elementStaticAttributes, "");
+            EList<StaticCallValueProperty> _staticCallProperties = element.getStaticCallProperties();
+            StringBuilder _elementStaticCallAttributes = this.elementStaticCallAttributes(_staticCallProperties, importManager, preview, skipController);
+            _builder.append(_elementStaticCallAttributes, "");
+          }
+        }
+        _builder.append(">");
+        _builder.newLineIfNotEmpty();
+      } else {
+        _builder.append("<");
+        JvmTypeReference _type_1 = element.getType();
+        String _shortName_1 = this.shortName(_type_1, importManager);
+        _builder.append(_shortName_1, "");
+        _builder.append(" xmlns:fx=\"http://javafx.com/fxml\"");
+        String _fxElementAttributes_1 = this.fxElementAttributes(element, importManager, skipController);
+        _builder.append(_fxElementAttributes_1, "");
+        {
+          boolean _and_1 = false;
+          JvmTypeReference _controller_2 = definition.getController();
+          boolean _notEquals_1 = (!Objects.equal(_controller_2, null));
+          if (!_notEquals_1) {
+            _and_1 = false;
+          } else {
+            boolean _not_1 = (!skipController);
+            _and_1 = (_notEquals_1 && _not_1);
+          }
+          if (_and_1) {
+            _builder.append(" fx:controller=\"");
+            JvmTypeReference _controller_3 = definition.getController();
+            String _qualifiedName_1 = _controller_3.getQualifiedName();
+            _builder.append(_qualifiedName_1, "");
+            _builder.append("\"");
+          }
+        }
+        {
+          boolean _hasAttributeProperties_1 = this.hasAttributeProperties(element, preview);
+          if (_hasAttributeProperties_1) {
+            EList<Property> _properties_1 = element.getProperties();
+            StringBuilder _elementAttributes_1 = this.elementAttributes(_properties_1, preview, skipController);
+            _builder.append(_elementAttributes_1, "");
+            EList<StaticValueProperty> _staticProperties_1 = element.getStaticProperties();
+            StringBuilder _elementStaticAttributes_1 = this.elementStaticAttributes(_staticProperties_1, importManager, preview, skipController);
+            _builder.append(_elementStaticAttributes_1, "");
+            EList<StaticCallValueProperty> _staticCallProperties_1 = element.getStaticCallProperties();
+            StringBuilder _elementStaticCallAttributes_1 = this.elementStaticCallAttributes(_staticCallProperties_1, importManager, preview, skipController);
+            _builder.append(_elementStaticCallAttributes_1, "");
+          }
+        }
+        _builder.append(">");
+        _builder.newLineIfNotEmpty();
       }
     }
-    {
-      boolean _hasAttributeProperties = this.hasAttributeProperties(element, preview);
-      if (_hasAttributeProperties) {
-        EList<Property> _properties = element.getProperties();
-        StringBuilder _elementAttributes = this.elementAttributes(_properties, preview, skipController);
-        _builder.append(_elementAttributes, "");
-        EList<StaticValueProperty> _staticProperties = element.getStaticProperties();
-        StringBuilder _elementStaticAttributes = this.elementStaticAttributes(_staticProperties, importManager, preview, skipController);
-        _builder.append(_elementStaticAttributes, "");
-        EList<StaticCallValueProperty> _staticCallProperties = element.getStaticCallProperties();
-        StringBuilder _elementStaticCallAttributes = this.elementStaticCallAttributes(_staticCallProperties, importManager, preview, skipController);
-        _builder.append(_elementStaticCallAttributes, "");
-      }
-    }
-    _builder.append(">");
-    _builder.newLineIfNotEmpty();
     {
       EList<Define> _defines = definition.getDefines();
       int _size = _defines.size();
@@ -292,8 +339,8 @@ public class FXGraphGenerator implements IGenerator {
           for(final Define define : _defines_1) {
             {
               Element _element = define.getElement();
-              boolean _notEquals_1 = (!Objects.equal(_element, null));
-              if (_notEquals_1) {
+              boolean _notEquals_2 = (!Objects.equal(_element, null));
+              if (_notEquals_2) {
                 _builder.append("\t");
                 _builder.append("\t");
                 Element _element_1 = define.getElement();
@@ -302,11 +349,11 @@ public class FXGraphGenerator implements IGenerator {
                 _builder.newLineIfNotEmpty();
               } else {
                 IncludeValueProperty _includeElement = define.getIncludeElement();
-                boolean _notEquals_2 = (!Objects.equal(_includeElement, null));
-                if (_notEquals_2) {
+                boolean _notEquals_3 = (!Objects.equal(_includeElement, null));
+                if (_notEquals_3) {
                   {
-                    boolean _not_1 = (!skipIncludes);
-                    if (_not_1) {
+                    boolean _not_2 = (!skipIncludes);
+                    if (_not_2) {
                       _builder.append("\t");
                       _builder.append("\t");
                       IncludeValueProperty _includeElement_1 = define.getIncludeElement();
@@ -326,8 +373,8 @@ public class FXGraphGenerator implements IGenerator {
       }
     }
     {
-      boolean _not_2 = (!skipController);
-      if (_not_2) {
+      boolean _not_3 = (!skipController);
+      if (_not_3) {
         {
           EList<Script> _scripts = definition.getScripts();
           for(final Script script : _scripts) {
@@ -338,8 +385,8 @@ public class FXGraphGenerator implements IGenerator {
             _builder.newLineIfNotEmpty();
             {
               String _sourcecode = script.getSourcecode();
-              boolean _notEquals_3 = (!Objects.equal(_sourcecode, null));
-              if (_notEquals_3) {
+              boolean _notEquals_4 = (!Objects.equal(_sourcecode, null));
+              if (_notEquals_4) {
                 _builder.append("\t");
                 _builder.append("<fx:script>");
                 String _sourcecode_1 = script.getSourcecode();
@@ -379,29 +426,36 @@ public class FXGraphGenerator implements IGenerator {
           }
         }
         _builder.append("\t");
-        EList<Property> _properties_1 = element.getProperties();
-        CharSequence _propContents = this.propContents(_properties_1, importManager, preview, false, skipController, skipIncludes);
+        EList<Property> _properties_2 = element.getProperties();
+        CharSequence _propContents = this.propContents(_properties_2, importManager, preview, false, skipController, skipIncludes);
         _builder.append(_propContents, "	");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
-        EList<StaticValueProperty> _staticProperties_1 = element.getStaticProperties();
-        CharSequence _statPropContent = this.statPropContent(_staticProperties_1, importManager, preview, skipController, skipIncludes);
+        EList<StaticValueProperty> _staticProperties_2 = element.getStaticProperties();
+        CharSequence _statPropContent = this.statPropContent(_staticProperties_2, importManager, preview, skipController, skipIncludes);
         _builder.append(_statPropContent, "	");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
-        EList<StaticCallValueProperty> _staticCallProperties_1 = element.getStaticCallProperties();
-        CharSequence _statCallPropContent = this.statCallPropContent(_staticCallProperties_1, importManager, preview, skipController, skipIncludes);
+        EList<StaticCallValueProperty> _staticCallProperties_2 = element.getStaticCallProperties();
+        CharSequence _statCallPropContent = this.statCallPropContent(_staticCallProperties_2, importManager, preview, skipController, skipIncludes);
         _builder.append(_statCallPropContent, "	");
         _builder.newLineIfNotEmpty();
       }
     }
-    _builder.newLine();
-    _builder.append("</");
-    JvmTypeReference _type_1 = element.getType();
-    String _shortName_1 = this.shortName(_type_1, importManager);
-    _builder.append(_shortName_1, "");
-    _builder.append(">");
-    _builder.newLineIfNotEmpty();
+    {
+      boolean _isDynamicRoot_1 = definition.isDynamicRoot();
+      if (_isDynamicRoot_1) {
+        _builder.append("</fx:root>");
+        _builder.newLine();
+      } else {
+        _builder.append("</");
+        JvmTypeReference _type_2 = element.getType();
+        String _shortName_2 = this.shortName(_type_2, importManager);
+        _builder.append(_shortName_2, "");
+        _builder.append(">");
+        _builder.newLineIfNotEmpty();
+      }
+    }
     return _builder;
   }
   

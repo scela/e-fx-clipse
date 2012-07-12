@@ -169,13 +169,22 @@ public interface FXGraphPackage extends EPackage
   int COMPONENT_DEFINITION = 3;
 
   /**
+   * The feature id for the '<em><b>Dynamic Root</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int COMPONENT_DEFINITION__DYNAMIC_ROOT = 0;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int COMPONENT_DEFINITION__NAME = 0;
+  int COMPONENT_DEFINITION__NAME = 1;
 
   /**
    * The feature id for the '<em><b>Controller</b></em>' containment reference.
@@ -184,7 +193,7 @@ public interface FXGraphPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPONENT_DEFINITION__CONTROLLER = 1;
+  int COMPONENT_DEFINITION__CONTROLLER = 2;
 
   /**
    * The feature id for the '<em><b>Preview Css Files</b></em>' attribute list.
@@ -193,7 +202,7 @@ public interface FXGraphPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPONENT_DEFINITION__PREVIEW_CSS_FILES = 2;
+  int COMPONENT_DEFINITION__PREVIEW_CSS_FILES = 3;
 
   /**
    * The feature id for the '<em><b>Preview Resource Bundle</b></em>' attribute.
@@ -202,7 +211,7 @@ public interface FXGraphPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPONENT_DEFINITION__PREVIEW_RESOURCE_BUNDLE = 3;
+  int COMPONENT_DEFINITION__PREVIEW_RESOURCE_BUNDLE = 4;
 
   /**
    * The feature id for the '<em><b>Preview Classpath Entries</b></em>' attribute list.
@@ -211,7 +220,7 @@ public interface FXGraphPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPONENT_DEFINITION__PREVIEW_CLASSPATH_ENTRIES = 4;
+  int COMPONENT_DEFINITION__PREVIEW_CLASSPATH_ENTRIES = 5;
 
   /**
    * The feature id for the '<em><b>Scene Definition</b></em>' reference.
@@ -220,7 +229,7 @@ public interface FXGraphPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPONENT_DEFINITION__SCENE_DEFINITION = 5;
+  int COMPONENT_DEFINITION__SCENE_DEFINITION = 6;
 
   /**
    * The feature id for the '<em><b>Scripts</b></em>' containment reference list.
@@ -229,7 +238,7 @@ public interface FXGraphPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPONENT_DEFINITION__SCRIPTS = 6;
+  int COMPONENT_DEFINITION__SCRIPTS = 7;
 
   /**
    * The feature id for the '<em><b>Defines</b></em>' containment reference list.
@@ -238,7 +247,7 @@ public interface FXGraphPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPONENT_DEFINITION__DEFINES = 7;
+  int COMPONENT_DEFINITION__DEFINES = 8;
 
   /**
    * The feature id for the '<em><b>Root Node</b></em>' containment reference.
@@ -247,7 +256,7 @@ public interface FXGraphPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPONENT_DEFINITION__ROOT_NODE = 8;
+  int COMPONENT_DEFINITION__ROOT_NODE = 9;
 
   /**
    * The number of structural features of the '<em>Component Definition</em>' class.
@@ -256,7 +265,7 @@ public interface FXGraphPackage extends EPackage
    * @generated
    * @ordered
    */
-  int COMPONENT_DEFINITION_FEATURE_COUNT = 9;
+  int COMPONENT_DEFINITION_FEATURE_COUNT = 10;
 
   /**
    * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.impl.ValuePropertyImpl <em>Value Property</em>}' class.
@@ -1281,6 +1290,17 @@ public interface FXGraphPackage extends EPackage
   EClass getComponentDefinition();
 
   /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.ComponentDefinition#isDynamicRoot <em>Dynamic Root</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Dynamic Root</em>'.
+   * @see at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.ComponentDefinition#isDynamicRoot()
+   * @see #getComponentDefinition()
+   * @generated
+   */
+  EAttribute getComponentDefinition_DynamicRoot();
+
+  /**
    * Returns the meta object for the attribute '{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.ComponentDefinition#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2269,6 +2289,14 @@ public interface FXGraphPackage extends EPackage
      * @generated
      */
     EClass COMPONENT_DEFINITION = eINSTANCE.getComponentDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Dynamic Root</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute COMPONENT_DEFINITION__DYNAMIC_ROOT = eINSTANCE.getComponentDefinition_DynamicRoot();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.

@@ -16,6 +16,7 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.ComponentDefinition#isDynamicRoot <em>Dynamic Root</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.ComponentDefinition#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.ComponentDefinition#getController <em>Controller</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.ComponentDefinition#getPreviewCssFiles <em>Preview Css Files</em>}</li>
@@ -34,6 +35,32 @@ import org.eclipse.xtext.common.types.JvmTypeReference;
  */
 public interface ComponentDefinition extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Dynamic Root</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Dynamic Root</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Dynamic Root</em>' attribute.
+   * @see #setDynamicRoot(boolean)
+   * @see at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.FXGraphPackage#getComponentDefinition_DynamicRoot()
+   * @model
+   * @generated
+   */
+  boolean isDynamicRoot();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.ComponentDefinition#isDynamicRoot <em>Dynamic Root</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Dynamic Root</em>' attribute.
+   * @see #isDynamicRoot()
+   * @generated
+   */
+  void setDynamicRoot(boolean value);
+
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
