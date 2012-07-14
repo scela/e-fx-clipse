@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.ListIterator;
 
 import javafx.beans.InvalidationListener;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WritableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
@@ -347,7 +349,7 @@ public class AdapterFactory {
 		}
 	}
 	
-	static class WrappedValue<E> implements ObservableValue<E> {
+	static class WrappedValue<E> implements ObservableWritableValue<E> {
 		
 		private List<InvalidationListener> fxInvalidationListeners;
 		private List<ChangeListener<? super E>> fxChangeListeners;
@@ -439,14 +441,68 @@ public class AdapterFactory {
 		@Override
 		public E getValue() {
 			return (E) value.getValue();
+		}
+
+		@Override
+		public void setValue(E value) {
+			this.value.setValue(value);
 		}		
 	}
 	
-	public static <E> ObservableValue<E> adapt(IObservableValue value) {
+	public static <E> ObservableWritableValue<E> adapt(IObservableValue value) {
 		return new WrappedValue<E>(value);
 	}
 	
-	public static <E> ObservableList<E> adapt(final IObservableList list) {
+	public static <E> ObservableList<E> adapt(IObservableList list) {
 		return new WrappedList<E>(list);
+	}
+	
+	enum InitialSync {
+		FX_TO_DB,
+		DB_TO_FX
+	}
+		
+	public static <E> void bind(ObservableList<E> fxObs, IObservableList dbObs, InitialSync initialSync) {
+		ObservableList<E> dbList = adapt(dbObs);
+		if( initialSync == InitialSync.FX_TO_DB ) {
+			Bindings.bindContent(dbList, fxObs);
+		} else {
+			Bindings.bindContentBidirectional(fxObs, dbList);	
+		}
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <E, F extends ObservableValue<E> & WritableValue<E>> void bind(F fxObs, IObservableValue dbObs, InitialSync initialSync) {
+		if( initialSync == InitialSync.FX_TO_DB ) {
+			dbObs.setValue(fxObs.getValue());
+		} else {
+			fxObs.setValue((E) dbObs.getValue());
+		}
+		ObservableWritableValue<E> wrapped = adapt(dbObs);
+		do_bind(fxObs, wrapped);
+	}
+	
+	private static <E, F extends ObservableValue<E> & WritableValue<E>> void do_bind(final F fxObs, final F dbObs) {
+		fxObs.addListener(new ChangeListener<E>() {
+			boolean syncing;
+			@Override
+			public void changed(ObservableValue<? extends E> observable, E oldValue, E newValue) {
+				if( syncing ) {
+					return;
+				}
+				
+				try {
+					syncing = true;
+					if( observable == fxObs ) {
+						dbObs.setValue(newValue);
+					} else {
+						fxObs.setValue(newValue);
+					}
+				} finally {
+					syncing = false;
+				}
+			}
+		});
 	}
 }
