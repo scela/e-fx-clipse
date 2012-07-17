@@ -1,0 +1,48 @@
+<project>
+	<property name="efx.version" />
+	<property name="efx.update.sitezip" />
+	<property name="efx.update.host.user" value="jenkins-deploy" />
+	<property name="efx.update.host.name" value="www.efxclipse.org"/>
+	<property name="efx.update.host.htdocs" value="/virtual/efxclipse.org/httpd/htdocs" />
+	<property name="efx.distojar" value="/Users/tomschindl/git/distrobuilder/at.bestsolution.releng.distrobuilder/target/at.bestsolution.releng.distrobuilder-0.0.1-SNAPSHOT.jar"/>
+	
+	<taskdef name="builder" 
+		classpath="${efx.distojar}"
+		classname="at.bestsolution.releng.distrobuilder.ant.DistroBuilderTaskDef" />
+	
+	<target name="publish-p2">
+		<scp remoteTofile="at.bestsolution.efxclipse.tooling.updatesite-${efx.version}.zip" todir="${efx.update.host.user}@${efx.update.host.name}:${efx.update.host.htdocs}/p2-repos/nightly" file="${efx.update.sitezip}" />
+	</target>
+	
+	<target name="build-distros" description="Build distros">
+		<echo>Hello World</echo>
+		<builder
+			builddirectory="/tmp/jbuild"
+			p2directorexecutable="/Users/tomschindl/Desktop/efxclipse-all-in-one/jbuild/builder/eclipse"
+			targetdirectory="/Users/tomschindl/Desktop/efxclipse-all-in-one/jbuild/targets"
+			staticreposdirectory="/Users/tomschindl/Desktop/efxclipse-all-in-one/jbuild/repos"
+			distdirectory="/tmp/jbuild/dist"
+			version="${efx.version}">
+			
+			<updatesite url="http://cbes.javaforge.com/update" os="win32"/>
+			
+			<p2repository url="http://${efx.update.host.name}/p2-repos/nightly/at.bestsolution.efxclipse.tooling.updatesite-${efx.version}.zip"/>
+
+			<installunit name="org.eclipse.emf.sdk.feature.group"/>
+			<installunit name="org.eclipse.xtext.sdk.feature.group"/>
+			<installunit name="org.eclipse.emf.mwe2.runtime.sdk.feature.group"/>
+			<installunit name="at.bestsolution.efxclipse.tooling.feature.feature.group"/>
+			<installunit name="at.bestsolution.efxclipse.runtime.e3.feature.feature.group"/>
+			<installunit name="org.eclipse.wst.xml_ui.feature.feature.group"/>
+			<installunit name="org.eclipse.egit.feature.group"/>
+			<installunit name="org.tigris.subversion.clientadapter.feature.feature.group"/>
+			<installunit name="org.tigris.subversion.subclipse.feature.group"/>
+			<installunit name="org.tigris.subversion.clientadapter.svnkit.feature.feature.group"/>
+			<installunit name="org.eclipse.e4.core.tools.feature.feature.group" />
+			<installunit name="org.tigris.subversion.clientadapter.javahl.feature.feature.group" os="win32" arch="x86" />
+			<installunit name="mercurialeclipse.feature.group" os="win32" />
+			<installunit name="com.intland.hgbinary.win32.feature.group" os="win32" />			
+		</builder>
+	</target>
+	
+</project>
