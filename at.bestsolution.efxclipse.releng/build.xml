@@ -20,7 +20,7 @@
 		<scp remoteToFile="${efx.update.host.user}@${efx.update.scp.name}:${efx.update.host.htdocs}/p2-repos/nightly/at.bestsolution.efxclipse.tooling.updatesite-${efx.version}.zip" keyfile="/var/lib/jenkins/.ssh/id_dsa" file="${efx.update.sitezip}" />
 		
 		<sshexec host="${efx.update.scp.name}" username="${efx.update.host.user}" command="rm -rf ${efx.update.host.htdocs}/p2-repos/nightly/site/*" keyfile="/var/lib/jenkins/.ssh/id_dsa"/>
-		<scp tremoteToDir="${efx.update.host.htdocs}/p2-repos/nightly">
+		<scp remoteToDir="${efx.update.host.htdocs}/p2-repos/nightly">
 			<fileset dir="${efx.update.sitedir}">
 				<include name="**/*"/>
 			</fileset>
