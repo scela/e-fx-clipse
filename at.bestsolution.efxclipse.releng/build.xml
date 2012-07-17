@@ -1,6 +1,7 @@
 <project default="publish">
 	<property name="efx.version" value="0.1.0-SNAPSHOT" />
 	<property name="efx.update.sitezip" value="" />
+	<property name="efx.update.sitedir" value="" />
 	<property name="efx.update.host.user" value="jenkins-deploy" />
 	<property name="efx.update.host.name" value="www.efxclipse.org" />
 	<property name="efx.update.scp.name" value="www.efxclipse.org" />
@@ -15,7 +16,15 @@
 
 	<target name="publish-p2">
 		<echo>Publshing p2-repo</echo>
+		<sshexec host="${efx.update.scp.name}" username="${efx.update.host.user}" command="rm ${efx.update.sitezip}" keyfile="/var/lib/jenkins/.ssh/id_dsa"/>
 		<scp remoteToFile="${efx.update.host.user}@${efx.update.scp.name}:${efx.update.host.htdocs}/p2-repos/nightly/at.bestsolution.efxclipse.tooling.updatesite-${efx.version}.zip" keyfile="/var/lib/jenkins/.ssh/id_dsa" file="${efx.update.sitezip}" />
+		
+		<sshexec host="${efx.update.scp.name}" username="${efx.update.host.user}" command="rm -rf ${efx.update.host.htdocs}/p2-repos/nightly/site/*" keyfile="/var/lib/jenkins/.ssh/id_dsa"/>
+		<scp tremoteToDir="${efx.update.host.htdocs}/p2-repos/nightly">
+			<fileset dir="${efx.update.sitedir}">
+				<include name="**/*"/>
+			</fileset>
+		</scp>
 	</target>
 
 	<target name="publish-distros">
