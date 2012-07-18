@@ -20,7 +20,7 @@
 		<scp remoteToFile="${efx.update.host.user}@${efx.update.scp.name}:${efx.update.host.htdocs}/p2-repos/nightly/at.bestsolution.efxclipse.tooling.updatesite-${efx.version}.zip" keyfile="/var/lib/jenkins/.ssh/id_dsa" file="${efx.update.sitezip}" />
 		
 		<sshexec host="${efx.update.scp.name}" username="${efx.update.host.user}" command="rm -rf ${efx.update.host.htdocs}/p2-repos/nightly/site/*" keyfile="/var/lib/jenkins/.ssh/id_dsa"/>
-		<scp remoteToDir="${efx.update.host.user}@${efx.update.scp.name}:${efx.update.host.htdocs}/p2-repos/nightly" keyfile="/var/lib/jenkins/.ssh/id_dsa">
+		<scp remoteToDir="${efx.update.host.user}@${efx.update.scp.name}:${efx.update.host.htdocs}/p2-repos/nightly/site" keyfile="/var/lib/jenkins/.ssh/id_dsa">
 			<fileset dir="${efx.update.sitedir}">
 				<include name="**/*"/>
 			</fileset>
@@ -29,7 +29,7 @@
 
 	<target name="publish-distros">
 		<echo>Publishing distros</echo>
-		<sshexec host="${efx.update.scp.name}" username="${efx.update.host.user}" command="rm ${efx.update.host.htdocs}/downloads/nightly/*" keyfile="/var/lib/jenkins/.ssh/id_dsa"/>
+		<sshexec host="${efx.update.scp.name}" username="${efx.update.host.user}" command="rm -rf ${efx.update.host.htdocs}/downloads/nightly/*" keyfile="/var/lib/jenkins/.ssh/id_dsa"/>
 		<scp keyfile="/var/lib/jenkins/.ssh/id_dsa" remoteToDir="${efx.update.host.user}@${efx.update.scp.name}:${efx.update.host.htdocs}/downloads/nightly">
 			<fileset dir="/tmp/efx-build/dist">
 				<include name="*.zip" />
