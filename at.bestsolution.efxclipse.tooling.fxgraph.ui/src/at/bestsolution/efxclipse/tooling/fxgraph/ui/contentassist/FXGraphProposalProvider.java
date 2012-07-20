@@ -198,7 +198,8 @@ public class FXGraphProposalProvider extends AbstractFXGraphProposalProvider {
 	private void createCollectionClassProposals(IFXCollectionProperty prop, final EObject model, ContentAssistContext context, EReference typeReference, ICompletionProposalAcceptor acceptor) {
 		IType jdtSuperType = prop.getElementType();
 		if (jdtSuperType != null) {
-			JvmType superType = jdtTypeProvider.createTypeProvider(model.eResource().getResourceSet()).findTypeByName(jdtSuperType.getFullyQualifiedName());
+			System.err.println("===============> Type provider");
+			JvmType superType = jdtTypeProvider.findOrCreateTypeProvider(model.eResource().getResourceSet()).findTypeByName(jdtSuperType.getFullyQualifiedName());
 			Filter f = new FXClassFilter(projectProvider.getJavaProject(model.eResource().getResourceSet()));
 			typeProposalProviders.createSubTypeProposals(superType, this, context, typeReference, f, acceptor);
 		}
@@ -702,7 +703,7 @@ public class FXGraphProposalProvider extends AbstractFXGraphProposalProvider {
 
 			IType jdtSuperType = prop.getElementType();
 			if (jdtSuperType != null) {
-				final IJvmTypeProvider tProvider = jdtTypeProvider.createTypeProvider(model.eResource().getResourceSet());
+				final IJvmTypeProvider tProvider = jdtTypeProvider.findOrCreateTypeProvider(model.eResource().getResourceSet());
 				JvmType superType = tProvider.findTypeByName(jdtSuperType.getFullyQualifiedName());
 				Filter f = new FXClassFilter(projectProvider.getJavaProject(model.eResource().getResourceSet()));
 				typeProposalProviders.createSubTypeProposals(superType, this, context, typeReference, f, acceptor);
@@ -1110,7 +1111,7 @@ public class FXGraphProposalProvider extends AbstractFXGraphProposalProvider {
 	@Override
 	public void completeStaticCallValueProperty_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		//TODO Should we should all classes?
-		JvmType superType = jdtTypeProvider.createTypeProvider(model.eResource().getResourceSet()).findTypeByName("javafx.scene.Parent");
+		JvmType superType = jdtTypeProvider.findOrCreateTypeProvider(model.eResource().getResourceSet()).findTypeByName("javafx.scene.Parent");
 		Filter f = new FXClassFilter(projectProvider.getJavaProject(model.eResource().getResourceSet()));
 		typeProposalProviders.createSubTypeProposals(superType, this, context, FXGraphPackage.Literals.STATIC_CALL_VALUE_PROPERTY__TYPE, f, acceptor);
 	}
@@ -1255,7 +1256,7 @@ public class FXGraphProposalProvider extends AbstractFXGraphProposalProvider {
 	
 	@Override
 	public void completeComponentDefinition_RootNode(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		JvmType superType = jdtTypeProvider.createTypeProvider(model.eResource().getResourceSet()).findTypeByName("javafx.scene.Parent");
+		JvmType superType = jdtTypeProvider.findOrCreateTypeProvider(model.eResource().getResourceSet()).findTypeByName("javafx.scene.Parent");
 		typeProposalProviders.createSubTypeProposals(superType, this, context, FXGraphPackage.Literals.COMPONENT_DEFINITION__ROOT_NODE, acceptor);
 	}
 	
