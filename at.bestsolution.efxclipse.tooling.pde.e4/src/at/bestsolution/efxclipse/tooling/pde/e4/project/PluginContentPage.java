@@ -127,7 +127,6 @@ public class PluginContentPage extends ContentPage {
 	 * @param container
 	 */
 	private void createPluginPropertiesGroup(Composite container) {
-		System.err.println("======================> FUCK YOUUUUUUUUU");
 		Group propertiesGroup = SWTFactory.createGroup(container, PDEUIMessages.ContentPage_pGroup, 3, 1, GridData.FILL_HORIZONTAL);
 
 		Label label = new Label(propertiesGroup, SWT.NONE);
