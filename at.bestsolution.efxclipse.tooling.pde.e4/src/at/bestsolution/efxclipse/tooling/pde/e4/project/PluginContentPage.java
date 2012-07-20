@@ -127,6 +127,7 @@ public class PluginContentPage extends ContentPage {
 	 * @param container
 	 */
 	private void createPluginPropertiesGroup(Composite container) {
+		System.err.println("======================> FUCK YOUUUUUUUUU");
 		Group propertiesGroup = SWTFactory.createGroup(container, PDEUIMessages.ContentPage_pGroup, 3, 1, GridData.FILL_HORIZONTAL);
 
 		Label label = new Label(propertiesGroup, SWT.NONE);
@@ -145,13 +146,13 @@ public class PluginContentPage extends ContentPage {
 		label.setText(PDEUIMessages.ContentPage_pprovider);
 		
 		try {
-			Field f = getClass().getDeclaredField("fProviderText");
+			Field f = ContentPage.class.getDeclaredField("fProviderCombo");
 			f.setAccessible(true);
-			Method m = getClass().getDeclaredMethod("createProviderCombo", Composite.class, ModifyListener.class, int.class);
+			Method m = ContentPage.class.getDeclaredMethod("createProviderCombo", Composite.class, ModifyListener.class, int.class);
 			m.setAccessible(true);
 			f.set(this, m.invoke(this, propertiesGroup, propertiesListener, 2));
 		} catch (NoSuchFieldException e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
