@@ -11,6 +11,9 @@
  *******************************************************************************/
 package at.bestsolution.efxclipse.tooling.pde.e4.project;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.TreeSet;
 
@@ -140,7 +143,31 @@ public class PluginContentPage extends ContentPage {
 
 		label = new Label(propertiesGroup, SWT.NONE);
 		label.setText(PDEUIMessages.ContentPage_pprovider);
-		fProviderCombo = createProviderCombo(propertiesGroup, propertiesListener, 2);
+		
+		try {
+			Field f = getClass().getDeclaredField("fProviderText");
+			f.setAccessible(true);
+			Method m = getClass().getDeclaredMethod("createProviderCombo", Composite.class, ModifyListener.class, int.class);
+			m.setAccessible(true);
+			f.set(this, m.invoke(this, propertiesGroup, propertiesListener, 2));
+		} catch (NoSuchFieldException e) {
+			// TODO: handle exception
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		createExecutionEnvironmentControls(propertiesGroup);
 	}
