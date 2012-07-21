@@ -24,5 +24,4 @@
 		</HBox>
 		<Label fx:id="message"/> 
 	</children>
-
 </VBox>

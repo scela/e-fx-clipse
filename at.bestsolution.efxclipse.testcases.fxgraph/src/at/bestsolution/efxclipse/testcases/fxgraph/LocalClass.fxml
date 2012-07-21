@@ -7,6 +7,7 @@
 <?import at.bestsolution.efxclipse.testcases.fxgraph.MyButton?>
 <?import at.bestsolution.efxclipse.testcases.fxgraph.lib.MyLibButton?>
 <?import org.tbee.javafx.scene.layout.fxml.MigPane?>
+<?scenebuilder-stylesheet test.css?>
 
 <MigPane xmlns:fx="http://javafx.com/fxml">
 
@@ -14,5 +15,4 @@
 		<MyButton/> 
 		<MyLibButton/> 
 	</children>
-
 </MigPane>

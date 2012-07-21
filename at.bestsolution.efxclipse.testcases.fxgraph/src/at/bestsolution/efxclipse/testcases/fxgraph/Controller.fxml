@@ -12,5 +12,4 @@
 	<center>
 		<Button text="Hello World" onAction="#clicked"/> 
 	</center>
-
 </BorderPane>

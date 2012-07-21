@@ -11,22 +11,9 @@
 <GridPane xmlns:fx="http://javafx.com/fxml">
 
 	<children>
-		<Label text="Firstname:"> 
-			<GridPane.columnIndex>0</GridPane.columnIndex>
-			<GridPane.rowIndex>0</GridPane.rowIndex>
-		</Label>
-		<TextField> 
-			<GridPane.columnIndex>1</GridPane.columnIndex>
-			<GridPane.rowIndex>0</GridPane.rowIndex>
-		</TextField>
-		<Label text="Lastname:"> 
-			<GridPane.columnIndex>0</GridPane.columnIndex>
-			<GridPane.rowIndex>1</GridPane.rowIndex>
-		</Label>
-		<TextField> 
-			<GridPane.columnIndex>1</GridPane.columnIndex>
-			<GridPane.rowIndex>1</GridPane.rowIndex>
-		</TextField>
+		<Label text="Firstname:" GridPane.columnIndex="0" GridPane.rowIndex="0"/> 
+		<TextField GridPane.columnIndex="1" GridPane.rowIndex="0"/> 
+		<Label text="Lastname:" GridPane.columnIndex="0" GridPane.rowIndex="1"/> 
+		<TextField GridPane.columnIndex="1" GridPane.rowIndex="1"/> 
 	</children>
-
 </GridPane>

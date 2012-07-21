@@ -15,5 +15,4 @@
 	<Label fx:id="labelDay" minHeight="15" maxHeight="15" prefWidth="20" style="-fx-background-color: white;
 	                    -fx-font-size: 11;
 	                    -fx-font-weight: bold;" alignment="center" translateY="-2"/> 
-
 </VBox>

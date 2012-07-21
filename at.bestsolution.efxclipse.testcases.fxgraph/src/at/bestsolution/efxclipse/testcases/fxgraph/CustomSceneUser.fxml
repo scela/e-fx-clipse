@@ -12,5 +12,4 @@
 	<center>
 		<Button text="Hello Custom Scene"/> 
 	</center>
-
 </BorderPane>

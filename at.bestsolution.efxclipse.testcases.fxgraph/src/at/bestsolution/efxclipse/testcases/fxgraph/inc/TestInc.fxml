@@ -10,5 +10,4 @@
 <VBox xmlns:fx="http://javafx.com/fxml">
 
 	<Button text="Inc 1"/> 
-
 </VBox>

@@ -16,5 +16,4 @@
 	<bottom>
 		<Button text="Hello"/> 
 	</bottom>
-
 </BorderPane>

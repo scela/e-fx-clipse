@@ -6,6 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
+<?scenebuilder-stylesheet test.css?>
 
 <Pane xmlns:fx="http://javafx.com/fxml">
 
@@ -16,5 +17,4 @@
 	<styleClass>
 		<String fx:value="test" />
 	</styleClass>
-
 </Pane>

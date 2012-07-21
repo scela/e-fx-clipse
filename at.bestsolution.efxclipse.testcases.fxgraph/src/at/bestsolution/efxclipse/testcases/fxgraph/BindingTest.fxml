@@ -15,5 +15,4 @@
 		<TextField fx:id="field1"/> 
 		<TextField text="${field1.text}"/> 
 	</children>
-
 </HBox>

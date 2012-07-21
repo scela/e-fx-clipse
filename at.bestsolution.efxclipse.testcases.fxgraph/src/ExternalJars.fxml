@@ -12,5 +12,4 @@
 	<children>
 		<Label text="My Label"/> 
 	</children>
-
 </MigPane>

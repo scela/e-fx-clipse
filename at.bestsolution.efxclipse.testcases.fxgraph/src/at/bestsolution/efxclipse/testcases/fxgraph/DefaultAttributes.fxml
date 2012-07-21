@@ -12,5 +12,4 @@
 
 	<Label text="Binding"/> 
 	<TextField fx:id="field1"/> 
-
 </HBox>

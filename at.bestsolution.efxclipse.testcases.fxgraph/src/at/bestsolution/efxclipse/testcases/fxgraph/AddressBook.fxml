@@ -19,6 +19,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
+<?scenebuilder-stylesheet address.css?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml">
 
@@ -87,163 +88,55 @@
 									<content>
 										<GridPane fx:id="DetailPane"> 
 											<children>
-												<Label text="General"> 
+												<Label text="General" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"> 
 													<styleClass>
 														<String fx:value="label"/> 
 														<String fx:value="separator-label"/> 
 													</styleClass>
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>0</GridPane.rowIndex>
-													<GridPane.columnSpan>2</GridPane.columnSpan>
 												</Label>
-												<Label text="Firstname"> 
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>1</GridPane.rowIndex>
-												</Label>
-												<TextField fx:id="firstname"> 
-													<GridPane.columnIndex>1</GridPane.columnIndex>
-													<GridPane.rowIndex>1</GridPane.rowIndex>
-													<GridPane.hgrow>ALWAYS</GridPane.hgrow>
-												</TextField>
-												<Label text="Lastname"> 
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>2</GridPane.rowIndex>
-												</Label>
-												<TextField fx:id="lastname"> 
-													<GridPane.columnIndex>1</GridPane.columnIndex>
-													<GridPane.rowIndex>2</GridPane.rowIndex>
-													<GridPane.hgrow>ALWAYS</GridPane.hgrow>
-												</TextField>
-												<Label text="Company"> 
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>3</GridPane.rowIndex>
-												</Label>
-												<TextField fx:id="company"> 
-													<GridPane.columnIndex>1</GridPane.columnIndex>
-													<GridPane.rowIndex>3</GridPane.rowIndex>
-													<GridPane.hgrow>ALWAYS</GridPane.hgrow>
-												</TextField>
-												<Label text="Job Title"> 
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>4</GridPane.rowIndex>
-												</Label>
-												<TextField fx:id="jobtitle"> 
-													<GridPane.columnIndex>1</GridPane.columnIndex>
-													<GridPane.rowIndex>4</GridPane.rowIndex>
-													<GridPane.hgrow>ALWAYS</GridPane.hgrow>
-												</TextField>
-												<ImageView fx:id="personimage" fitHeight="120" fitWidth="120"> 
-													<GridPane.columnIndex>2</GridPane.columnIndex>
-													<GridPane.rowIndex>0</GridPane.rowIndex>
-													<GridPane.rowSpan>5</GridPane.rowSpan>
-												</ImageView>
-												<Label text="Note"> 
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>5</GridPane.rowIndex>
-												</Label>
-												<TextField fx:id="note"> 
-													<GridPane.columnIndex>1</GridPane.columnIndex>
-													<GridPane.rowIndex>5</GridPane.rowIndex>
-													<GridPane.columnSpan>2</GridPane.columnSpan>
-													<GridPane.hgrow>ALWAYS</GridPane.hgrow>
-												</TextField>
-												<Label text="Business Address"> 
+												<Label text="Firstname" GridPane.columnIndex="0" GridPane.rowIndex="1"/> 
+												<TextField fx:id="firstname" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.hgrow="ALWAYS"/> 
+												<Label text="Lastname" GridPane.columnIndex="0" GridPane.rowIndex="2"/> 
+												<TextField fx:id="lastname" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.hgrow="ALWAYS"/> 
+												<Label text="Company" GridPane.columnIndex="0" GridPane.rowIndex="3"/> 
+												<TextField fx:id="company" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.hgrow="ALWAYS"/> 
+												<Label text="Job Title" GridPane.columnIndex="0" GridPane.rowIndex="4"/> 
+												<TextField fx:id="jobtitle" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.hgrow="ALWAYS"/> 
+												<ImageView fx:id="personimage" fitHeight="120" fitWidth="120" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="5"/> 
+												<Label text="Note" GridPane.columnIndex="0" GridPane.rowIndex="5"/> 
+												<TextField fx:id="note" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS"/> 
+												<Label text="Business Address" GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.columnSpan="2"> 
 													<styleClass>
 														<String fx:value="label"/> 
 														<String fx:value="separator-label"/> 
 													</styleClass>
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>6</GridPane.rowIndex>
-													<GridPane.columnSpan>2</GridPane.columnSpan>
 												</Label>
-												<Label text="Street"> 
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>7</GridPane.rowIndex>
-												</Label>
-												<TextField fx:id="street"> 
-													<GridPane.columnIndex>1</GridPane.columnIndex>
-													<GridPane.rowIndex>7</GridPane.rowIndex>
-													<GridPane.columnSpan>2</GridPane.columnSpan>
-													<GridPane.hgrow>ALWAYS</GridPane.hgrow>
-												</TextField>
-												<Label text="Zip"> 
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>8</GridPane.rowIndex>
-												</Label>
-												<TextField fx:id="zip"> 
-													<GridPane.columnIndex>1</GridPane.columnIndex>
-													<GridPane.rowIndex>8</GridPane.rowIndex>
-													<GridPane.columnSpan>2</GridPane.columnSpan>
-													<GridPane.hgrow>ALWAYS</GridPane.hgrow>
-												</TextField>
-												<Label text="Country"> 
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>9</GridPane.rowIndex>
-												</Label>
-												<TextField fx:id="country"> 
-													<GridPane.columnIndex>1</GridPane.columnIndex>
-													<GridPane.rowIndex>9</GridPane.rowIndex>
-													<GridPane.columnSpan>2</GridPane.columnSpan>
-													<GridPane.hgrow>ALWAYS</GridPane.hgrow>
-												</TextField>
-												<Label text="Business Phones"> 
+												<Label text="Street" GridPane.columnIndex="0" GridPane.rowIndex="7"/> 
+												<TextField fx:id="street" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS"/> 
+												<Label text="Zip" GridPane.columnIndex="0" GridPane.rowIndex="8"/> 
+												<TextField fx:id="zip" GridPane.columnIndex="1" GridPane.rowIndex="8" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS"/> 
+												<Label text="Country" GridPane.columnIndex="0" GridPane.rowIndex="9"/> 
+												<TextField fx:id="country" GridPane.columnIndex="1" GridPane.rowIndex="9" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS"/> 
+												<Label text="Business Phones" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.columnSpan="2"> 
 													<styleClass>
 														<String fx:value="label"/> 
 														<String fx:value="separator-label"/> 
 													</styleClass>
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>10</GridPane.rowIndex>
-													<GridPane.columnSpan>2</GridPane.columnSpan>
 												</Label>
-												<Label text="Phone"> 
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>11</GridPane.rowIndex>
-												</Label>
-												<TextField fx:id="phone"> 
-													<GridPane.columnIndex>1</GridPane.columnIndex>
-													<GridPane.rowIndex>11</GridPane.rowIndex>
-													<GridPane.columnSpan>2</GridPane.columnSpan>
-													<GridPane.hgrow>ALWAYS</GridPane.hgrow>
-												</TextField>
-												<Label text="Mobile"> 
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>12</GridPane.rowIndex>
-												</Label>
-												<TextField fx:id="mobile"> 
-													<GridPane.columnIndex>1</GridPane.columnIndex>
-													<GridPane.rowIndex>12</GridPane.rowIndex>
-													<GridPane.columnSpan>2</GridPane.columnSpan>
-													<GridPane.hgrow>ALWAYS</GridPane.hgrow>
-												</TextField>
-												<Label text="Business Internet"> 
+												<Label text="Phone" GridPane.columnIndex="0" GridPane.rowIndex="11"/> 
+												<TextField fx:id="phone" GridPane.columnIndex="1" GridPane.rowIndex="11" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS"/> 
+												<Label text="Mobile" GridPane.columnIndex="0" GridPane.rowIndex="12"/> 
+												<TextField fx:id="mobile" GridPane.columnIndex="1" GridPane.rowIndex="12" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS"/> 
+												<Label text="Business Internet" GridPane.columnIndex="0" GridPane.rowIndex="13" GridPane.columnSpan="2"> 
 													<styleClass>
 														<String fx:value="label"/> 
 														<String fx:value="separator-label"/> 
 													</styleClass>
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>13</GridPane.rowIndex>
-													<GridPane.columnSpan>2</GridPane.columnSpan>
 												</Label>
-												<Label text="E-Mail"> 
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>14</GridPane.rowIndex>
-												</Label>
-												<TextField fx:id="email"> 
-													<GridPane.columnIndex>1</GridPane.columnIndex>
-													<GridPane.rowIndex>14</GridPane.rowIndex>
-													<GridPane.columnSpan>2</GridPane.columnSpan>
-													<GridPane.hgrow>ALWAYS</GridPane.hgrow>
-												</TextField>
-												<Label text="Web Site"> 
-													<GridPane.columnIndex>0</GridPane.columnIndex>
-													<GridPane.rowIndex>15</GridPane.rowIndex>
-												</Label>
-												<TextField fx:id="website" text="Bla"> 
-													<GridPane.columnIndex>1</GridPane.columnIndex>
-													<GridPane.rowIndex>15</GridPane.rowIndex>
-													<GridPane.columnSpan>2</GridPane.columnSpan>
-													<GridPane.hgrow>ALWAYS</GridPane.hgrow>
-												</TextField>
+												<Label text="E-Mail" GridPane.columnIndex="0" GridPane.rowIndex="14"/> 
+												<TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="14" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS"/> 
+												<Label text="Web Site" GridPane.columnIndex="0" GridPane.rowIndex="15"/> 
+												<TextField fx:id="website" text="Bla" GridPane.columnIndex="1" GridPane.rowIndex="15" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS"/> 
 											</children>
 										</GridPane>
 									</content>
@@ -255,5 +148,4 @@
 			</items>
 		</SplitPane>
 	</center>
-
 </BorderPane>

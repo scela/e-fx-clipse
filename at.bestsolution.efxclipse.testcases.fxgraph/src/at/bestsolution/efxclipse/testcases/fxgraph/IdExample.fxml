@@ -12,5 +12,4 @@
 	<top>
 		<Button fx:id="test_me" text="Hello World"/> 
 	</top>
-
 </BorderPane>

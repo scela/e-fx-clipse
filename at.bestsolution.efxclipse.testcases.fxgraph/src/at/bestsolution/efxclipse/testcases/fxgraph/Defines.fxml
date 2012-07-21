@@ -20,5 +20,4 @@
 		<RadioButton text="C" toggleGroup="$myToggleGroup"/> 
 		<fx:reference source="testRadio" />
 	</children>
-
 </VBox>

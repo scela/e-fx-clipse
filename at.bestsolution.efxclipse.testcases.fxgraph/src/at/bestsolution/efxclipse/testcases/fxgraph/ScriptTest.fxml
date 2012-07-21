@@ -16,5 +16,4 @@
 	<children>
 		<Button text="$test"/> 
 	</children>
-
 </HBox>
