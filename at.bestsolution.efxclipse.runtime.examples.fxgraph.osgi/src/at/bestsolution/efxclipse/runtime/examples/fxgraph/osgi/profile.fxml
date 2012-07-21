@@ -16,10 +16,7 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:id="Profile" fx:controller="at.bestsolution.efxclipse.runtime.examples.fxgraph.osgi.ProfileController" prefWidth="650.0" prefHeight="443.0">
 
 	<children>
-		<Button fx:id="update" maxHeight="2.0" text="Update" onAction="#processUpdate"> 
-			<AnchorPane.bottomAnchor>15.0</AnchorPane.bottomAnchor>
-			<AnchorPane.rightAnchor>168.0</AnchorPane.rightAnchor>
-		</Button>
+		<Button fx:id="update" maxHeight="2.0" text="Update" onAction="#processUpdate" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="168.0"/> 
 		<Label fx:id="message" layoutX="56.0" layoutY="77.0" text="Please review your profile data."/> 
 		<Label layoutX="56.0" layoutY="123.0" text="User:"/> 
 		<Label layoutX="56.0" layoutY="224.0" text="Phone:"/> 
@@ -29,21 +26,11 @@
 		<TextField fx:id="phone" layoutX="149.0" layoutY="224" maxWidth="2.0" minHeight="30.0" minWidth="215.0" prefHeight="30.0" prefWidth="215.0"/> 
 		<CheckBox fx:id="subscribed" layoutX="402" layoutY="120" text="Subscribe to Newsletter"/> 
 		<Separator layoutX="380" layoutY="110" prefHeight="155" orientation="vertical"/> 
-		<Hyperlink fx:id="logout" layoutY="24.0" text="logout" onAction="#processLogout"> 
-			<AnchorPane.rightAnchor>52.0</AnchorPane.rightAnchor>
-		</Hyperlink>
-		<Button fx:id="Button" disable="true" maxHeight="2" maxWidth="2.0" text="Continue" defaultButton="true" onAction="#processLogout"> 
-			<AnchorPane.bottomAnchor>15.0</AnchorPane.bottomAnchor>
-			<AnchorPane.rightAnchor>52.0</AnchorPane.rightAnchor>
-		</Button>
+		<Hyperlink fx:id="logout" layoutY="24.0" text="logout" onAction="#processLogout" AnchorPane.rightAnchor="52.0"/> 
+		<Button fx:id="Button" disable="true" maxHeight="2" maxWidth="2.0" text="Continue" defaultButton="true" onAction="#processLogout" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="52.0"/> 
 		<Label fx:id="success" layoutX="100.0" layoutY="401.0" opacity="0" text="Profile successfully updated!"/> 
 		<Label layoutX="56.0" layoutY="284.0" text="Address:"/> 
-		<TextArea fx:id="address" maxHeight="2.0" maxWidth="2.0" minHeight="85.0" minWidth="448.0" prefHeight="85.0" prefWidth="448.0"> 
-			<AnchorPane.bottomAnchor>69.0</AnchorPane.bottomAnchor>
-			<AnchorPane.leftAnchor>149.0</AnchorPane.leftAnchor>
-			<AnchorPane.rightAnchor>52.0</AnchorPane.rightAnchor>
-			<AnchorPane.topAnchor>289.0</AnchorPane.topAnchor>
-		</TextArea>
+		<TextArea fx:id="address" maxHeight="2.0" maxWidth="2.0" minHeight="85.0" minWidth="448.0" prefHeight="85.0" prefWidth="448.0" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="149.0" AnchorPane.rightAnchor="52.0" AnchorPane.topAnchor="289.0"/> 
 	</children>
 	<styleClass>
 		<String fx:value="profile"/> 
@@ -53,5 +40,4 @@
 			<Boolean fx:value="true"/> 
 		</elementLockSel>
 	</properties>
-
 </AnchorPane>

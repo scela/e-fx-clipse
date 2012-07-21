@@ -32,5 +32,4 @@
 			<Boolean fx:value="true"/> 
 		</elementLockSel>
 	</properties>
-
 </AnchorPane>
