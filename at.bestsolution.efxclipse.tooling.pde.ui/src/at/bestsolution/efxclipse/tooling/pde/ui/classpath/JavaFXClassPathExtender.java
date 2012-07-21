@@ -32,7 +32,7 @@ public class JavaFXClassPathExtender implements IClasspathContributor {
 	public List<String> exportEnvironmentLibraryAdditions(String environmentId) {
 		IPath[] paths = BuildPathSupport.getPreferencePaths();
 		
-		if( paths != null ) {
+		if( paths != null && paths[0] != null ) {
 			return Collections.singletonList(paths[0].toOSString());
 		}
 		
