@@ -9,6 +9,8 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?scenebuilder-preview-i18n-resource messages.properties?>
+<?scenebuilder-stylesheet hello.css?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="at.bestsolution.efxclipse.tutorial.fxgraph.HelloWorldController">
 	<fx:define>
@@ -26,5 +28,4 @@
 	<center>
 		<Button fx:id="myButton" text="%mybutton.label" onAction="#clicked"/> 
 	</center>
-
 </BorderPane>
