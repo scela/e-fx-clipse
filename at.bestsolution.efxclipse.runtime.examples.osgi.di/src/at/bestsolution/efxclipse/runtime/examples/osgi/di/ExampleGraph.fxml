@@ -15,5 +15,4 @@
 	<bottom>
 		<fx:include source="/at/bestsolution/efxclipse/runtime/examples/osgi/di/SubGraph.fxml" />
 	</bottom>
-
 </BorderPane>

@@ -12,5 +12,4 @@
 	<center>
 		<Button fx:id="subbutton" text="Sub Button" onAction="#sayHello"/> 
 	</center>
-
 </BorderPane>
