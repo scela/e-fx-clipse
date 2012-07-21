@@ -177,19 +177,6 @@ public class E4Application extends AbstractJFXApplication {
 		MApplication appModel = loadApplicationModel(applicationContext, appContext);
 		appModel.setContext(appContext);
 
-		// FIXME Need to have RTL
-		// String rtlMode = getArgValue(E4Workbench.RTL_MODE,
-		// applicationContext, false);
-		// appModel.getTransientData().put(E4Workbench.RTL_MODE,
-		// "rtl".equals(rtlMode));
-
-		// for compatibility layer: set the application in the OSGi service
-		// context (see Workbench#getInstance())
-		if (!E4Workbench.getServiceContext().containsKey(MApplication.class.getName())) {
-			// first one wins.
-			E4Workbench.getServiceContext().set(MApplication.class.getName(), appModel);
-		}
-
 		// Set the app's context after adding itself
 		appContext.set(MApplication.class.getName(), appModel);
 
