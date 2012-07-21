@@ -20,5 +20,4 @@
 		<Button text="Login" layoutX="80" layoutY="70" onAction="#login"/> 
 		<Label fx:id="message" layoutX="80" layoutY="100"/> 
 	</children>
-
 </AnchorPane>
