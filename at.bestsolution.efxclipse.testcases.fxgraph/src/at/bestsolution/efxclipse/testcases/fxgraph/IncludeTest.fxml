@@ -15,9 +15,8 @@
 
 	<children>
 		<fx:include fx:id="test1" source="/at/bestsolution/efxclipse/testcases/fxgraph/Controller.fxml" />
-		<fx:include source="/at/bestsolution/efxclipse/testcases/fxgraph/inc/TestInc.fxml" />
+		<fx:include fx:id="myTest" source="/at/bestsolution/efxclipse/testcases/fxgraph/inc/TestInc.fxml" />
 		<fx:reference source="testButton" />
 		<fx:reference source="imageInc" />
 	</children>
-
 </VBox>

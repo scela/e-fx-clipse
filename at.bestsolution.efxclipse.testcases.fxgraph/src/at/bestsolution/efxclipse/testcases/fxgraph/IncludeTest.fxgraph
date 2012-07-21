@@ -13,7 +13,7 @@ component IncludeTest {
 	VBox {
 		children : [
 			include Controller as test1,
-			include TestInc,
+			include TestInc as myTest,
 			idref testButton,
 			idref imageInc
 		]
