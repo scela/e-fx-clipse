@@ -21,7 +21,6 @@ public abstract class JFXRenderer extends AbstractPartRenderer {
 	public void bindWidget(MUIElement me, Object widget) {
 		if( widget instanceof Node ) {
 			((Node) widget).setUserData(me);
-			System.err.println("Tags: " + me.getTags());
 			((Node) widget).getStyleClass().addAll(me.getTags());
 		}
 		
