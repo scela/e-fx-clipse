@@ -610,7 +610,7 @@ public class JFXDialectExtension implements CssDialectExtension {
 			proposals.add(new Proposal(2,"ladder(<color>) stops (0, <color>)"));
 			
 			// gradient
-			proposals.add(new Proposal(2,"linear-gradient( from 0% 0% to 100% 100%, repeat, 0% red, 100% black )"));
+			proposals.add(new Proposal(2,"linear-gradient( from 0% 0% to 100% 100%, repeat, red 0%, black 100% )"));
 			proposals.add(new Proposal(2,"radial <size> stops ( <number> , <color> )"));
 		}
 		
