@@ -1,11 +1,24 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.widgets;
 
-public interface WWindow extends WWidget {
+import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
+import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
+
+@SuppressWarnings("restriction")
+public interface WWindow<N> extends WWidget<MWindow> {
 	public void setX(double x);
 	public void setY(double y);
 	public void setWidth(double w);
 	public void setHeight(double h);
-	
 	public void setBounds(double x, double y, double w, double h);
-	public void show(); 
+	
+	public void setTitle(String title);
+	public void setMainMenu(WWidget<MMenu> menuWidget);
+	public void setTopTrim(WWidget<MTrimBar> trimBar);
+	public void setLeftTrim(WWidget<MTrimBar> trimBar);
+	public void setRightTrim(WWidget<MTrimBar> trimBar);
+	public void setBottomTrim(WWidget<MTrimBar> trimBar);
+	
+	public void show();
+	 
 }

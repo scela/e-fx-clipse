@@ -115,7 +115,7 @@ public class PartRenderingEngine2 implements IPresentationEngine {
 		return (AbstractRenderer<MUIElement,Object>) element.getRenderer();
 	}
 	
-	private void createContext(MContext model, IEclipseContext parentContext) {
+	private IEclipseContext createContext(MContext model, IEclipseContext parentContext) {
 		IEclipseContext lclContext = parentContext.createChild(getContextName((MApplicationElement) model));
 		populateModelInterfaces(model, lclContext, model.getClass().getInterfaces());
 		model.setContext(lclContext);
@@ -130,6 +130,8 @@ public class PartRenderingEngine2 implements IPresentationEngine {
 		}
 		
 		E4Workbench.processHierarchy(model);
+		
+		return lclContext;
 	}
 
 	private static void populateModelInterfaces(MContext contextModel, IEclipseContext context, Class<?>[] interfaces) {
