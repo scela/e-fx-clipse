@@ -6,6 +6,8 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseMenuBarRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseSashRenderer;
+import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseToolBarRenderer;
+import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseToolItemRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseTrimBarRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseWindowRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseWorkbenchRendererFactory;
@@ -38,4 +40,13 @@ public class DefWorkbenchRendererFactory extends BaseWorkbenchRendererFactory {
 		return DefTrimBarRenderer.class;
 	}
 
+	@Override
+	protected Class<? extends BaseToolBarRenderer<?>> getToolBarRendererClass() {
+		return DefToolBarRenderer.class;
+	}
+	
+	@Override
+	protected Class<? extends BaseToolItemRenderer<?>> getToolItemRendererClass() {
+		return DefToolItemRenderer.class;
+	}
 }

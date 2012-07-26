@@ -49,7 +49,6 @@ public class PartRenderingEngine2 implements IPresentationEngine {
 	}
 	
 	public Object createGui(MUIElement element, Object parentWidget, IEclipseContext parentContext) {
-		System.err.println("Creating element: " + element + ", " + parentContext);
 		if( !element.isToBeRendered() ) {
 			return null;
 		}

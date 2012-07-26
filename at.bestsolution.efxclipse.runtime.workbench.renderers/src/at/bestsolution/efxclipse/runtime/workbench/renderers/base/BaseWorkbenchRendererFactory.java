@@ -10,6 +10,8 @@ import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.impl.BasicPackageImpl;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
+import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
+import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
 import org.eclipse.emf.ecore.EObject;
 
 import at.bestsolution.efxclipse.runtime.workbench.rendering.AbstractRenderer;
@@ -24,6 +26,8 @@ public abstract class BaseWorkbenchRendererFactory implements RendererFactory {
 	private BaseSashRenderer<?> sashRenderer;
 	private BaseMenuBarRenderer<?> menuBarRenderer;
 	private BaseTrimBarRenderer<?> trimBarRenderer;
+	private BaseToolBarRenderer<?> toolBarRenderer;
+	private BaseToolItemRenderer<?> toolItemRenderer;
 	
 	@Inject
 	public BaseWorkbenchRendererFactory(IEclipseContext context) {
@@ -55,6 +59,16 @@ public abstract class BaseWorkbenchRendererFactory implements RendererFactory {
 				trimBarRenderer = ContextInjectionFactory.make(getTrimBarRendererClass(), context);
 			}
 			return (R) trimBarRenderer;
+		} else if( modelObject instanceof MToolBar ) {
+			if( toolBarRenderer == null ) {
+				toolBarRenderer = ContextInjectionFactory.make(getToolBarRendererClass(), context);
+			}
+			return (R) toolBarRenderer;
+		} else if( modelObject instanceof MToolItem ) {
+			if( toolItemRenderer == null ) {
+				toolItemRenderer = ContextInjectionFactory.make(getToolItemRendererClass(), context);
+			}
+			return (R) toolItemRenderer;
 		}
 		
 		return null;
@@ -64,4 +78,6 @@ public abstract class BaseWorkbenchRendererFactory implements RendererFactory {
 	protected abstract Class<? extends BaseSashRenderer<?>> getSashRendererClass();
 	protected abstract Class<? extends BaseMenuBarRenderer<?>> getMenuBarRendererClass();
 	protected abstract Class<? extends BaseTrimBarRenderer<?>> getTrimBarRendererClass();
+	protected abstract Class<? extends BaseToolBarRenderer<?>> getToolBarRendererClass();
+	protected abstract Class<? extends BaseToolItemRenderer<?>> getToolItemRendererClass();
 }

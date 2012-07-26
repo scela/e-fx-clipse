@@ -10,6 +10,7 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 public interface WWidget<M extends MUIElement> {
 	public void setDomElement(M domElement);
 	public void addStyleClasses(List<String> classnames);
+	public void addStyleClasses(String... classnames);
 	public void setStyleId(String id);
 	public Node getStaticLayoutNode();
 }

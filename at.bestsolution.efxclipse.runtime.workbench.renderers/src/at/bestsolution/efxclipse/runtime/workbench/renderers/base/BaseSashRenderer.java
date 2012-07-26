@@ -1,6 +1,5 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.base;
 
-import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
 
@@ -16,7 +15,7 @@ public abstract class BaseSashRenderer<N> extends BaseRenderer<MPartSashContaine
 	}
 
 	@Override
-	public void childRendered(MElementContainer<MUIElement> parentElement, MPartSashContainer element) {
+	public void childRendered(MPartSashContainer parentElement, MUIElement element) {
 		// TODO Auto-generated method stub
 		
 	}

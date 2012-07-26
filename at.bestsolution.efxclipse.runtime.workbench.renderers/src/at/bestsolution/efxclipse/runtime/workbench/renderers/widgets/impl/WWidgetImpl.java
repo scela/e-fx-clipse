@@ -2,12 +2,11 @@ package at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 
@@ -55,6 +54,11 @@ public abstract class WWidgetImpl<N,NN extends Node,M extends MUIElement> implem
 	
 	@Override
 	public void addStyleClasses(List<String> classnames) {
+		getWidgetNode().getStyleClass().addAll(classnames);
+	}
+	
+	@Override
+	public void addStyleClasses(String... classnames) {
 		getWidgetNode().getStyleClass().addAll(classnames);
 	}
 	

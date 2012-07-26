@@ -14,6 +14,8 @@ import at.bestsolution.efxclipse.runtime.workbench.rendering.AbstractRenderer;
 public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> extends AbstractRenderer<M, W> {
 	private static final String RENDERING_CONTEXT_KEY = "fx.rendering.context";
 	
+	public static final String CONTEXT_DOM_ELEMENT = "fx.rendering.domElement";
+	
 	@Inject
 	IEclipseContext _context; // The rendering context
 	
@@ -21,6 +23,7 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 	public final W createWidget(M element) {
 		IEclipseContext context = _context.createChild("Element RenderingContext");
 		element.getTransientData().put(RENDERING_CONTEXT_KEY, context);
+		context.set(CONTEXT_DOM_ELEMENT, element);
 		initRenderingContext(element, context);
 		
 		W widget =  ContextInjectionFactory.make(getWidgetClass(), context);
@@ -67,7 +70,7 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 	protected abstract Class<? extends W> getWidgetClass();
 	
 	@SuppressWarnings("unchecked")
-	protected <PW extends WWidget<PM>, PM extends MUIElement> PW engineCreateWidget(PM pm) {
-		return (PW) getPresentationEngine().createGui(pm);
+	protected <PM extends MUIElement> WWidget<PM> engineCreateWidget(PM pm) {
+		return (WWidget<PM>) getPresentationEngine().createGui(pm);
 	}
 }

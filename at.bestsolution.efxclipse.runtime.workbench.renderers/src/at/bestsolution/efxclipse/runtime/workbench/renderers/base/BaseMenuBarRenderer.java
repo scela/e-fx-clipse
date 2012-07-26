@@ -1,6 +1,5 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.base;
 
-import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 
@@ -16,7 +15,7 @@ public abstract class BaseMenuBarRenderer<N> extends BaseRenderer<MMenu, WMenuBa
 	}
 
 	@Override
-	public void childRendered(MElementContainer<MUIElement> parentElement, MMenu element) {
+	public void childRendered(MMenu parentElement, MUIElement element) {
 		// TODO Auto-generated method stub
 		
 	}

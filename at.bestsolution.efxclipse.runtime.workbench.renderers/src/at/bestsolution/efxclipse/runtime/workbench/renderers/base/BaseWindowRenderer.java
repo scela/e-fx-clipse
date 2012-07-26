@@ -1,12 +1,10 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.base;
 
-import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimmedWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
-import org.eclipse.e4.ui.workbench.IPresentationEngine;
 
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWindow;
@@ -25,31 +23,35 @@ public abstract class BaseWindowRenderer<N> extends BaseRenderer<MWindow,WWindow
 		
 		if (element.getMainMenu() != null) {
 			WWidget<MMenu> menuWidget = engineCreateWidget(element.getMainMenu());
-			windowWidget.setMainMenu(menuWidget);
+			if( menuWidget != null ) {
+				windowWidget.setMainMenu(menuWidget);	
+			}
 		}
 		
 		if( element instanceof MTrimmedWindow ) {
 			for( MTrimBar tm : ((MTrimmedWindow)element).getTrimBars() ) {
 				WWidget<MTrimBar> trimWidget = engineCreateWidget(tm);
-				switch (tm.getSide()) {
-				case TOP:
-					windowWidget.setTopTrim(trimWidget);
-					break;
-				case RIGHT:
-					windowWidget.setRightTrim(trimWidget);
-					break;
-				case BOTTOM:
-					windowWidget.setBottomTrim(trimWidget);
-					break;
-				case LEFT:
-					windowWidget.setLeftTrim(trimWidget);
-					break;
-				default:
-					break;
+				if( trimWidget != null ) {
+					trimWidget.addStyleClasses(tm.getSide().name());
+					switch (tm.getSide()) {
+					case TOP:
+						windowWidget.setTopTrim(trimWidget);
+						break;
+					case RIGHT:
+						windowWidget.setRightTrim(trimWidget);
+						break;
+					case BOTTOM:
+						windowWidget.setBottomTrim(trimWidget);
+						break;
+					case LEFT:
+						windowWidget.setLeftTrim(trimWidget);
+						break;
+					default:
+						break;
+					}					
 				}
 			}
 		}
-		
 	}
 
 	@Override
@@ -64,7 +66,7 @@ public abstract class BaseWindowRenderer<N> extends BaseRenderer<MWindow,WWindow
 	}
 
 	@Override
-	public void childRendered(MElementContainer<MUIElement> parentElement, MWindow element) {
+	public void childRendered(MWindow parentElement, MUIElement element) {
 		// TODO Auto-generated method stub
 		
 	}

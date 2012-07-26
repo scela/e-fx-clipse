@@ -9,7 +9,7 @@ public abstract class AbstractRenderer<M extends MUIElement, C> {
 		public abstract void bindWidget(M element, C widget);
 		public abstract void processContent(M element);
 		public abstract void postProcess(M element);
-		public abstract void childRendered(MElementContainer<MUIElement> parentElement, M element);
+		public abstract void childRendered(M parentElement, MUIElement element);
 		public abstract void destroyWidget(M element);
 		public C getWidget(M element) {
 			return (C) element.getWidget();
