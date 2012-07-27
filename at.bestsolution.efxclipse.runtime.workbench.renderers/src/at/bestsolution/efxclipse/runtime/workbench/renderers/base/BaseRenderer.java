@@ -15,21 +15,31 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 	private static final String RENDERING_CONTEXT_KEY = "fx.rendering.context";
 	
 	public static final String CONTEXT_DOM_ELEMENT = "fx.rendering.domElement";
+//	public static final String CONTEXT_WIDGET_ELEMENT = "fx.rendering.widget";
 	
 	@Inject
 	IEclipseContext _context; // The rendering context
 	
 	@Override
 	public final W createWidget(M element) {
-		IEclipseContext context = _context.createChild("Element RenderingContext");
-		element.getTransientData().put(RENDERING_CONTEXT_KEY, context);
-		context.set(CONTEXT_DOM_ELEMENT, element);
-		initRenderingContext(element, context);
+		IEclipseContext context = setupRenderingContext(element);
 		
 		W widget =  ContextInjectionFactory.make(getWidgetClass(), context);
+//		context.set(CONTEXT_WIDGET_ELEMENT, widget);
 		initWidget(element, widget);
 		
 		return widget;
+	}
+	
+	public final IEclipseContext setupRenderingContext(M element) {
+		IEclipseContext context = (IEclipseContext) element.getTransientData().get(RENDERING_CONTEXT_KEY);
+		if( context == null ) {
+			context = _context.createChild("Element RenderingContext");
+			element.getTransientData().put(RENDERING_CONTEXT_KEY, context);
+			context.set(CONTEXT_DOM_ELEMENT, element);
+			initRenderingContext(element, context);			
+		}
+		return context;
 	}
 	
 	protected void initRenderingContext(M element, IEclipseContext context) {
@@ -72,5 +82,9 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 	@SuppressWarnings("unchecked")
 	protected <PM extends MUIElement> WWidget<PM> engineCreateWidget(PM pm) {
 		return (WWidget<PM>) getPresentationEngine().createGui(pm);
+	}
+	
+	protected IEclipseContext getRenderingContext(M element) {
+		return (IEclipseContext) element.getTransientData().get(RENDERING_CONTEXT_KEY);
 	}
 }

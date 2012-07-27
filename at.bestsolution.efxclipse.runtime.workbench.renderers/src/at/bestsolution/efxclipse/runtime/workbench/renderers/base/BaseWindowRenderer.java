@@ -4,6 +4,7 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimmedWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
@@ -50,6 +51,13 @@ public abstract class BaseWindowRenderer<N> extends BaseRenderer<MWindow,WWindow
 						break;
 					}					
 				}
+			}
+		}
+		
+		for( MWindowElement e : element.getChildren() ) {
+			WWidget<MWindowElement> widget = engineCreateWidget(e);
+			if( widget != null ) {
+				windowWidget.addChild(widget);
 			}
 		}
 	}

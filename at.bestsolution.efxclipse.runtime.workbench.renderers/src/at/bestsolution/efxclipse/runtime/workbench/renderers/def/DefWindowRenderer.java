@@ -16,8 +16,10 @@ import javax.inject.Named;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 
+import at.bestsolution.efxclipse.runtime.panels.FillLayoutPane;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseWindowRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWindow;
@@ -35,6 +37,7 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 		private boolean support3d;
 		private BorderPane rootPane;
 		private BorderPane trimPane;
+		private FillLayoutPane contentPane;
 		
 		@Inject
 		public WWindowImpl(@Named("fx.scene.3d") @Optional Boolean support3d) {
@@ -47,6 +50,8 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 			this.rootPane = new BorderPane();
 			this.trimPane = new BorderPane();
 			this.rootPane.setCenter(trimPane);
+			this.contentPane = new FillLayoutPane();
+			this.trimPane.setCenter(contentPane);
 			
 			// TODO Should we create the scene on show???
 			if( support3d && Platform.isSupported(ConditionalFeature.SCENE3D) ) {
@@ -144,6 +149,11 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 		public void setTopTrim(WWidget<MTrimBar> trimBar) {
 			Node g = trimBar.getStaticLayoutNode();
 			trimPane.setTop(g);
+		}
+		
+		@Override
+		public void addChild(WWidget<MWindowElement> widget) {
+			contentPane.getChildren().add(widget.getStaticLayoutNode());
 		}
 	}
 }

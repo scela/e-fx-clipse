@@ -5,7 +5,9 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
+import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.impl.BasicPackageImpl;
@@ -28,10 +30,13 @@ public abstract class BaseWorkbenchRendererFactory implements RendererFactory {
 	private BaseTrimBarRenderer<?> trimBarRenderer;
 	private BaseToolBarRenderer<?> toolBarRenderer;
 	private BaseToolItemRenderer<?> toolItemRenderer;
+	private BaseStackRenderer<?, ?> stackRenderer;
+	private BasePartRenderer<?> partRenderer;
 	
 	@Inject
 	public BaseWorkbenchRendererFactory(IEclipseContext context) {
-		this.context = context;
+		this.context = context.createChild();
+		this.context.set(RendererFactory.class, this);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -69,6 +74,16 @@ public abstract class BaseWorkbenchRendererFactory implements RendererFactory {
 				toolItemRenderer = ContextInjectionFactory.make(getToolItemRendererClass(), context);
 			}
 			return (R) toolItemRenderer;
+		} else if( modelObject instanceof MPartStack ) {
+			if( stackRenderer == null ) {
+				stackRenderer = ContextInjectionFactory.make(getStackRendererClass(), context);
+			}
+			return (R) stackRenderer;
+		} else if( modelObject instanceof MPart ) {
+			if( partRenderer == null ) {
+				partRenderer = ContextInjectionFactory.make(getPartRendererClass(), context);
+			}
+			return (R) partRenderer;
 		}
 		
 		return null;
@@ -80,4 +95,6 @@ public abstract class BaseWorkbenchRendererFactory implements RendererFactory {
 	protected abstract Class<? extends BaseTrimBarRenderer<?>> getTrimBarRendererClass();
 	protected abstract Class<? extends BaseToolBarRenderer<?>> getToolBarRendererClass();
 	protected abstract Class<? extends BaseToolItemRenderer<?>> getToolItemRendererClass();
+	protected abstract Class<? extends BaseStackRenderer<?,?>> getStackRendererClass();
+	protected abstract Class<? extends BasePartRenderer<?>> getPartRendererClass();
 }

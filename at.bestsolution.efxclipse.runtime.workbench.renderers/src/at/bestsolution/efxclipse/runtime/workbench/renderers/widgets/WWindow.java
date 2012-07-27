@@ -2,6 +2,7 @@ package at.bestsolution.efxclipse.runtime.workbench.renderers.widgets;
 
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
+import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 
 @SuppressWarnings("restriction")
@@ -19,6 +20,7 @@ public interface WWindow<N> extends WWidget<MWindow> {
 	public void setRightTrim(WWidget<MTrimBar> trimBar);
 	public void setBottomTrim(WWidget<MTrimBar> trimBar);
 	
-	public void show();
-	 
+	public void addChild(WWidget<MWindowElement> widget);
+	
+	public void show(); 
 }
