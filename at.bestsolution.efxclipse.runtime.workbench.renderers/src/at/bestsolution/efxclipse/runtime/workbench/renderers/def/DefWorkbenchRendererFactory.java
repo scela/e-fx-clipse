@@ -7,6 +7,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseMenuBarRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseMenuItemRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseMenuRenderer;
+import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseMenuSeparatorRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BasePartRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseSashRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseStackRenderer;
@@ -72,5 +73,10 @@ public class DefWorkbenchRendererFactory extends BaseWorkbenchRendererFactory {
 	@Override
 	protected Class<? extends BaseMenuItemRenderer<?>> getMenuItemRendererClass() {
 		return DefMenuItemRenderer.class;
+	}
+	
+	@Override
+	protected Class<? extends BaseMenuSeparatorRenderer<?>> getMenuSeparatorRendererClass() {
+		return DefMenuSeparatorRenderer.class;
 	}
 }

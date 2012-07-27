@@ -13,6 +13,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.impl.BasicPackageImpl;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
+import org.eclipse.e4.ui.model.application.ui.menu.MMenuSeparator;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
 import org.eclipse.emf.ecore.EObject;
@@ -35,6 +36,7 @@ public abstract class BaseWorkbenchRendererFactory implements RendererFactory {
 	private BasePartRenderer<?> partRenderer;
 	private BaseMenuRenderer<?> menuRenderer;
 	private BaseMenuItemRenderer<?> menuItemRenderer;
+	private BaseMenuSeparatorRenderer<?> menuSeperatorRenderer;
 	
 	@Inject
 	public BaseWorkbenchRendererFactory(IEclipseContext context) {
@@ -97,6 +99,11 @@ public abstract class BaseWorkbenchRendererFactory implements RendererFactory {
 				menuItemRenderer = ContextInjectionFactory.make(getMenuItemRendererClass(), context);
 			}
 			return (R) menuItemRenderer;
+		}  else if( modelObject instanceof MMenuSeparator ) {
+			if( menuSeperatorRenderer == null ) {
+				menuSeperatorRenderer = ContextInjectionFactory.make(getMenuSeparatorRendererClass(), context);
+			}
+			return (R) menuSeperatorRenderer;
 		}
 		
 		return null;
@@ -112,4 +119,5 @@ public abstract class BaseWorkbenchRendererFactory implements RendererFactory {
 	protected abstract Class<? extends BasePartRenderer<?>> getPartRendererClass();
 	protected abstract Class<? extends BaseMenuRenderer<?>> getMenuRendererClass();
 	protected abstract Class<? extends BaseMenuItemRenderer<?>> getMenuItemRendererClass();
+	protected abstract Class<? extends BaseMenuSeparatorRenderer<?>> getMenuSeparatorRendererClass();
 }

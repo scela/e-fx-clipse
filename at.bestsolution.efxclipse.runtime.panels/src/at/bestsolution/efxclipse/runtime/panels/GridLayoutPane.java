@@ -1142,4 +1142,15 @@ public class GridLayoutPane extends AbstractLayoutPane<GridLayoutPane.GridData> 
 		return makeColumnsEqualWidthProperty;
 	}
 	
+	public void setHorizontalSpacing(int value) {
+		horizontalSpacing.set(value);
+	}
+	
+	public void setMarginWidth(int value) {
+		marginWidth.set(value);
+	}
+	
+	public void setMarginHeight(int value) {
+		marginHeight.set(value);
+	}
 }
