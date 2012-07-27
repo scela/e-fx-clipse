@@ -105,11 +105,6 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 		}
 
 		@Override
-		public void setDomElement(MWindow domElement) {
-			rootPane.setUserData(domElement);
-		}
-
-		@Override
 		public void addStyleClasses(List<String> classnames) {
 			rootPane.getStyleClass().addAll(classnames);
 		}

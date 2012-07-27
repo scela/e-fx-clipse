@@ -33,11 +33,6 @@ public class DefMenuItemRenderer extends BaseMenuItemRenderer<MenuItem> {
 		}
 		
 		@Override
-		public void setDomElement(MMenuItem domElement) {
-			getWidget().setUserData(domElement);
-		}
-
-		@Override
 		public void addStyleClasses(List<String> classnames) {
 			getWidget().getStyleClass().addAll(classnames);
 		}
@@ -64,14 +59,14 @@ public class DefMenuItemRenderer extends BaseMenuItemRenderer<MenuItem> {
 			}
 		}
 		
-		@PreDestroy
-		void destroy() {
-			getWidget().setUserData(null);
-		}
-
 		@Override
 		public void setLabel(String label) {
 			getWidget().setText(label);
+		}
+
+		@Override
+		protected void setUserData(WWidgetImpl<MenuItem, MMenuItem> widget) {
+			getWidget().setUserData(widget);
 		}
 	}
 }

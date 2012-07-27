@@ -14,6 +14,7 @@ import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WLayoutedWi
 @SuppressWarnings("restriction")
 public abstract class WLayoutedWidgetImpl<N,NN extends Node,M extends MUIElement> extends WWidgetImpl<N,M> implements WLayoutedWidget<M> {
 	private AnchorPane staticLayoutGroup;
+	
 	protected abstract NN getWidgetNode();
 	
 	@Override
@@ -43,18 +44,12 @@ public abstract class WLayoutedWidgetImpl<N,NN extends Node,M extends MUIElement
 	}
 	
 	@Override
-	public void setDomElement(M domElement) {
-		getWidgetNode().setUserData(domElement);
-	}
-	
-	@Override
 	public void setStyleId(String id) {
 		getWidgetNode().setId(id);
 	}
 	
-	@PreDestroy
-	void destroy() {
-		NN wn = getWidgetNode();
-		wn.setUserData(null);
+	@Override
+	protected void setUserData(WWidgetImpl<N, M> widget) {
+		getWidgetNode().setUserData(widget);
 	}
 }

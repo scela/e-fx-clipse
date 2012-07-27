@@ -2,8 +2,6 @@ package at.bestsolution.efxclipse.runtime.workbench.renderers.def;
 
 import java.util.List;
 
-import javax.annotation.PreDestroy;
-
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
@@ -32,11 +30,6 @@ public class DefMenuRenderer extends BaseMenuRenderer<Menu> {
 		}
 
 		@Override
-		public void setDomElement(MMenu domElement) {
-			getWidget().setUserData(domElement);
-		}
-
-		@Override
 		public void addStyleClasses(List<String> classnames) {
 			getWidget().getStyleClass().addAll(classnames);
 		}
@@ -61,9 +54,9 @@ public class DefMenuRenderer extends BaseMenuRenderer<Menu> {
 			getWidget().getItems().add((MenuItem) widget.getWidget());
 		}
 		
-		@PreDestroy
-		void destroy() {
-			getWidget().setUserData(null);
+		@Override
+		protected void setUserData(WWidgetImpl<Menu, MMenu> widget) {
+			getWidget().setUserData(widget);
 		}
 	}
 }

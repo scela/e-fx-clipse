@@ -21,11 +21,6 @@ public class DefMenuSeparatorRenderer extends BaseMenuSeparatorRenderer<Separato
 	public static class MenuSeparatorImpl extends WWidgetImpl<SeparatorMenuItem, MMenuSeparator> implements WMenuSeparator<SeparatorMenuItem> {
 
 		@Override
-		public void setDomElement(MMenuSeparator domElement) {
-			getWidget().setUserData(domElement);
-		}
-
-		@Override
 		public void addStyleClasses(List<String> classnames) {
 			getWidget().getStyleClass().addAll(classnames);
 		}
@@ -46,5 +41,9 @@ public class DefMenuSeparatorRenderer extends BaseMenuSeparatorRenderer<Separato
 			return item;
 		}
 		
+		@Override
+		protected void setUserData(WWidgetImpl<SeparatorMenuItem, MMenuSeparator> widget) {
+			getWidget().setUserData(widget);
+		}
 	}
 }
