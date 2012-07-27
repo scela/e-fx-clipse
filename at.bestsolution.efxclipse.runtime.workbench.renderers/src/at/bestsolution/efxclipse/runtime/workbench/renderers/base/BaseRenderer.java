@@ -80,8 +80,8 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 	protected abstract Class<? extends W> getWidgetClass();
 	
 	@SuppressWarnings("unchecked")
-	protected <PM extends MUIElement> WWidget<PM> engineCreateWidget(PM pm) {
-		return (WWidget<PM>) getPresentationEngine().createGui(pm);
+	protected <W extends WWidget<PM>, PM extends MUIElement> W engineCreateWidget(PM pm) {
+		return (W) getPresentationEngine().createGui(pm);
 	}
 	
 	protected IEclipseContext getRenderingContext(M element) {

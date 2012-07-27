@@ -12,6 +12,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.impl.BasicPackageImpl;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
+import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
 import org.eclipse.emf.ecore.EObject;
@@ -32,6 +33,8 @@ public abstract class BaseWorkbenchRendererFactory implements RendererFactory {
 	private BaseToolItemRenderer<?> toolItemRenderer;
 	private BaseStackRenderer<?, ?> stackRenderer;
 	private BasePartRenderer<?> partRenderer;
+	private BaseMenuRenderer<?> menuRenderer;
+	private BaseMenuItemRenderer<?> menuItemRenderer;
 	
 	@Inject
 	public BaseWorkbenchRendererFactory(IEclipseContext context) {
@@ -58,6 +61,11 @@ public abstract class BaseWorkbenchRendererFactory implements RendererFactory {
 					menuBarRenderer = ContextInjectionFactory.make(getMenuBarRendererClass(), context);
 				}
 				return (R) menuBarRenderer;
+			} else {
+				if( menuRenderer == null ) {
+					menuRenderer = ContextInjectionFactory.make(getMenuRendererClass(), context);
+				}
+				return (R) menuRenderer;
 			}
 		} else if( modelObject instanceof MTrimBar ) {
 			if( trimBarRenderer == null ) {
@@ -84,6 +92,11 @@ public abstract class BaseWorkbenchRendererFactory implements RendererFactory {
 				partRenderer = ContextInjectionFactory.make(getPartRendererClass(), context);
 			}
 			return (R) partRenderer;
+		} else if( modelObject instanceof MMenuItem ) {
+			if( menuItemRenderer == null ) {
+				menuItemRenderer = ContextInjectionFactory.make(getMenuItemRendererClass(), context);
+			}
+			return (R) menuItemRenderer;
 		}
 		
 		return null;
@@ -97,4 +110,6 @@ public abstract class BaseWorkbenchRendererFactory implements RendererFactory {
 	protected abstract Class<? extends BaseToolItemRenderer<?>> getToolItemRendererClass();
 	protected abstract Class<? extends BaseStackRenderer<?,?>> getStackRendererClass();
 	protected abstract Class<? extends BasePartRenderer<?>> getPartRendererClass();
+	protected abstract Class<? extends BaseMenuRenderer<?>> getMenuRendererClass();
+	protected abstract Class<? extends BaseMenuItemRenderer<?>> getMenuItemRendererClass();
 }

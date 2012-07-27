@@ -5,8 +5,10 @@ import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 
 import javafx.scene.control.ToolBar;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseToolBarRenderer;
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WLayoutedWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WToolBar;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl.WLayoutedWidgetImpl;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl.WWidgetImpl;
 
 @SuppressWarnings("restriction")
@@ -17,7 +19,7 @@ public class DefToolBarRenderer extends BaseToolBarRenderer<ToolBar> {
 		return WToolBarImpl.class;
 	}
 
-	public static class WToolBarImpl extends WWidgetImpl<ToolBar, ToolBar, MToolBar> implements WToolBar<ToolBar> {
+	public static class WToolBarImpl extends WLayoutedWidgetImpl<ToolBar, ToolBar, MToolBar> implements WToolBar<ToolBar> {
 
 		@Override
 		protected ToolBar createWidget() {
@@ -31,7 +33,7 @@ public class DefToolBarRenderer extends BaseToolBarRenderer<ToolBar> {
 		}
 
 		@Override
-		public void addChild(WWidget<MToolBarElement> itemWidget) {
+		public void addChild(WLayoutedWidget<MToolBarElement> itemWidget) {
 			getWidget().getItems().add(itemWidget.getStaticLayoutNode());
 		}
 		

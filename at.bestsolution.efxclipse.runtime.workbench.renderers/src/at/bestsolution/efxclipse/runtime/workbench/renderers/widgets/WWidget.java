@@ -12,6 +12,5 @@ public interface WWidget<M extends MUIElement> {
 	public void addStyleClasses(List<String> classnames);
 	public void addStyleClasses(String... classnames);
 	public void setStyleId(String id);
-	public Node getStaticLayoutNode();
 	public Object getWidget();
 }

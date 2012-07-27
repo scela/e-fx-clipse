@@ -7,6 +7,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WLayoutedWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWindow;
 
@@ -23,7 +24,7 @@ public abstract class BaseWindowRenderer<N> extends BaseRenderer<MWindow,WWindow
 		WWindow<N> windowWidget = getWidget(element);
 		
 		if (element.getMainMenu() != null) {
-			WWidget<MMenu> menuWidget = engineCreateWidget(element.getMainMenu());
+			WLayoutedWidget<MMenu> menuWidget = engineCreateWidget(element.getMainMenu());
 			if( menuWidget != null ) {
 				windowWidget.setMainMenu(menuWidget);	
 			}
@@ -31,7 +32,7 @@ public abstract class BaseWindowRenderer<N> extends BaseRenderer<MWindow,WWindow
 		
 		if( element instanceof MTrimmedWindow ) {
 			for( MTrimBar tm : ((MTrimmedWindow)element).getTrimBars() ) {
-				WWidget<MTrimBar> trimWidget = engineCreateWidget(tm);
+				WLayoutedWidget<MTrimBar> trimWidget = engineCreateWidget(tm);
 				if( trimWidget != null ) {
 					trimWidget.addStyleClasses(tm.getSide().name());
 					switch (tm.getSide()) {
@@ -55,7 +56,7 @@ public abstract class BaseWindowRenderer<N> extends BaseRenderer<MWindow,WWindow
 		}
 		
 		for( MWindowElement e : element.getChildren() ) {
-			WWidget<MWindowElement> widget = engineCreateWidget(e);
+			WLayoutedWidget<MWindowElement> widget = engineCreateWidget(e);
 			if( widget != null ) {
 				windowWidget.addChild(widget);
 			}

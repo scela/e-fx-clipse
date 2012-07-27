@@ -4,6 +4,7 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBarElement;
 
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WLayoutedWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WToolBar;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
 
@@ -13,7 +14,7 @@ public abstract class BaseToolBarRenderer<N> extends BaseRenderer<MToolBar, WToo
 	public void processContent(MToolBar element) {
 		WToolBar<N> toolbar = getWidget(element);
 		for( MToolBarElement item : element.getChildren() ) {
-			WWidget<MToolBarElement> itemWidget = engineCreateWidget(item);
+			WLayoutedWidget<MToolBarElement> itemWidget = engineCreateWidget(item);
 			if( itemWidget != null ) {
 				toolbar.addChild(itemWidget);
 			}

@@ -21,9 +21,9 @@ import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 
 import at.bestsolution.efxclipse.runtime.panels.FillLayoutPane;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseWindowRenderer;
-import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WLayoutedWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWindow;
-import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl.WWidgetImpl;
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl.WLayoutedWidgetImpl;
 
 @SuppressWarnings("restriction")
 public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
@@ -33,7 +33,7 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 		return WWindowImpl.class;
 	}
 	
-	public static class WWindowImpl extends WWidgetImpl<Stage, BorderPane, MWindow> implements WWindow<Stage> {
+	public static class WWindowImpl extends WLayoutedWidgetImpl<Stage, BorderPane, MWindow> implements WWindow<Stage> {
 		private boolean support3d;
 		private BorderPane rootPane;
 		private BorderPane trimPane;
@@ -67,7 +67,7 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 		}
 		
 		@Override
-		public void setMainMenu(WWidget<MMenu> menuWidget) {
+		public void setMainMenu(WLayoutedWidget<MMenu> menuWidget) {
 			this.rootPane.setTop(menuWidget.getStaticLayoutNode());
 		}
 		
@@ -131,28 +131,28 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 		}
 		
 		@Override
-		public void setBottomTrim(WWidget<MTrimBar> trimBar) {
+		public void setBottomTrim(WLayoutedWidget<MTrimBar> trimBar) {
 			trimPane.setBottom(trimBar.getStaticLayoutNode());
 		}
 		
 		@Override
-		public void setLeftTrim(WWidget<MTrimBar> trimBar) {
+		public void setLeftTrim(WLayoutedWidget<MTrimBar> trimBar) {
 			trimPane.setLeft(trimBar.getStaticLayoutNode());
 		}
 		
 		@Override
-		public void setRightTrim(WWidget<MTrimBar> trimBar) {
+		public void setRightTrim(WLayoutedWidget<MTrimBar> trimBar) {
 			trimPane.setRight(trimBar.getStaticLayoutNode());
 		}
 		
 		@Override
-		public void setTopTrim(WWidget<MTrimBar> trimBar) {
+		public void setTopTrim(WLayoutedWidget<MTrimBar> trimBar) {
 			Node g = trimBar.getStaticLayoutNode();
 			trimPane.setTop(g);
 		}
 		
 		@Override
-		public void addChild(WWidget<MWindowElement> widget) {
+		public void addChild(WLayoutedWidget<MWindowElement> widget) {
 			contentPane.getChildren().add(widget.getStaticLayoutNode());
 		}
 	}

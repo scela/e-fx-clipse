@@ -15,6 +15,7 @@ import org.eclipse.e4.ui.model.application.ui.MUILabel;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WLayoutedWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WStack;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WStack.WStackItem;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
@@ -45,7 +46,7 @@ public abstract class BaseStackRenderer<N,I> extends BaseRenderer<MPartStack, WS
 
 					@Override
 					public Node call(WStackItem<I> param) {
-						WWidget<MStackElement> widget = engineCreateWidget(domainElement);
+						WLayoutedWidget<MStackElement> widget = engineCreateWidget(domainElement);
 						if( widget != null ) {
 							return widget.getStaticLayoutNode();
 						}

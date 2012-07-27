@@ -14,6 +14,7 @@ import org.eclipse.e4.ui.model.application.ui.menu.MToolItem;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseToolItemRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WToolItem;
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl.WLayoutedWidgetImpl;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl.WWidgetImpl;
 
 @SuppressWarnings("restriction")
@@ -25,7 +26,7 @@ public class DefToolItemRenderer extends BaseToolItemRenderer<Node> {
 	}
 
 	
-	public static class ToolItemImpl extends WWidgetImpl<Node, Node, MToolItem> implements WToolItem<Node> {
+	public static class ToolItemImpl extends WLayoutedWidgetImpl<Node, Node, MToolItem> implements WToolItem<Node> {
 		private ItemType type;
 		
 		@Inject

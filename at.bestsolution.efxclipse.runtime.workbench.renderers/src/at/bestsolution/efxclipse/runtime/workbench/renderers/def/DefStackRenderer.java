@@ -17,7 +17,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseStackRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WStack;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WStack.WStackItem;
-import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl.WWidgetImpl;
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl.WLayoutedWidgetImpl;
 
 @SuppressWarnings("restriction")
 public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
@@ -28,7 +28,7 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 	}
 
 	
-	public static class StackWidgetImpl extends WWidgetImpl<TabPane, TabPane, MPartStack> implements WStack<TabPane, Tab> {
+	public static class StackWidgetImpl extends WLayoutedWidgetImpl<TabPane, TabPane, MPartStack> implements WStack<TabPane, Tab> {
 
 		@Override
 		protected TabPane createWidget() {

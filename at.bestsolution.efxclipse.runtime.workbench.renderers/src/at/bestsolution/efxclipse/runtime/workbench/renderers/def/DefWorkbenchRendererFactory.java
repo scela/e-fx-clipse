@@ -5,6 +5,8 @@ import javax.inject.Inject;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseMenuBarRenderer;
+import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseMenuItemRenderer;
+import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseMenuRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BasePartRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseSashRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseStackRenderer;
@@ -60,5 +62,15 @@ public class DefWorkbenchRendererFactory extends BaseWorkbenchRendererFactory {
 	@Override
 	protected Class<? extends BasePartRenderer<?>> getPartRendererClass() {
 		return DefPartRenderer.class;
+	}
+	
+	@Override
+	protected Class<? extends BaseMenuRenderer<?>> getMenuRendererClass() {
+		return DefMenuRenderer.class;
+	}
+	
+	@Override
+	protected Class<? extends BaseMenuItemRenderer<?>> getMenuItemRendererClass() {
+		return DefMenuItemRenderer.class;
 	}
 }

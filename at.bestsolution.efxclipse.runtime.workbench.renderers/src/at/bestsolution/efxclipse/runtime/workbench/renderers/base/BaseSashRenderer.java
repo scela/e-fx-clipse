@@ -7,6 +7,7 @@ import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainer;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement;
 
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WLayoutedWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WSash;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
 
@@ -21,7 +22,7 @@ public abstract class BaseSashRenderer<N> extends BaseRenderer<MPartSashContaine
 		double total = 0;
 		
 		for( MPartSashContainerElement e : element.getChildren() ) {
-			WWidget<MPartSashContainerElement> widget = engineCreateWidget(e);
+			WLayoutedWidget<MPartSashContainerElement> widget = engineCreateWidget(e);
 			if( widget != null ) {
 				sash.addChild(widget);
 				double v;

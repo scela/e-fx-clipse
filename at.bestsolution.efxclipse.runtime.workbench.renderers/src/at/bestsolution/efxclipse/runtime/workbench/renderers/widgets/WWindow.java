@@ -14,13 +14,13 @@ public interface WWindow<N> extends WWidget<MWindow> {
 	public void setBounds(double x, double y, double w, double h);
 	
 	public void setTitle(String title);
-	public void setMainMenu(WWidget<MMenu> menuWidget);
-	public void setTopTrim(WWidget<MTrimBar> trimBar);
-	public void setLeftTrim(WWidget<MTrimBar> trimBar);
-	public void setRightTrim(WWidget<MTrimBar> trimBar);
-	public void setBottomTrim(WWidget<MTrimBar> trimBar);
+	public void setMainMenu(WLayoutedWidget<MMenu> menuWidget);
+	public void setTopTrim(WLayoutedWidget<MTrimBar> trimBar);
+	public void setLeftTrim(WLayoutedWidget<MTrimBar> trimBar);
+	public void setRightTrim(WLayoutedWidget<MTrimBar> trimBar);
+	public void setBottomTrim(WLayoutedWidget<MTrimBar> trimBar);
 	
-	public void addChild(WWidget<MWindowElement> widget);
+	public void addChild(WLayoutedWidget<MWindowElement> widget);
 	
 	public void show(); 
 }

@@ -6,6 +6,6 @@ import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
 @SuppressWarnings("restriction")
 public interface WTrimBar<N> extends WWidget<MTrimBar> {
 
-	void addChild(WWidget<MTrimElement> trimElementWidget);
+	void addChild(WLayoutedWidget<MTrimElement> trimElementWidget);
 
 }
