@@ -1,0 +1,89 @@
+grammar at.bestsolution.efxclipse.tooling.css.cssext.CssExtDsl with org.eclipse.xtext.common.Terminals
+
+generate cssExtDsl "http://www.bestsolution.at/efxclipse/tooling/css/cssext/CssExtDsl"
+
+
+CssExtension:
+	imports+=Import*
+	packageDef=PackageDeclaration?
+//	packageDef=PackageDeclaration?
+//	rule=CSSRuleSet
+;
+
+Import:
+	'import' importedNamespace=QualifiedNameWithWildCard;
+	
+ValidID:
+	ID;
+
+QualifiedName:
+  ValidID (=>'.' ValidID)*;
+
+QualifiedNameWithWildCard :
+	QualifiedName  ('.' '*')?;
+	
+
+PackageDeclaration:
+	'package' name=QualifiedName 
+	'{'
+		rule=CSSRuleSet?
+	'}'
+;
+
+//PackageDeclaration:
+//	'package' name=QualifiedName '{'
+//		typDefs+=TypeDef? (',' typDefs+=TypeDef)*
+//		elementDefs+=ElementDef? (',' elementDefs+=ElementDef)*
+//		subpackages+=PackageDeclaration*
+//	'}';
+//
+//TypeDef:
+//	GenericTypeDef | EnumTypeDef
+//;
+
+CSSRuleSet:
+	rules+=CSSRuleAssignment+
+;
+
+CSSRuleId:
+	name=ID
+;
+
+CSSRuleRef:
+	'<' ref=[CSSRuleId|ID] '>'
+;
+
+
+CSSRuleAssignment: 
+	{CSSRuleAssignment} id=CSSRuleId '=' r=CSSRuleOrExpression ';'
+;
+
+CSSRuleOrExpression returns CSSRuleExpression:
+	ors+=CSSRuleXorExpression ('|' ors+=CSSRuleXorExpression)*
+;
+
+CSSRuleXorExpression:
+	xors+=CSSRulePostfixExpression ('||' xors+=CSSRulePostfixExpression)*
+;
+
+CSSRuleBracketExpression:
+	'[' CSSRuleOrExpression ']'
+;
+
+CSSRulePostfixExpression:
+	CSSRuleConcat (c=('*' |'+' | '?'))?
+;
+
+CSSRuleConcat:
+	conc+=CSSRulePrimaryExpression (conc+=CSSRulePrimaryExpression)?
+;
+
+CSSRuleLiteral:
+	ID
+;
+
+CSSRulePrimaryExpression:
+	CSSRuleRef |
+	CSSRuleBracketExpression |
+	CSSRuleLiteral
+;
