@@ -68,6 +68,11 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 			}
 			return tabs;
 		}
+
+		@Override
+		public void selectItem(int idx) {
+			getWidget().getSelectionModel().select(idx);
+		}
 	}
 	
 	public static class StackItemImpl implements WStackItem<Tab> {
@@ -94,6 +99,7 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 				public void handle(Event event) {
 					if( t.isSelected() && initCallback != null ) {
 						t.setContent(initCallback.call(StackItemImpl.this));
+						initCallback = null;
 					}
 				}
 			});

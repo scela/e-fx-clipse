@@ -19,4 +19,5 @@ public interface WStack<N,I> extends WWidget<MPartStack> {
 	public void addItem(WStackItem<I> item);
 	public void addItems(List<WStackItem<I>> items);
 	public void addItems(int index, List<WStackItem<I>> items);
+	public void selectItem(int idx);
 }

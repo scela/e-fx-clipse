@@ -76,7 +76,6 @@ public abstract class BaseWindowRenderer<N> extends BaseRenderer<MWindow,WWindow
 
 	@Override
 	public void childRendered(MWindow parentElement, MUIElement element) {
-		// TODO Auto-generated method stub
-		
+		System.err.println("Rendered:" + element);
 	}
 }

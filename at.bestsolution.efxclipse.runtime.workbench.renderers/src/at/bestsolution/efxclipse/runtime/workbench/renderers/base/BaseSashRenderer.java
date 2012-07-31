@@ -9,7 +9,6 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPartSashContainerElement;
 
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WLayoutedWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WSash;
-import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
 
 @SuppressWarnings("restriction")
 public abstract class BaseSashRenderer<N> extends BaseRenderer<MPartSashContainer, WSash<N>> {
