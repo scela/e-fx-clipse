@@ -25,7 +25,7 @@ public abstract class BasePartRenderer<N> extends BaseRenderer<MPart, WPart<N>> 
 					boolean requiresFocus = requiresFocus(widget);
 					if( requiresFocus ) {
 						//FIXME Mega Hacky!!!!!
-						new Thread() {
+						Thread t = new Thread() {
 							public void run() {
 								try {
 									Thread.sleep(100);
@@ -42,7 +42,9 @@ public abstract class BasePartRenderer<N> extends BaseRenderer<MPart, WPart<N>> 
 									}
 								});
 							}
-						}.start();
+						};
+						t.setDaemon(true);
+						t.start();
 					} else {
 						activate(element, requiresFocus);	
 					}

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.control.TabPane;
 import javafx.util.Callback;
 
 import javax.annotation.PostConstruct;
@@ -36,7 +37,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 	@Inject
 	RendererFactory factory;
 	
-	MPart inActivation;
+	volatile MPart inActivation;
 
 	@PostConstruct
 	void init(IEventBroker eventBroker) {
@@ -89,32 +90,50 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 	@Override
 	protected void initWidget(final MPartStack element, final WStack<N, I> widget) {
 		super.initWidget(element, widget);
-		widget.setSelectedItemCallback(new Callback<WStackItem<I>, Void>() {
+		widget.setMouseSelectedItemCallback(new Callback<WStackItem<I>, Void>() {
 
 			@Override
 			public Void call(WStackItem<I> param) {
 				int idx = widget.indexOf(param);
 
 				if (idx >= 0 && idx < element.getChildren().size()) {
-					activatationJob((MPart) element.getChildren().get(idx));
+					System.err.println("SELECTION CALLBACK");
+					activatationJob((MPart) element.getChildren().get(idx),true);
 				}
 
 				return null;
 			}
 		});
+		widget.setKeySelectedItemCallback(new Callback<WStackItem<I>, Void>() {
+
+			@Override
+			public Void call(WStackItem<I> param) {
+				int idx = widget.indexOf(param);
+
+				if (idx >= 0 && idx < element.getChildren().size()) {
+					activatationJob((MPart) element.getChildren().get(idx),false);
+				}
+
+				return null;
+			}
+		});
+		
 		widget.registerActivationCallback(new Callback<Boolean, Void>() {
 			
 			@Override
 			public Void call(Boolean param) {
 				if( param.booleanValue() ) {
-					activatationJob((MPart) element.getSelectedElement());	
+					if( inActivation != null ) {
+						System.err.println("ACTIVATION CALLBACK");
+						activatationJob((MPart) element.getSelectedElement(), false);	
+					}
 				}
 				return null;
 			}
 		});
 	}
 	
-	private void activatationJob(final MPart p) {
+	private void activatationJob(final MPart p, final boolean focus) {
 		if( inActivation != null ) {
 			System.err.println("skip because we are already in activation");
 			return;
@@ -122,7 +141,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 		
 		inActivation = p;
 		//FIXME Mega Hacky!!!!!
-		new Thread() {
+		Thread t = new Thread() {
 			public void run() {
 				try {
 					Thread.sleep(100);
@@ -135,14 +154,17 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 					@Override
 					public void run() {
 						try {
-							activate(p, true);	
+							System.err.println("Activating: " + p);
+							activate(p, focus);	
 						} finally {
 							inActivation = null;	
 						}
 					}
 				});
 			}
-		}.start();
+		};
+		t.setDaemon(true);
+		t.start();
 	}
 
 	@Override

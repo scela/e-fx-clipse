@@ -8,9 +8,12 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 import javax.annotation.PostConstruct;
@@ -33,10 +36,16 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 	
 	public static class StackWidgetImpl extends WLayoutedWidgetImpl<TabPane, TabPane, MPartStack> implements WStack<TabPane, Tab> {
 		
-		private Callback<WStackItem<Tab>, Void> selectedItemCallback;
+		private Callback<WStackItem<Tab>, Void> mouseSelectedItemCallback;
+		private Callback<WStackItem<Tab>, Void> keySelectedItemCallback;
+		private boolean inKeyTraversal;
 		
-		public void setSelectedItemCallback(Callback<WStackItem<Tab>, Void> selectedItemCallback) {
-			this.selectedItemCallback = selectedItemCallback;
+		public void setMouseSelectedItemCallback(Callback<WStackItem<Tab>, Void> mouseSelectedItemCallback) {
+			this.mouseSelectedItemCallback = mouseSelectedItemCallback;
+		}
+		
+		public void setKeySelectedItemCallback(Callback<WStackItem<Tab>, Void> keySelectedItemCallback) {
+			this.keySelectedItemCallback = keySelectedItemCallback;
 		}
 		
 		@Override
@@ -47,12 +56,35 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 		@Override
 		protected TabPane createWidget() {
 			TabPane p = new TabPane();
+			p.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					inKeyTraversal = true;
+				}
+				
+			});
+			p.addEventFilter(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					inKeyTraversal = false;
+				}
+				
+			});
+
 			p.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 
 				@Override
 				public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-					if( selectedItemCallback != null ) {
-						selectedItemCallback.call((WStackItem<Tab>) newValue.getUserData());	
+					if( inKeyTraversal ) {
+						if( keySelectedItemCallback != null ) {
+							keySelectedItemCallback.call((WStackItem<Tab>) newValue.getUserData());
+						}
+					} else {
+						if( mouseSelectedItemCallback != null ) {
+							mouseSelectedItemCallback.call((WStackItem<Tab>) newValue.getUserData());
+						}
 					}
 				}
 			});
