@@ -1,25 +1,27 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl;
 
-import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleAssignment;
-import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleBracketExpression;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSDefaultValue;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRule;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleBracket;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleConcat;
-import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleExpression;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleDefinition;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleId;
-import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRulePostfixExpression;
-import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRulePrimaryExpression;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleLiteral;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleOr;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRulePostfix;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleRef;
-import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleSet;
-import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleXorExpression;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleXor;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtDslFactory;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtDslPackage;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtension;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.Doku;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDeclartion;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.Import;
-import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.PackageDeclaration;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.PackageDefinition;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.PropertyDefinition;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.PseudoClassDefinition;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -55,14 +57,42 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass packageDeclarationEClass = null;
+  private EClass packageDefinitionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass cssRuleSetEClass = null;
+  private EClass dokuEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass cssRuleEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass elementDeclartionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass propertyDefinitionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass pseudoClassDefinitionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -83,35 +113,28 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass cssRuleAssignmentEClass = null;
+  private EClass cssRuleDefinitionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass cssRuleExpressionEClass = null;
+  private EClass cssDefaultValueEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass cssRuleXorExpressionEClass = null;
+  private EClass cssRuleOrEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass cssRuleBracketExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass cssRulePostfixExpressionEClass = null;
+  private EClass cssRuleXorEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -125,7 +148,21 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass cssRulePrimaryExpressionEClass = null;
+  private EClass cssRulePostfixEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass cssRuleBracketEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass cssRuleLiteralEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -245,9 +282,9 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getPackageDeclaration()
+  public EClass getPackageDefinition()
   {
-    return packageDeclarationEClass;
+    return packageDefinitionEClass;
   }
 
   /**
@@ -255,9 +292,9 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getPackageDeclaration_Name()
+  public EAttribute getPackageDefinition_Name()
   {
-    return (EAttribute)packageDeclarationEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)packageDefinitionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -265,9 +302,9 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPackageDeclaration_Rule()
+  public EReference getPackageDefinition_Rules()
   {
-    return (EReference)packageDeclarationEClass.getEStructuralFeatures().get(1);
+    return (EReference)packageDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -275,9 +312,9 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getCSSRuleSet()
+  public EReference getPackageDefinition_Subpackages()
   {
-    return cssRuleSetEClass;
+    return (EReference)packageDefinitionEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -285,9 +322,179 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCSSRuleSet_Rules()
+  public EReference getPackageDefinition_Elements()
   {
-    return (EReference)cssRuleSetEClass.getEStructuralFeatures().get(0);
+    return (EReference)packageDefinitionEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDoku()
+  {
+    return dokuEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDoku_Content()
+  {
+    return (EAttribute)dokuEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getCSSRule()
+  {
+    return cssRuleEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCSSRule_Value()
+  {
+    return (EAttribute)cssRuleEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getElementDeclartion()
+  {
+    return elementDeclartionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getElementDeclartion_Doku()
+  {
+    return (EReference)elementDeclartionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getElementDeclartion_Name()
+  {
+    return (EAttribute)elementDeclartionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getElementDeclartion_Properties()
+  {
+    return (EReference)elementDeclartionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getElementDeclartion_PseudoClasses()
+  {
+    return (EReference)elementDeclartionEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPropertyDefinition()
+  {
+    return propertyDefinitionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPropertyDefinition_Doku()
+  {
+    return (EReference)propertyDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPropertyDefinition_Name()
+  {
+    return (EAttribute)propertyDefinitionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPropertyDefinition_Rule()
+  {
+    return (EReference)propertyDefinitionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPropertyDefinition_Default()
+  {
+    return (EReference)propertyDefinitionEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getPseudoClassDefinition()
+  {
+    return pseudoClassDefinitionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPseudoClassDefinition_Doku()
+  {
+    return (EReference)pseudoClassDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getPseudoClassDefinition_Name()
+  {
+    return (EAttribute)pseudoClassDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -335,9 +542,9 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getCSSRuleAssignment()
+  public EClass getCSSRuleDefinition()
   {
-    return cssRuleAssignmentEClass;
+    return cssRuleDefinitionEClass;
   }
 
   /**
@@ -345,9 +552,9 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCSSRuleAssignment_Id()
+  public EReference getCSSRuleDefinition_Doku()
   {
-    return (EReference)cssRuleAssignmentEClass.getEStructuralFeatures().get(0);
+    return (EReference)cssRuleDefinitionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -355,9 +562,9 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCSSRuleAssignment_R()
+  public EReference getCSSRuleDefinition_Name()
   {
-    return (EReference)cssRuleAssignmentEClass.getEStructuralFeatures().get(1);
+    return (EReference)cssRuleDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -365,9 +572,9 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getCSSRuleExpression()
+  public EReference getCSSRuleDefinition_R()
   {
-    return cssRuleExpressionEClass;
+    return (EReference)cssRuleDefinitionEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -375,9 +582,9 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCSSRuleExpression_Ors()
+  public EClass getCSSDefaultValue()
   {
-    return (EReference)cssRuleExpressionEClass.getEStructuralFeatures().get(0);
+    return cssDefaultValueEClass;
   }
 
   /**
@@ -385,9 +592,9 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getCSSRuleXorExpression()
+  public EClass getCSSRuleOr()
   {
-    return cssRuleXorExpressionEClass;
+    return cssRuleOrEClass;
   }
 
   /**
@@ -395,9 +602,9 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getCSSRuleXorExpression_Xors()
+  public EReference getCSSRuleOr_Ors()
   {
-    return (EReference)cssRuleXorExpressionEClass.getEStructuralFeatures().get(0);
+    return (EReference)cssRuleOrEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -405,9 +612,9 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getCSSRuleBracketExpression()
+  public EClass getCSSRuleXor()
   {
-    return cssRuleBracketExpressionEClass;
+    return cssRuleXorEClass;
   }
 
   /**
@@ -415,9 +622,9 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getCSSRulePostfixExpression()
+  public EReference getCSSRuleXor_Xors()
   {
-    return cssRulePostfixExpressionEClass;
+    return (EReference)cssRuleXorEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -435,19 +642,9 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getCSSRuleConcat_C()
-  {
-    return (EAttribute)cssRuleConcatEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getCSSRuleConcat_Conc()
   {
-    return (EReference)cssRuleConcatEClass.getEStructuralFeatures().get(1);
+    return (EReference)cssRuleConcatEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -455,9 +652,59 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getCSSRulePrimaryExpression()
+  public EClass getCSSRulePostfix()
   {
-    return cssRulePrimaryExpressionEClass;
+    return cssRulePostfixEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCSSRulePostfix_Rule()
+  {
+    return (EReference)cssRulePostfixEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getCSSRulePostfix_Cardinality()
+  {
+    return (EAttribute)cssRulePostfixEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getCSSRuleBracket()
+  {
+    return cssRuleBracketEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCSSRuleBracket_Inner()
+  {
+    return (EReference)cssRuleBracketEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getCSSRuleLiteral()
+  {
+    return cssRuleLiteralEClass;
   }
 
   /**
@@ -497,12 +744,33 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
     importEClass = createEClass(IMPORT);
     createEAttribute(importEClass, IMPORT__IMPORTED_NAMESPACE);
 
-    packageDeclarationEClass = createEClass(PACKAGE_DECLARATION);
-    createEAttribute(packageDeclarationEClass, PACKAGE_DECLARATION__NAME);
-    createEReference(packageDeclarationEClass, PACKAGE_DECLARATION__RULE);
+    packageDefinitionEClass = createEClass(PACKAGE_DEFINITION);
+    createEAttribute(packageDefinitionEClass, PACKAGE_DEFINITION__NAME);
+    createEReference(packageDefinitionEClass, PACKAGE_DEFINITION__RULES);
+    createEReference(packageDefinitionEClass, PACKAGE_DEFINITION__SUBPACKAGES);
+    createEReference(packageDefinitionEClass, PACKAGE_DEFINITION__ELEMENTS);
 
-    cssRuleSetEClass = createEClass(CSS_RULE_SET);
-    createEReference(cssRuleSetEClass, CSS_RULE_SET__RULES);
+    dokuEClass = createEClass(DOKU);
+    createEAttribute(dokuEClass, DOKU__CONTENT);
+
+    cssRuleEClass = createEClass(CSS_RULE);
+    createEAttribute(cssRuleEClass, CSS_RULE__VALUE);
+
+    elementDeclartionEClass = createEClass(ELEMENT_DECLARTION);
+    createEReference(elementDeclartionEClass, ELEMENT_DECLARTION__DOKU);
+    createEAttribute(elementDeclartionEClass, ELEMENT_DECLARTION__NAME);
+    createEReference(elementDeclartionEClass, ELEMENT_DECLARTION__PROPERTIES);
+    createEReference(elementDeclartionEClass, ELEMENT_DECLARTION__PSEUDO_CLASSES);
+
+    propertyDefinitionEClass = createEClass(PROPERTY_DEFINITION);
+    createEReference(propertyDefinitionEClass, PROPERTY_DEFINITION__DOKU);
+    createEAttribute(propertyDefinitionEClass, PROPERTY_DEFINITION__NAME);
+    createEReference(propertyDefinitionEClass, PROPERTY_DEFINITION__RULE);
+    createEReference(propertyDefinitionEClass, PROPERTY_DEFINITION__DEFAULT);
+
+    pseudoClassDefinitionEClass = createEClass(PSEUDO_CLASS_DEFINITION);
+    createEReference(pseudoClassDefinitionEClass, PSEUDO_CLASS_DEFINITION__DOKU);
+    createEAttribute(pseudoClassDefinitionEClass, PSEUDO_CLASS_DEFINITION__NAME);
 
     cssRuleIdEClass = createEClass(CSS_RULE_ID);
     createEAttribute(cssRuleIdEClass, CSS_RULE_ID__NAME);
@@ -510,25 +778,30 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
     cssRuleRefEClass = createEClass(CSS_RULE_REF);
     createEReference(cssRuleRefEClass, CSS_RULE_REF__REF);
 
-    cssRuleAssignmentEClass = createEClass(CSS_RULE_ASSIGNMENT);
-    createEReference(cssRuleAssignmentEClass, CSS_RULE_ASSIGNMENT__ID);
-    createEReference(cssRuleAssignmentEClass, CSS_RULE_ASSIGNMENT__R);
+    cssRuleDefinitionEClass = createEClass(CSS_RULE_DEFINITION);
+    createEReference(cssRuleDefinitionEClass, CSS_RULE_DEFINITION__DOKU);
+    createEReference(cssRuleDefinitionEClass, CSS_RULE_DEFINITION__NAME);
+    createEReference(cssRuleDefinitionEClass, CSS_RULE_DEFINITION__R);
 
-    cssRuleExpressionEClass = createEClass(CSS_RULE_EXPRESSION);
-    createEReference(cssRuleExpressionEClass, CSS_RULE_EXPRESSION__ORS);
+    cssDefaultValueEClass = createEClass(CSS_DEFAULT_VALUE);
 
-    cssRuleXorExpressionEClass = createEClass(CSS_RULE_XOR_EXPRESSION);
-    createEReference(cssRuleXorExpressionEClass, CSS_RULE_XOR_EXPRESSION__XORS);
+    cssRuleOrEClass = createEClass(CSS_RULE_OR);
+    createEReference(cssRuleOrEClass, CSS_RULE_OR__ORS);
 
-    cssRuleBracketExpressionEClass = createEClass(CSS_RULE_BRACKET_EXPRESSION);
-
-    cssRulePostfixExpressionEClass = createEClass(CSS_RULE_POSTFIX_EXPRESSION);
+    cssRuleXorEClass = createEClass(CSS_RULE_XOR);
+    createEReference(cssRuleXorEClass, CSS_RULE_XOR__XORS);
 
     cssRuleConcatEClass = createEClass(CSS_RULE_CONCAT);
-    createEAttribute(cssRuleConcatEClass, CSS_RULE_CONCAT__C);
     createEReference(cssRuleConcatEClass, CSS_RULE_CONCAT__CONC);
 
-    cssRulePrimaryExpressionEClass = createEClass(CSS_RULE_PRIMARY_EXPRESSION);
+    cssRulePostfixEClass = createEClass(CSS_RULE_POSTFIX);
+    createEReference(cssRulePostfixEClass, CSS_RULE_POSTFIX__RULE);
+    createEAttribute(cssRulePostfixEClass, CSS_RULE_POSTFIX__CARDINALITY);
+
+    cssRuleBracketEClass = createEClass(CSS_RULE_BRACKET);
+    createEReference(cssRuleBracketEClass, CSS_RULE_BRACKET__INNER);
+
+    cssRuleLiteralEClass = createEClass(CSS_RULE_LITERAL);
   }
 
   /**
@@ -560,25 +833,50 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    cssRuleRefEClass.getESuperTypes().add(this.getCSSRulePrimaryExpression());
-    cssRuleExpressionEClass.getESuperTypes().add(this.getCSSRuleBracketExpression());
-    cssRuleBracketExpressionEClass.getESuperTypes().add(this.getCSSRulePrimaryExpression());
-    cssRuleConcatEClass.getESuperTypes().add(this.getCSSRulePostfixExpression());
+    cssRuleEClass.getESuperTypes().add(this.getCSSDefaultValue());
+    cssRuleRefEClass.getESuperTypes().add(this.getCSSRule());
+    cssRuleOrEClass.getESuperTypes().add(this.getCSSRule());
+    cssRuleXorEClass.getESuperTypes().add(this.getCSSRule());
+    cssRuleConcatEClass.getESuperTypes().add(this.getCSSRule());
+    cssRulePostfixEClass.getESuperTypes().add(this.getCSSRule());
+    cssRuleBracketEClass.getESuperTypes().add(this.getCSSRule());
+    cssRuleLiteralEClass.getESuperTypes().add(this.getCSSRule());
 
     // Initialize classes and features; add operations and parameters
     initEClass(cssExtensionEClass, CssExtension.class, "CssExtension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getCssExtension_Imports(), this.getImport(), null, "imports", null, 0, -1, CssExtension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getCssExtension_PackageDef(), this.getPackageDeclaration(), null, "packageDef", null, 0, 1, CssExtension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCssExtension_PackageDef(), this.getPackageDefinition(), null, "packageDef", null, 0, 1, CssExtension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getImport_ImportedNamespace(), ecorePackage.getEString(), "importedNamespace", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(packageDeclarationEClass, PackageDeclaration.class, "PackageDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getPackageDeclaration_Name(), ecorePackage.getEString(), "name", null, 0, 1, PackageDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getPackageDeclaration_Rule(), this.getCSSRuleSet(), null, "rule", null, 0, 1, PackageDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(packageDefinitionEClass, PackageDefinition.class, "PackageDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getPackageDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, PackageDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPackageDefinition_Rules(), this.getCSSRuleDefinition(), null, "rules", null, 0, -1, PackageDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPackageDefinition_Subpackages(), this.getPackageDefinition(), null, "subpackages", null, 0, -1, PackageDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPackageDefinition_Elements(), this.getElementDeclartion(), null, "elements", null, 0, -1, PackageDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(cssRuleSetEClass, CSSRuleSet.class, "CSSRuleSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getCSSRuleSet_Rules(), this.getCSSRuleAssignment(), null, "rules", null, 0, -1, CSSRuleSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(dokuEClass, Doku.class, "Doku", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getDoku_Content(), ecorePackage.getEString(), "content", null, 0, 1, Doku.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(cssRuleEClass, CSSRule.class, "CSSRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getCSSRule_Value(), ecorePackage.getEString(), "value", null, 0, 1, CSSRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(elementDeclartionEClass, ElementDeclartion.class, "ElementDeclartion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getElementDeclartion_Doku(), this.getDoku(), null, "doku", null, 0, 1, ElementDeclartion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getElementDeclartion_Name(), ecorePackage.getEString(), "name", null, 0, 1, ElementDeclartion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getElementDeclartion_Properties(), this.getPropertyDefinition(), null, "properties", null, 0, -1, ElementDeclartion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getElementDeclartion_PseudoClasses(), this.getPseudoClassDefinition(), null, "pseudoClasses", null, 0, -1, ElementDeclartion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(propertyDefinitionEClass, PropertyDefinition.class, "PropertyDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPropertyDefinition_Doku(), this.getDoku(), null, "doku", null, 0, 1, PropertyDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPropertyDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, PropertyDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPropertyDefinition_Rule(), this.getCSSRule(), null, "rule", null, 0, 1, PropertyDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPropertyDefinition_Default(), this.getCSSDefaultValue(), null, "default", null, 0, 1, PropertyDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(pseudoClassDefinitionEClass, PseudoClassDefinition.class, "PseudoClassDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPseudoClassDefinition_Doku(), this.getDoku(), null, "doku", null, 0, 1, PseudoClassDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getPseudoClassDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, PseudoClassDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(cssRuleIdEClass, CSSRuleId.class, "CSSRuleId", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getCSSRuleId_Name(), ecorePackage.getEString(), "name", null, 0, 1, CSSRuleId.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -586,25 +884,30 @@ public class CssExtDslPackageImpl extends EPackageImpl implements CssExtDslPacka
     initEClass(cssRuleRefEClass, CSSRuleRef.class, "CSSRuleRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getCSSRuleRef_Ref(), this.getCSSRuleId(), null, "ref", null, 0, 1, CSSRuleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(cssRuleAssignmentEClass, CSSRuleAssignment.class, "CSSRuleAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getCSSRuleAssignment_Id(), this.getCSSRuleId(), null, "id", null, 0, 1, CSSRuleAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getCSSRuleAssignment_R(), this.getCSSRuleExpression(), null, "r", null, 0, 1, CSSRuleAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(cssRuleDefinitionEClass, CSSRuleDefinition.class, "CSSRuleDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCSSRuleDefinition_Doku(), this.getDoku(), null, "doku", null, 0, 1, CSSRuleDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCSSRuleDefinition_Name(), this.getCSSRuleId(), null, "name", null, 0, 1, CSSRuleDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCSSRuleDefinition_R(), this.getCSSRule(), null, "r", null, 0, 1, CSSRuleDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(cssRuleExpressionEClass, CSSRuleExpression.class, "CSSRuleExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getCSSRuleExpression_Ors(), this.getCSSRuleXorExpression(), null, "ors", null, 0, -1, CSSRuleExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(cssDefaultValueEClass, CSSDefaultValue.class, "CSSDefaultValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(cssRuleXorExpressionEClass, CSSRuleXorExpression.class, "CSSRuleXorExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getCSSRuleXorExpression_Xors(), this.getCSSRulePostfixExpression(), null, "xors", null, 0, -1, CSSRuleXorExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(cssRuleOrEClass, CSSRuleOr.class, "CSSRuleOr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCSSRuleOr_Ors(), this.getCSSRule(), null, "ors", null, 0, -1, CSSRuleOr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(cssRuleBracketExpressionEClass, CSSRuleBracketExpression.class, "CSSRuleBracketExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(cssRulePostfixExpressionEClass, CSSRulePostfixExpression.class, "CSSRulePostfixExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(cssRuleXorEClass, CSSRuleXor.class, "CSSRuleXor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCSSRuleXor_Xors(), this.getCSSRule(), null, "xors", null, 0, -1, CSSRuleXor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(cssRuleConcatEClass, CSSRuleConcat.class, "CSSRuleConcat", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getCSSRuleConcat_C(), ecorePackage.getEString(), "c", null, 0, 1, CSSRuleConcat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getCSSRuleConcat_Conc(), this.getCSSRulePrimaryExpression(), null, "conc", null, 0, -1, CSSRuleConcat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getCSSRuleConcat_Conc(), this.getCSSRule(), null, "conc", null, 0, -1, CSSRuleConcat.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(cssRulePrimaryExpressionEClass, CSSRulePrimaryExpression.class, "CSSRulePrimaryExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(cssRulePostfixEClass, CSSRulePostfix.class, "CSSRulePostfix", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCSSRulePostfix_Rule(), this.getCSSRule(), null, "rule", null, 0, 1, CSSRulePostfix.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getCSSRulePostfix_Cardinality(), ecorePackage.getEString(), "cardinality", null, 0, 1, CSSRulePostfix.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(cssRuleBracketEClass, CSSRuleBracket.class, "CSSRuleBracket", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCSSRuleBracket_Inner(), this.getCSSRule(), null, "inner", null, 0, 1, CSSRuleBracket.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(cssRuleLiteralEClass, CSSRuleLiteral.class, "CSSRuleLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     // Create resource
     createResource(eNS_URI);

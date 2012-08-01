@@ -1,7 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl;
 
@@ -22,7 +19,7 @@ package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl;
  * @model
  * @generated
  */
-public interface CSSRuleRef extends CSSRulePrimaryExpression
+public interface CSSRuleRef extends CSSRule
 {
   /**
    * Returns the value of the '<em><b>Ref</b></em>' reference.

@@ -1,7 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl;
 
@@ -69,17 +66,22 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
     {
       case CssExtDslPackage.CSS_EXTENSION: return createCssExtension();
       case CssExtDslPackage.IMPORT: return createImport();
-      case CssExtDslPackage.PACKAGE_DECLARATION: return createPackageDeclaration();
-      case CssExtDslPackage.CSS_RULE_SET: return createCSSRuleSet();
+      case CssExtDslPackage.PACKAGE_DEFINITION: return createPackageDefinition();
+      case CssExtDslPackage.DOKU: return createDoku();
+      case CssExtDslPackage.CSS_RULE: return createCSSRule();
+      case CssExtDslPackage.ELEMENT_DECLARTION: return createElementDeclartion();
+      case CssExtDslPackage.PROPERTY_DEFINITION: return createPropertyDefinition();
+      case CssExtDslPackage.PSEUDO_CLASS_DEFINITION: return createPseudoClassDefinition();
       case CssExtDslPackage.CSS_RULE_ID: return createCSSRuleId();
       case CssExtDslPackage.CSS_RULE_REF: return createCSSRuleRef();
-      case CssExtDslPackage.CSS_RULE_ASSIGNMENT: return createCSSRuleAssignment();
-      case CssExtDslPackage.CSS_RULE_EXPRESSION: return createCSSRuleExpression();
-      case CssExtDslPackage.CSS_RULE_XOR_EXPRESSION: return createCSSRuleXorExpression();
-      case CssExtDslPackage.CSS_RULE_BRACKET_EXPRESSION: return createCSSRuleBracketExpression();
-      case CssExtDslPackage.CSS_RULE_POSTFIX_EXPRESSION: return createCSSRulePostfixExpression();
+      case CssExtDslPackage.CSS_RULE_DEFINITION: return createCSSRuleDefinition();
+      case CssExtDslPackage.CSS_DEFAULT_VALUE: return createCSSDefaultValue();
+      case CssExtDslPackage.CSS_RULE_OR: return createCSSRuleOr();
+      case CssExtDslPackage.CSS_RULE_XOR: return createCSSRuleXor();
       case CssExtDslPackage.CSS_RULE_CONCAT: return createCSSRuleConcat();
-      case CssExtDslPackage.CSS_RULE_PRIMARY_EXPRESSION: return createCSSRulePrimaryExpression();
+      case CssExtDslPackage.CSS_RULE_POSTFIX: return createCSSRulePostfix();
+      case CssExtDslPackage.CSS_RULE_BRACKET: return createCSSRuleBracket();
+      case CssExtDslPackage.CSS_RULE_LITERAL: return createCSSRuleLiteral();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -112,10 +114,10 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public PackageDeclaration createPackageDeclaration()
+  public PackageDefinition createPackageDefinition()
   {
-    PackageDeclarationImpl packageDeclaration = new PackageDeclarationImpl();
-    return packageDeclaration;
+    PackageDefinitionImpl packageDefinition = new PackageDefinitionImpl();
+    return packageDefinition;
   }
 
   /**
@@ -123,10 +125,54 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public CSSRuleSet createCSSRuleSet()
+  public Doku createDoku()
   {
-    CSSRuleSetImpl cssRuleSet = new CSSRuleSetImpl();
-    return cssRuleSet;
+    DokuImpl doku = new DokuImpl();
+    return doku;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CSSRule createCSSRule()
+  {
+    CSSRuleImpl cssRule = new CSSRuleImpl();
+    return cssRule;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ElementDeclartion createElementDeclartion()
+  {
+    ElementDeclartionImpl elementDeclartion = new ElementDeclartionImpl();
+    return elementDeclartion;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PropertyDefinition createPropertyDefinition()
+  {
+    PropertyDefinitionImpl propertyDefinition = new PropertyDefinitionImpl();
+    return propertyDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PseudoClassDefinition createPseudoClassDefinition()
+  {
+    PseudoClassDefinitionImpl pseudoClassDefinition = new PseudoClassDefinitionImpl();
+    return pseudoClassDefinition;
   }
 
   /**
@@ -156,10 +202,10 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public CSSRuleAssignment createCSSRuleAssignment()
+  public CSSRuleDefinition createCSSRuleDefinition()
   {
-    CSSRuleAssignmentImpl cssRuleAssignment = new CSSRuleAssignmentImpl();
-    return cssRuleAssignment;
+    CSSRuleDefinitionImpl cssRuleDefinition = new CSSRuleDefinitionImpl();
+    return cssRuleDefinition;
   }
 
   /**
@@ -167,10 +213,10 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public CSSRuleExpression createCSSRuleExpression()
+  public CSSDefaultValue createCSSDefaultValue()
   {
-    CSSRuleExpressionImpl cssRuleExpression = new CSSRuleExpressionImpl();
-    return cssRuleExpression;
+    CSSDefaultValueImpl cssDefaultValue = new CSSDefaultValueImpl();
+    return cssDefaultValue;
   }
 
   /**
@@ -178,10 +224,10 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public CSSRuleXorExpression createCSSRuleXorExpression()
+  public CSSRuleOr createCSSRuleOr()
   {
-    CSSRuleXorExpressionImpl cssRuleXorExpression = new CSSRuleXorExpressionImpl();
-    return cssRuleXorExpression;
+    CSSRuleOrImpl cssRuleOr = new CSSRuleOrImpl();
+    return cssRuleOr;
   }
 
   /**
@@ -189,21 +235,10 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public CSSRuleBracketExpression createCSSRuleBracketExpression()
+  public CSSRuleXor createCSSRuleXor()
   {
-    CSSRuleBracketExpressionImpl cssRuleBracketExpression = new CSSRuleBracketExpressionImpl();
-    return cssRuleBracketExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public CSSRulePostfixExpression createCSSRulePostfixExpression()
-  {
-    CSSRulePostfixExpressionImpl cssRulePostfixExpression = new CSSRulePostfixExpressionImpl();
-    return cssRulePostfixExpression;
+    CSSRuleXorImpl cssRuleXor = new CSSRuleXorImpl();
+    return cssRuleXor;
   }
 
   /**
@@ -222,10 +257,32 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public CSSRulePrimaryExpression createCSSRulePrimaryExpression()
+  public CSSRulePostfix createCSSRulePostfix()
   {
-    CSSRulePrimaryExpressionImpl cssRulePrimaryExpression = new CSSRulePrimaryExpressionImpl();
-    return cssRulePrimaryExpression;
+    CSSRulePostfixImpl cssRulePostfix = new CSSRulePostfixImpl();
+    return cssRulePostfix;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CSSRuleBracket createCSSRuleBracket()
+  {
+    CSSRuleBracketImpl cssRuleBracket = new CSSRuleBracketImpl();
+    return cssRuleBracket;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CSSRuleLiteral createCSSRuleLiteral()
+  {
+    CSSRuleLiteralImpl cssRuleLiteral = new CSSRuleLiteralImpl();
+    return cssRuleLiteral;
   }
 
   /**

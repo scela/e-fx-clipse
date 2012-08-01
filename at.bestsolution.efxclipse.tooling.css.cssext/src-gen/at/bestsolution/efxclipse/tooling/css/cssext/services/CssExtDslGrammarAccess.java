@@ -25,15 +25,16 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cImportsAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cImportsImportParserRuleCall_0_0 = (RuleCall)cImportsAssignment_0.eContents().get(0);
 		private final Assignment cPackageDefAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cPackageDefPackageDeclarationParserRuleCall_1_0 = (RuleCall)cPackageDefAssignment_1.eContents().get(0);
+		private final RuleCall cPackageDefPackageDefinitionParserRuleCall_1_0 = (RuleCall)cPackageDefAssignment_1.eContents().get(0);
 		
-		////	packageDef=PackageDeclaration?
-		////	rule=CSSRuleSet
-		//CssExtension:
-		//	imports+=Import* packageDef=PackageDeclaration?;
+		////	packageDef=PackageDefinition?
+		// //	rule=CSSRuleSet
+		// CssExtension:
+		//
+		//	imports+=Import* packageDef=PackageDefinition?;
 		public ParserRule getRule() { return rule; }
 
-		//imports+=Import* packageDef=PackageDeclaration?
+		//imports+=Import* packageDef=PackageDefinition?
 		public Group getGroup() { return cGroup; }
 
 		//imports+=Import*
@@ -42,11 +43,11 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 		//Import
 		public RuleCall getImportsImportParserRuleCall_0_0() { return cImportsImportParserRuleCall_0_0; }
 
-		//packageDef=PackageDeclaration?
+		//packageDef=PackageDefinition?
 		public Assignment getPackageDefAssignment_1() { return cPackageDefAssignment_1; }
 
-		//PackageDeclaration
-		public RuleCall getPackageDefPackageDeclarationParserRuleCall_1_0() { return cPackageDefPackageDeclarationParserRuleCall_1_0; }
+		//PackageDefinition
+		public RuleCall getPackageDefPackageDefinitionParserRuleCall_1_0() { return cPackageDefPackageDefinitionParserRuleCall_1_0; }
 	}
 
 	public class ImportElements extends AbstractParserRuleElementFinder {
@@ -57,6 +58,7 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cImportedNamespaceQualifiedNameWithWildCardParserRuleCall_1_0 = (RuleCall)cImportedNamespaceAssignment_1.eContents().get(0);
 		
 		//Import:
+		//
 		//	"import" importedNamespace=QualifiedNameWithWildCard;
 		public ParserRule getRule() { return rule; }
 
@@ -78,6 +80,7 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//ValidID:
+		//
 		//	ID;
 		public ParserRule getRule() { return rule; }
 
@@ -94,6 +97,7 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValidIDParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
 		//QualifiedName:
+		//
 		//	ValidID ("." ValidID)*;
 		public ParserRule getRule() { return rule; }
 
@@ -122,6 +126,7 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAsteriskKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		
 		//QualifiedNameWithWildCard:
+		//
 		//	QualifiedName ("." "*")?;
 		public ParserRule getRule() { return rule; }
 
@@ -141,22 +146,32 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getAsteriskKeyword_1_1() { return cAsteriskKeyword_1_1; }
 	}
 
-	public class PackageDeclarationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PackageDeclaration");
+	public class PackageDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PackageDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cPackageKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameQualifiedNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cRuleAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cRuleCSSRuleSetParserRuleCall_3_0 = (RuleCall)cRuleAssignment_3.eContents().get(0);
+		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
+		private final Assignment cRulesAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
+		private final RuleCall cRulesCSSRuleDefinitionParserRuleCall_3_0_0 = (RuleCall)cRulesAssignment_3_0.eContents().get(0);
+		private final Assignment cSubpackagesAssignment_3_1 = (Assignment)cAlternatives_3.eContents().get(1);
+		private final RuleCall cSubpackagesPackageDefinitionParserRuleCall_3_1_0 = (RuleCall)cSubpackagesAssignment_3_1.eContents().get(0);
+		private final Assignment cElementsAssignment_3_2 = (Assignment)cAlternatives_3.eContents().get(2);
+		private final RuleCall cElementsElementDeclartionParserRuleCall_3_2_0 = (RuleCall)cElementsAssignment_3_2.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		//PackageDeclaration:
-		//	"package" name=QualifiedName "{" rule=CSSRuleSet? "}";
+		//PackageDefinition:
+		//
+		//	"package" name=QualifiedName "{" (rules+=CSSRuleDefinition | subpackages+=PackageDefinition |
+		//
+		//	elements+=ElementDeclartion)* "}";
 		public ParserRule getRule() { return rule; }
 
-		//"package" name=QualifiedName "{" rule=CSSRuleSet? "}"
+		//"package" name=QualifiedName "{" (rules+=CSSRuleDefinition | subpackages+=PackageDefinition |
+		//
+		//elements+=ElementDeclartion)* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"package"
@@ -171,56 +186,231 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 
-		//rule=CSSRuleSet?
-		public Assignment getRuleAssignment_3() { return cRuleAssignment_3; }
+		//(rules+=CSSRuleDefinition | subpackages+=PackageDefinition | elements+=ElementDeclartion)*
+		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
-		//CSSRuleSet
-		public RuleCall getRuleCSSRuleSetParserRuleCall_3_0() { return cRuleCSSRuleSetParserRuleCall_3_0; }
+		//rules+=CSSRuleDefinition
+		public Assignment getRulesAssignment_3_0() { return cRulesAssignment_3_0; }
+
+		//CSSRuleDefinition
+		public RuleCall getRulesCSSRuleDefinitionParserRuleCall_3_0_0() { return cRulesCSSRuleDefinitionParserRuleCall_3_0_0; }
+
+		//subpackages+=PackageDefinition
+		public Assignment getSubpackagesAssignment_3_1() { return cSubpackagesAssignment_3_1; }
+
+		//PackageDefinition
+		public RuleCall getSubpackagesPackageDefinitionParserRuleCall_3_1_0() { return cSubpackagesPackageDefinitionParserRuleCall_3_1_0; }
+
+		//elements+=ElementDeclartion
+		public Assignment getElementsAssignment_3_2() { return cElementsAssignment_3_2; }
+
+		//ElementDeclartion
+		public RuleCall getElementsElementDeclartionParserRuleCall_3_2_0() { return cElementsElementDeclartionParserRuleCall_3_2_0; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
 	}
 
-	public class CSSRuleSetElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRuleSet");
-		private final Assignment cRulesAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cRulesCSSRuleAssignmentParserRuleCall_0 = (RuleCall)cRulesAssignment.eContents().get(0);
+	public class DokuElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Doku");
+		private final Assignment cContentAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cContentJDOCTerminalRuleCall_0 = (RuleCall)cContentAssignment.eContents().get(0);
 		
-		////PackageDeclaration:
-		////	'package' name=QualifiedName '{'
-		////		typDefs+=TypeDef? (',' typDefs+=TypeDef)*
-		////		elementDefs+=ElementDef? (',' elementDefs+=ElementDef)*
-		////		subpackages+=PackageDeclaration*
-		////	'}';
-		////
-		////TypeDef:
-		////	GenericTypeDef | EnumTypeDef
-		////;
-		//CSSRuleSet:
-		//	rules+=CSSRuleAssignment+;
+		//Doku:
+		//
+		//	content=JDOC;
 		public ParserRule getRule() { return rule; }
 
-		//rules+=CSSRuleAssignment+
-		public Assignment getRulesAssignment() { return cRulesAssignment; }
+		//content=JDOC
+		public Assignment getContentAssignment() { return cContentAssignment; }
 
-		//CSSRuleAssignment
-		public RuleCall getRulesCSSRuleAssignmentParserRuleCall_0() { return cRulesCSSRuleAssignmentParserRuleCall_0; }
+		//JDOC
+		public RuleCall getContentJDOCTerminalRuleCall_0() { return cContentJDOCTerminalRuleCall_0; }
+	}
+
+	public class CSSBaseTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSBaseType");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Keyword cINTKeyword_0 = (Keyword)cAlternatives.eContents().get(0);
+		private final Keyword cDOUBLEKeyword_1 = (Keyword)cAlternatives.eContents().get(1);
+		private final Keyword cUDOUBLEKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
+		
+		//CSSBaseType returns CSSRule:
+		//
+		//	"INT" | "DOUBLE" | "UDOUBLE";
+		public ParserRule getRule() { return rule; }
+
+		//"INT" | "DOUBLE" | "UDOUBLE"
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//"INT"
+		public Keyword getINTKeyword_0() { return cINTKeyword_0; }
+
+		//"DOUBLE"
+		public Keyword getDOUBLEKeyword_1() { return cDOUBLEKeyword_1; }
+
+		//"UDOUBLE"
+		public Keyword getUDOUBLEKeyword_2() { return cUDOUBLEKeyword_2; }
+	}
+
+	public class ElementDeclartionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ElementDeclartion");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cDokuAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cDokuDokuParserRuleCall_0_0 = (RuleCall)cDokuAssignment_0.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameQualifiedNameParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
+		private final Assignment cPropertiesAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
+		private final RuleCall cPropertiesPropertyDefinitionParserRuleCall_3_0_0 = (RuleCall)cPropertiesAssignment_3_0.eContents().get(0);
+		private final Assignment cPseudoClassesAssignment_3_1 = (Assignment)cAlternatives_3.eContents().get(1);
+		private final RuleCall cPseudoClassesPseudoClassDefinitionParserRuleCall_3_1_0 = (RuleCall)cPseudoClassesAssignment_3_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//ElementDeclartion:
+		//
+		//	doku=Doku? name=QualifiedName "{" (properties+=PropertyDefinition | pseudoClasses+=PseudoClassDefinition)* "}";
+		public ParserRule getRule() { return rule; }
+
+		//doku=Doku? name=QualifiedName "{" (properties+=PropertyDefinition | pseudoClasses+=PseudoClassDefinition)* "}"
+		public Group getGroup() { return cGroup; }
+
+		//doku=Doku?
+		public Assignment getDokuAssignment_0() { return cDokuAssignment_0; }
+
+		//Doku
+		public RuleCall getDokuDokuParserRuleCall_0_0() { return cDokuDokuParserRuleCall_0_0; }
+
+		//name=QualifiedName
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+
+		//QualifiedName
+		public RuleCall getNameQualifiedNameParserRuleCall_1_0() { return cNameQualifiedNameParserRuleCall_1_0; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
+
+		//(properties+=PropertyDefinition | pseudoClasses+=PseudoClassDefinition)*
+		public Alternatives getAlternatives_3() { return cAlternatives_3; }
+
+		//properties+=PropertyDefinition
+		public Assignment getPropertiesAssignment_3_0() { return cPropertiesAssignment_3_0; }
+
+		//PropertyDefinition
+		public RuleCall getPropertiesPropertyDefinitionParserRuleCall_3_0_0() { return cPropertiesPropertyDefinitionParserRuleCall_3_0_0; }
+
+		//pseudoClasses+=PseudoClassDefinition
+		public Assignment getPseudoClassesAssignment_3_1() { return cPseudoClassesAssignment_3_1; }
+
+		//PseudoClassDefinition
+		public RuleCall getPseudoClassesPseudoClassDefinitionParserRuleCall_3_1_0() { return cPseudoClassesPseudoClassDefinitionParserRuleCall_3_1_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
+	}
+
+	public class PropertyDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cDokuAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cDokuDokuParserRuleCall_0_0 = (RuleCall)cDokuAssignment_0.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Assignment cRuleAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cRuleCSSRuleOrParserRuleCall_2_0 = (RuleCall)cRuleAssignment_2.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cDefaultKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cDefaultAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cDefaultCSSDefaultValueParserRuleCall_3_1_0 = (RuleCall)cDefaultAssignment_3_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//PropertyDefinition:
+		//
+		//	doku=Doku? name=ID rule=CSSRuleOr ("default:" default=CSSDefaultValue)? ";";
+		public ParserRule getRule() { return rule; }
+
+		//doku=Doku? name=ID rule=CSSRuleOr ("default:" default=CSSDefaultValue)? ";"
+		public Group getGroup() { return cGroup; }
+
+		//doku=Doku?
+		public Assignment getDokuAssignment_0() { return cDokuAssignment_0; }
+
+		//Doku
+		public RuleCall getDokuDokuParserRuleCall_0_0() { return cDokuDokuParserRuleCall_0_0; }
+
+		//name=ID
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+
+		//rule=CSSRuleOr
+		public Assignment getRuleAssignment_2() { return cRuleAssignment_2; }
+
+		//CSSRuleOr
+		public RuleCall getRuleCSSRuleOrParserRuleCall_2_0() { return cRuleCSSRuleOrParserRuleCall_2_0; }
+
+		//("default:" default=CSSDefaultValue)?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"default:"
+		public Keyword getDefaultKeyword_3_0() { return cDefaultKeyword_3_0; }
+
+		//default=CSSDefaultValue
+		public Assignment getDefaultAssignment_3_1() { return cDefaultAssignment_3_1; }
+
+		//CSSDefaultValue
+		public RuleCall getDefaultCSSDefaultValueParserRuleCall_3_1_0() { return cDefaultCSSDefaultValueParserRuleCall_3_1_0; }
+
+		//";"
+		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
+	}
+
+	public class PseudoClassDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PseudoClassDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cDokuAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cDokuDokuParserRuleCall_0_0 = (RuleCall)cDokuAssignment_0.eContents().get(0);
+		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNamePSEUDOTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		
+		//PseudoClassDefinition:
+		//
+		//	doku=Doku? name=PSEUDO;
+		public ParserRule getRule() { return rule; }
+
+		//doku=Doku? name=PSEUDO
+		public Group getGroup() { return cGroup; }
+
+		//doku=Doku?
+		public Assignment getDokuAssignment_0() { return cDokuAssignment_0; }
+
+		//Doku
+		public RuleCall getDokuDokuParserRuleCall_0_0() { return cDokuDokuParserRuleCall_0_0; }
+
+		//name=PSEUDO
+		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+
+		//PSEUDO
+		public RuleCall getNamePSEUDOTerminalRuleCall_1_0() { return cNamePSEUDOTerminalRuleCall_1_0; }
 	}
 
 	public class CSSRuleIdElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRuleId");
 		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
+		private final RuleCall cNameQualifiedNameParserRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
 		//CSSRuleId:
-		//	name=ID;
+		//
+		//	name=QualifiedName;
 		public ParserRule getRule() { return rule; }
 
-		//name=ID
+		//name=QualifiedName
 		public Assignment getNameAssignment() { return cNameAssignment; }
 
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0() { return cNameIDTerminalRuleCall_0; }
+		//QualifiedName
+		public RuleCall getNameQualifiedNameParserRuleCall_0() { return cNameQualifiedNameParserRuleCall_0; }
 	}
 
 	public class CSSRuleRefElements extends AbstractParserRuleElementFinder {
@@ -229,286 +419,410 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLessThanSignKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cRefAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final CrossReference cRefCSSRuleIdCrossReference_1_0 = (CrossReference)cRefAssignment_1.eContents().get(0);
-		private final RuleCall cRefCSSRuleIdIDTerminalRuleCall_1_0_1 = (RuleCall)cRefCSSRuleIdCrossReference_1_0.eContents().get(1);
+		private final RuleCall cRefCSSRuleIdQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cRefCSSRuleIdCrossReference_1_0.eContents().get(1);
 		private final Keyword cGreaterThanSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
 		//CSSRuleRef:
-		//	"<" ref=[CSSRuleId] ">";
+		//
+		//	"<" ref=[CSSRuleId|QualifiedName] ">";
 		public ParserRule getRule() { return rule; }
 
-		//"<" ref=[CSSRuleId] ">"
+		//"<" ref=[CSSRuleId|QualifiedName] ">"
 		public Group getGroup() { return cGroup; }
 
 		//"<"
 		public Keyword getLessThanSignKeyword_0() { return cLessThanSignKeyword_0; }
 
-		//ref=[CSSRuleId]
+		//ref=[CSSRuleId|QualifiedName]
 		public Assignment getRefAssignment_1() { return cRefAssignment_1; }
 
-		//[CSSRuleId]
+		//[CSSRuleId|QualifiedName]
 		public CrossReference getRefCSSRuleIdCrossReference_1_0() { return cRefCSSRuleIdCrossReference_1_0; }
 
-		//ID
-		public RuleCall getRefCSSRuleIdIDTerminalRuleCall_1_0_1() { return cRefCSSRuleIdIDTerminalRuleCall_1_0_1; }
+		//QualifiedName
+		public RuleCall getRefCSSRuleIdQualifiedNameParserRuleCall_1_0_1() { return cRefCSSRuleIdQualifiedNameParserRuleCall_1_0_1; }
 
 		//">"
 		public Keyword getGreaterThanSignKeyword_2() { return cGreaterThanSignKeyword_2; }
 	}
 
-	public class CSSRuleAssignmentElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRuleAssignment");
+	public class CSSRuleDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRuleDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cCSSRuleAssignmentAction_0 = (Action)cGroup.eContents().get(0);
-		private final Assignment cIdAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cIdCSSRuleIdParserRuleCall_1_0 = (RuleCall)cIdAssignment_1.eContents().get(0);
-		private final Keyword cEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cRAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cRCSSRuleOrExpressionParserRuleCall_3_0 = (RuleCall)cRAssignment_3.eContents().get(0);
-		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Action cCSSRuleDefinitionAction_0 = (Action)cGroup.eContents().get(0);
+		private final Assignment cDokuAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cDokuDokuParserRuleCall_1_0 = (RuleCall)cDokuAssignment_1.eContents().get(0);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameCSSRuleIdParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		private final Keyword cEqualsSignKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cRAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cRCSSRuleOrParserRuleCall_4_0 = (RuleCall)cRAssignment_4.eContents().get(0);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		//CSSRuleAssignment:
-		//	{CSSRuleAssignment} id=CSSRuleId "=" r=CSSRuleOrExpression ";";
+		//CSSRuleDefinition:
+		//
+		//	{CSSRuleDefinition} doku=Doku? name=CSSRuleId "=" r=CSSRuleOr ";";
 		public ParserRule getRule() { return rule; }
 
-		//{CSSRuleAssignment} id=CSSRuleId "=" r=CSSRuleOrExpression ";"
+		//{CSSRuleDefinition} doku=Doku? name=CSSRuleId "=" r=CSSRuleOr ";"
 		public Group getGroup() { return cGroup; }
 
-		//{CSSRuleAssignment}
-		public Action getCSSRuleAssignmentAction_0() { return cCSSRuleAssignmentAction_0; }
+		//{CSSRuleDefinition}
+		public Action getCSSRuleDefinitionAction_0() { return cCSSRuleDefinitionAction_0; }
 
-		//id=CSSRuleId
-		public Assignment getIdAssignment_1() { return cIdAssignment_1; }
+		//doku=Doku?
+		public Assignment getDokuAssignment_1() { return cDokuAssignment_1; }
+
+		//Doku
+		public RuleCall getDokuDokuParserRuleCall_1_0() { return cDokuDokuParserRuleCall_1_0; }
+
+		//name=CSSRuleId
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
 		//CSSRuleId
-		public RuleCall getIdCSSRuleIdParserRuleCall_1_0() { return cIdCSSRuleIdParserRuleCall_1_0; }
+		public RuleCall getNameCSSRuleIdParserRuleCall_2_0() { return cNameCSSRuleIdParserRuleCall_2_0; }
 
 		//"="
-		public Keyword getEqualsSignKeyword_2() { return cEqualsSignKeyword_2; }
+		public Keyword getEqualsSignKeyword_3() { return cEqualsSignKeyword_3; }
 
-		//r=CSSRuleOrExpression
-		public Assignment getRAssignment_3() { return cRAssignment_3; }
+		//r=CSSRuleOr
+		public Assignment getRAssignment_4() { return cRAssignment_4; }
 
-		//CSSRuleOrExpression
-		public RuleCall getRCSSRuleOrExpressionParserRuleCall_3_0() { return cRCSSRuleOrExpressionParserRuleCall_3_0; }
+		//CSSRuleOr
+		public RuleCall getRCSSRuleOrParserRuleCall_4_0() { return cRCSSRuleOrParserRuleCall_4_0; }
 
 		//";"
-		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
-	public class CSSRuleOrExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRuleOrExpression");
+	public class CSSRuleOrElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRuleOr");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cOrsAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cOrsCSSRuleXorExpressionParserRuleCall_0_0 = (RuleCall)cOrsAssignment_0.eContents().get(0);
+		private final RuleCall cCSSRuleXorParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cVerticalLineKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cOrsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cOrsCSSRuleXorExpressionParserRuleCall_1_1_0 = (RuleCall)cOrsAssignment_1_1.eContents().get(0);
+		private final Action cCSSRuleOrOrsAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
+		private final Keyword cVerticalLineKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
+		private final Assignment cOrsAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
+		private final RuleCall cOrsCSSRuleXorParserRuleCall_1_1_1_0 = (RuleCall)cOrsAssignment_1_1_1.eContents().get(0);
 		
-		//CSSRuleOrExpression returns CSSRuleExpression:
-		//	ors+=CSSRuleXorExpression ("|" ors+=CSSRuleXorExpression)*;
+		//CSSRuleOr returns CSSRule:
+		//
+		//	CSSRuleXor ({CSSRuleOr.ors+=current} ("|" ors+=CSSRuleXor)+)?;
 		public ParserRule getRule() { return rule; }
 
-		//ors+=CSSRuleXorExpression ("|" ors+=CSSRuleXorExpression)*
+		//CSSRuleXor ({CSSRuleOr.ors+=current} ("|" ors+=CSSRuleXor)+)?
 		public Group getGroup() { return cGroup; }
 
-		//ors+=CSSRuleXorExpression
-		public Assignment getOrsAssignment_0() { return cOrsAssignment_0; }
+		//CSSRuleXor
+		public RuleCall getCSSRuleXorParserRuleCall_0() { return cCSSRuleXorParserRuleCall_0; }
 
-		//CSSRuleXorExpression
-		public RuleCall getOrsCSSRuleXorExpressionParserRuleCall_0_0() { return cOrsCSSRuleXorExpressionParserRuleCall_0_0; }
-
-		//("|" ors+=CSSRuleXorExpression)*
+		//({CSSRuleOr.ors+=current} ("|" ors+=CSSRuleXor)+)?
 		public Group getGroup_1() { return cGroup_1; }
+
+		//{CSSRuleOr.ors+=current}
+		public Action getCSSRuleOrOrsAction_1_0() { return cCSSRuleOrOrsAction_1_0; }
+
+		//("|" ors+=CSSRuleXor)+
+		public Group getGroup_1_1() { return cGroup_1_1; }
 
 		//"|"
-		public Keyword getVerticalLineKeyword_1_0() { return cVerticalLineKeyword_1_0; }
+		public Keyword getVerticalLineKeyword_1_1_0() { return cVerticalLineKeyword_1_1_0; }
 
-		//ors+=CSSRuleXorExpression
-		public Assignment getOrsAssignment_1_1() { return cOrsAssignment_1_1; }
+		//ors+=CSSRuleXor
+		public Assignment getOrsAssignment_1_1_1() { return cOrsAssignment_1_1_1; }
 
-		//CSSRuleXorExpression
-		public RuleCall getOrsCSSRuleXorExpressionParserRuleCall_1_1_0() { return cOrsCSSRuleXorExpressionParserRuleCall_1_1_0; }
+		//CSSRuleXor
+		public RuleCall getOrsCSSRuleXorParserRuleCall_1_1_1_0() { return cOrsCSSRuleXorParserRuleCall_1_1_1_0; }
 	}
 
-	public class CSSRuleXorExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRuleXorExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cXorsAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cXorsCSSRulePostfixExpressionParserRuleCall_0_0 = (RuleCall)cXorsAssignment_0.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cVerticalLineVerticalLineKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cXorsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cXorsCSSRulePostfixExpressionParserRuleCall_1_1_0 = (RuleCall)cXorsAssignment_1_1.eContents().get(0);
-		
-		//CSSRuleXorExpression:
-		//	xors+=CSSRulePostfixExpression ("||" xors+=CSSRulePostfixExpression)*;
-		public ParserRule getRule() { return rule; }
-
-		//xors+=CSSRulePostfixExpression ("||" xors+=CSSRulePostfixExpression)*
-		public Group getGroup() { return cGroup; }
-
-		//xors+=CSSRulePostfixExpression
-		public Assignment getXorsAssignment_0() { return cXorsAssignment_0; }
-
-		//CSSRulePostfixExpression
-		public RuleCall getXorsCSSRulePostfixExpressionParserRuleCall_0_0() { return cXorsCSSRulePostfixExpressionParserRuleCall_0_0; }
-
-		//("||" xors+=CSSRulePostfixExpression)*
-		public Group getGroup_1() { return cGroup_1; }
-
-		//"||"
-		public Keyword getVerticalLineVerticalLineKeyword_1_0() { return cVerticalLineVerticalLineKeyword_1_0; }
-
-		//xors+=CSSRulePostfixExpression
-		public Assignment getXorsAssignment_1_1() { return cXorsAssignment_1_1; }
-
-		//CSSRulePostfixExpression
-		public RuleCall getXorsCSSRulePostfixExpressionParserRuleCall_1_1_0() { return cXorsCSSRulePostfixExpressionParserRuleCall_1_1_0; }
-	}
-
-	public class CSSRuleBracketExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRuleBracketExpression");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cCSSRuleOrExpressionParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Keyword cRightSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		
-		//CSSRuleBracketExpression:
-		//	"[" CSSRuleOrExpression "]";
-		public ParserRule getRule() { return rule; }
-
-		//"[" CSSRuleOrExpression "]"
-		public Group getGroup() { return cGroup; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_0() { return cLeftSquareBracketKeyword_0; }
-
-		//CSSRuleOrExpression
-		public RuleCall getCSSRuleOrExpressionParserRuleCall_1() { return cCSSRuleOrExpressionParserRuleCall_1; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_2() { return cRightSquareBracketKeyword_2; }
-	}
-
-	public class CSSRulePostfixExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRulePostfixExpression");
+	public class CSSRuleXorElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRuleXor");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cCSSRuleConcatParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Assignment cCAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final Alternatives cCAlternatives_1_0 = (Alternatives)cCAssignment_1.eContents().get(0);
-		private final Keyword cCAsteriskKeyword_1_0_0 = (Keyword)cCAlternatives_1_0.eContents().get(0);
-		private final Keyword cCPlusSignKeyword_1_0_1 = (Keyword)cCAlternatives_1_0.eContents().get(1);
-		private final Keyword cCQuestionMarkKeyword_1_0_2 = (Keyword)cCAlternatives_1_0.eContents().get(2);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cCSSRuleXorXorsAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Group cGroup_1_1 = (Group)cGroup_1.eContents().get(1);
+		private final Keyword cVerticalLineVerticalLineKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
+		private final Assignment cXorsAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
+		private final RuleCall cXorsCSSRuleConcatParserRuleCall_1_1_1_0 = (RuleCall)cXorsAssignment_1_1_1.eContents().get(0);
 		
-		//CSSRulePostfixExpression:
-		//	CSSRuleConcat c=("*" | "+" | "?")?;
+		//CSSRuleXor returns CSSRule:
+		//
+		//	CSSRuleConcat ({CSSRuleXor.xors+=current} ("||" xors+=CSSRuleConcat)+)?;
 		public ParserRule getRule() { return rule; }
 
-		//CSSRuleConcat c=("*" | "+" | "?")?
+		//CSSRuleConcat ({CSSRuleXor.xors+=current} ("||" xors+=CSSRuleConcat)+)?
 		public Group getGroup() { return cGroup; }
 
 		//CSSRuleConcat
 		public RuleCall getCSSRuleConcatParserRuleCall_0() { return cCSSRuleConcatParserRuleCall_0; }
 
-		//c=("*" | "+" | "?")?
-		public Assignment getCAssignment_1() { return cCAssignment_1; }
+		//({CSSRuleXor.xors+=current} ("||" xors+=CSSRuleConcat)+)?
+		public Group getGroup_1() { return cGroup_1; }
 
-		//"*" | "+" | "?"
-		public Alternatives getCAlternatives_1_0() { return cCAlternatives_1_0; }
+		//{CSSRuleXor.xors+=current}
+		public Action getCSSRuleXorXorsAction_1_0() { return cCSSRuleXorXorsAction_1_0; }
 
-		//"*"
-		public Keyword getCAsteriskKeyword_1_0_0() { return cCAsteriskKeyword_1_0_0; }
+		//("||" xors+=CSSRuleConcat)+
+		public Group getGroup_1_1() { return cGroup_1_1; }
 
-		//"+"
-		public Keyword getCPlusSignKeyword_1_0_1() { return cCPlusSignKeyword_1_0_1; }
+		//"||"
+		public Keyword getVerticalLineVerticalLineKeyword_1_1_0() { return cVerticalLineVerticalLineKeyword_1_1_0; }
 
-		//"?"
-		public Keyword getCQuestionMarkKeyword_1_0_2() { return cCQuestionMarkKeyword_1_0_2; }
+		//xors+=CSSRuleConcat
+		public Assignment getXorsAssignment_1_1_1() { return cXorsAssignment_1_1_1; }
+
+		//CSSRuleConcat
+		public RuleCall getXorsCSSRuleConcatParserRuleCall_1_1_1_0() { return cXorsCSSRuleConcatParserRuleCall_1_1_1_0; }
 	}
 
 	public class CSSRuleConcatElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRuleConcat");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cConcAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cConcCSSRulePrimaryExpressionParserRuleCall_0_0 = (RuleCall)cConcAssignment_0.eContents().get(0);
-		private final Assignment cConcAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cConcCSSRulePrimaryExpressionParserRuleCall_1_0 = (RuleCall)cConcAssignment_1.eContents().get(0);
+		private final RuleCall cCSSRulePostfixParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cCSSRuleConcatConcAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Assignment cConcAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cConcCSSRulePostfixParserRuleCall_1_1_0 = (RuleCall)cConcAssignment_1_1.eContents().get(0);
 		
-		//CSSRuleConcat:
-		//	conc+=CSSRulePrimaryExpression conc+=CSSRulePrimaryExpression?;
+		//CSSRuleConcat returns CSSRule:
+		//
+		//	CSSRulePostfix ({CSSRuleConcat.conc+=current} conc+=CSSRulePostfix+)?;
 		public ParserRule getRule() { return rule; }
 
-		//conc+=CSSRulePrimaryExpression conc+=CSSRulePrimaryExpression?
+		//CSSRulePostfix ({CSSRuleConcat.conc+=current} conc+=CSSRulePostfix+)?
 		public Group getGroup() { return cGroup; }
 
-		//conc+=CSSRulePrimaryExpression
-		public Assignment getConcAssignment_0() { return cConcAssignment_0; }
+		//CSSRulePostfix
+		public RuleCall getCSSRulePostfixParserRuleCall_0() { return cCSSRulePostfixParserRuleCall_0; }
 
-		//CSSRulePrimaryExpression
-		public RuleCall getConcCSSRulePrimaryExpressionParserRuleCall_0_0() { return cConcCSSRulePrimaryExpressionParserRuleCall_0_0; }
+		//({CSSRuleConcat.conc+=current} conc+=CSSRulePostfix+)?
+		public Group getGroup_1() { return cGroup_1; }
 
-		//conc+=CSSRulePrimaryExpression?
-		public Assignment getConcAssignment_1() { return cConcAssignment_1; }
+		//{CSSRuleConcat.conc+=current}
+		public Action getCSSRuleConcatConcAction_1_0() { return cCSSRuleConcatConcAction_1_0; }
 
-		//CSSRulePrimaryExpression
-		public RuleCall getConcCSSRulePrimaryExpressionParserRuleCall_1_0() { return cConcCSSRulePrimaryExpressionParserRuleCall_1_0; }
+		//conc+=CSSRulePostfix+
+		public Assignment getConcAssignment_1_1() { return cConcAssignment_1_1; }
+
+		//CSSRulePostfix
+		public RuleCall getConcCSSRulePostfixParserRuleCall_1_1_0() { return cConcCSSRulePostfixParserRuleCall_1_1_0; }
 	}
 
-	public class CSSRuleLiteralElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRuleLiteral");
-		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+	public class CSSRulePostfixElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRulePostfix");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cCSSRulePrimaryParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cCSSRulePostfixRuleAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Assignment cCardinalityAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final Alternatives cCardinalityAlternatives_1_1_0 = (Alternatives)cCardinalityAssignment_1_1.eContents().get(0);
+		private final Keyword cCardinalityAsteriskKeyword_1_1_0_0 = (Keyword)cCardinalityAlternatives_1_1_0.eContents().get(0);
+		private final Keyword cCardinalityPlusSignKeyword_1_1_0_1 = (Keyword)cCardinalityAlternatives_1_1_0.eContents().get(1);
+		private final Keyword cCardinalityQuestionMarkKeyword_1_1_0_2 = (Keyword)cCardinalityAlternatives_1_1_0.eContents().get(2);
 		
-		//CSSRuleLiteral:
-		//	ID;
+		//CSSRulePostfix returns CSSRule:
+		//
+		//	CSSRulePrimary ({CSSRulePostfix.rule=current} cardinality=("*" | "+" | "?"))?;
 		public ParserRule getRule() { return rule; }
 
-		//ID
-		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
+		//CSSRulePrimary ({CSSRulePostfix.rule=current} cardinality=("*" | "+" | "?"))?
+		public Group getGroup() { return cGroup; }
+
+		//CSSRulePrimary
+		public RuleCall getCSSRulePrimaryParserRuleCall_0() { return cCSSRulePrimaryParserRuleCall_0; }
+
+		//({CSSRulePostfix.rule=current} cardinality=("*" | "+" | "?"))?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//{CSSRulePostfix.rule=current}
+		public Action getCSSRulePostfixRuleAction_1_0() { return cCSSRulePostfixRuleAction_1_0; }
+
+		//cardinality=("*" | "+" | "?")
+		public Assignment getCardinalityAssignment_1_1() { return cCardinalityAssignment_1_1; }
+
+		//"*" | "+" | "?"
+		public Alternatives getCardinalityAlternatives_1_1_0() { return cCardinalityAlternatives_1_1_0; }
+
+		//"*"
+		public Keyword getCardinalityAsteriskKeyword_1_1_0_0() { return cCardinalityAsteriskKeyword_1_1_0_0; }
+
+		//"+"
+		public Keyword getCardinalityPlusSignKeyword_1_1_0_1() { return cCardinalityPlusSignKeyword_1_1_0_1; }
+
+		//"?"
+		public Keyword getCardinalityQuestionMarkKeyword_1_1_0_2() { return cCardinalityQuestionMarkKeyword_1_1_0_2; }
 	}
 
-	public class CSSRulePrimaryExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRulePrimaryExpression");
+	public class CSSRuleBracketElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRuleBracket");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cCSSRuleBracketAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cInnerAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cInnerCSSRuleOrParserRuleCall_2_0 = (RuleCall)cInnerAssignment_2.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//CSSRuleBracket returns CSSRule:
+		//
+		//	{CSSRuleBracket} "[" inner=CSSRuleOr "]";
+		public ParserRule getRule() { return rule; }
+
+		//{CSSRuleBracket} "[" inner=CSSRuleOr "]"
+		public Group getGroup() { return cGroup; }
+
+		//{CSSRuleBracket}
+		public Action getCSSRuleBracketAction_0() { return cCSSRuleBracketAction_0; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
+
+		//inner=CSSRuleOr
+		public Assignment getInnerAssignment_2() { return cInnerAssignment_2; }
+
+		//CSSRuleOr
+		public RuleCall getInnerCSSRuleOrParserRuleCall_2_0() { return cInnerCSSRuleOrParserRuleCall_2_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
+	}
+
+	public class CSSRulePrimaryElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRulePrimary");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cCSSRuleRefParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cCSSRuleBracketExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cCSSRuleBracketParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cCSSRuleLiteralParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cCSSBaseTypeParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
-		//CSSRulePrimaryExpression:
-		//	CSSRuleRef | CSSRuleBracketExpression | CSSRuleLiteral;
+		//CSSRulePrimary returns CSSRule:
+		//
+		//	CSSRuleRef | CSSRuleBracket | CSSRuleLiteral | CSSBaseType;
 		public ParserRule getRule() { return rule; }
 
-		//CSSRuleRef | CSSRuleBracketExpression | CSSRuleLiteral
+		//CSSRuleRef | CSSRuleBracket | CSSRuleLiteral | CSSBaseType
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//CSSRuleRef
 		public RuleCall getCSSRuleRefParserRuleCall_0() { return cCSSRuleRefParserRuleCall_0; }
 
-		//CSSRuleBracketExpression
-		public RuleCall getCSSRuleBracketExpressionParserRuleCall_1() { return cCSSRuleBracketExpressionParserRuleCall_1; }
+		//CSSRuleBracket
+		public RuleCall getCSSRuleBracketParserRuleCall_1() { return cCSSRuleBracketParserRuleCall_1; }
 
 		//CSSRuleLiteral
 		public RuleCall getCSSRuleLiteralParserRuleCall_2() { return cCSSRuleLiteralParserRuleCall_2; }
+
+		//CSSBaseType
+		public RuleCall getCSSBaseTypeParserRuleCall_3() { return cCSSBaseTypeParserRuleCall_3; }
+	}
+
+	public class CSSRuleLiteralElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSRuleLiteral");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Action cCSSRuleLiteralAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Assignment cValueAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cValueIDTerminalRuleCall_0_1_0 = (RuleCall)cValueAssignment_0_1.eContents().get(0);
+		private final Assignment cValueAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final Keyword cValueCommaKeyword_1_0 = (Keyword)cValueAssignment_1.eContents().get(0);
+		
+		//CSSRuleLiteral returns CSSRule:
+		//
+		//	{CSSRuleLiteral} value=ID | value=",";
+		public ParserRule getRule() { return rule; }
+
+		//{CSSRuleLiteral} value=ID | value=","
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//{CSSRuleLiteral} value=ID
+		public Group getGroup_0() { return cGroup_0; }
+
+		//{CSSRuleLiteral}
+		public Action getCSSRuleLiteralAction_0_0() { return cCSSRuleLiteralAction_0_0; }
+
+		//value=ID
+		public Assignment getValueAssignment_0_1() { return cValueAssignment_0_1; }
+
+		//ID
+		public RuleCall getValueIDTerminalRuleCall_0_1_0() { return cValueIDTerminalRuleCall_0_1_0; }
+
+		//value=","
+		public Assignment getValueAssignment_1() { return cValueAssignment_1; }
+
+		//","
+		public Keyword getValueCommaKeyword_1_0() { return cValueCommaKeyword_1_0; }
+	}
+
+	public class CSSDefaultValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CSSDefaultValue");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cCSSRuleLiteralParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cINTTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
+		private final RuleCall cINTTerminalRuleCall_2_0 = (RuleCall)cGroup_2.eContents().get(0);
+		private final Keyword cFullStopKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
+		private final RuleCall cINTTerminalRuleCall_2_2 = (RuleCall)cGroup_2.eContents().get(2);
+		private final RuleCall cSTRINGTerminalRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		
+		//CSSDefaultValue:
+		//
+		//	CSSRuleLiteral | INT | INT* "." INT+ | STRING;
+		public ParserRule getRule() { return rule; }
+
+		//CSSRuleLiteral | INT | INT* "." INT+ | STRING
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//CSSRuleLiteral
+		public RuleCall getCSSRuleLiteralParserRuleCall_0() { return cCSSRuleLiteralParserRuleCall_0; }
+
+		//INT
+		public RuleCall getINTTerminalRuleCall_1() { return cINTTerminalRuleCall_1; }
+
+		//INT* "." INT+
+		public Group getGroup_2() { return cGroup_2; }
+
+		//INT*
+		public RuleCall getINTTerminalRuleCall_2_0() { return cINTTerminalRuleCall_2_0; }
+
+		//"."
+		public Keyword getFullStopKeyword_2_1() { return cFullStopKeyword_2_1; }
+
+		//INT+
+		public RuleCall getINTTerminalRuleCall_2_2() { return cINTTerminalRuleCall_2_2; }
+
+		//STRING
+		public RuleCall getSTRINGTerminalRuleCall_3() { return cSTRINGTerminalRuleCall_3; }
 	}
 	
 	
 	private CssExtensionElements pCssExtension;
+	private TerminalRule tPSEUDO;
+	private TerminalRule tID;
+	private TerminalRule tJDOC;
+	private TerminalRule tML_COMMENT;
+	private TerminalRule tSL_COMMENT;
 	private ImportElements pImport;
 	private ValidIDElements pValidID;
 	private QualifiedNameElements pQualifiedName;
 	private QualifiedNameWithWildCardElements pQualifiedNameWithWildCard;
-	private PackageDeclarationElements pPackageDeclaration;
-	private CSSRuleSetElements pCSSRuleSet;
+	private PackageDefinitionElements pPackageDefinition;
+	private DokuElements pDoku;
+	private CSSBaseTypeElements pCSSBaseType;
+	private ElementDeclartionElements pElementDeclartion;
+	private PropertyDefinitionElements pPropertyDefinition;
+	private PseudoClassDefinitionElements pPseudoClassDefinition;
 	private CSSRuleIdElements pCSSRuleId;
 	private CSSRuleRefElements pCSSRuleRef;
-	private CSSRuleAssignmentElements pCSSRuleAssignment;
-	private CSSRuleOrExpressionElements pCSSRuleOrExpression;
-	private CSSRuleXorExpressionElements pCSSRuleXorExpression;
-	private CSSRuleBracketExpressionElements pCSSRuleBracketExpression;
-	private CSSRulePostfixExpressionElements pCSSRulePostfixExpression;
+	private CSSRuleDefinitionElements pCSSRuleDefinition;
+	private CSSRuleOrElements pCSSRuleOr;
+	private CSSRuleXorElements pCSSRuleXor;
 	private CSSRuleConcatElements pCSSRuleConcat;
+	private CSSRulePostfixElements pCSSRulePostfix;
+	private CSSRuleBracketElements pCSSRuleBracket;
+	private CSSRulePrimaryElements pCSSRulePrimary;
 	private CSSRuleLiteralElements pCSSRuleLiteral;
-	private CSSRulePrimaryExpressionElements pCSSRulePrimaryExpression;
+	private CSSDefaultValueElements pCSSDefaultValue;
 	
 	private final Grammar grammar;
 
@@ -548,10 +862,11 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
-	////	packageDef=PackageDeclaration?
-	////	rule=CSSRuleSet
-	//CssExtension:
-	//	imports+=Import* packageDef=PackageDeclaration?;
+	////	packageDef=PackageDefinition?
+	// //	rule=CSSRuleSet
+	// CssExtension:
+	//
+	//	imports+=Import* packageDef=PackageDefinition?;
 	public CssExtensionElements getCssExtensionAccess() {
 		return (pCssExtension != null) ? pCssExtension : (pCssExtension = new CssExtensionElements());
 	}
@@ -560,7 +875,43 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getCssExtensionAccess().getRule();
 	}
 
+	//terminal PSEUDO:
+	//
+	//	":" !" " ID;
+	public TerminalRule getPSEUDORule() {
+		return (tPSEUDO != null) ? tPSEUDO : (tPSEUDO = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "PSEUDO"));
+	} 
+
+	//terminal ID:
+	//
+	//	("a".."z" | "A".."Z" | "_" | "-") ("a".."z" | "A".."Z" | "_" | "0".."9" | "-")*;
+	public TerminalRule getIDRule() {
+		return (tID != null) ? tID : (tID = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ID"));
+	} 
+
+	//terminal JDOC:
+	//
+	//	"/ **"->"* /";
+	public TerminalRule getJDOCRule() {
+		return (tJDOC != null) ? tJDOC : (tJDOC = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "JDOC"));
+	} 
+
+	//terminal ML_COMMENT:
+	//
+	//	"/ *" !"*"->"* /";
+	public TerminalRule getML_COMMENTRule() {
+		return (tML_COMMENT != null) ? tML_COMMENT : (tML_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ML_COMMENT"));
+	} 
+
+	//terminal SL_COMMENT:
+	//
+	//	"//" !("\n" | "\r")* ("\r"? "\n")?;
+	public TerminalRule getSL_COMMENTRule() {
+		return (tSL_COMMENT != null) ? tSL_COMMENT : (tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_COMMENT"));
+	} 
+
 	//Import:
+	//
 	//	"import" importedNamespace=QualifiedNameWithWildCard;
 	public ImportElements getImportAccess() {
 		return (pImport != null) ? pImport : (pImport = new ImportElements());
@@ -571,6 +922,7 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ValidID:
+	//
 	//	ID;
 	public ValidIDElements getValidIDAccess() {
 		return (pValidID != null) ? pValidID : (pValidID = new ValidIDElements());
@@ -581,6 +933,7 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//QualifiedName:
+	//
 	//	ValidID ("." ValidID)*;
 	public QualifiedNameElements getQualifiedNameAccess() {
 		return (pQualifiedName != null) ? pQualifiedName : (pQualifiedName = new QualifiedNameElements());
@@ -591,6 +944,7 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//QualifiedNameWithWildCard:
+	//
 	//	QualifiedName ("." "*")?;
 	public QualifiedNameWithWildCardElements getQualifiedNameWithWildCardAccess() {
 		return (pQualifiedNameWithWildCard != null) ? pQualifiedNameWithWildCard : (pQualifiedNameWithWildCard = new QualifiedNameWithWildCardElements());
@@ -600,38 +954,77 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getQualifiedNameWithWildCardAccess().getRule();
 	}
 
-	//PackageDeclaration:
-	//	"package" name=QualifiedName "{" rule=CSSRuleSet? "}";
-	public PackageDeclarationElements getPackageDeclarationAccess() {
-		return (pPackageDeclaration != null) ? pPackageDeclaration : (pPackageDeclaration = new PackageDeclarationElements());
+	//PackageDefinition:
+	//
+	//	"package" name=QualifiedName "{" (rules+=CSSRuleDefinition | subpackages+=PackageDefinition |
+	//
+	//	elements+=ElementDeclartion)* "}";
+	public PackageDefinitionElements getPackageDefinitionAccess() {
+		return (pPackageDefinition != null) ? pPackageDefinition : (pPackageDefinition = new PackageDefinitionElements());
 	}
 	
-	public ParserRule getPackageDeclarationRule() {
-		return getPackageDeclarationAccess().getRule();
+	public ParserRule getPackageDefinitionRule() {
+		return getPackageDefinitionAccess().getRule();
 	}
 
-	////PackageDeclaration:
-	////	'package' name=QualifiedName '{'
-	////		typDefs+=TypeDef? (',' typDefs+=TypeDef)*
-	////		elementDefs+=ElementDef? (',' elementDefs+=ElementDef)*
-	////		subpackages+=PackageDeclaration*
-	////	'}';
-	////
-	////TypeDef:
-	////	GenericTypeDef | EnumTypeDef
-	////;
-	//CSSRuleSet:
-	//	rules+=CSSRuleAssignment+;
-	public CSSRuleSetElements getCSSRuleSetAccess() {
-		return (pCSSRuleSet != null) ? pCSSRuleSet : (pCSSRuleSet = new CSSRuleSetElements());
+	//Doku:
+	//
+	//	content=JDOC;
+	public DokuElements getDokuAccess() {
+		return (pDoku != null) ? pDoku : (pDoku = new DokuElements());
 	}
 	
-	public ParserRule getCSSRuleSetRule() {
-		return getCSSRuleSetAccess().getRule();
+	public ParserRule getDokuRule() {
+		return getDokuAccess().getRule();
+	}
+
+	//CSSBaseType returns CSSRule:
+	//
+	//	"INT" | "DOUBLE" | "UDOUBLE";
+	public CSSBaseTypeElements getCSSBaseTypeAccess() {
+		return (pCSSBaseType != null) ? pCSSBaseType : (pCSSBaseType = new CSSBaseTypeElements());
+	}
+	
+	public ParserRule getCSSBaseTypeRule() {
+		return getCSSBaseTypeAccess().getRule();
+	}
+
+	//ElementDeclartion:
+	//
+	//	doku=Doku? name=QualifiedName "{" (properties+=PropertyDefinition | pseudoClasses+=PseudoClassDefinition)* "}";
+	public ElementDeclartionElements getElementDeclartionAccess() {
+		return (pElementDeclartion != null) ? pElementDeclartion : (pElementDeclartion = new ElementDeclartionElements());
+	}
+	
+	public ParserRule getElementDeclartionRule() {
+		return getElementDeclartionAccess().getRule();
+	}
+
+	//PropertyDefinition:
+	//
+	//	doku=Doku? name=ID rule=CSSRuleOr ("default:" default=CSSDefaultValue)? ";";
+	public PropertyDefinitionElements getPropertyDefinitionAccess() {
+		return (pPropertyDefinition != null) ? pPropertyDefinition : (pPropertyDefinition = new PropertyDefinitionElements());
+	}
+	
+	public ParserRule getPropertyDefinitionRule() {
+		return getPropertyDefinitionAccess().getRule();
+	}
+
+	//PseudoClassDefinition:
+	//
+	//	doku=Doku? name=PSEUDO;
+	public PseudoClassDefinitionElements getPseudoClassDefinitionAccess() {
+		return (pPseudoClassDefinition != null) ? pPseudoClassDefinition : (pPseudoClassDefinition = new PseudoClassDefinitionElements());
+	}
+	
+	public ParserRule getPseudoClassDefinitionRule() {
+		return getPseudoClassDefinitionAccess().getRule();
 	}
 
 	//CSSRuleId:
-	//	name=ID;
+	//
+	//	name=QualifiedName;
 	public CSSRuleIdElements getCSSRuleIdAccess() {
 		return (pCSSRuleId != null) ? pCSSRuleId : (pCSSRuleId = new CSSRuleIdElements());
 	}
@@ -641,7 +1034,8 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//CSSRuleRef:
-	//	"<" ref=[CSSRuleId] ">";
+	//
+	//	"<" ref=[CSSRuleId|QualifiedName] ">";
 	public CSSRuleRefElements getCSSRuleRefAccess() {
 		return (pCSSRuleRef != null) ? pCSSRuleRef : (pCSSRuleRef = new CSSRuleRefElements());
 	}
@@ -650,58 +1044,42 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getCSSRuleRefAccess().getRule();
 	}
 
-	//CSSRuleAssignment:
-	//	{CSSRuleAssignment} id=CSSRuleId "=" r=CSSRuleOrExpression ";";
-	public CSSRuleAssignmentElements getCSSRuleAssignmentAccess() {
-		return (pCSSRuleAssignment != null) ? pCSSRuleAssignment : (pCSSRuleAssignment = new CSSRuleAssignmentElements());
+	//CSSRuleDefinition:
+	//
+	//	{CSSRuleDefinition} doku=Doku? name=CSSRuleId "=" r=CSSRuleOr ";";
+	public CSSRuleDefinitionElements getCSSRuleDefinitionAccess() {
+		return (pCSSRuleDefinition != null) ? pCSSRuleDefinition : (pCSSRuleDefinition = new CSSRuleDefinitionElements());
 	}
 	
-	public ParserRule getCSSRuleAssignmentRule() {
-		return getCSSRuleAssignmentAccess().getRule();
+	public ParserRule getCSSRuleDefinitionRule() {
+		return getCSSRuleDefinitionAccess().getRule();
 	}
 
-	//CSSRuleOrExpression returns CSSRuleExpression:
-	//	ors+=CSSRuleXorExpression ("|" ors+=CSSRuleXorExpression)*;
-	public CSSRuleOrExpressionElements getCSSRuleOrExpressionAccess() {
-		return (pCSSRuleOrExpression != null) ? pCSSRuleOrExpression : (pCSSRuleOrExpression = new CSSRuleOrExpressionElements());
+	//CSSRuleOr returns CSSRule:
+	//
+	//	CSSRuleXor ({CSSRuleOr.ors+=current} ("|" ors+=CSSRuleXor)+)?;
+	public CSSRuleOrElements getCSSRuleOrAccess() {
+		return (pCSSRuleOr != null) ? pCSSRuleOr : (pCSSRuleOr = new CSSRuleOrElements());
 	}
 	
-	public ParserRule getCSSRuleOrExpressionRule() {
-		return getCSSRuleOrExpressionAccess().getRule();
+	public ParserRule getCSSRuleOrRule() {
+		return getCSSRuleOrAccess().getRule();
 	}
 
-	//CSSRuleXorExpression:
-	//	xors+=CSSRulePostfixExpression ("||" xors+=CSSRulePostfixExpression)*;
-	public CSSRuleXorExpressionElements getCSSRuleXorExpressionAccess() {
-		return (pCSSRuleXorExpression != null) ? pCSSRuleXorExpression : (pCSSRuleXorExpression = new CSSRuleXorExpressionElements());
+	//CSSRuleXor returns CSSRule:
+	//
+	//	CSSRuleConcat ({CSSRuleXor.xors+=current} ("||" xors+=CSSRuleConcat)+)?;
+	public CSSRuleXorElements getCSSRuleXorAccess() {
+		return (pCSSRuleXor != null) ? pCSSRuleXor : (pCSSRuleXor = new CSSRuleXorElements());
 	}
 	
-	public ParserRule getCSSRuleXorExpressionRule() {
-		return getCSSRuleXorExpressionAccess().getRule();
+	public ParserRule getCSSRuleXorRule() {
+		return getCSSRuleXorAccess().getRule();
 	}
 
-	//CSSRuleBracketExpression:
-	//	"[" CSSRuleOrExpression "]";
-	public CSSRuleBracketExpressionElements getCSSRuleBracketExpressionAccess() {
-		return (pCSSRuleBracketExpression != null) ? pCSSRuleBracketExpression : (pCSSRuleBracketExpression = new CSSRuleBracketExpressionElements());
-	}
-	
-	public ParserRule getCSSRuleBracketExpressionRule() {
-		return getCSSRuleBracketExpressionAccess().getRule();
-	}
-
-	//CSSRulePostfixExpression:
-	//	CSSRuleConcat c=("*" | "+" | "?")?;
-	public CSSRulePostfixExpressionElements getCSSRulePostfixExpressionAccess() {
-		return (pCSSRulePostfixExpression != null) ? pCSSRulePostfixExpression : (pCSSRulePostfixExpression = new CSSRulePostfixExpressionElements());
-	}
-	
-	public ParserRule getCSSRulePostfixExpressionRule() {
-		return getCSSRulePostfixExpressionAccess().getRule();
-	}
-
-	//CSSRuleConcat:
-	//	conc+=CSSRulePrimaryExpression conc+=CSSRulePrimaryExpression?;
+	//CSSRuleConcat returns CSSRule:
+	//
+	//	CSSRulePostfix ({CSSRuleConcat.conc+=current} conc+=CSSRulePostfix+)?;
 	public CSSRuleConcatElements getCSSRuleConcatAccess() {
 		return (pCSSRuleConcat != null) ? pCSSRuleConcat : (pCSSRuleConcat = new CSSRuleConcatElements());
 	}
@@ -710,8 +1088,42 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getCSSRuleConcatAccess().getRule();
 	}
 
-	//CSSRuleLiteral:
-	//	ID;
+	//CSSRulePostfix returns CSSRule:
+	//
+	//	CSSRulePrimary ({CSSRulePostfix.rule=current} cardinality=("*" | "+" | "?"))?;
+	public CSSRulePostfixElements getCSSRulePostfixAccess() {
+		return (pCSSRulePostfix != null) ? pCSSRulePostfix : (pCSSRulePostfix = new CSSRulePostfixElements());
+	}
+	
+	public ParserRule getCSSRulePostfixRule() {
+		return getCSSRulePostfixAccess().getRule();
+	}
+
+	//CSSRuleBracket returns CSSRule:
+	//
+	//	{CSSRuleBracket} "[" inner=CSSRuleOr "]";
+	public CSSRuleBracketElements getCSSRuleBracketAccess() {
+		return (pCSSRuleBracket != null) ? pCSSRuleBracket : (pCSSRuleBracket = new CSSRuleBracketElements());
+	}
+	
+	public ParserRule getCSSRuleBracketRule() {
+		return getCSSRuleBracketAccess().getRule();
+	}
+
+	//CSSRulePrimary returns CSSRule:
+	//
+	//	CSSRuleRef | CSSRuleBracket | CSSRuleLiteral | CSSBaseType;
+	public CSSRulePrimaryElements getCSSRulePrimaryAccess() {
+		return (pCSSRulePrimary != null) ? pCSSRulePrimary : (pCSSRulePrimary = new CSSRulePrimaryElements());
+	}
+	
+	public ParserRule getCSSRulePrimaryRule() {
+		return getCSSRulePrimaryAccess().getRule();
+	}
+
+	//CSSRuleLiteral returns CSSRule:
+	//
+	//	{CSSRuleLiteral} value=ID | value=",";
 	public CSSRuleLiteralElements getCSSRuleLiteralAccess() {
 		return (pCSSRuleLiteral != null) ? pCSSRuleLiteral : (pCSSRuleLiteral = new CSSRuleLiteralElements());
 	}
@@ -720,54 +1132,42 @@ public class CssExtDslGrammarAccess extends AbstractGrammarElementFinder {
 		return getCSSRuleLiteralAccess().getRule();
 	}
 
-	//CSSRulePrimaryExpression:
-	//	CSSRuleRef | CSSRuleBracketExpression | CSSRuleLiteral;
-	public CSSRulePrimaryExpressionElements getCSSRulePrimaryExpressionAccess() {
-		return (pCSSRulePrimaryExpression != null) ? pCSSRulePrimaryExpression : (pCSSRulePrimaryExpression = new CSSRulePrimaryExpressionElements());
+	//CSSDefaultValue:
+	//
+	//	CSSRuleLiteral | INT | INT* "." INT+ | STRING;
+	public CSSDefaultValueElements getCSSDefaultValueAccess() {
+		return (pCSSDefaultValue != null) ? pCSSDefaultValue : (pCSSDefaultValue = new CSSDefaultValueElements());
 	}
 	
-	public ParserRule getCSSRulePrimaryExpressionRule() {
-		return getCSSRulePrimaryExpressionAccess().getRule();
+	public ParserRule getCSSDefaultValueRule() {
+		return getCSSDefaultValueAccess().getRule();
 	}
 
-	//terminal ID:
-	//	"^"? ("a".."z" | "A".."Z" | "_") ("a".."z" | "A".."Z" | "_" | "0".."9")*;
-	public TerminalRule getIDRule() {
-		return gaTerminals.getIDRule();
-	} 
-
 	//terminal INT returns ecore::EInt:
+	//
 	//	"0".."9"+;
 	public TerminalRule getINTRule() {
 		return gaTerminals.getINTRule();
 	} 
 
 	//terminal STRING:
+	//
 	//	"\"" ("\\" ("b" | "t" | "n" | "f" | "r" | "u" | "\"" | "\'" | "\\") | !("\\" | "\""))* "\"" | "\'" ("\\" ("b" | "t" |
+	//
 	//	"n" | "f" | "r" | "u" | "\"" | "\'" | "\\") | !("\\" | "\'"))* "\'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 
 
-	//terminal ML_COMMENT:
-	//	"/ *"->"* /";
-	public TerminalRule getML_COMMENTRule() {
-		return gaTerminals.getML_COMMENTRule();
-	} 
-
-	//terminal SL_COMMENT:
-	//	"//" !("\n" | "\r")* ("\r"? "\n")?;
-	public TerminalRule getSL_COMMENTRule() {
-		return gaTerminals.getSL_COMMENTRule();
-	} 
-
 	//terminal WS:
+	//
 	//	(" " | "\t" | "\r" | "\n")+;
 	public TerminalRule getWSRule() {
 		return gaTerminals.getWSRule();
 	} 
 
 	//terminal ANY_OTHER:
+	//
 	//	.;
 	public TerminalRule getANY_OTHERRule() {
 		return gaTerminals.getANY_OTHERRule();

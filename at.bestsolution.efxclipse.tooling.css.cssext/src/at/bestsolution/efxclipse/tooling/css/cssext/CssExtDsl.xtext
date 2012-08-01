@@ -5,10 +5,19 @@ generate cssExtDsl "http://www.bestsolution.at/efxclipse/tooling/css/cssext/CssE
 
 CssExtension:
 	imports+=Import*
-	packageDef=PackageDeclaration?
-//	packageDef=PackageDeclaration?
+	packageDef=PackageDefinition?
+//	packageDef=PackageDefinition?
 //	rule=CSSRuleSet
 ;
+
+terminal PSEUDO: ':' (!' ') ID;
+
+terminal ID  : ('a'..'z'|'A'..'Z'|'_'|'-') ('a'..'z'|'A'..'Z'|'_'|'0'..'9'|'-')*;
+
+terminal JDOC : '/**' -> '*/' ;
+terminal ML_COMMENT : '/*' (!'*') -> '*/' ;
+terminal SL_COMMENT : '//' !('\n'|'\r')* ('\r'? '\n')? ;
+
 
 Import:
 	'import' importedNamespace=QualifiedNameWithWildCard;
@@ -23,67 +32,93 @@ QualifiedNameWithWildCard :
 	QualifiedName  ('.' '*')?;
 	
 
-PackageDeclaration:
+PackageDefinition:
 	'package' name=QualifiedName 
 	'{'
-		rule=CSSRuleSet?
+		(
+		rules+=CSSRuleDefinition |
+		subpackages+=PackageDefinition |
+		elements+=ElementDeclartion
+		)*
 	'}'
 ;
 
-//PackageDeclaration:
-//	'package' name=QualifiedName '{'
-//		typDefs+=TypeDef? (',' typDefs+=TypeDef)*
-//		elementDefs+=ElementDef? (',' elementDefs+=ElementDef)*
-//		subpackages+=PackageDeclaration*
-//	'}';
-//
-//TypeDef:
-//	GenericTypeDef | EnumTypeDef
-//;
+Doku:
+	content=JDOC
+;
 
-CSSRuleSet:
-	rules+=CSSRuleAssignment+
+CSSBaseType returns CSSRule:
+	'INT' | 'DOUBLE' | 'UDOUBLE'
+;
+
+ElementDeclartion: 
+	doku=Doku?
+	name=QualifiedName 
+	'{'
+		(
+			properties+=PropertyDefinition |
+			pseudoClasses+=PseudoClassDefinition
+		)*
+	'}'
+;
+
+PropertyDefinition: 
+	doku=Doku?
+	name=ID rule=CSSRuleOr ('default:' default=CSSDefaultValue)? ';'
+;
+
+PseudoClassDefinition:
+	doku=Doku?
+	name=PSEUDO
 ;
 
 CSSRuleId:
-	name=ID
+	name=QualifiedName
 ;
 
 CSSRuleRef:
-	'<' ref=[CSSRuleId|ID] '>'
+	'<' ref=[CSSRuleId|QualifiedName] '>'
 ;
 
 
-CSSRuleAssignment: 
-	{CSSRuleAssignment} id=CSSRuleId '=' r=CSSRuleOrExpression ';'
+CSSRuleDefinition:
+	{CSSRuleDefinition}
+	doku=Doku?
+	name=CSSRuleId '=' r=CSSRuleOr ';'
 ;
 
-CSSRuleOrExpression returns CSSRuleExpression:
-	ors+=CSSRuleXorExpression ('|' ors+=CSSRuleXorExpression)*
+CSSRuleOr returns CSSRule:
+	 CSSRuleXor ({CSSRuleOr.ors+=current} ('|' ors+=CSSRuleXor)+)?
 ;
 
-CSSRuleXorExpression:
-	xors+=CSSRulePostfixExpression ('||' xors+=CSSRulePostfixExpression)*
+CSSRuleXor returns CSSRule:
+	 CSSRuleConcat ({CSSRuleXor.xors+=current} ('||' xors+=CSSRuleConcat)+)?
 ;
 
-CSSRuleBracketExpression:
-	'[' CSSRuleOrExpression ']'
+CSSRuleConcat returns CSSRule:
+	 CSSRulePostfix ({CSSRuleConcat.conc+=current} (conc+=CSSRulePostfix)+)?
 ;
 
-CSSRulePostfixExpression:
-	CSSRuleConcat (c=('*' |'+' | '?'))?
+CSSRulePostfix returns CSSRule:
+	 CSSRulePrimary ({CSSRulePostfix.rule=current} cardinality=('*' |'+' | '?'))?
 ;
 
-CSSRuleConcat:
-	conc+=CSSRulePrimaryExpression (conc+=CSSRulePrimaryExpression)?
+CSSRuleBracket returns CSSRule:
+	{CSSRuleBracket} '[' inner=CSSRuleOr ']'
 ;
 
-CSSRuleLiteral:
-	ID
-;
-
-CSSRulePrimaryExpression:
+CSSRulePrimary returns CSSRule:
 	CSSRuleRef |
-	CSSRuleBracketExpression |
-	CSSRuleLiteral
+	CSSRuleBracket |
+	CSSRuleLiteral |
+	CSSBaseType
 ;
+
+CSSRuleLiteral returns CSSRule:
+	{CSSRuleLiteral} value=ID | value=','
+;
+
+CSSDefaultValue:
+	CSSRuleLiteral | INT | (INT*'.'INT+) | STRING
+;
+

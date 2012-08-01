@@ -1,7 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.util;
 
@@ -89,17 +86,46 @@ public class CssExtDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CssExtDslPackage.PACKAGE_DECLARATION:
+      case CssExtDslPackage.PACKAGE_DEFINITION:
       {
-        PackageDeclaration packageDeclaration = (PackageDeclaration)theEObject;
-        T result = casePackageDeclaration(packageDeclaration);
+        PackageDefinition packageDefinition = (PackageDefinition)theEObject;
+        T result = casePackageDefinition(packageDefinition);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CssExtDslPackage.CSS_RULE_SET:
+      case CssExtDslPackage.DOKU:
       {
-        CSSRuleSet cssRuleSet = (CSSRuleSet)theEObject;
-        T result = caseCSSRuleSet(cssRuleSet);
+        Doku doku = (Doku)theEObject;
+        T result = caseDoku(doku);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CssExtDslPackage.CSS_RULE:
+      {
+        CSSRule cssRule = (CSSRule)theEObject;
+        T result = caseCSSRule(cssRule);
+        if (result == null) result = caseCSSDefaultValue(cssRule);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CssExtDslPackage.ELEMENT_DECLARTION:
+      {
+        ElementDeclartion elementDeclartion = (ElementDeclartion)theEObject;
+        T result = caseElementDeclartion(elementDeclartion);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CssExtDslPackage.PROPERTY_DEFINITION:
+      {
+        PropertyDefinition propertyDefinition = (PropertyDefinition)theEObject;
+        T result = casePropertyDefinition(propertyDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CssExtDslPackage.PSEUDO_CLASS_DEFINITION:
+      {
+        PseudoClassDefinition pseudoClassDefinition = (PseudoClassDefinition)theEObject;
+        T result = casePseudoClassDefinition(pseudoClassDefinition);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -114,45 +140,40 @@ public class CssExtDslSwitch<T> extends Switch<T>
       {
         CSSRuleRef cssRuleRef = (CSSRuleRef)theEObject;
         T result = caseCSSRuleRef(cssRuleRef);
-        if (result == null) result = caseCSSRulePrimaryExpression(cssRuleRef);
+        if (result == null) result = caseCSSRule(cssRuleRef);
+        if (result == null) result = caseCSSDefaultValue(cssRuleRef);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CssExtDslPackage.CSS_RULE_ASSIGNMENT:
+      case CssExtDslPackage.CSS_RULE_DEFINITION:
       {
-        CSSRuleAssignment cssRuleAssignment = (CSSRuleAssignment)theEObject;
-        T result = caseCSSRuleAssignment(cssRuleAssignment);
+        CSSRuleDefinition cssRuleDefinition = (CSSRuleDefinition)theEObject;
+        T result = caseCSSRuleDefinition(cssRuleDefinition);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CssExtDslPackage.CSS_RULE_EXPRESSION:
+      case CssExtDslPackage.CSS_DEFAULT_VALUE:
       {
-        CSSRuleExpression cssRuleExpression = (CSSRuleExpression)theEObject;
-        T result = caseCSSRuleExpression(cssRuleExpression);
-        if (result == null) result = caseCSSRuleBracketExpression(cssRuleExpression);
-        if (result == null) result = caseCSSRulePrimaryExpression(cssRuleExpression);
+        CSSDefaultValue cssDefaultValue = (CSSDefaultValue)theEObject;
+        T result = caseCSSDefaultValue(cssDefaultValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CssExtDslPackage.CSS_RULE_XOR_EXPRESSION:
+      case CssExtDslPackage.CSS_RULE_OR:
       {
-        CSSRuleXorExpression cssRuleXorExpression = (CSSRuleXorExpression)theEObject;
-        T result = caseCSSRuleXorExpression(cssRuleXorExpression);
+        CSSRuleOr cssRuleOr = (CSSRuleOr)theEObject;
+        T result = caseCSSRuleOr(cssRuleOr);
+        if (result == null) result = caseCSSRule(cssRuleOr);
+        if (result == null) result = caseCSSDefaultValue(cssRuleOr);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CssExtDslPackage.CSS_RULE_BRACKET_EXPRESSION:
+      case CssExtDslPackage.CSS_RULE_XOR:
       {
-        CSSRuleBracketExpression cssRuleBracketExpression = (CSSRuleBracketExpression)theEObject;
-        T result = caseCSSRuleBracketExpression(cssRuleBracketExpression);
-        if (result == null) result = caseCSSRulePrimaryExpression(cssRuleBracketExpression);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CssExtDslPackage.CSS_RULE_POSTFIX_EXPRESSION:
-      {
-        CSSRulePostfixExpression cssRulePostfixExpression = (CSSRulePostfixExpression)theEObject;
-        T result = caseCSSRulePostfixExpression(cssRulePostfixExpression);
+        CSSRuleXor cssRuleXor = (CSSRuleXor)theEObject;
+        T result = caseCSSRuleXor(cssRuleXor);
+        if (result == null) result = caseCSSRule(cssRuleXor);
+        if (result == null) result = caseCSSDefaultValue(cssRuleXor);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -160,14 +181,35 @@ public class CssExtDslSwitch<T> extends Switch<T>
       {
         CSSRuleConcat cssRuleConcat = (CSSRuleConcat)theEObject;
         T result = caseCSSRuleConcat(cssRuleConcat);
-        if (result == null) result = caseCSSRulePostfixExpression(cssRuleConcat);
+        if (result == null) result = caseCSSRule(cssRuleConcat);
+        if (result == null) result = caseCSSDefaultValue(cssRuleConcat);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CssExtDslPackage.CSS_RULE_PRIMARY_EXPRESSION:
+      case CssExtDslPackage.CSS_RULE_POSTFIX:
       {
-        CSSRulePrimaryExpression cssRulePrimaryExpression = (CSSRulePrimaryExpression)theEObject;
-        T result = caseCSSRulePrimaryExpression(cssRulePrimaryExpression);
+        CSSRulePostfix cssRulePostfix = (CSSRulePostfix)theEObject;
+        T result = caseCSSRulePostfix(cssRulePostfix);
+        if (result == null) result = caseCSSRule(cssRulePostfix);
+        if (result == null) result = caseCSSDefaultValue(cssRulePostfix);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CssExtDslPackage.CSS_RULE_BRACKET:
+      {
+        CSSRuleBracket cssRuleBracket = (CSSRuleBracket)theEObject;
+        T result = caseCSSRuleBracket(cssRuleBracket);
+        if (result == null) result = caseCSSRule(cssRuleBracket);
+        if (result == null) result = caseCSSDefaultValue(cssRuleBracket);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CssExtDslPackage.CSS_RULE_LITERAL:
+      {
+        CSSRuleLiteral cssRuleLiteral = (CSSRuleLiteral)theEObject;
+        T result = caseCSSRuleLiteral(cssRuleLiteral);
+        if (result == null) result = caseCSSRule(cssRuleLiteral);
+        if (result == null) result = caseCSSDefaultValue(cssRuleLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -208,33 +250,97 @@ public class CssExtDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Package Declaration</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Package Definition</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Package Declaration</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Package Definition</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casePackageDeclaration(PackageDeclaration object)
+  public T casePackageDefinition(PackageDefinition object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Set</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Doku</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>CSS Rule Set</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Doku</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseCSSRuleSet(CSSRuleSet object)
+  public T caseDoku(Doku object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>CSS Rule</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>CSS Rule</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCSSRule(CSSRule object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Element Declartion</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Element Declartion</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseElementDeclartion(ElementDeclartion object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Property Definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Property Definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePropertyDefinition(PropertyDefinition object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Pseudo Class Definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Pseudo Class Definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casePseudoClassDefinition(PseudoClassDefinition object)
   {
     return null;
   }
@@ -272,81 +378,65 @@ public class CssExtDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Assignment</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Definition</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>CSS Rule Assignment</em>'.
+   * @return the result of interpreting the object as an instance of '<em>CSS Rule Definition</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseCSSRuleAssignment(CSSRuleAssignment object)
+  public T caseCSSRuleDefinition(CSSRuleDefinition object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Expression</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>CSS Default Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>CSS Rule Expression</em>'.
+   * @return the result of interpreting the object as an instance of '<em>CSS Default Value</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseCSSRuleExpression(CSSRuleExpression object)
+  public T caseCSSDefaultValue(CSSDefaultValue object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Xor Expression</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Or</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>CSS Rule Xor Expression</em>'.
+   * @return the result of interpreting the object as an instance of '<em>CSS Rule Or</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseCSSRuleXorExpression(CSSRuleXorExpression object)
+  public T caseCSSRuleOr(CSSRuleOr object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Bracket Expression</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Xor</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>CSS Rule Bracket Expression</em>'.
+   * @return the result of interpreting the object as an instance of '<em>CSS Rule Xor</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseCSSRuleBracketExpression(CSSRuleBracketExpression object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Postfix Expression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>CSS Rule Postfix Expression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseCSSRulePostfixExpression(CSSRulePostfixExpression object)
+  public T caseCSSRuleXor(CSSRuleXor object)
   {
     return null;
   }
@@ -368,17 +458,49 @@ public class CssExtDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Primary Expression</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Postfix</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>CSS Rule Primary Expression</em>'.
+   * @return the result of interpreting the object as an instance of '<em>CSS Rule Postfix</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseCSSRulePrimaryExpression(CSSRulePrimaryExpression object)
+  public T caseCSSRulePostfix(CSSRulePostfix object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Bracket</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>CSS Rule Bracket</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCSSRuleBracket(CSSRuleBracket object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>CSS Rule Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCSSRuleLiteral(CSSRuleLiteral object)
   {
     return null;
   }

@@ -1,14 +1,11 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl;
 
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtDslPackage;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtension;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.Import;
-import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.PackageDeclaration;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.PackageDefinition;
 
 import java.util.Collection;
 
@@ -60,7 +57,7 @@ public class CssExtensionImpl extends MinimalEObjectImpl.Container implements Cs
    * @generated
    * @ordered
    */
-  protected PackageDeclaration packageDef;
+  protected PackageDefinition packageDef;
 
   /**
    * <!-- begin-user-doc -->
@@ -102,7 +99,7 @@ public class CssExtensionImpl extends MinimalEObjectImpl.Container implements Cs
    * <!-- end-user-doc -->
    * @generated
    */
-  public PackageDeclaration getPackageDef()
+  public PackageDefinition getPackageDef()
   {
     return packageDef;
   }
@@ -112,9 +109,9 @@ public class CssExtensionImpl extends MinimalEObjectImpl.Container implements Cs
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetPackageDef(PackageDeclaration newPackageDef, NotificationChain msgs)
+  public NotificationChain basicSetPackageDef(PackageDefinition newPackageDef, NotificationChain msgs)
   {
-    PackageDeclaration oldPackageDef = packageDef;
+    PackageDefinition oldPackageDef = packageDef;
     packageDef = newPackageDef;
     if (eNotificationRequired())
     {
@@ -129,7 +126,7 @@ public class CssExtensionImpl extends MinimalEObjectImpl.Container implements Cs
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPackageDef(PackageDeclaration newPackageDef)
+  public void setPackageDef(PackageDefinition newPackageDef)
   {
     if (newPackageDef != packageDef)
     {
@@ -197,7 +194,7 @@ public class CssExtensionImpl extends MinimalEObjectImpl.Container implements Cs
         getImports().addAll((Collection<? extends Import>)newValue);
         return;
       case CssExtDslPackage.CSS_EXTENSION__PACKAGE_DEF:
-        setPackageDef((PackageDeclaration)newValue);
+        setPackageDef((PackageDefinition)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -217,7 +214,7 @@ public class CssExtensionImpl extends MinimalEObjectImpl.Container implements Cs
         getImports().clear();
         return;
       case CssExtDslPackage.CSS_EXTENSION__PACKAGE_DEF:
-        setPackageDef((PackageDeclaration)null);
+        setPackageDef((PackageDefinition)null);
         return;
     }
     super.eUnset(featureID);

@@ -1,7 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl;
 
@@ -44,22 +41,58 @@ public interface CssExtDslFactory extends EFactory
   Import createImport();
 
   /**
-   * Returns a new object of class '<em>Package Declaration</em>'.
+   * Returns a new object of class '<em>Package Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Package Declaration</em>'.
+   * @return a new object of class '<em>Package Definition</em>'.
    * @generated
    */
-  PackageDeclaration createPackageDeclaration();
+  PackageDefinition createPackageDefinition();
 
   /**
-   * Returns a new object of class '<em>CSS Rule Set</em>'.
+   * Returns a new object of class '<em>Doku</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>CSS Rule Set</em>'.
+   * @return a new object of class '<em>Doku</em>'.
    * @generated
    */
-  CSSRuleSet createCSSRuleSet();
+  Doku createDoku();
+
+  /**
+   * Returns a new object of class '<em>CSS Rule</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>CSS Rule</em>'.
+   * @generated
+   */
+  CSSRule createCSSRule();
+
+  /**
+   * Returns a new object of class '<em>Element Declartion</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Element Declartion</em>'.
+   * @generated
+   */
+  ElementDeclartion createElementDeclartion();
+
+  /**
+   * Returns a new object of class '<em>Property Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Property Definition</em>'.
+   * @generated
+   */
+  PropertyDefinition createPropertyDefinition();
+
+  /**
+   * Returns a new object of class '<em>Pseudo Class Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Pseudo Class Definition</em>'.
+   * @generated
+   */
+  PseudoClassDefinition createPseudoClassDefinition();
 
   /**
    * Returns a new object of class '<em>CSS Rule Id</em>'.
@@ -80,49 +113,40 @@ public interface CssExtDslFactory extends EFactory
   CSSRuleRef createCSSRuleRef();
 
   /**
-   * Returns a new object of class '<em>CSS Rule Assignment</em>'.
+   * Returns a new object of class '<em>CSS Rule Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>CSS Rule Assignment</em>'.
+   * @return a new object of class '<em>CSS Rule Definition</em>'.
    * @generated
    */
-  CSSRuleAssignment createCSSRuleAssignment();
+  CSSRuleDefinition createCSSRuleDefinition();
 
   /**
-   * Returns a new object of class '<em>CSS Rule Expression</em>'.
+   * Returns a new object of class '<em>CSS Default Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>CSS Rule Expression</em>'.
+   * @return a new object of class '<em>CSS Default Value</em>'.
    * @generated
    */
-  CSSRuleExpression createCSSRuleExpression();
+  CSSDefaultValue createCSSDefaultValue();
 
   /**
-   * Returns a new object of class '<em>CSS Rule Xor Expression</em>'.
+   * Returns a new object of class '<em>CSS Rule Or</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>CSS Rule Xor Expression</em>'.
+   * @return a new object of class '<em>CSS Rule Or</em>'.
    * @generated
    */
-  CSSRuleXorExpression createCSSRuleXorExpression();
+  CSSRuleOr createCSSRuleOr();
 
   /**
-   * Returns a new object of class '<em>CSS Rule Bracket Expression</em>'.
+   * Returns a new object of class '<em>CSS Rule Xor</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>CSS Rule Bracket Expression</em>'.
+   * @return a new object of class '<em>CSS Rule Xor</em>'.
    * @generated
    */
-  CSSRuleBracketExpression createCSSRuleBracketExpression();
-
-  /**
-   * Returns a new object of class '<em>CSS Rule Postfix Expression</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>CSS Rule Postfix Expression</em>'.
-   * @generated
-   */
-  CSSRulePostfixExpression createCSSRulePostfixExpression();
+  CSSRuleXor createCSSRuleXor();
 
   /**
    * Returns a new object of class '<em>CSS Rule Concat</em>'.
@@ -134,13 +158,31 @@ public interface CssExtDslFactory extends EFactory
   CSSRuleConcat createCSSRuleConcat();
 
   /**
-   * Returns a new object of class '<em>CSS Rule Primary Expression</em>'.
+   * Returns a new object of class '<em>CSS Rule Postfix</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>CSS Rule Primary Expression</em>'.
+   * @return a new object of class '<em>CSS Rule Postfix</em>'.
    * @generated
    */
-  CSSRulePrimaryExpression createCSSRulePrimaryExpression();
+  CSSRulePostfix createCSSRulePostfix();
+
+  /**
+   * Returns a new object of class '<em>CSS Rule Bracket</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>CSS Rule Bracket</em>'.
+   * @generated
+   */
+  CSSRuleBracket createCSSRuleBracket();
+
+  /**
+   * Returns a new object of class '<em>CSS Rule Literal</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>CSS Rule Literal</em>'.
+   * @generated
+   */
+  CSSRuleLiteral createCSSRuleLiteral();
 
   /**
    * Returns the package supported by this factory.

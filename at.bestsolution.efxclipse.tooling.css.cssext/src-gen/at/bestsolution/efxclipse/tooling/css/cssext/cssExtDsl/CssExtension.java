@@ -1,7 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl;
 
@@ -53,12 +50,12 @@ public interface CssExtension extends EObject
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Package Def</em>' containment reference.
-   * @see #setPackageDef(PackageDeclaration)
+   * @see #setPackageDef(PackageDefinition)
    * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtDslPackage#getCssExtension_PackageDef()
    * @model containment="true"
    * @generated
    */
-  PackageDeclaration getPackageDef();
+  PackageDefinition getPackageDef();
 
   /**
    * Sets the value of the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtension#getPackageDef <em>Package Def</em>}' containment reference.
@@ -68,6 +65,6 @@ public interface CssExtension extends EObject
    * @see #getPackageDef()
    * @generated
    */
-  void setPackageDef(PackageDeclaration value);
+  void setPackageDef(PackageDefinition value);
 
 } // CssExtension

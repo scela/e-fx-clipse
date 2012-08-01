@@ -2,48 +2,53 @@
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl;
 
-import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleId;
-import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleRef;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRule;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleOr;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtDslPackage;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>CSS Rule Ref</b></em>'.
+ * An implementation of the model object '<em><b>CSS Rule Or</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleRefImpl#getRef <em>Ref</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleOrImpl#getOrs <em>Ors</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class CSSRuleRefImpl extends CSSRuleImpl implements CSSRuleRef
+public class CSSRuleOrImpl extends CSSRuleImpl implements CSSRuleOr
 {
   /**
-   * The cached value of the '{@link #getRef() <em>Ref</em>}' reference.
+   * The cached value of the '{@link #getOrs() <em>Ors</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRef()
+   * @see #getOrs()
    * @generated
    * @ordered
    */
-  protected CSSRuleId ref;
+  protected EList<CSSRule> ors;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected CSSRuleRefImpl()
+  protected CSSRuleOrImpl()
   {
     super();
   }
@@ -56,7 +61,7 @@ public class CSSRuleRefImpl extends CSSRuleImpl implements CSSRuleRef
   @Override
   protected EClass eStaticClass()
   {
-    return CssExtDslPackage.Literals.CSS_RULE_REF;
+    return CssExtDslPackage.Literals.CSS_RULE_OR;
   }
 
   /**
@@ -64,19 +69,13 @@ public class CSSRuleRefImpl extends CSSRuleImpl implements CSSRuleRef
    * <!-- end-user-doc -->
    * @generated
    */
-  public CSSRuleId getRef()
+  public EList<CSSRule> getOrs()
   {
-    if (ref != null && ref.eIsProxy())
+    if (ors == null)
     {
-      InternalEObject oldRef = (InternalEObject)ref;
-      ref = (CSSRuleId)eResolveProxy(oldRef);
-      if (ref != oldRef)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, CssExtDslPackage.CSS_RULE_REF__REF, oldRef, ref));
-      }
+      ors = new EObjectContainmentEList<CSSRule>(CSSRule.class, this, CssExtDslPackage.CSS_RULE_OR__ORS);
     }
-    return ref;
+    return ors;
   }
 
   /**
@@ -84,22 +83,15 @@ public class CSSRuleRefImpl extends CSSRuleImpl implements CSSRuleRef
    * <!-- end-user-doc -->
    * @generated
    */
-  public CSSRuleId basicGetRef()
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    return ref;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setRef(CSSRuleId newRef)
-  {
-    CSSRuleId oldRef = ref;
-    ref = newRef;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CssExtDslPackage.CSS_RULE_REF__REF, oldRef, ref));
+    switch (featureID)
+    {
+      case CssExtDslPackage.CSS_RULE_OR__ORS:
+        return ((InternalEList<?>)getOrs()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -112,9 +104,8 @@ public class CSSRuleRefImpl extends CSSRuleImpl implements CSSRuleRef
   {
     switch (featureID)
     {
-      case CssExtDslPackage.CSS_RULE_REF__REF:
-        if (resolve) return getRef();
-        return basicGetRef();
+      case CssExtDslPackage.CSS_RULE_OR__ORS:
+        return getOrs();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -124,13 +115,15 @@ public class CSSRuleRefImpl extends CSSRuleImpl implements CSSRuleRef
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case CssExtDslPackage.CSS_RULE_REF__REF:
-        setRef((CSSRuleId)newValue);
+      case CssExtDslPackage.CSS_RULE_OR__ORS:
+        getOrs().clear();
+        getOrs().addAll((Collection<? extends CSSRule>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -146,8 +139,8 @@ public class CSSRuleRefImpl extends CSSRuleImpl implements CSSRuleRef
   {
     switch (featureID)
     {
-      case CssExtDslPackage.CSS_RULE_REF__REF:
-        setRef((CSSRuleId)null);
+      case CssExtDslPackage.CSS_RULE_OR__ORS:
+        getOrs().clear();
         return;
     }
     super.eUnset(featureID);
@@ -163,10 +156,10 @@ public class CSSRuleRefImpl extends CSSRuleImpl implements CSSRuleRef
   {
     switch (featureID)
     {
-      case CssExtDslPackage.CSS_RULE_REF__REF:
-        return ref != null;
+      case CssExtDslPackage.CSS_RULE_OR__ORS:
+        return ors != null && !ors.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} //CSSRuleRefImpl
+} //CSSRuleOrImpl
