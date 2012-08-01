@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.util.Callback;
 
@@ -34,6 +35,8 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 
 	@Inject
 	RendererFactory factory;
+	
+	MPart inActivation;
 
 	@PostConstruct
 	void init(IEventBroker eventBroker) {
@@ -67,7 +70,6 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 
 			@Override
 			public void handleEvent(Event event) {
-				System.err.println("Selection modified");
 				Object changedObj = event.getProperty(UIEvents.EventTags.ELEMENT);
 				if (changedObj instanceof MPartStack) {
 					MPartStack parent = (MPartStack) changedObj;
@@ -94,13 +96,53 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 				int idx = widget.indexOf(param);
 
 				if (idx >= 0 && idx < element.getChildren().size()) {
-					MPart p = (MPart) element.getChildren().get(idx);
-					activate(p);
+					activatationJob((MPart) element.getChildren().get(idx));
 				}
 
 				return null;
 			}
 		});
+		widget.registerActivationCallback(new Callback<Boolean, Void>() {
+			
+			@Override
+			public Void call(Boolean param) {
+				if( param.booleanValue() ) {
+					activatationJob((MPart) element.getSelectedElement());	
+				}
+				return null;
+			}
+		});
+	}
+	
+	private void activatationJob(final MPart p) {
+		if( inActivation != null ) {
+			System.err.println("skip because we are already in activation");
+			return;
+		}
+		
+		inActivation = p;
+		//FIXME Mega Hacky!!!!!
+		new Thread() {
+			public void run() {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Platform.runLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						try {
+							activate(p, true);	
+						} finally {
+							inActivation = null;	
+						}
+					}
+				});
+			}
+		}.start();
 	}
 
 	@Override

@@ -106,17 +106,13 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 		return getContextForParent(part);
 	}
 
-	protected void activate(MPart element) {
+	protected void activate(MPart element, boolean requiresFocus) {
 		IEclipseContext curContext = getModelContext(element);
 		if (curContext != null) {
 			EPartService ps = (EPartService) curContext.get(EPartService.class
 					.getName());
 			if (ps != null)
-				ps.activate(element, requiresFocus(element));
+				ps.activate(element, requiresFocus);
 		}
-	}
-	
-	protected boolean requiresFocus(MPart element) {
-		return false;
 	}
 }

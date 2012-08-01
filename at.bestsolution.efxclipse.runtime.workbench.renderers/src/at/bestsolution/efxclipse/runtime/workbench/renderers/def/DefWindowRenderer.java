@@ -111,7 +111,7 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 							lastActivationTree = activationTree;
 							
 							for( WWidget<?> w : oldTreeReversed ) {
-								System.err.println("DEActivating: " + w);
+//								System.err.println("DEActivating: " + w);
 								w.deactivate();
 							}
 							
