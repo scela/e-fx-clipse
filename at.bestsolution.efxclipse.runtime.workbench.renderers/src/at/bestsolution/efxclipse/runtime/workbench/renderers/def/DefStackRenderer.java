@@ -1,6 +1,7 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.def;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javafx.event.Event;
@@ -29,7 +30,28 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 
 	
 	public static class StackWidgetImpl extends WLayoutedWidgetImpl<TabPane, TabPane, MPartStack> implements WStack<TabPane, Tab> {
-
+		private final Callback<WStackItem<Tab>, Void> selectionCallback = new Callback<WStack.WStackItem<Tab>, Void>() {
+			
+			@Override
+			public Void call(WStackItem<Tab> param) {
+				if( selectedItemCallback != null ) {
+					selectedItemCallback.call(param);
+				}
+				return null;
+			}
+		};
+		
+		private Callback<WStackItem<Tab>, Void> selectedItemCallback;
+		
+		public void setSelectedItemCallback(Callback<WStackItem<Tab>, Void> selectedItemCallback) {
+			this.selectedItemCallback = selectedItemCallback;
+		}
+		
+		@Override
+		public int indexOf(WStackItem<Tab> item) {
+			return getWidget().getTabs().indexOf(item.getNativeItem());
+		}
+		
 		@Override
 		protected TabPane createWidget() {
 			TabPane p = new TabPane();
@@ -48,16 +70,18 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 		
 		@Override
 		public void addItem(WStackItem<Tab> item) {
-			getWidget().getTabs().add(item.getNativeItem());
+			addItems(Collections.singletonList(item));
 		}
 		
 		@Override
 		public void addItems(List<WStackItem<Tab>> items) {
+			attachCallbacks(selectionCallback, items);
 			getWidget().getTabs().addAll(extractTabs(items));
 		}
 		
 		@Override
 		public void addItems(int index, List<WStackItem<Tab>> items) {
+			attachCallbacks(selectionCallback, items);
 			getWidget().getTabs().addAll(index, extractTabs(items));
 		}
 		
@@ -68,6 +92,18 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 			}
 			return tabs;
 		}
+		
+		private static final void attachCallbacks(Callback<WStackItem<Tab>, Void> selectionCallback, List<WStackItem<Tab>> items) {
+			for( WStackItem<Tab> i : items ) {
+				((StackItemImpl)i).selectionCallback = selectionCallback;
+			}
+		}
+		
+//		private static final void unattachCallbacks(List<WStackItem<Tab>> items) {
+//			for( WStackItem<Tab> i : items ) {
+//				((StackItemImpl)i).selectionCallback = null;
+//			}
+//		}
 
 		@Override
 		public void selectItem(int idx) {
@@ -78,6 +114,7 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 	public static class StackItemImpl implements WStackItem<Tab> {
 		private Tab tab;
 		private Callback<WStackItem<Tab>, Node> initCallback;
+		Callback<WStackItem<Tab>, Void> selectionCallback; 
 		
 		@PostConstruct
 		void init() {
@@ -97,14 +134,26 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 				
 				@Override
 				public void handle(Event event) {
-					if( t.isSelected() && initCallback != null ) {
-						t.setContent(initCallback.call(StackItemImpl.this));
-						initCallback = null;
-					}
+					handleSelection();
 				}
 			});
 			return t;
 		}
+		
+		void handleSelection() {
+			if( tab.isSelected() ) {
+				if( initCallback != null ) {
+					tab.setContent(initCallback.call(this));
+					initCallback = null;	
+				}
+			
+				if( selectionCallback != null ) {
+					selectionCallback.call(this);	
+				}
+			}
+			
+		}
+		
 		
 		public void setInitCallback(Callback<WStackItem<Tab>, Node> initCallback) {
 			this.initCallback = initCallback;

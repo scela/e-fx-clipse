@@ -8,7 +8,6 @@ import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WLayoutedWidget;
-import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWindow;
 
 @SuppressWarnings("restriction")
@@ -76,6 +75,5 @@ public abstract class BaseWindowRenderer<N> extends BaseRenderer<MWindow,WWindow
 
 	@Override
 	public void childRendered(MWindow parentElement, MUIElement element) {
-		System.err.println("Rendered:" + element);
 	}
 }

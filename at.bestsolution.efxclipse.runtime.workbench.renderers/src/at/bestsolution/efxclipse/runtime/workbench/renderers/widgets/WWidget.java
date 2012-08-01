@@ -14,4 +14,6 @@ public interface WWidget<M extends MUIElement> {
 	public void addStyleClasses(String... classnames);
 	public void setStyleId(String id);
 	public Object getWidget();
+	public void deactivate();
+	public void activate();
 }

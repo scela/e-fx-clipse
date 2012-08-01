@@ -18,6 +18,18 @@ public abstract class WWidgetImpl<N,M extends MUIElement> implements WWidget<M> 
 		
 	}
 	
+	@Override
+	public void activate() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void deactivate() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	@PostConstruct
 	void init() {
 		getWidget(); // ensure that the widget is created
@@ -44,6 +56,7 @@ public abstract class WWidgetImpl<N,M extends MUIElement> implements WWidget<M> 
 	public N getWidget() {
 		if( nativeWidget == null ) {
 			nativeWidget = createWidget();
+			setUserData(this);
 		}
 		return nativeWidget;
 	}

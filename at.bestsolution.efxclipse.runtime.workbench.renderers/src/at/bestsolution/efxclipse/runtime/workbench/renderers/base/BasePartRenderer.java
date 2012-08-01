@@ -17,7 +17,7 @@ public abstract class BasePartRenderer<N> extends BaseRenderer<MPart, WPart<N>> 
 		IContributionFactory contributionFactory = (IContributionFactory) element.getContext().get(IContributionFactory.class
 				.getName());
 		Object newPart = contributionFactory.create(element.getContributionURI(), element.getContext());
-		element.setObject(newPart);		
+		element.setObject(newPart);
 	}
 
 	@Override
