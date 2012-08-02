@@ -56,12 +56,17 @@ component DefaultTab controlledby DefaultTabController {
 					text : "Add ...",
 					graphic : ImageView {
 						image : Image {
-							url : "file:///Users/tomschindl/git/e-fx-clipse/at.bestsolution.efxclipse.tooling.modeleditor/src/at/bestsolution/efxclipse/tooling/modeleditor/objecteditors/application/arrow_down.png" 
+							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_add.png"
 						}
 					}
 				},
 				Button {
-					text : "Remove"
+					text : "Remove",
+					graphic : ImageView {
+						image : Image {
+							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_delete.png"
+						}
+					}
 				},
 				static bottomAnchor : 1.0
 			},
@@ -74,7 +79,7 @@ component DefaultTab controlledby DefaultTabController {
 			static columnIndex : 0, 
 			static rowIndex : 3
 		}, 
-		CheckBox {
+		CheckBox id renderField {
 			static columnIndex : 1, 
 			static rowIndex : 3
 		}, 
@@ -83,7 +88,7 @@ component DefaultTab controlledby DefaultTabController {
 			static columnIndex : 0, 
 			static rowIndex : 4
 		}, 
-		CheckBox {
+		CheckBox id visibleField {
 			static columnIndex : 1, 
 			static rowIndex : 4
 		}

@@ -11,13 +11,14 @@ import javafx.scene.control.Tab
 
 import at.bestsolution.efxclipse.tooling.modeleditor.objecteditors.application.DefaultTab
 import at.bestsolution.efxclipse.tooling.modeleditor.objecteditors.application.SupplementaryTab
+import javafx.scene.layout.AnchorPane
 
-component ApplicationObjectEditor {
+component EditorMain {
 	VBox {
 		children : [
 			Label {
 				text : "Application"
-			},
+			}, 
 			TabPane {
 				side : "BOTTOM",
 				Tab {
@@ -27,7 +28,8 @@ component ApplicationObjectEditor {
 				Tab {
 					text : "Supplementary",
 					content : include SupplementaryTab
-				}
+				},
+				static vgrow : "ALWAYS"
 			}
 		]
 	}

@@ -1,20 +1,26 @@
 package at.bestsolution.efxclipse.tooling.modeleditor;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Named;
 
 import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.list.WritableList;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
 import org.eclipse.e4.ui.model.application.commands.impl.CommandsPackageImpl;
@@ -30,24 +36,66 @@ import org.eclipse.e4.ui.model.application.ui.impl.UiPackageImpl;
 import org.eclipse.e4.ui.model.application.ui.menu.MDirectToolItem;
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
 import org.eclipse.emf.databinding.EMFProperties;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import at.bestsolution.efxclipse.runtime.databinding.TreeUtil;
 import at.bestsolution.efxclipse.runtime.databinding.TreeUtil.ObservableFactory;
+import at.bestsolution.efxclipse.runtime.di.FXMLBuilder;
+import at.bestsolution.efxclipse.runtime.di.FXMLLoader;
+import at.bestsolution.efxclipse.runtime.di.FXMLLoaderFactory;
 
 @SuppressWarnings("restriction")
 public class ModelEditor {
+	private BorderPane contentPane;
+	
+	private Map<EClass, Node> editors = new HashMap<EClass, Node>();
+	
+	private IEclipseContext context;
+	
+	private FXMLLoaderFactory factory;
+	
 	@PostConstruct
-	public void create(BorderPane parent, MApplication application) {
+	public void create(BorderPane parent, @Named("rootElement") MApplication application, IEclipseContext context, @FXMLLoader FXMLLoaderFactory factory) {
+		this.context = context;
+		this.factory = factory;
+		
 		SplitPane pane = new SplitPane();
 		
 		parent.setCenter(pane);
 		pane.getItems().add(createTreeView(application));
 		
-		StackPane p = new StackPane();
+		contentPane = new BorderPane();
+		pane.getItems().add(contentPane);
 	}
 
+	void updateDetailArea(Object element) {
+		contentPane.setCenter(null);
+		this.context.set("selectedTreeElement", element);
+		contentPane.setCenter(getOrCreateEditor(element));
+	}
+	
+	private Node getOrCreateEditor(Object element) {
+		if( element instanceof EObject ) {
+			EObject eo = (EObject) element;
+			Node rv = editors.get(eo.eClass());
+			
+			if( rv == null ) {
+				FXMLBuilder<Node> b = factory.loadRequestorRelative("objecteditors/"+eo.eClass().getName().toLowerCase()+"/EditorMain.fxml");
+				try {
+					rv = b.load();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			return rv;
+		}
+		return null;
+	}
+	
 	private TreeView<Object> createTreeView(Object application) {
 		TreeView<Object> treeView = new TreeView<Object>();
 		treeView.setRoot(TreeUtil.createModel(application, new ObservableFactoryImpl()));
@@ -82,7 +130,7 @@ public class ModelEditor {
 
 			@Override
 			public void changed(ObservableValue<? extends TreeItem<Object>> observable, TreeItem<Object> oldValue, TreeItem<Object> newValue) {
-				
+				updateDetailArea(newValue.getValue());
 			}
 		});
 		

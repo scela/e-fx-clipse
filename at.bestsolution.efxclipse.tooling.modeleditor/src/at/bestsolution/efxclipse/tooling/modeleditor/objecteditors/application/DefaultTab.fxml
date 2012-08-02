@@ -45,16 +45,24 @@
 				<graphic>
 					<ImageView> 
 						<image>
-							<Image url="file:///Users/tomschindl/git/e-fx-clipse/at.bestsolution.efxclipse.tooling.modeleditor/src/at/bestsolution/efxclipse/tooling/modeleditor/objecteditors/application/arrow_down.png"/> 
+							<Image url="@/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_add.png"/> 
 						</image>
 					</ImageView>
 				</graphic>
 			</Button>
-			<Button text="Remove"/> 
+			<Button text="Remove"> 
+				<graphic>
+					<ImageView> 
+						<image>
+							<Image url="@/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_delete.png"/> 
+						</image>
+					</ImageView>
+				</graphic>
+			</Button>
 		</VBox>
 	</AnchorPane>
 	<Label text="To be rendered" GridPane.columnIndex="0" GridPane.rowIndex="3"/> 
-	<CheckBox GridPane.columnIndex="1" GridPane.rowIndex="3"/> 
+	<CheckBox fx:id="renderField" GridPane.columnIndex="1" GridPane.rowIndex="3"/> 
 	<Label text="Visible" GridPane.columnIndex="0" GridPane.rowIndex="4"/> 
-	<CheckBox GridPane.columnIndex="1" GridPane.rowIndex="4"/> 
+	<CheckBox fx:id="visibleField" GridPane.columnIndex="1" GridPane.rowIndex="4"/> 
 </GridPane>
