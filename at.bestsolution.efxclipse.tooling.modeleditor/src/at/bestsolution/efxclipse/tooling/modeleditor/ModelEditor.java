@@ -1,7 +1,10 @@
 package at.bestsolution.efxclipse.tooling.modeleditor;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TreeCell;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -72,8 +75,14 @@ public class ModelEditor {
 						}
 					}
 				};
-//				c.setText(param.get);
 				return c;
+			}
+		});
+		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<Object>>() {
+
+			@Override
+			public void changed(ObservableValue<? extends TreeItem<Object>> observable, TreeItem<Object> oldValue, TreeItem<Object> newValue) {
+				
 			}
 		});
 		
