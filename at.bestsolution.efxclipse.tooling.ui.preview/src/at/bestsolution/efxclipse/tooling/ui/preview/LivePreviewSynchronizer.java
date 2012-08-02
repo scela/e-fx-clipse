@@ -115,9 +115,9 @@ public class LivePreviewSynchronizer implements IPartListener, IPropertyListener
 				e2.printStackTrace();
 			}
 			
-			if( !pluginProject ) {
+//			if( !pluginProject ) {
 				extraJarPath.addAll(calculateProjectClasspath(JavaCore.create(file.getProject())));
-			}
+//			}
 		}
 		
 		return new ContentData(contents, previewSceneSetup, cssFiles, resourceBundle, extraJarPath, file);
