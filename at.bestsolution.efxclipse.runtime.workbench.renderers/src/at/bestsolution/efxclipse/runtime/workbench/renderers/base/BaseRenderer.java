@@ -4,8 +4,12 @@ import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
+import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
 import at.bestsolution.efxclipse.runtime.workbench.rendering.AbstractRenderer;
@@ -19,6 +23,9 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 	
 	@Inject
 	IEclipseContext _context; // The rendering context
+	
+	@Inject
+	EModelService modelService;
 	
 	@Override
 	public final W createWidget(M element) {
@@ -80,11 +87,32 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 	protected abstract Class<? extends W> getWidgetClass();
 	
 	@SuppressWarnings("unchecked")
-	protected <W extends WWidget<PM>, PM extends MUIElement> W engineCreateWidget(PM pm) {
-		return (W) getPresentationEngine().createGui(pm);
+	protected <LW extends WWidget<PM>, PM extends MUIElement> LW engineCreateWidget(PM pm) {
+		return (LW) getPresentationEngine().createGui(pm);
 	}
 	
 	protected IEclipseContext getRenderingContext(M element) {
 		return (IEclipseContext) element.getTransientData().get(RENDERING_CONTEXT_KEY);
+	}
+	
+	protected IEclipseContext getContextForParent(MUIElement element) {
+		return modelService.getContainingContext(element);
+	}
+
+	protected IEclipseContext getModelContext(MUIElement part) {
+		if (part instanceof MContext) {
+			return ((MContext) part).getContext();
+		}
+		return getContextForParent(part);
+	}
+
+	protected void activate(MPart element, boolean requiresFocus) {
+		IEclipseContext curContext = getModelContext(element);
+		if (curContext != null) {
+			EPartService ps = (EPartService) curContext.get(EPartService.class
+					.getName());
+			if (ps != null)
+				ps.activate(element, requiresFocus);
+		}
 	}
 }

@@ -1,9 +1,14 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.def;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import javafx.application.ConditionalFeature;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
@@ -22,6 +27,7 @@ import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import at.bestsolution.efxclipse.runtime.panels.FillLayoutPane;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseWindowRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WLayoutedWidget;
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWindow;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl.WLayoutedWidgetImpl;
 
@@ -54,14 +60,71 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 			this.trimPane.setCenter(contentPane);
 			
 			// TODO Should we create the scene on show???
+			Scene s;
 			if( support3d && Platform.isSupported(ConditionalFeature.SCENE3D) ) {
-				Scene s = new Scene(rootPane,-1,-1,true);
+				s = new Scene(rootPane,-1,-1,true);
 				s.setCamera(new PerspectiveCamera());
-				stage.setScene(s);
+				
 			} else {
-				Scene s = new Scene(rootPane);
-				stage.setScene(s);
+				s = new Scene(rootPane);
 			}
+			
+			s.focusOwnerProperty().addListener(new ChangeListener<Node>() {
+				List<WWidget<?>> lastActivationTree = new ArrayList<WWidget<?>>();
+				
+				@Override
+				public void changed(ObservableValue<? extends Node> observable, Node oldValue, Node newValue) {
+					if( newValue != null ) {
+						List<WWidget<?>> activationTree = new ArrayList<WWidget<?>>();
+						
+						do {
+							if( newValue.getUserData() instanceof WWidget<?> ) {
+								activationTree.add((WWidget<?>) newValue.getUserData());
+							}
+						} while( (newValue = newValue.getParent()) != null );
+						
+						
+						if( ! lastActivationTree.equals(activationTree) ) {
+							List<WWidget<?>> oldTreeReversed = new ArrayList<WWidget<?>>(lastActivationTree);
+							List<WWidget<?>> newTreeReversed = new ArrayList<WWidget<?>>(activationTree);
+							Collections.reverse(oldTreeReversed);
+							Collections.reverse(newTreeReversed);
+							Iterator<WWidget<?>> it = newTreeReversed.iterator();
+							
+							while( it.hasNext() ) {
+								if( ! oldTreeReversed.isEmpty() ) {
+									if( oldTreeReversed.get(0) == it.next() ) {
+										oldTreeReversed.remove(0);
+										it.remove();
+									} else {
+										break;
+									}
+								} else {
+									break;
+								}
+							}
+							
+							
+							Collections.reverse(oldTreeReversed);
+							Collections.reverse(newTreeReversed);
+							
+							lastActivationTree = activationTree;
+							
+							for( WWidget<?> w : oldTreeReversed ) {
+//								System.err.println("DEActivating: " + w);
+								w.deactivate();
+							}
+							
+							for( WWidget<?> w : newTreeReversed ) {
+								System.err.println("Activating: " + w);
+								w.activate();
+							}
+						}
+					}
+				}
+			});
+			
+			stage.setScene(s);
 
 			return stage;
 		}
