@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-public class ApplicationController implements Initializable {
+public class EditorController implements Initializable {
 	@FXML
 	DefaultTabController defaultTabController;
 	

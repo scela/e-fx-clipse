@@ -14,17 +14,17 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="at.bestsolution.efxclipse.tooling.modeleditor.objecteditors.application.SupplementaryController">
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="at.bestsolution.efxclipse.tooling.modeleditor.objecteditors.application.SupplementaryTabController">
 
 	<Label text="Accessibility Phrase" GridPane.columnIndex="0" GridPane.rowIndex="0"/> 
-	<TextField fx:id="accessField" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="2"/> 
+	<TextField fx:id="accessField" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS"/> 
 	<Label text="Variables" GridPane.columnIndex="0" GridPane.rowIndex="1"/> 
 	<TextField fx:id="variablesField" GridPane.columnIndex="1" GridPane.rowIndex="1"/> 
 	<Button text="Add" GridPane.columnIndex="2" GridPane.rowIndex="1"/> 
-	<ListView GridPane.columnIndex="1" GridPane.rowIndex="2"/> 
+	<ListView GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.hgrow="ALWAYS"/> 
 	<AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2"> 
 		<VBox AnchorPane.bottomAnchor="1.0"> 
-			<Button text="Up"> 
+			<Button text="Up" onAction="#onVariableUp"> 
 				<graphic>
 					<ImageView> 
 						<image>
@@ -33,7 +33,7 @@
 					</ImageView>
 				</graphic>
 			</Button>
-			<Button text="Down"> 
+			<Button text="Down" onAction="#onVariableDown"> 
 				<graphic>
 					<ImageView> 
 						<image>
@@ -42,7 +42,42 @@
 					</ImageView>
 				</graphic>
 			</Button>
-			<Button text="Remove"> 
+			<Button text="Remove" onAction="#onVariableRemove"> 
+				<graphic>
+					<ImageView> 
+						<image>
+							<Image url="@/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_delete.png"/> 
+						</image>
+					</ImageView>
+				</graphic>
+			</Button>
+		</VBox>
+	</AnchorPane>
+	<Label text="Tags" GridPane.columnIndex="0" GridPane.rowIndex="3"/> 
+	<TextField fx:id="variablesField" GridPane.columnIndex="1" GridPane.rowIndex="3"/> 
+	<Button text="Add" GridPane.columnIndex="2" GridPane.rowIndex="3"/> 
+	<ListView GridPane.columnIndex="1" GridPane.rowIndex="4"/> 
+	<AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="4"> 
+		<VBox AnchorPane.bottomAnchor="1.0"> 
+			<Button text="Up" onAction="#onTagUp"> 
+				<graphic>
+					<ImageView> 
+						<image>
+							<Image url="@/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_up.png"/> 
+						</image>
+					</ImageView>
+				</graphic>
+			</Button>
+			<Button text="Down" onAction="#onTagDown"> 
+				<graphic>
+					<ImageView> 
+						<image>
+							<Image url="@/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_down.png"/> 
+						</image>
+					</ImageView>
+				</graphic>
+			</Button>
+			<Button text="Remove" onAction="#onTagRemove"> 
 				<graphic>
 					<ImageView> 
 						<image>

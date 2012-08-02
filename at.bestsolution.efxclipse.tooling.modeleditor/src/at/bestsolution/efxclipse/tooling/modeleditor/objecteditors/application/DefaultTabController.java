@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -31,6 +32,7 @@ import at.bestsolution.efxclipse.runtime.databinding.AdapterFactory;
 import at.bestsolution.efxclipse.runtime.databinding.IJFXBeanValueProperty;
 import at.bestsolution.efxclipse.runtime.databinding.JFXBeanProperties;
 import javafx.scene.control.CheckBox;
+import javafx.util.Callback;
 
 @SuppressWarnings("restriction")
 public class DefaultTabController implements Initializable {
@@ -77,6 +79,14 @@ public class DefaultTabController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		bindingContextsView.setCellFactory(new Callback<ListView<MBindingContext>, ListCell<MBindingContext>>() {
+			
+			@Override
+			public ListCell<MBindingContext> call(ListView<MBindingContext> param) {
+				return new BindingCell();
+			}
+		});
+		
 		EMFDataBindingContext dbc = new EMFDataBindingContext();
 		
 		{
@@ -104,5 +114,15 @@ public class DefaultTabController implements Initializable {
 			bindingContextsView.setItems(l);
 		}
 		
+	}
+	
+	static class BindingCell extends ListCell<MBindingContext> {
+		@Override
+		protected void updateItem(MBindingContext item, boolean empty) {
+			super.updateItem(item, empty);
+			if( item != null ) {
+				setText("BindingContext - " + item.getName());
+			}
+		}
 	}
 }

@@ -18,6 +18,7 @@
       <plugin id="at.bestsolution.efxclipse.runtime.javafx"/>
       <plugin id="at.bestsolution.efxclipse.runtime.osgi" fragment="true"/>
       <plugin id="at.bestsolution.efxclipse.runtime.osgi.util"/>
+      <plugin id="at.bestsolution.efxclipse.runtime.panels"/>
       <plugin id="at.bestsolution.efxclipse.tooling.modeleditor.app"/>
       <plugin id="com.ibm.icu"/>
       <plugin id="org.eclipse.core.contenttype"/>

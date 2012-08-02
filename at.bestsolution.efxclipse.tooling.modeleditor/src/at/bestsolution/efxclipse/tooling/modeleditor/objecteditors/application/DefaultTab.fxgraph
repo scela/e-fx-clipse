@@ -42,7 +42,8 @@ component DefaultTab controlledby DefaultTabController {
 						image : Image {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_up.png"
 						}
-					}
+					},
+					onAction : controllermethod onBindingUp
 				},
 				Button {
 					text : "Down",
@@ -50,7 +51,8 @@ component DefaultTab controlledby DefaultTabController {
 						image : Image {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_down.png" 
 						}
-					}
+					},
+					onAction : controllermethod onBindingDown
 				},
 				Button {
 					text : "Add ...",
@@ -58,7 +60,8 @@ component DefaultTab controlledby DefaultTabController {
 						image : Image {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_add.png"
 						}
-					}
+					},
+					onAction : controllermethod onBindingAdd
 				},
 				Button {
 					text : "Remove",
@@ -66,7 +69,8 @@ component DefaultTab controlledby DefaultTabController {
 						image : Image {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_delete.png"
 						}
-					}
+					},
+					onAction : controllermethod onBindingRemove
 				},
 				static bottomAnchor : 1.0
 			},

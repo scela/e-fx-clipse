@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView
 import javafx.scene.image.Image
 import at.bestsolution.efxclipse.tooling.modeleditor.objecteditors.application.SupplementaryController
 
-component SupplementaryTab controlledby SupplementaryController {
+component SupplementaryTab controlledby at.bestsolution.efxclipse.tooling.modeleditor.objecteditors.application.SupplementaryTabController {
 	GridPane {
 		Label {
 			text : "Accessibility Phrase",
@@ -22,7 +22,8 @@ component SupplementaryTab controlledby SupplementaryController {
 		TextField id accessField {
 			static columnIndex : 1,
 			static rowIndex : 0,
-			static columnSpan : 2
+			static columnSpan : 2,
+			static hgrow : "ALWAYS"
 		},
 		Label {
 			text : "Variables",
@@ -40,7 +41,8 @@ component SupplementaryTab controlledby SupplementaryController {
 		},
 		ListView {
 			static columnIndex : 1,
-			static rowIndex : 2
+			static rowIndex : 2,
+			static hgrow : "ALWAYS"
 		},
 		AnchorPane {
 			VBox {
@@ -50,7 +52,8 @@ component SupplementaryTab controlledby SupplementaryController {
 						image : Image {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_up.png"
 						}
-					}
+					},
+					onAction : controllermethod onVariableUp
 				},
 				Button {
 					text : "Down",
@@ -58,7 +61,8 @@ component SupplementaryTab controlledby SupplementaryController {
 						image : Image {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_down.png" 
 						}
-					}
+					},
+					onAction : controllermethod onVariableDown
 				},
 				Button {
 					text : "Remove",
@@ -66,12 +70,65 @@ component SupplementaryTab controlledby SupplementaryController {
 						image : Image {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_delete.png"
 						}
-					}
+					},
+					onAction : controllermethod onVariableRemove
 				},
 				static bottomAnchor : 1.0
 			},
 			static columnIndex : 2,
 			static rowIndex : 2
+		},
+		Label {
+			text : "Tags",
+			static columnIndex : 0,
+			static rowIndex : 3
+		},
+		TextField id variablesField {
+			static columnIndex : 1,
+			static rowIndex : 3
+		},
+		Button {
+			text : "Add",
+			static columnIndex : 2,
+			static rowIndex : 3
+		},
+		ListView {
+			static columnIndex : 1,
+			static rowIndex : 4
+		},
+		AnchorPane {
+			VBox {
+				Button {
+					text : "Up",
+					graphic : ImageView {
+						image : Image {
+							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_up.png"
+						}
+					},
+					onAction : controllermethod onTagUp
+				},
+				Button {
+					text : "Down",
+					graphic : ImageView { 
+						image : Image {
+							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_down.png" 
+						}
+					},
+					onAction : controllermethod onTagDown
+				},
+				Button {
+					text : "Remove",
+					graphic : ImageView {
+						image : Image {
+							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_delete.png"
+						}
+					},
+					onAction : controllermethod onTagRemove
+				},
+				static bottomAnchor : 1.0
+			},
+			static columnIndex : 2,
+			static rowIndex : 4
 		}
 	}
 }

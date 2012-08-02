@@ -23,7 +23,7 @@
 	<ListView fx:id="bindingContextsView" GridPane.columnIndex="1" GridPane.rowIndex="2"/> 
 	<AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2"> 
 		<VBox AnchorPane.bottomAnchor="1.0"> 
-			<Button text="Up"> 
+			<Button text="Up" onAction="#onBindingUp"> 
 				<graphic>
 					<ImageView> 
 						<image>
@@ -32,7 +32,7 @@
 					</ImageView>
 				</graphic>
 			</Button>
-			<Button text="Down"> 
+			<Button text="Down" onAction="#onBindingDown"> 
 				<graphic>
 					<ImageView> 
 						<image>
@@ -41,7 +41,7 @@
 					</ImageView>
 				</graphic>
 			</Button>
-			<Button text="Add ..."> 
+			<Button text="Add ..." onAction="#onBindingAdd"> 
 				<graphic>
 					<ImageView> 
 						<image>
@@ -50,7 +50,7 @@
 					</ImageView>
 				</graphic>
 			</Button>
-			<Button text="Remove"> 
+			<Button text="Remove" onAction="#onBindingRemove"> 
 				<graphic>
 					<ImageView> 
 						<image>
