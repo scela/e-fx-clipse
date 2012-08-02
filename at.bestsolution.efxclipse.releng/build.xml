@@ -31,7 +31,7 @@
 
 	<target name="publish-distros">
 		<echo>Publishing distros</echo>
-		<exec command="rsync -acz --delete /tmp/efx-build/dist/* ${efx.update.host.user}@${efx.update.scp.name}:${efx.update.host.htdocs}/downloads/nightly" />
+		<exec command="rsync -acz --delete /tmp/efx-build/dist ${efx.update.host.user}@${efx.update.scp.name}:${efx.update.host.htdocs}/downloads/nightly" />
 		<!--sshexec host="${efx.update.scp.name}" username="${efx.update.host.user}" command="rm -rf ${efx.update.host.htdocs}/downloads/nightly/*" keyfile="/var/lib/jenkins/.ssh/id_dsa"/>
 		<scp keyfile="/var/lib/jenkins/.ssh/id_dsa" remoteToDir="${efx.update.host.user}@${efx.update.scp.name}:${efx.update.host.htdocs}/downloads/nightly">
 			<fileset dir="/tmp/efx-build/dist">
