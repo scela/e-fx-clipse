@@ -64,7 +64,7 @@ public class ModelEditor {
 								setText(((EObject)item).eClass().getName());
 								String img = getImage((MApplicationElement) item);
 								if( img != null ) {
-									setGraphic(new ImageView(ModelEditor.class.getClassLoader().getResource("modelelements/"+ img).toExternalForm()));
+									setGraphic(new ImageView(ModelEditor.class.getResource("icons/modelelements/"+ img).toExternalForm()));
 								} else {
 									setGraphic(null);
 								}
