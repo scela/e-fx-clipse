@@ -229,10 +229,10 @@ public class FXGraphProposalProvider extends AbstractFXGraphProposalProvider {
 					if (fxClazz != null) {
 						Map<String, IFXProperty> map = fxClazz.getAllProperties();
 						for (IFXProperty p : map.values()) {
-							// The id-attribute is defined through the id keyword
-							if (!"id".equals(p.getName())) {
+//							// The id-attribute is defined through the id keyword
+//							if (!"id".equals(p.getName())) {
 								completeElement_PropertiesProposals(p, el, context, FXGraphPackage.Literals.ELEMENT__PROPERTIES, acceptor);
-							}
+//							}
 						}
 					}
 				}				
