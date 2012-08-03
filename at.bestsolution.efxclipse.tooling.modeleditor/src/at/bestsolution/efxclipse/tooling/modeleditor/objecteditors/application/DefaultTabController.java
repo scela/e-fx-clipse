@@ -7,9 +7,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.util.Callback;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,8 +33,6 @@ import org.eclipse.emf.databinding.IEMFValueProperty;
 import at.bestsolution.efxclipse.runtime.databinding.AdapterFactory;
 import at.bestsolution.efxclipse.runtime.databinding.IJFXBeanValueProperty;
 import at.bestsolution.efxclipse.runtime.databinding.JFXBeanProperties;
-import javafx.scene.control.CheckBox;
-import javafx.util.Callback;
 
 @SuppressWarnings("restriction")
 public class DefaultTabController implements Initializable {
