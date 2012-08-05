@@ -15,7 +15,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 		 * 
 		 * @see org.eclipse.swt.widgets.Control#computeSize(int, int, boolean)
 		 */
-		public int width = SWT_DEFAULT;
+		public int width = FX_DEFAULT;
 		/**
 		 * height specifies the preferred height in pixels. This value is the
 		 * hHint passed into Control.computeSize(int, int, boolean) to determine
@@ -25,7 +25,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 		 * 
 		 * @see org.eclipse.swt.widgets.Control#computeSize(int, int, boolean)
 		 */
-		public int height = SWT_DEFAULT;
+		public int height = FX_DEFAULT;
 
 		/**
 		 * exclude informs the layout to ignore this control when sizing and
@@ -77,9 +77,9 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 		 */
 		public String toString() {
 			String string = getName() + " {";
-			if (width != SWT_DEFAULT)
+			if (width != FX_DEFAULT)
 				string += "width=" + width + " ";
-			if (height != SWT_DEFAULT)
+			if (height != FX_DEFAULT)
 				string += "height=" + height + " ";
 			if (exclude)
 				string += "exclude=" + exclude + " ";
@@ -102,7 +102,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	 * 
 	 * @since 2.0
 	 */
-	public int type = SWT_HORIZONTAL;
+	public int type = FX_HORIZONTAL;
 
 	/**
 	 * marginWidth specifies the number of pixels of horizontal margin that will
@@ -215,27 +215,27 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	protected at.bestsolution.efxclipse.runtime.panels.AbstractLayoutPane.Size computeSize(
 			double wHint, double hHint, boolean flushCache) {
 		Size extent;
-		if (type == SWT_HORIZONTAL) {
-			extent = layoutHorizontal(false, (wHint != SWT_DEFAULT) && wrap,
+		if (type == FX_HORIZONTAL) {
+			extent = layoutHorizontal(false, (wHint != FX_DEFAULT) && wrap,
 					wHint, flushCache);
 		} else {
-			extent = layoutVertical(false, (hHint != SWT_DEFAULT) && wrap,
+			extent = layoutVertical(false, (hHint != FX_DEFAULT) && wrap,
 					hHint, flushCache);
 		}
 		
 		double width = extent.width; 
 		double height = extent.height; 
 		
-		if (wHint != SWT_DEFAULT)
+		if (wHint != FX_DEFAULT)
 			width = wHint;
-		if (hHint != SWT_DEFAULT)
+		if (hHint != FX_DEFAULT)
 			height = hHint;
 		
 		return new Size(width,height);
 	}
 
 	Size computeSize(Node control, boolean flushCache) {
-		int wHint = SWT_DEFAULT, hHint = SWT_DEFAULT;
+		int wHint = FX_DEFAULT, hHint = FX_DEFAULT;
 		RowData data = (RowData) getConstraint(control);
 		if (data != null) {
 			wHint = data.width;
@@ -248,7 +248,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	protected void layoutChildren() {
 		super.layoutChildren();
 		Bounds clientArea = getLayoutBounds();
-		if (type == SWT_HORIZONTAL) {
+		if (type == FX_HORIZONTAL) {
 			layoutHorizontal(true, wrap, clientArea.getWidth(), true);
 		} else {
 			layoutVertical(true, wrap, clientArea.getHeight(), true);
