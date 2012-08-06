@@ -13,13 +13,17 @@ import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.Jar;
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.SignJar;
 
+import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Param;
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,6 +36,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.impl.AntTaskImpl#getDeploy <em>Deploy</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.impl.AntTaskImpl#getJar <em>Jar</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.impl.AntTaskImpl#getSignjar <em>Signjar</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.impl.AntTaskImpl#getBuildDirectory <em>Build Directory</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.impl.AntTaskImpl#getManifestEntries <em>Manifest Entries</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,6 +83,36 @@ public class AntTaskImpl extends EObjectImpl implements AntTask {
 	 * @ordered
 	 */
 	protected SignJar signjar;
+
+	/**
+	 * The default value of the '{@link #getBuildDirectory() <em>Build Directory</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBuildDirectory()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String BUILD_DIRECTORY_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBuildDirectory() <em>Build Directory</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBuildDirectory()
+	 * @generated
+	 * @ordered
+	 */
+	protected String buildDirectory = BUILD_DIRECTORY_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getManifestEntries() <em>Manifest Entries</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getManifestEntries()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Param> manifestEntries;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -254,6 +290,39 @@ public class AntTaskImpl extends EObjectImpl implements AntTask {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getBuildDirectory() {
+		return buildDirectory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBuildDirectory(String newBuildDirectory) {
+		String oldBuildDirectory = buildDirectory;
+		buildDirectory = newBuildDirectory;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AntTasksPackage.ANT_TASK__BUILD_DIRECTORY, oldBuildDirectory, buildDirectory));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Param> getManifestEntries() {
+		if (manifestEntries == null) {
+			manifestEntries = new EObjectResolvingEList<Param>(Param.class, this, AntTasksPackage.ANT_TASK__MANIFEST_ENTRIES);
+		}
+		return manifestEntries;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -269,6 +338,10 @@ public class AntTaskImpl extends EObjectImpl implements AntTask {
 			case AntTasksPackage.ANT_TASK__SIGNJAR:
 				if (resolve) return getSignjar();
 				return basicGetSignjar();
+			case AntTasksPackage.ANT_TASK__BUILD_DIRECTORY:
+				return getBuildDirectory();
+			case AntTasksPackage.ANT_TASK__MANIFEST_ENTRIES:
+				return getManifestEntries();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -278,6 +351,7 @@ public class AntTaskImpl extends EObjectImpl implements AntTask {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -292,6 +366,13 @@ public class AntTaskImpl extends EObjectImpl implements AntTask {
 				return;
 			case AntTasksPackage.ANT_TASK__SIGNJAR:
 				setSignjar((SignJar)newValue);
+				return;
+			case AntTasksPackage.ANT_TASK__BUILD_DIRECTORY:
+				setBuildDirectory((String)newValue);
+				return;
+			case AntTasksPackage.ANT_TASK__MANIFEST_ENTRIES:
+				getManifestEntries().clear();
+				getManifestEntries().addAll((Collection<? extends Param>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -317,6 +398,12 @@ public class AntTaskImpl extends EObjectImpl implements AntTask {
 			case AntTasksPackage.ANT_TASK__SIGNJAR:
 				setSignjar((SignJar)null);
 				return;
+			case AntTasksPackage.ANT_TASK__BUILD_DIRECTORY:
+				setBuildDirectory(BUILD_DIRECTORY_EDEFAULT);
+				return;
+			case AntTasksPackage.ANT_TASK__MANIFEST_ENTRIES:
+				getManifestEntries().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -337,8 +424,28 @@ public class AntTaskImpl extends EObjectImpl implements AntTask {
 				return jar != null;
 			case AntTasksPackage.ANT_TASK__SIGNJAR:
 				return signjar != null;
+			case AntTasksPackage.ANT_TASK__BUILD_DIRECTORY:
+				return BUILD_DIRECTORY_EDEFAULT == null ? buildDirectory != null : !BUILD_DIRECTORY_EDEFAULT.equals(buildDirectory);
+			case AntTasksPackage.ANT_TASK__MANIFEST_ENTRIES:
+				return manifestEntries != null && !manifestEntries.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (buildDirectory: ");
+		result.append(buildDirectory);
+		result.append(')');
+		return result.toString();
 	}
 
 } //AntTaskImpl

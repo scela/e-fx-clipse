@@ -521,8 +521,26 @@ public class ParametersPackageImpl extends EPackageImpl implements ParametersPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getApplication_Version() {
+		return (EAttribute)applicationEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getApplication_Toolkit() {
+		return (EAttribute)applicationEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getApplication_Arguments() {
-		return (EReference)applicationEClass.getEStructuralFeatures().get(6);
+		return (EReference)applicationEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -531,7 +549,7 @@ public class ParametersPackageImpl extends EPackageImpl implements ParametersPac
 	 * @generated
 	 */
 	public EReference getApplication_HtmlParams() {
-		return (EReference)applicationEClass.getEStructuralFeatures().get(7);
+		return (EReference)applicationEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -540,7 +558,7 @@ public class ParametersPackageImpl extends EPackageImpl implements ParametersPac
 	 * @generated
 	 */
 	public EReference getApplication_Params() {
-		return (EReference)applicationEClass.getEStructuralFeatures().get(8);
+		return (EReference)applicationEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -957,6 +975,8 @@ public class ParametersPackageImpl extends EPackageImpl implements ParametersPac
 		createEAttribute(applicationEClass, APPLICATION__MAINCLASS);
 		createEAttribute(applicationEClass, APPLICATION__PRELOADERCLASS);
 		createEAttribute(applicationEClass, APPLICATION__REFID);
+		createEAttribute(applicationEClass, APPLICATION__VERSION);
+		createEAttribute(applicationEClass, APPLICATION__TOOLKIT);
 		createEReference(applicationEClass, APPLICATION__ARGUMENTS);
 		createEReference(applicationEClass, APPLICATION__HTML_PARAMS);
 		createEReference(applicationEClass, APPLICATION__PARAMS);
@@ -1078,6 +1098,8 @@ public class ParametersPackageImpl extends EPackageImpl implements ParametersPac
 		initEAttribute(getApplication_Mainclass(), ecorePackage.getEString(), "mainclass", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getApplication_Preloaderclass(), ecorePackage.getEString(), "preloaderclass", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getApplication_Refid(), ecorePackage.getEString(), "refid", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getApplication_Version(), ecorePackage.getEString(), "version", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getApplication_Toolkit(), ecorePackage.getEString(), "toolkit", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getApplication_Arguments(), this.getArgument(), null, "arguments", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getApplication_HtmlParams(), this.getHtmlParam(), null, "htmlParams", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getApplication_Params(), this.getParam(), null, "params", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1109,8 +1131,8 @@ public class ParametersPackageImpl extends EPackageImpl implements ParametersPac
 		initEAttribute(getInfo_Description(), ecorePackage.getEString(), "description", null, 0, 1, Info.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInfo_Title(), ecorePackage.getEString(), "title", null, 0, 1, Info.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getInfo_Vendor(), ecorePackage.getEString(), "vendor", null, 0, 1, Info.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getInfo_Icon(), this.getIcon(), null, "icon", null, 0, 1, Info.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getInfo_Splash(), this.getSplash(), null, "splash", null, 0, 1, Info.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInfo_Icon(), this.getIcon(), null, "icon", null, 0, -1, Info.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInfo_Splash(), this.getSplash(), null, "splash", null, 0, -1, Info.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(iconEClass, Icon.class, "Icon", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIcon_Depth(), ecorePackage.getEString(), "depth", null, 0, 1, Icon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

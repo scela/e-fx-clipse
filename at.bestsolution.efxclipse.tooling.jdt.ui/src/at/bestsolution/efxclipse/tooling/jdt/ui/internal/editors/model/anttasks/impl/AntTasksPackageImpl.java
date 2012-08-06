@@ -183,6 +183,24 @@ public class AntTasksPackageImpl extends EPackageImpl implements AntTasksPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getAntTask_BuildDirectory() {
+		return (EAttribute)antTaskEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAntTask_ManifestEntries() {
+		return (EReference)antTaskEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCssToBin() {
 		return cssToBinEClass;
 	}
@@ -390,6 +408,24 @@ public class AntTasksPackageImpl extends EPackageImpl implements AntTasksPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getDeploy_NativePackage() {
+		return (EAttribute)deployEClass.getEStructuralFeatures().get(19);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDeploy_SplashImage() {
+		return (EAttribute)deployEClass.getEStructuralFeatures().get(20);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getJar() {
 		return jarEClass;
 	}
@@ -562,6 +598,8 @@ public class AntTasksPackageImpl extends EPackageImpl implements AntTasksPackage
 		createEReference(antTaskEClass, ANT_TASK__DEPLOY);
 		createEReference(antTaskEClass, ANT_TASK__JAR);
 		createEReference(antTaskEClass, ANT_TASK__SIGNJAR);
+		createEAttribute(antTaskEClass, ANT_TASK__BUILD_DIRECTORY);
+		createEReference(antTaskEClass, ANT_TASK__MANIFEST_ENTRIES);
 
 		cssToBinEClass = createEClass(CSS_TO_BIN);
 		createEAttribute(cssToBinEClass, CSS_TO_BIN__OUTDIR);
@@ -587,6 +625,8 @@ public class AntTasksPackageImpl extends EPackageImpl implements AntTasksPackage
 		createEReference(deployEClass, DEPLOY__CALLBACKS);
 		createEReference(deployEClass, DEPLOY__INFO);
 		createEReference(deployEClass, DEPLOY__RESOURCES);
+		createEAttribute(deployEClass, DEPLOY__NATIVE_PACKAGE);
+		createEAttribute(deployEClass, DEPLOY__SPLASH_IMAGE);
 
 		jarEClass = createEClass(JAR);
 		createEAttribute(jarEClass, JAR__DESTFILE);
@@ -648,6 +688,8 @@ public class AntTasksPackageImpl extends EPackageImpl implements AntTasksPackage
 		initEReference(getAntTask_Deploy(), this.getDeploy(), null, "deploy", null, 0, 1, AntTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAntTask_Jar(), this.getJar(), null, "jar", null, 0, 1, AntTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAntTask_Signjar(), this.getSignJar(), null, "signjar", null, 0, 1, AntTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAntTask_BuildDirectory(), ecorePackage.getEString(), "buildDirectory", null, 0, 1, AntTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAntTask_ManifestEntries(), theParametersPackage.getParam(), null, "manifestEntries", null, 0, -1, AntTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(cssToBinEClass, CssToBin.class, "CssToBin", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCssToBin_Outdir(), ecorePackage.getEString(), "outdir", null, 0, 1, CssToBin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -673,6 +715,8 @@ public class AntTasksPackageImpl extends EPackageImpl implements AntTasksPackage
 		initEReference(getDeploy_Callbacks(), theParametersPackage.getCallback(), null, "callbacks", null, 0, -1, Deploy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDeploy_Info(), theParametersPackage.getInfo(), null, "info", null, 0, 1, Deploy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDeploy_Resources(), theParametersPackage.getResources(), null, "resources", null, 0, 1, Deploy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeploy_NativePackage(), ecorePackage.getEBoolean(), "nativePackage", null, 0, 1, Deploy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeploy_SplashImage(), ecorePackage.getEString(), "splashImage", null, 0, 1, Deploy.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(jarEClass, Jar.class, "Jar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getJar_Destfile(), ecorePackage.getEString(), "destfile", null, 0, 1, Jar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

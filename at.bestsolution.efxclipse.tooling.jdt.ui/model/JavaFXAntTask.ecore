@@ -8,6 +8,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="deploy" eType="#//Deploy"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="jar" eType="#//Jar"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="signjar" eType="#//SignJar"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="buildDirectory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="manifestEntries" upperBound="-1"
+        eType="#//parameters/Param"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CssToBin">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="outdir" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -47,6 +50,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resources" eType="#//parameters/Resources"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nativePackage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="splashImage" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Jar">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="destfile" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -122,6 +127,8 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="mainclass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="preloaderclass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="refid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="toolkit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
           eType="#//parameters/Argument" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="htmlParams" upperBound="-1"
@@ -159,10 +166,10 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="vendor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="icon" eType="#//parameters/Icon"
-          containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="splash" eType="#//parameters/Splash"
-          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="icon" upperBound="-1"
+          eType="#//parameters/Icon" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="splash" upperBound="-1"
+          eType="#//parameters/Splash" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Icon">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="depth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

@@ -106,13 +106,31 @@ public interface AntTasksPackage extends EPackage {
 	int ANT_TASK__SIGNJAR = 3;
 
 	/**
+	 * The feature id for the '<em><b>Build Directory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANT_TASK__BUILD_DIRECTORY = 4;
+
+	/**
+	 * The feature id for the '<em><b>Manifest Entries</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANT_TASK__MANIFEST_ENTRIES = 5;
+
+	/**
 	 * The number of structural features of the '<em>Ant Task</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ANT_TASK_FEATURE_COUNT = 4;
+	int ANT_TASK_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.impl.CssToBinImpl <em>Css To Bin</em>}' class.
@@ -333,13 +351,31 @@ public interface AntTasksPackage extends EPackage {
 	int DEPLOY__RESOURCES = 18;
 
 	/**
+	 * The feature id for the '<em><b>Native Package</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEPLOY__NATIVE_PACKAGE = 19;
+
+	/**
+	 * The feature id for the '<em><b>Splash Image</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEPLOY__SPLASH_IMAGE = 20;
+
+	/**
 	 * The number of structural features of the '<em>Deploy</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DEPLOY_FEATURE_COUNT = 19;
+	int DEPLOY_FEATURE_COUNT = 21;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.impl.JarImpl <em>Jar</em>}' class.
@@ -559,6 +595,28 @@ public interface AntTasksPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAntTask_Signjar();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.AntTask#getBuildDirectory <em>Build Directory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Build Directory</em>'.
+	 * @see at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.AntTask#getBuildDirectory()
+	 * @see #getAntTask()
+	 * @generated
+	 */
+	EAttribute getAntTask_BuildDirectory();
+
+	/**
+	 * Returns the meta object for the reference list '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.AntTask#getManifestEntries <em>Manifest Entries</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Manifest Entries</em>'.
+	 * @see at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.AntTask#getManifestEntries()
+	 * @see #getAntTask()
+	 * @generated
+	 */
+	EReference getAntTask_ManifestEntries();
 
 	/**
 	 * Returns the meta object for class '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.CssToBin <em>Css To Bin</em>}'.
@@ -812,6 +870,28 @@ public interface AntTasksPackage extends EPackage {
 	EReference getDeploy_Resources();
 
 	/**
+	 * Returns the meta object for the attribute '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.Deploy#isNativePackage <em>Native Package</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Native Package</em>'.
+	 * @see at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.Deploy#isNativePackage()
+	 * @see #getDeploy()
+	 * @generated
+	 */
+	EAttribute getDeploy_NativePackage();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.Deploy#getSplashImage <em>Splash Image</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Splash Image</em>'.
+	 * @see at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.Deploy#getSplashImage()
+	 * @see #getDeploy()
+	 * @generated
+	 */
+	EAttribute getDeploy_SplashImage();
+
+	/**
 	 * Returns the meta object for class '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.Jar <em>Jar</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1050,6 +1130,22 @@ public interface AntTasksPackage extends EPackage {
 		EReference ANT_TASK__SIGNJAR = eINSTANCE.getAntTask_Signjar();
 
 		/**
+		 * The meta object literal for the '<em><b>Build Directory</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ANT_TASK__BUILD_DIRECTORY = eINSTANCE.getAntTask_BuildDirectory();
+
+		/**
+		 * The meta object literal for the '<em><b>Manifest Entries</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ANT_TASK__MANIFEST_ENTRIES = eINSTANCE.getAntTask_ManifestEntries();
+
+		/**
 		 * The meta object literal for the '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.impl.CssToBinImpl <em>Css To Bin</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1236,6 +1332,22 @@ public interface AntTasksPackage extends EPackage {
 		 * @generated
 		 */
 		EReference DEPLOY__RESOURCES = eINSTANCE.getDeploy_Resources();
+
+		/**
+		 * The meta object literal for the '<em><b>Native Package</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DEPLOY__NATIVE_PACKAGE = eINSTANCE.getDeploy_NativePackage();
+
+		/**
+		 * The meta object literal for the '<em><b>Splash Image</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DEPLOY__SPLASH_IMAGE = eINSTANCE.getDeploy_SplashImage();
 
 		/**
 		 * The meta object literal for the '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.impl.JarImpl <em>Jar</em>}' class.

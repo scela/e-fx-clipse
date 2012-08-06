@@ -13,6 +13,7 @@ import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Platform;
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Preferences;
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Resources;
+import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Splash;
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Template;
 
 import org.eclipse.emf.common.util.EList;
@@ -46,6 +47,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.Deploy#getCallbacks <em>Callbacks</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.Deploy#getInfo <em>Info</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.Deploy#getResources <em>Resources</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.Deploy#isNativePackage <em>Native Package</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.Deploy#getSplashImage <em>Splash Image</em>}</li>
  * </ul>
  * </p>
  *
@@ -542,5 +545,57 @@ public interface Deploy extends EObject {
 	 * @generated
 	 */
 	void setResources(Resources value);
+
+	/**
+	 * Returns the value of the '<em><b>Native Package</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Native Package</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Native Package</em>' attribute.
+	 * @see #setNativePackage(boolean)
+	 * @see at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.AntTasksPackage#getDeploy_NativePackage()
+	 * @model
+	 * @generated
+	 */
+	boolean isNativePackage();
+
+	/**
+	 * Sets the value of the '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.Deploy#isNativePackage <em>Native Package</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Native Package</em>' attribute.
+	 * @see #isNativePackage()
+	 * @generated
+	 */
+	void setNativePackage(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Splash Image</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Splash Image</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Splash Image</em>' attribute.
+	 * @see #setSplashImage(String)
+	 * @see at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.AntTasksPackage#getDeploy_SplashImage()
+	 * @model
+	 * @generated
+	 */
+	String getSplashImage();
+
+	/**
+	 * Sets the value of the '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.Deploy#getSplashImage <em>Splash Image</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Splash Image</em>' attribute.
+	 * @see #getSplashImage()
+	 * @generated
+	 */
+	void setSplashImage(String value);
 
 } // Deploy

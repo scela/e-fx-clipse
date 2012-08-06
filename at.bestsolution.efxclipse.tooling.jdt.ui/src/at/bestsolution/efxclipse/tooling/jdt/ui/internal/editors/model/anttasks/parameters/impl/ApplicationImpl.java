@@ -41,6 +41,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.impl.ApplicationImpl#getMainclass <em>Mainclass</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.impl.ApplicationImpl#getPreloaderclass <em>Preloaderclass</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.impl.ApplicationImpl#getRefid <em>Refid</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.impl.ApplicationImpl#getVersion <em>Version</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.impl.ApplicationImpl#getToolkit <em>Toolkit</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.impl.ApplicationImpl#getArguments <em>Arguments</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.impl.ApplicationImpl#getHtmlParams <em>Html Params</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.impl.ApplicationImpl#getParams <em>Params</em>}</li>
@@ -169,6 +171,46 @@ public class ApplicationImpl extends EObjectImpl implements Application {
 	 * @ordered
 	 */
 	protected String refid = REFID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVersion()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String VERSION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVersion()
+	 * @generated
+	 * @ordered
+	 */
+	protected String version = VERSION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getToolkit() <em>Toolkit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getToolkit()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TOOLKIT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getToolkit() <em>Toolkit</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getToolkit()
+	 * @generated
+	 * @ordered
+	 */
+	protected String toolkit = TOOLKIT_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getArguments() <em>Arguments</em>}' containment reference list.
@@ -350,6 +392,48 @@ public class ApplicationImpl extends EObjectImpl implements Application {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getVersion() {
+		return version;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setVersion(String newVersion) {
+		String oldVersion = version;
+		version = newVersion;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ParametersPackage.APPLICATION__VERSION, oldVersion, version));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getToolkit() {
+		return toolkit;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setToolkit(String newToolkit) {
+		String oldToolkit = toolkit;
+		toolkit = newToolkit;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ParametersPackage.APPLICATION__TOOLKIT, oldToolkit, toolkit));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<Argument> getArguments() {
 		if (arguments == null) {
 			arguments = new EObjectContainmentEList<Argument>(Argument.class, this, ParametersPackage.APPLICATION__ARGUMENTS);
@@ -419,6 +503,10 @@ public class ApplicationImpl extends EObjectImpl implements Application {
 				return getPreloaderclass();
 			case ParametersPackage.APPLICATION__REFID:
 				return getRefid();
+			case ParametersPackage.APPLICATION__VERSION:
+				return getVersion();
+			case ParametersPackage.APPLICATION__TOOLKIT:
+				return getToolkit();
 			case ParametersPackage.APPLICATION__ARGUMENTS:
 				return getArguments();
 			case ParametersPackage.APPLICATION__HTML_PARAMS:
@@ -455,6 +543,12 @@ public class ApplicationImpl extends EObjectImpl implements Application {
 				return;
 			case ParametersPackage.APPLICATION__REFID:
 				setRefid((String)newValue);
+				return;
+			case ParametersPackage.APPLICATION__VERSION:
+				setVersion((String)newValue);
+				return;
+			case ParametersPackage.APPLICATION__TOOLKIT:
+				setToolkit((String)newValue);
 				return;
 			case ParametersPackage.APPLICATION__ARGUMENTS:
 				getArguments().clear();
@@ -498,6 +592,12 @@ public class ApplicationImpl extends EObjectImpl implements Application {
 			case ParametersPackage.APPLICATION__REFID:
 				setRefid(REFID_EDEFAULT);
 				return;
+			case ParametersPackage.APPLICATION__VERSION:
+				setVersion(VERSION_EDEFAULT);
+				return;
+			case ParametersPackage.APPLICATION__TOOLKIT:
+				setToolkit(TOOLKIT_EDEFAULT);
+				return;
 			case ParametersPackage.APPLICATION__ARGUMENTS:
 				getArguments().clear();
 				return;
@@ -531,6 +631,10 @@ public class ApplicationImpl extends EObjectImpl implements Application {
 				return PRELOADERCLASS_EDEFAULT == null ? preloaderclass != null : !PRELOADERCLASS_EDEFAULT.equals(preloaderclass);
 			case ParametersPackage.APPLICATION__REFID:
 				return REFID_EDEFAULT == null ? refid != null : !REFID_EDEFAULT.equals(refid);
+			case ParametersPackage.APPLICATION__VERSION:
+				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+			case ParametersPackage.APPLICATION__TOOLKIT:
+				return TOOLKIT_EDEFAULT == null ? toolkit != null : !TOOLKIT_EDEFAULT.equals(toolkit);
 			case ParametersPackage.APPLICATION__ARGUMENTS:
 				return arguments != null && !arguments.isEmpty();
 			case ParametersPackage.APPLICATION__HTML_PARAMS:
@@ -563,6 +667,10 @@ public class ApplicationImpl extends EObjectImpl implements Application {
 		result.append(preloaderclass);
 		result.append(", refid: ");
 		result.append(refid);
+		result.append(", version: ");
+		result.append(version);
+		result.append(", toolkit: ");
+		result.append(toolkit);
 		result.append(')');
 		return result.toString();
 	}

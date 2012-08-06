@@ -72,7 +72,7 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.JFXBuildConfigurationEditor"
+            class="at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.JFXEMFBuildConfigurationEditor"
             default="false"
             extensions="fxbuild"
             icon="icons/page_white_compressed.png"

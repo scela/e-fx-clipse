@@ -6,6 +6,7 @@
  */
 package at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -108,55 +109,35 @@ public interface Info extends EObject {
 	void setVendor(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Icon</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Icon</b></em>' containment reference list.
+	 * The list contents are of type {@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Icon}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Icon</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Icon</em>' containment reference.
-	 * @see #setIcon(Icon)
+	 * @return the value of the '<em>Icon</em>' containment reference list.
 	 * @see at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.ParametersPackage#getInfo_Icon()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Icon getIcon();
+	EList<Icon> getIcon();
 
 	/**
-	 * Sets the value of the '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Info#getIcon <em>Icon</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Icon</em>' containment reference.
-	 * @see #getIcon()
-	 * @generated
-	 */
-	void setIcon(Icon value);
-
-	/**
-	 * Returns the value of the '<em><b>Splash</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Splash</b></em>' containment reference list.
+	 * The list contents are of type {@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Splash}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Splash</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Splash</em>' containment reference.
-	 * @see #setSplash(Splash)
+	 * @return the value of the '<em>Splash</em>' containment reference list.
 	 * @see at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.ParametersPackage#getInfo_Splash()
 	 * @model containment="true"
 	 * @generated
 	 */
-	Splash getSplash();
-
-	/**
-	 * Sets the value of the '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Info#getSplash <em>Splash</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Splash</em>' containment reference.
-	 * @see #getSplash()
-	 * @generated
-	 */
-	void setSplash(Splash value);
+	EList<Splash> getSplash();
 
 } // Info

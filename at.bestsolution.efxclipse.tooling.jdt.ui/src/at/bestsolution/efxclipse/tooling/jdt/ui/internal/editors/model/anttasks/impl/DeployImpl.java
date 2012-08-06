@@ -16,6 +16,7 @@ import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Platform;
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Preferences;
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Resources;
+import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Splash;
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Template;
 
 import java.util.Collection;
@@ -60,6 +61,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.impl.DeployImpl#getCallbacks <em>Callbacks</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.impl.DeployImpl#getInfo <em>Info</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.impl.DeployImpl#getResources <em>Resources</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.impl.DeployImpl#isNativePackage <em>Native Package</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.impl.DeployImpl#getSplashImage <em>Splash Image</em>}</li>
  * </ul>
  * </p>
  *
@@ -365,6 +368,46 @@ public class DeployImpl extends EObjectImpl implements Deploy {
 	 * @ordered
 	 */
 	protected Resources resources;
+
+	/**
+	 * The default value of the '{@link #isNativePackage() <em>Native Package</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNativePackage()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean NATIVE_PACKAGE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isNativePackage() <em>Native Package</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNativePackage()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean nativePackage = NATIVE_PACKAGE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getSplashImage() <em>Splash Image</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSplashImage()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SPLASH_IMAGE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getSplashImage() <em>Splash Image</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSplashImage()
+	 * @generated
+	 * @ordered
+	 */
+	protected String splashImage = SPLASH_IMAGE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -934,6 +977,48 @@ public class DeployImpl extends EObjectImpl implements Deploy {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isNativePackage() {
+		return nativePackage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNativePackage(boolean newNativePackage) {
+		boolean oldNativePackage = nativePackage;
+		nativePackage = newNativePackage;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AntTasksPackage.DEPLOY__NATIVE_PACKAGE, oldNativePackage, nativePackage));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getSplashImage() {
+		return splashImage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSplashImage(String newSplashImage) {
+		String oldSplashImage = splashImage;
+		splashImage = newSplashImage;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AntTasksPackage.DEPLOY__SPLASH_IMAGE, oldSplashImage, splashImage));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -1003,6 +1088,10 @@ public class DeployImpl extends EObjectImpl implements Deploy {
 				return getInfo();
 			case AntTasksPackage.DEPLOY__RESOURCES:
 				return getResources();
+			case AntTasksPackage.DEPLOY__NATIVE_PACKAGE:
+				return isNativePackage();
+			case AntTasksPackage.DEPLOY__SPLASH_IMAGE:
+				return getSplashImage();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1074,6 +1163,12 @@ public class DeployImpl extends EObjectImpl implements Deploy {
 			case AntTasksPackage.DEPLOY__RESOURCES:
 				setResources((Resources)newValue);
 				return;
+			case AntTasksPackage.DEPLOY__NATIVE_PACKAGE:
+				setNativePackage((Boolean)newValue);
+				return;
+			case AntTasksPackage.DEPLOY__SPLASH_IMAGE:
+				setSplashImage((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1143,6 +1238,12 @@ public class DeployImpl extends EObjectImpl implements Deploy {
 			case AntTasksPackage.DEPLOY__RESOURCES:
 				setResources((Resources)null);
 				return;
+			case AntTasksPackage.DEPLOY__NATIVE_PACKAGE:
+				setNativePackage(NATIVE_PACKAGE_EDEFAULT);
+				return;
+			case AntTasksPackage.DEPLOY__SPLASH_IMAGE:
+				setSplashImage(SPLASH_IMAGE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1193,6 +1294,10 @@ public class DeployImpl extends EObjectImpl implements Deploy {
 				return info != null;
 			case AntTasksPackage.DEPLOY__RESOURCES:
 				return resources != null;
+			case AntTasksPackage.DEPLOY__NATIVE_PACKAGE:
+				return nativePackage != NATIVE_PACKAGE_EDEFAULT;
+			case AntTasksPackage.DEPLOY__SPLASH_IMAGE:
+				return SPLASH_IMAGE_EDEFAULT == null ? splashImage != null : !SPLASH_IMAGE_EDEFAULT.equals(splashImage);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1229,6 +1334,10 @@ public class DeployImpl extends EObjectImpl implements Deploy {
 		result.append(updatemode);
 		result.append(", width: ");
 		result.append(width);
+		result.append(", nativePackage: ");
+		result.append(nativePackage);
+		result.append(", splashImage: ");
+		result.append(splashImage);
 		result.append(')');
 		return result.toString();
 	}

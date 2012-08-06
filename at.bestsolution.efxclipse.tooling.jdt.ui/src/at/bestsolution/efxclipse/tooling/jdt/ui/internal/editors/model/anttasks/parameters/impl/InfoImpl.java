@@ -11,14 +11,18 @@ import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.ParametersPackage;
 import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Splash;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -99,24 +103,24 @@ public class InfoImpl extends EObjectImpl implements Info {
 	protected String vendor = VENDOR_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getIcon() <em>Icon</em>}' containment reference.
+	 * The cached value of the '{@link #getIcon() <em>Icon</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getIcon()
 	 * @generated
 	 * @ordered
 	 */
-	protected Icon icon;
+	protected EList<Icon> icon;
 
 	/**
-	 * The cached value of the '{@link #getSplash() <em>Splash</em>}' containment reference.
+	 * The cached value of the '{@link #getSplash() <em>Splash</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getSplash()
 	 * @generated
 	 * @ordered
 	 */
-	protected Splash splash;
+	protected EList<Splash> splash;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -205,7 +209,10 @@ public class InfoImpl extends EObjectImpl implements Info {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Icon getIcon() {
+	public EList<Icon> getIcon() {
+		if (icon == null) {
+			icon = new EObjectContainmentEList<Icon>(Icon.class, this, ParametersPackage.INFO__ICON);
+		}
 		return icon;
 	}
 
@@ -214,76 +221,11 @@ public class InfoImpl extends EObjectImpl implements Info {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetIcon(Icon newIcon, NotificationChain msgs) {
-		Icon oldIcon = icon;
-		icon = newIcon;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ParametersPackage.INFO__ICON, oldIcon, newIcon);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+	public EList<Splash> getSplash() {
+		if (splash == null) {
+			splash = new EObjectContainmentEList<Splash>(Splash.class, this, ParametersPackage.INFO__SPLASH);
 		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setIcon(Icon newIcon) {
-		if (newIcon != icon) {
-			NotificationChain msgs = null;
-			if (icon != null)
-				msgs = ((InternalEObject)icon).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ParametersPackage.INFO__ICON, null, msgs);
-			if (newIcon != null)
-				msgs = ((InternalEObject)newIcon).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ParametersPackage.INFO__ICON, null, msgs);
-			msgs = basicSetIcon(newIcon, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ParametersPackage.INFO__ICON, newIcon, newIcon));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Splash getSplash() {
 		return splash;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetSplash(Splash newSplash, NotificationChain msgs) {
-		Splash oldSplash = splash;
-		splash = newSplash;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ParametersPackage.INFO__SPLASH, oldSplash, newSplash);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSplash(Splash newSplash) {
-		if (newSplash != splash) {
-			NotificationChain msgs = null;
-			if (splash != null)
-				msgs = ((InternalEObject)splash).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ParametersPackage.INFO__SPLASH, null, msgs);
-			if (newSplash != null)
-				msgs = ((InternalEObject)newSplash).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ParametersPackage.INFO__SPLASH, null, msgs);
-			msgs = basicSetSplash(newSplash, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ParametersPackage.INFO__SPLASH, newSplash, newSplash));
 	}
 
 	/**
@@ -295,9 +237,9 @@ public class InfoImpl extends EObjectImpl implements Info {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ParametersPackage.INFO__ICON:
-				return basicSetIcon(null, msgs);
+				return ((InternalEList<?>)getIcon()).basicRemove(otherEnd, msgs);
 			case ParametersPackage.INFO__SPLASH:
-				return basicSetSplash(null, msgs);
+				return ((InternalEList<?>)getSplash()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -329,6 +271,7 @@ public class InfoImpl extends EObjectImpl implements Info {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -342,10 +285,12 @@ public class InfoImpl extends EObjectImpl implements Info {
 				setVendor((String)newValue);
 				return;
 			case ParametersPackage.INFO__ICON:
-				setIcon((Icon)newValue);
+				getIcon().clear();
+				getIcon().addAll((Collection<? extends Icon>)newValue);
 				return;
 			case ParametersPackage.INFO__SPLASH:
-				setSplash((Splash)newValue);
+				getSplash().clear();
+				getSplash().addAll((Collection<? extends Splash>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -369,10 +314,10 @@ public class InfoImpl extends EObjectImpl implements Info {
 				setVendor(VENDOR_EDEFAULT);
 				return;
 			case ParametersPackage.INFO__ICON:
-				setIcon((Icon)null);
+				getIcon().clear();
 				return;
 			case ParametersPackage.INFO__SPLASH:
-				setSplash((Splash)null);
+				getSplash().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -393,9 +338,9 @@ public class InfoImpl extends EObjectImpl implements Info {
 			case ParametersPackage.INFO__VENDOR:
 				return VENDOR_EDEFAULT == null ? vendor != null : !VENDOR_EDEFAULT.equals(vendor);
 			case ParametersPackage.INFO__ICON:
-				return icon != null;
+				return icon != null && !icon.isEmpty();
 			case ParametersPackage.INFO__SPLASH:
-				return splash != null;
+				return splash != null && !splash.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

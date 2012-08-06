@@ -382,13 +382,31 @@ public interface ParametersPackage extends EPackage {
 	int APPLICATION__REFID = 5;
 
 	/**
+	 * The feature id for the '<em><b>Version</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__VERSION = 6;
+
+	/**
+	 * The feature id for the '<em><b>Toolkit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__TOOLKIT = 7;
+
+	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION__ARGUMENTS = 6;
+	int APPLICATION__ARGUMENTS = 8;
 
 	/**
 	 * The feature id for the '<em><b>Html Params</b></em>' containment reference list.
@@ -397,7 +415,7 @@ public interface ParametersPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION__HTML_PARAMS = 7;
+	int APPLICATION__HTML_PARAMS = 9;
 
 	/**
 	 * The feature id for the '<em><b>Params</b></em>' containment reference list.
@@ -406,7 +424,7 @@ public interface ParametersPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION__PARAMS = 8;
+	int APPLICATION__PARAMS = 10;
 
 	/**
 	 * The number of structural features of the '<em>Application</em>' class.
@@ -415,7 +433,7 @@ public interface ParametersPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_FEATURE_COUNT = 9;
+	int APPLICATION_FEATURE_COUNT = 11;
 
 	/**
 	 * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.impl.ArgumentImpl <em>Argument</em>}' class.
@@ -668,7 +686,7 @@ public interface ParametersPackage extends EPackage {
 	int INFO__VENDOR = 2;
 
 	/**
-	 * The feature id for the '<em><b>Icon</b></em>' containment reference.
+	 * The feature id for the '<em><b>Icon</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -677,7 +695,7 @@ public interface ParametersPackage extends EPackage {
 	int INFO__ICON = 3;
 
 	/**
-	 * The feature id for the '<em><b>Splash</b></em>' containment reference.
+	 * The feature id for the '<em><b>Splash</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1197,6 +1215,28 @@ public interface ParametersPackage extends EPackage {
 	EAttribute getApplication_Refid();
 
 	/**
+	 * Returns the meta object for the attribute '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Application#getVersion <em>Version</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Version</em>'.
+	 * @see at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Application#getVersion()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EAttribute getApplication_Version();
+
+	/**
+	 * Returns the meta object for the attribute '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Application#getToolkit <em>Toolkit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Toolkit</em>'.
+	 * @see at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Application#getToolkit()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EAttribute getApplication_Toolkit();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Application#getArguments <em>Arguments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1454,10 +1494,10 @@ public interface ParametersPackage extends EPackage {
 	EAttribute getInfo_Vendor();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Info#getIcon <em>Icon</em>}'.
+	 * Returns the meta object for the containment reference list '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Info#getIcon <em>Icon</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Icon</em>'.
+	 * @return the meta object for the containment reference list '<em>Icon</em>'.
 	 * @see at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Info#getIcon()
 	 * @see #getInfo()
 	 * @generated
@@ -1465,10 +1505,10 @@ public interface ParametersPackage extends EPackage {
 	EReference getInfo_Icon();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Info#getSplash <em>Splash</em>}'.
+	 * Returns the meta object for the containment reference list '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Info#getSplash <em>Splash</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Splash</em>'.
+	 * @return the meta object for the containment reference list '<em>Splash</em>'.
 	 * @see at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Info#getSplash()
 	 * @see #getInfo()
 	 * @generated
@@ -1920,6 +1960,22 @@ public interface ParametersPackage extends EPackage {
 		EAttribute APPLICATION__REFID = eINSTANCE.getApplication_Refid();
 
 		/**
+		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute APPLICATION__VERSION = eINSTANCE.getApplication_Version();
+
+		/**
+		 * The meta object literal for the '<em><b>Toolkit</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute APPLICATION__TOOLKIT = eINSTANCE.getApplication_Toolkit();
+
+		/**
 		 * The meta object literal for the '<em><b>Arguments</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2126,7 +2182,7 @@ public interface ParametersPackage extends EPackage {
 		EAttribute INFO__VENDOR = eINSTANCE.getInfo_Vendor();
 
 		/**
-		 * The meta object literal for the '<em><b>Icon</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Icon</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2134,7 +2190,7 @@ public interface ParametersPackage extends EPackage {
 		EReference INFO__ICON = eINSTANCE.getInfo_Icon();
 
 		/**
-		 * The meta object literal for the '<em><b>Splash</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Splash</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

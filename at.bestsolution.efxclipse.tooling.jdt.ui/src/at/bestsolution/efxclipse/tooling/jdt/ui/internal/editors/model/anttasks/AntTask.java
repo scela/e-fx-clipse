@@ -6,6 +6,8 @@
  */
 package at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks;
 
+import at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Param;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -20,6 +22,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.AntTask#getDeploy <em>Deploy</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.AntTask#getJar <em>Jar</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.AntTask#getSignjar <em>Signjar</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.AntTask#getBuildDirectory <em>Build Directory</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.AntTask#getManifestEntries <em>Manifest Entries</em>}</li>
  * </ul>
  * </p>
  *
@@ -131,5 +135,47 @@ public interface AntTask extends EObject {
 	 * @generated
 	 */
 	void setSignjar(SignJar value);
+
+	/**
+	 * Returns the value of the '<em><b>Build Directory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Build Directory</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Build Directory</em>' attribute.
+	 * @see #setBuildDirectory(String)
+	 * @see at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.AntTasksPackage#getAntTask_BuildDirectory()
+	 * @model
+	 * @generated
+	 */
+	String getBuildDirectory();
+
+	/**
+	 * Sets the value of the '{@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.AntTask#getBuildDirectory <em>Build Directory</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Build Directory</em>' attribute.
+	 * @see #getBuildDirectory()
+	 * @generated
+	 */
+	void setBuildDirectory(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Manifest Entries</b></em>' reference list.
+	 * The list contents are of type {@link at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.parameters.Param}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Manifest Entries</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Manifest Entries</em>' reference list.
+	 * @see at.bestsolution.efxclipse.tooling.jdt.ui.internal.editors.model.anttasks.AntTasksPackage#getAntTask_ManifestEntries()
+	 * @model
+	 * @generated
+	 */
+	EList<Param> getManifestEntries();
 
 } // AntTask
