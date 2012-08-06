@@ -18,10 +18,10 @@ import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 
-import at.bestsolution.efxclipse.runtime.di.IResourceProviderService;
-import at.bestsolution.efxclipse.runtime.di.IResourceService;
+import at.bestsolution.efxclipse.runtime.di.ResourceProviderService;
+import at.bestsolution.efxclipse.runtime.di.ResourceService;
 
-public class ResourceServiceImpl implements IResourceService {
+public class ResourceServiceImpl implements ResourceService {
 	static class PooledResource<T> implements IPooledResource<T> {
 		private int count;
 		private T resource;
@@ -59,7 +59,7 @@ public class ResourceServiceImpl implements IResourceService {
 		private List<IPooledResource<Image>> pooledImages = new ArrayList<IPooledResource<Image>>();
 
 		@Inject
-		public ResourcePool(IResourceService resourceService) {
+		public ResourcePool(ResourceService resourceService) {
 			this.resourceService = (ResourceServiceImpl) resourceService;
 		}
 
@@ -130,7 +130,7 @@ public class ResourceServiceImpl implements IResourceService {
 	
 	@SuppressWarnings("unchecked")
 	private <R> R lookupResource(String key) {
-		IResourceProviderService provider = lookupOSGI(key);
+		ResourceProviderService provider = lookupOSGI(key);
 		if (provider != null) {
 			return (R) provider.getImage(key);
 		}
@@ -139,13 +139,13 @@ public class ResourceServiceImpl implements IResourceService {
 				+ "'.");
 	}
 
-	private IResourceProviderService lookupOSGI(String key) {
+	private ResourceProviderService lookupOSGI(String key) {
 		try {
-			Collection<ServiceReference<IResourceProviderService>> refs = context
-					.getServiceReferences(IResourceProviderService.class, "("
+			Collection<ServiceReference<ResourceProviderService>> refs = context
+					.getServiceReferences(ResourceProviderService.class, "("
 							+ key + "=*)");
 			if (!refs.isEmpty()) {
-				ServiceReference<IResourceProviderService> ref = refs
+				ServiceReference<ResourceProviderService> ref = refs
 						.iterator().next();
 				return context.getService(ref);
 			}

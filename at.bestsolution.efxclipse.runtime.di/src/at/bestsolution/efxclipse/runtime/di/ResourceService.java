@@ -12,14 +12,14 @@ package at.bestsolution.efxclipse.runtime.di;
 
 import javafx.scene.image.Image;
 
-public interface IResourceService {
+public interface ResourceService {
 	public interface IPooledResource<T> {
 		public T getResource();
 		public String getId();
 		public void dispose();
 	}
 	
-	public interface IDiposeableResourcePool extends IResourcePool {
+	public interface IDiposeableResourcePool extends ResourcePool {
 		public void dispose();
 	}
 	
