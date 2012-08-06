@@ -2,14 +2,21 @@ package at.bestsolution.efxclipse.runtime.panels;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 
 public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 
+	public enum Type {
+		VERTICAL,
+		HORIZONTAL
+	}
+	
 	/**
 	 * type specifies whether the layout places controls in rows or columns.
 	 * 
@@ -23,7 +30,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 	 * 
 	 * @since 2.0
 	 */
-	public IntegerProperty type = new SimpleIntegerProperty(this, "type", FX_HORIZONTAL);
+	public ObjectProperty<Type> type = new SimpleObjectProperty<Type>(this, "type", Type.HORIZONTAL);
 
 	/**
 	 * marginWidth specifies the number of pixels of horizontal margin that will
@@ -135,7 +142,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 	@Override
 	protected at.bestsolution.efxclipse.runtime.panels.AbstractLayoutPane.Size computeSize(double wHint, double hHint, boolean flushCache) {
 		Size extent;
-		if (type.get() == FX_HORIZONTAL) {
+		if (type.get() == Type.HORIZONTAL) {
 			extent = layoutHorizontal(false, (wHint != FX_DEFAULT) && wrap.get(), wHint, flushCache);
 		} else {
 			extent = layoutVertical(false, (hHint != FX_DEFAULT) && wrap.get(), hHint, flushCache);
@@ -166,7 +173,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 	protected void layoutChildren() {
 		super.layoutChildren();
 		Bounds clientArea = getLayoutBounds();
-		if (type.get() == FX_HORIZONTAL) {
+		if (type.get() == Type.HORIZONTAL) {
 			layoutHorizontal(true, wrap.get(), clientArea.getWidth(), true);
 		} else {
 			layoutVertical(true, wrap.get(), clientArea.getHeight(), true);
@@ -596,4 +603,16 @@ public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 		return wrap;
 	}
 
+	// ----
+	public void setType(Type value) {
+		type.set(value);
+	}
+
+	public Type getType() {
+		return type.get();
+	}
+
+	public ObjectProperty<Type> typeProperty() {
+		return type;
+	}
 }
