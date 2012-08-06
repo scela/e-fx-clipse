@@ -49,3 +49,4 @@ Import-Package: javafx.animation;version="2.0.0",
  javafx.util;version="2.0.0"
 Bundle-ActivationPolicy: lazy
 Export-Package: at.bestsolution.efxclipse.tooling.modeleditor
+Service-Component: OSGI-INF/resource.xml

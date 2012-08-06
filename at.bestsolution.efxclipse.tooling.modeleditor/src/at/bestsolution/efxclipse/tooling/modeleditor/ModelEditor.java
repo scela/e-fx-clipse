@@ -47,6 +47,7 @@ import at.bestsolution.efxclipse.runtime.databinding.TreeUtil.ObservableFactory;
 import at.bestsolution.efxclipse.runtime.di.FXMLBuilder;
 import at.bestsolution.efxclipse.runtime.di.FXMLLoader;
 import at.bestsolution.efxclipse.runtime.di.FXMLLoaderFactory;
+import at.bestsolution.efxclipse.runtime.di.ResourcePool;
 
 @SuppressWarnings("restriction")
 public class ModelEditor {
@@ -59,9 +60,11 @@ public class ModelEditor {
 	private FXMLLoaderFactory factory;
 	
 	@PostConstruct
-	public void create(BorderPane parent, @Named("rootElement") MApplication application, IEclipseContext context, @FXMLLoader FXMLLoaderFactory factory) {
+	public void create(BorderPane parent, @Named("rootElement") MApplication application, IEclipseContext context, @FXMLLoader FXMLLoaderFactory factory, ResourcePool pool) {
 		this.context = context;
 		this.factory = factory;
+
+		System.err.println("=============> " + pool);
 		
 		SplitPane pane = new SplitPane();
 		

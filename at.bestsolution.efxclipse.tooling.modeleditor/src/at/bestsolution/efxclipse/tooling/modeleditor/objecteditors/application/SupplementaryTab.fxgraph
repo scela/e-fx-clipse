@@ -54,6 +54,7 @@ component SupplementaryTab controlledby at.bestsolution.efxclipse.tooling.modele
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_up.png"
 						}
 					},
+					alignment : "CENTER_LEFT",
 					static constraint : GridData {
 						horizontalAlignment : "FILL"
 					},
@@ -66,6 +67,7 @@ component SupplementaryTab controlledby at.bestsolution.efxclipse.tooling.modele
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_down.png" 
 						}
 					},
+					alignment : "CENTER_LEFT",
 					static constraint : GridData {
 						horizontalAlignment : "FILL"
 					},
@@ -78,6 +80,7 @@ component SupplementaryTab controlledby at.bestsolution.efxclipse.tooling.modele
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_delete.png"
 						}
 					},
+					alignment : "CENTER_LEFT",
 					static constraint : GridData {
 						horizontalAlignment : "FILL"
 					},
@@ -115,6 +118,7 @@ component SupplementaryTab controlledby at.bestsolution.efxclipse.tooling.modele
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_up.png"
 						}
 					},
+					alignment : "CENTER_LEFT",
 					static constraint : GridData {
 						horizontalAlignment : "FILL"
 					},
@@ -127,6 +131,7 @@ component SupplementaryTab controlledby at.bestsolution.efxclipse.tooling.modele
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_down.png" 
 						}
 					},
+					alignment : "CENTER_LEFT",
 					static constraint : GridData {
 						horizontalAlignment : "FILL"
 					},
@@ -139,6 +144,7 @@ component SupplementaryTab controlledby at.bestsolution.efxclipse.tooling.modele
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_delete.png"
 						}
 					},
+					alignment : "CENTER_LEFT",
 					static constraint : GridData {
 						horizontalAlignment : "FILL"
 					},

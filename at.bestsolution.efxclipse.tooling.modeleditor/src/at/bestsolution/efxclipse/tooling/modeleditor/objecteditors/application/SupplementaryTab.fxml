@@ -25,7 +25,7 @@
 	<ListView GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.hgrow="ALWAYS"/> 
 	<AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2"> 
 		<GridLayoutPane AnchorPane.bottomAnchor="1.0"> 
-			<Button text="Up" onAction="#onVariableUp"> 
+			<Button text="Up" alignment="CENTER_LEFT" onAction="#onVariableUp"> 
 				<graphic>
 					<ImageView> 
 						<image>
@@ -37,7 +37,7 @@
 					<GridData horizontalAlignment="FILL"/> 
 				</GridLayoutPane.constraint>
 			</Button>
-			<Button text="Down" onAction="#onVariableDown"> 
+			<Button text="Down" alignment="CENTER_LEFT" onAction="#onVariableDown"> 
 				<graphic>
 					<ImageView> 
 						<image>
@@ -49,7 +49,7 @@
 					<GridData horizontalAlignment="FILL"/> 
 				</GridLayoutPane.constraint>
 			</Button>
-			<Button text="Remove" onAction="#onVariableRemove"> 
+			<Button text="Remove" alignment="CENTER_LEFT" onAction="#onVariableRemove"> 
 				<graphic>
 					<ImageView> 
 						<image>
@@ -69,7 +69,7 @@
 	<ListView GridPane.columnIndex="1" GridPane.rowIndex="4"/> 
 	<AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="4"> 
 		<GridLayoutPane AnchorPane.bottomAnchor="1.0"> 
-			<Button text="Up" onAction="#onTagUp"> 
+			<Button text="Up" alignment="CENTER_LEFT" onAction="#onTagUp"> 
 				<graphic>
 					<ImageView> 
 						<image>
@@ -81,7 +81,7 @@
 					<GridData horizontalAlignment="FILL"/> 
 				</GridLayoutPane.constraint>
 			</Button>
-			<Button text="Down" onAction="#onTagDown"> 
+			<Button text="Down" alignment="CENTER_LEFT" onAction="#onTagDown"> 
 				<graphic>
 					<ImageView> 
 						<image>
@@ -93,7 +93,7 @@
 					<GridData horizontalAlignment="FILL"/> 
 				</GridLayoutPane.constraint>
 			</Button>
-			<Button text="Remove" onAction="#onTagRemove"> 
+			<Button text="Remove" alignment="CENTER_LEFT" onAction="#onTagRemove"> 
 				<graphic>
 					<ImageView> 
 						<image>
