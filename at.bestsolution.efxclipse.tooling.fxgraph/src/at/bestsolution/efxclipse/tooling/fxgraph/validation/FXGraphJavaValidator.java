@@ -8,27 +8,43 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.xtext.common.types.JvmTypeReference;
 import org.eclipse.xtext.common.types.access.IJvmTypeProvider;
+import org.eclipse.xtext.common.types.access.jdt.IJavaProjectProvider;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.validation.Check;
 
 import at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.ComponentDefinition;
+import at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.Element;
 import at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.FXGraphPackage;
 import at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.Import;
 import at.bestsolution.efxclipse.tooling.fxgraph.fXGraph.Model;
+import at.bestsolution.efxclipse.tooling.model.FXPlugin;
+import at.bestsolution.efxclipse.tooling.model.IFXCtrlClass;
+import at.bestsolution.efxclipse.tooling.model.IFXCtrlField;
+import at.bestsolution.efxclipse.tooling.model.Util;
 import at.bestsolution.efxclipse.tooling.ui.util.RelativeFileLocator;
 
 import com.google.inject.Inject;
  
 @SuppressWarnings("restriction")
 public class FXGraphJavaValidator extends AbstractFXGraphJavaValidator {
+	public static final String UNKNOWN_CONTROLLER_FIELD = "FXGraphJavaValidator.UNKNOWN_CONTROLLER_FIELD";
+	public static final String CONTROLLER_FIELD_NOT_ASSIGNABLE = "FXGraphJavaValidator.CONTROLLER_FIELD_NOT_ASSIGNABLE";
+	
 	@Inject
 	private IJvmTypeProvider.Factory jdtTypeProvider;
 
 	@Inject
 	private IScopeProvider scopeProvider;
+	
+	@Inject
+	private IJavaProjectProvider projectProvider;
 	
 //	@Inject
 //	private IXtextEObjectSearch
@@ -92,6 +108,36 @@ public class FXGraphJavaValidator extends AbstractFXGraphJavaValidator {
 		}
 	}
 	
+	@Check
+	public void validate(Element element) {
+		JvmTypeReference controller = ((Model)element.eResource().getContents().get(0)).getComponentDef().getController();
+		if( controller != null && element.getName() != null ) {
+			IJavaProject javaProject = projectProvider.getJavaProject(element.eResource().getResourceSet());
+			
+			try {
+				IType type = javaProject.findType(controller.getQualifiedName());
+				IFXCtrlClass fxClazz = FXPlugin.getClassmodel().findCtrlClass(javaProject, type);
+				if( fxClazz != null ) {
+					IFXCtrlField f = fxClazz.getAllFields().get(element.getName());
+					if( f == null ) {
+						warning("The controller '"+type.getElementName()+"' has no field '"+element.getName()+"'", FXGraphPackage.Literals.ELEMENT__NAME, UNKNOWN_CONTROLLER_FIELD, element.getName(), controller.getQualifiedName(), element.getType().getQualifiedName());
+					} else {
+						IType fromType = javaProject.findType(element.getType().getQualifiedName());
+						IType toType = f.getType();
+						if( ! Util.assignable(fromType, toType) ) {
+							error("The type '"+fromType.getElementName()+"' is not assignable to the controller fields type '"+toType.getElementName()+"'", FXGraphPackage.Literals.ELEMENT__NAME, CONTROLLER_FIELD_NOT_ASSIGNABLE, element.getName(), controller.getQualifiedName(), element.getType().getQualifiedName());
+						}
+					}
+				}
+			} catch (JavaModelException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//			System.err.println("We have a controller");
+			
+		}
+		
+	}
 	
 	@Check
 	public void validateImport(Import importDef) {

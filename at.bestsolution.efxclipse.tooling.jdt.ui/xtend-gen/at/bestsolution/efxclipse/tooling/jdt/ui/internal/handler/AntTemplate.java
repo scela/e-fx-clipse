@@ -914,10 +914,15 @@ public class AntTemplate {
           _builder.append("\t");
           _builder.append("<fx:resources refid=\"appRes\"/>");
           _builder.newLine();
-          _builder.append("\t");
-          _builder.append("\t");
-          _builder.append("<fx:permissions elevated=\"true\"/>");
-          _builder.newLine();
+          {
+            boolean _notEquals_18 = (!Objects.equal(keyStore, null));
+            if (_notEquals_18) {
+              _builder.append("\t");
+              _builder.append("\t");
+              _builder.append("<fx:permissions elevated=\"true\"/>");
+              _builder.newLine();
+            }
+          }
           _builder.append("\t");
           _builder.append("</fx:deploy>");
           _builder.newLine();

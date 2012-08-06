@@ -8,11 +8,11 @@ import javax.inject.Named;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.MApplicationElement;
 import org.eclipse.e4.ui.model.application.ui.MContext;
-import org.eclipse.e4.ui.model.application.ui.MElementContainer;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPlaceholder;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
@@ -33,13 +33,14 @@ public class PartRenderingEngine2 implements IPresentationEngine {
 
 	private final RendererFactory factory;
 	
-	private final EModelService modelService; 
+	private final EModelService modelService;
 	
 	@Inject
 	public PartRenderingEngine2(
 			@Named(E4Workbench.RENDERER_FACTORY_URI) @Optional String factoryUrl,
 			IEclipseContext context,
-			EModelService modelService) {
+			EModelService modelService,
+			IEventBroker eventBroker) {
 		if( factoryUrl == null ) {
 			factoryUrl = defaultFactoryUrl;
 		}
@@ -67,8 +68,8 @@ public class PartRenderingEngine2 implements IPresentationEngine {
 			r.processContent(element);
 			r.postProcess(element);
 			
-			if (element.getParent() instanceof MUIElement) {
-				MElementContainer<MUIElement> parentElement = element.getParent();
+			if (((EObject)element).eContainer() instanceof MUIElement) {
+				MUIElement parentElement = (MUIElement) ((EObject)element).eContainer();
 				AbstractRenderer<MUIElement, Object> parentRenderer = getRendererFor(parentElement);
 				if (parentRenderer != null) {
 					parentRenderer.childRendered(parentElement, element);
@@ -91,7 +92,6 @@ public class PartRenderingEngine2 implements IPresentationEngine {
 	
 	private Object createWidget(MUIElement element, Object parent) {
 		AbstractRenderer<MUIElement,Object> renderer = getRenderer(element, parent);
-		System.err.println("Renderer: " + renderer);
 		if (renderer != null) {
 			// Remember which renderer is responsible for this widget
 			element.setRenderer(renderer);
@@ -110,8 +110,8 @@ public class PartRenderingEngine2 implements IPresentationEngine {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected AbstractRenderer<MUIElement,Object> getRendererFor(MUIElement element) {
-		return (AbstractRenderer<MUIElement,Object>) element.getRenderer();
+	protected <R extends AbstractRenderer<? extends M,Object>, M extends MUIElement> R getRendererFor(MUIElement element) {
+		return (R) element.getRenderer();
 	}
 	
 	private IEclipseContext createContext(MContext model, IEclipseContext parentContext) {

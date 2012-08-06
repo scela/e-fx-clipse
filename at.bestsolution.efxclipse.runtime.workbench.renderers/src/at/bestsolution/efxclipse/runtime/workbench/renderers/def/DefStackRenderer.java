@@ -1,13 +1,19 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.def;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 import javax.annotation.PostConstruct;
@@ -29,10 +35,59 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 
 	
 	public static class StackWidgetImpl extends WLayoutedWidgetImpl<TabPane, TabPane, MPartStack> implements WStack<TabPane, Tab> {
-
+		
+		private Callback<WStackItem<Tab>, Void> mouseSelectedItemCallback;
+		private Callback<WStackItem<Tab>, Void> keySelectedItemCallback;
+		private boolean inKeyTraversal;
+		
+		public void setMouseSelectedItemCallback(Callback<WStackItem<Tab>, Void> mouseSelectedItemCallback) {
+			this.mouseSelectedItemCallback = mouseSelectedItemCallback;
+		}
+		
+		public void setKeySelectedItemCallback(Callback<WStackItem<Tab>, Void> keySelectedItemCallback) {
+			this.keySelectedItemCallback = keySelectedItemCallback;
+		}
+		
+		@Override
+		public int indexOf(WStackItem<Tab> item) {
+			return getWidget().getTabs().indexOf(item.getNativeItem());
+		}
+		
 		@Override
 		protected TabPane createWidget() {
 			TabPane p = new TabPane();
+			p.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					inKeyTraversal = true;
+				}
+				
+			});
+			p.addEventFilter(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
+
+				@Override
+				public void handle(KeyEvent event) {
+					inKeyTraversal = false;
+				}
+				
+			});
+
+			p.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+
+				@Override
+				public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
+					if( inKeyTraversal ) {
+						if( keySelectedItemCallback != null ) {
+							keySelectedItemCallback.call((WStackItem<Tab>) newValue.getUserData());
+						}
+					} else {
+						if( mouseSelectedItemCallback != null ) {
+							mouseSelectedItemCallback.call((WStackItem<Tab>) newValue.getUserData());
+						}
+					}
+				}
+			});
 			return p;
 		}
 
@@ -48,7 +103,7 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 		
 		@Override
 		public void addItem(WStackItem<Tab> item) {
-			getWidget().getTabs().add(item.getNativeItem());
+			addItems(Collections.singletonList(item));
 		}
 		
 		@Override
@@ -68,6 +123,11 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 			}
 			return tabs;
 		}
+		
+		@Override
+		public void selectItem(int idx) {
+			getWidget().getSelectionModel().select(idx);
+		}
 	}
 	
 	public static class StackItemImpl implements WStackItem<Tab> {
@@ -83,6 +143,7 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 			if( tab == null ) {
 				tab = createWidget();
 			}
+			tab.setUserData(this);
 			return tab;
 		}
 		
@@ -92,13 +153,22 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 				
 				@Override
 				public void handle(Event event) {
-					if( t.isSelected() && initCallback != null ) {
-						t.setContent(initCallback.call(StackItemImpl.this));
-					}
+					handleSelection();
 				}
 			});
 			return t;
 		}
+		
+		void handleSelection() {
+			if( tab.isSelected() ) {
+				if( initCallback != null ) {
+					tab.setContent(initCallback.call(this));
+					initCallback = null;	
+				}
+			}
+			
+		}
+		
 		
 		public void setInitCallback(Callback<WStackItem<Tab>, Node> initCallback) {
 			this.initCallback = initCallback;

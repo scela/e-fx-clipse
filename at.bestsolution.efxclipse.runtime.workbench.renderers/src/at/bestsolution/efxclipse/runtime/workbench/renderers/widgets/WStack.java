@@ -19,4 +19,9 @@ public interface WStack<N,I> extends WWidget<MPartStack> {
 	public void addItem(WStackItem<I> item);
 	public void addItems(List<WStackItem<I>> items);
 	public void addItems(int index, List<WStackItem<I>> items);
+	public void selectItem(int idx);
+	public int indexOf(WStackItem<I> item);
+	
+	public void setMouseSelectedItemCallback(Callback<WStackItem<I>, Void> selectedItemCallback);
+	public void setKeySelectedItemCallback(Callback<WStackItem<I>, Void> selectedItemCallback);
 }
