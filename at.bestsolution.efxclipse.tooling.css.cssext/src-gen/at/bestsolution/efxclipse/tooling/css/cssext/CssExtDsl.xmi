@@ -240,11 +240,17 @@
           <elements xsi:type="xtext:RuleCall" cardinality="*" rule="/1/@rules.5"/>
           <elements xsi:type="xtext:Keyword" value=")"/>
         </elements>
-        <elements xsi:type="xtext:Assignment" feature="type" operator="=">
-          <terminal xsi:type="xtext:Keyword" value="int"/>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="int"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="*" rule="/1/@rules.5"/>
         </elements>
-        <elements xsi:type="xtext:Assignment" feature="type" operator="=">
-          <terminal xsi:type="xtext:Keyword" value="double"/>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Assignment" feature="type" operator="=">
+            <terminal xsi:type="xtext:Keyword" value="double"/>
+          </elements>
+          <elements xsi:type="xtext:RuleCall" cardinality="*" rule="/1/@rules.5"/>
         </elements>
       </alternatives>
     </rules>

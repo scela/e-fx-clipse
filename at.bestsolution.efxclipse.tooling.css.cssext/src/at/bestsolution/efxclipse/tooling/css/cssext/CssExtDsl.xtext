@@ -56,8 +56,8 @@ CSSBaseType returns CSSRule hidden(WS, SL_COMMENT, ML_COMMENT):
 CSSType returns CSSRule hidden(SL_COMMENT, ML_COMMENT):
 	{CSSRangedIntType} type='int' '(' WS* from=INT WS* '->' WS* to=INT WS* ')' |
 	{CSSRangedDoubleType} type='double' '(' WS* from=DOUBLE WS* '->' WS* to=DOUBLE WS* ')' |
-	type='int' |
-	type='double'
+	type='int' WS*|
+	type='double' WS*
 ;
 
 //CSSRangedType returns CSSRule hidden(SL_COMMENT, ML_COMMENT):

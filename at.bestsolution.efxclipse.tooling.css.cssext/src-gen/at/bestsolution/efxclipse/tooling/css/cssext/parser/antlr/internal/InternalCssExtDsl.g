@@ -665,11 +665,11 @@ ruleCSSType returns [EObject current=null]
     	newLeafNode(otherlv_21, grammarAccess.getCSSTypeAccess().getRightParenthesisKeyword_1_10());
     }
 )
-    |(
+    |((
 (
 		lv_type_22_0=	'int' 
     {
-        newLeafNode(lv_type_22_0, grammarAccess.getCSSTypeAccess().getTypeIntKeyword_2_0());
+        newLeafNode(lv_type_22_0, grammarAccess.getCSSTypeAccess().getTypeIntKeyword_2_0_0());
     }
  
 	    {
@@ -680,23 +680,31 @@ ruleCSSType returns [EObject current=null]
 	    }
 
 )
-)
-    |(
+)(this_WS_23=RULE_WS
+    { 
+    newLeafNode(this_WS_23, grammarAccess.getCSSTypeAccess().getWSTerminalRuleCall_2_1()); 
+    }
+)*)
+    |((
 (
-		lv_type_23_0=	'double' 
+		lv_type_24_0=	'double' 
     {
-        newLeafNode(lv_type_23_0, grammarAccess.getCSSTypeAccess().getTypeDoubleKeyword_3_0());
+        newLeafNode(lv_type_24_0, grammarAccess.getCSSTypeAccess().getTypeDoubleKeyword_3_0_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getCSSTypeRule());
 	        }
-       		setWithLastConsumed($current, "type", lv_type_23_0, "double");
+       		setWithLastConsumed($current, "type", lv_type_24_0, "double");
 	    }
 
 )
-))
+)(this_WS_25=RULE_WS
+    { 
+    newLeafNode(this_WS_25, grammarAccess.getCSSTypeAccess().getWSTerminalRuleCall_3_1()); 
+    }
+)*))
 ;
 finally {
 	myHiddenTokenState.restore();

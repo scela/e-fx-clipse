@@ -928,15 +928,15 @@ rule__CSSType__Alternatives
 )
 
     |(
-{ before(grammarAccess.getCSSTypeAccess().getTypeAssignment_2()); }
-(rule__CSSType__TypeAssignment_2)
-{ after(grammarAccess.getCSSTypeAccess().getTypeAssignment_2()); }
+{ before(grammarAccess.getCSSTypeAccess().getGroup_2()); }
+(rule__CSSType__Group_2__0)
+{ after(grammarAccess.getCSSTypeAccess().getGroup_2()); }
 )
 
     |(
-{ before(grammarAccess.getCSSTypeAccess().getTypeAssignment_3()); }
-(rule__CSSType__TypeAssignment_3)
-{ after(grammarAccess.getCSSTypeAccess().getTypeAssignment_3()); }
+{ before(grammarAccess.getCSSTypeAccess().getGroup_3()); }
+(rule__CSSType__Group_3__0)
+{ after(grammarAccess.getCSSTypeAccess().getGroup_3()); }
 )
 
 ;
@@ -2334,6 +2334,128 @@ finally {
 
 
 
+
+
+
+
+
+
+rule__CSSType__Group_2__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__CSSType__Group_2__0__Impl
+	rule__CSSType__Group_2__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__CSSType__Group_2__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getCSSTypeAccess().getTypeAssignment_2_0()); }
+(rule__CSSType__TypeAssignment_2_0)
+{ after(grammarAccess.getCSSTypeAccess().getTypeAssignment_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__CSSType__Group_2__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__CSSType__Group_2__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__CSSType__Group_2__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getCSSTypeAccess().getWSTerminalRuleCall_2_1()); }
+(	RULE_WS)*
+{ after(grammarAccess.getCSSTypeAccess().getWSTerminalRuleCall_2_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+rule__CSSType__Group_3__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__CSSType__Group_3__0__Impl
+	rule__CSSType__Group_3__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__CSSType__Group_3__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getCSSTypeAccess().getTypeAssignment_3_0()); }
+(rule__CSSType__TypeAssignment_3_0)
+{ after(grammarAccess.getCSSTypeAccess().getTypeAssignment_3_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__CSSType__Group_3__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__CSSType__Group_3__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__CSSType__Group_3__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getCSSTypeAccess().getWSTerminalRuleCall_3_1()); }
+(	RULE_WS)*
+{ after(grammarAccess.getCSSTypeAccess().getWSTerminalRuleCall_3_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 
 
@@ -4824,22 +4946,22 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__CSSType__TypeAssignment_2
+rule__CSSType__TypeAssignment_2_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getCSSTypeAccess().getTypeIntKeyword_2_0()); }
+{ before(grammarAccess.getCSSTypeAccess().getTypeIntKeyword_2_0_0()); }
 (
-{ before(grammarAccess.getCSSTypeAccess().getTypeIntKeyword_2_0()); }
+{ before(grammarAccess.getCSSTypeAccess().getTypeIntKeyword_2_0_0()); }
 
 	'int' 
 
-{ after(grammarAccess.getCSSTypeAccess().getTypeIntKeyword_2_0()); }
+{ after(grammarAccess.getCSSTypeAccess().getTypeIntKeyword_2_0_0()); }
 )
 
-{ after(grammarAccess.getCSSTypeAccess().getTypeIntKeyword_2_0()); }
+{ after(grammarAccess.getCSSTypeAccess().getTypeIntKeyword_2_0_0()); }
 )
 
 ;
@@ -4847,22 +4969,22 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__CSSType__TypeAssignment_3
+rule__CSSType__TypeAssignment_3_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getCSSTypeAccess().getTypeDoubleKeyword_3_0()); }
+{ before(grammarAccess.getCSSTypeAccess().getTypeDoubleKeyword_3_0_0()); }
 (
-{ before(grammarAccess.getCSSTypeAccess().getTypeDoubleKeyword_3_0()); }
+{ before(grammarAccess.getCSSTypeAccess().getTypeDoubleKeyword_3_0_0()); }
 
 	'double' 
 
-{ after(grammarAccess.getCSSTypeAccess().getTypeDoubleKeyword_3_0()); }
+{ after(grammarAccess.getCSSTypeAccess().getTypeDoubleKeyword_3_0_0()); }
 )
 
-{ after(grammarAccess.getCSSTypeAccess().getTypeDoubleKeyword_3_0()); }
+{ after(grammarAccess.getCSSTypeAccess().getTypeDoubleKeyword_3_0_0()); }
 )
 
 ;

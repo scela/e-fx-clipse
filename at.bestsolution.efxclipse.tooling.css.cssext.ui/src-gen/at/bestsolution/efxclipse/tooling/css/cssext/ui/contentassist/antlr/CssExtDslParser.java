@@ -53,6 +53,8 @@ public class CssExtDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPackageDefinitionAccess().getGroup(), "rule__PackageDefinition__Group__0");
 					put(grammarAccess.getCSSTypeAccess().getGroup_0(), "rule__CSSType__Group_0__0");
 					put(grammarAccess.getCSSTypeAccess().getGroup_1(), "rule__CSSType__Group_1__0");
+					put(grammarAccess.getCSSTypeAccess().getGroup_2(), "rule__CSSType__Group_2__0");
+					put(grammarAccess.getCSSTypeAccess().getGroup_3(), "rule__CSSType__Group_3__0");
 					put(grammarAccess.getElementDefinitionAccess().getGroup(), "rule__ElementDefinition__Group__0");
 					put(grammarAccess.getElementDefinitionAccess().getGroup_3(), "rule__ElementDefinition__Group_3__0");
 					put(grammarAccess.getElementDefinitionAccess().getGroup_3_2(), "rule__ElementDefinition__Group_3_2__0");
@@ -92,8 +94,8 @@ public class CssExtDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCSSTypeAccess().getTypeAssignment_1_1(), "rule__CSSType__TypeAssignment_1_1");
 					put(grammarAccess.getCSSTypeAccess().getFromAssignment_1_4(), "rule__CSSType__FromAssignment_1_4");
 					put(grammarAccess.getCSSTypeAccess().getToAssignment_1_8(), "rule__CSSType__ToAssignment_1_8");
-					put(grammarAccess.getCSSTypeAccess().getTypeAssignment_2(), "rule__CSSType__TypeAssignment_2");
-					put(grammarAccess.getCSSTypeAccess().getTypeAssignment_3(), "rule__CSSType__TypeAssignment_3");
+					put(grammarAccess.getCSSTypeAccess().getTypeAssignment_2_0(), "rule__CSSType__TypeAssignment_2_0");
+					put(grammarAccess.getCSSTypeAccess().getTypeAssignment_3_0(), "rule__CSSType__TypeAssignment_3_0");
 					put(grammarAccess.getElementDefinitionAccess().getDokuAssignment_1(), "rule__ElementDefinition__DokuAssignment_1");
 					put(grammarAccess.getElementDefinitionAccess().getNameAssignment_2(), "rule__ElementDefinition__NameAssignment_2");
 					put(grammarAccess.getElementDefinitionAccess().getSuperAssignment_3_1(), "rule__ElementDefinition__SuperAssignment_3_1");
