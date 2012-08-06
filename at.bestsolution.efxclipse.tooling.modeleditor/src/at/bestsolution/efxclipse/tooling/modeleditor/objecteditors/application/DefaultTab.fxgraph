@@ -11,6 +11,8 @@ import javafx.scene.layout.AnchorPane
 import at.bestsolution.efxclipse.tooling.modeleditor.objecteditors.application.DefaultTabController
 import javafx.scene.image.ImageView
 import javafx.scene.image.Image
+import at.bestsolution.efxclipse.runtime.panels.GridLayoutPane
+import at.bestsolution.efxclipse.runtime.panels.GridData
 
 component DefaultTab controlledby DefaultTabController {
 	GridPane {
@@ -32,16 +34,20 @@ component DefaultTab controlledby DefaultTabController {
 		}, 
 		ListView id bindingContextsView {
 			static columnIndex : 1, 
-			static rowIndex : 2
+			static rowIndex : 2,
+			static hgrow : "ALWAYS"
 		},
 		AnchorPane {
-			VBox {
+			GridLayoutPane {
 				Button {
 					text : "Up",
 					graphic : ImageView {
 						image : Image {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_up.png"
 						}
+					},
+					static constraint : GridData {
+						horizontalAlignment : "FILL"
 					},
 					onAction : controllermethod onBindingUp
 				},
@@ -52,6 +58,9 @@ component DefaultTab controlledby DefaultTabController {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_down.png" 
 						}
 					},
+					static constraint : GridData {
+						horizontalAlignment : "FILL"
+					},
 					onAction : controllermethod onBindingDown
 				},
 				Button {
@@ -61,6 +70,9 @@ component DefaultTab controlledby DefaultTabController {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_add.png"
 						}
 					},
+					static constraint : GridData {
+						horizontalAlignment : "FILL"
+					},
 					onAction : controllermethod onBindingAdd
 				},
 				Button {
@@ -69,6 +81,9 @@ component DefaultTab controlledby DefaultTabController {
 						image : Image {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_delete.png"
 						}
+					},
+					static constraint : GridData {
+						horizontalAlignment : "FILL"
 					},
 					onAction : controllermethod onBindingRemove
 				},

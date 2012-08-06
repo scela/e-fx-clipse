@@ -1,6 +1,8 @@
 package at.bestsolution.efxclipse.tooling.modeleditor;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -112,7 +114,11 @@ public class ModelEditor {
 								setText(((EObject)item).eClass().getName());
 								String img = getImage((MApplicationElement) item);
 								if( img != null ) {
-									setGraphic(new ImageView(ModelEditor.class.getResource("icons/modelelements/"+ img).toExternalForm()));
+									System.err.println(img);
+									URL uri = ModelEditor.class.getResource("icons/modelelements/"+ img);
+									if( uri != null ) {
+										setGraphic(new ImageView(uri.toExternalForm()));	
+									}
 								} else {
 									setGraphic(null);
 								}

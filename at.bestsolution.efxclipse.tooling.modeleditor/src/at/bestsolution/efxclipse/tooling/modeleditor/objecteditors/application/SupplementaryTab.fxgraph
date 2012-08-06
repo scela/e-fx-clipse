@@ -11,6 +11,7 @@ import at.bestsolution.efxclipse.runtime.panels.GridLayoutPane
 import javafx.scene.image.ImageView
 import javafx.scene.image.Image
 import at.bestsolution.efxclipse.tooling.modeleditor.objecteditors.application.SupplementaryController
+import at.bestsolution.efxclipse.runtime.panels.GridData
 
 component SupplementaryTab controlledby at.bestsolution.efxclipse.tooling.modeleditor.objecteditors.application.SupplementaryTabController {
 	GridPane {
@@ -45,13 +46,16 @@ component SupplementaryTab controlledby at.bestsolution.efxclipse.tooling.modele
 			static hgrow : "ALWAYS"
 		},
 		AnchorPane {
-			VBox {
+			GridLayoutPane {
 				Button {
 					text : "Up",
 					graphic : ImageView {
 						image : Image {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_up.png"
 						}
+					},
+					static constraint : GridData {
+						horizontalAlignment : "FILL"
 					},
 					onAction : controllermethod onVariableUp
 				},
@@ -62,6 +66,9 @@ component SupplementaryTab controlledby at.bestsolution.efxclipse.tooling.modele
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_down.png" 
 						}
 					},
+					static constraint : GridData {
+						horizontalAlignment : "FILL"
+					},
 					onAction : controllermethod onVariableDown
 				},
 				Button {
@@ -70,6 +77,9 @@ component SupplementaryTab controlledby at.bestsolution.efxclipse.tooling.modele
 						image : Image {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_delete.png"
 						}
+					},
+					static constraint : GridData {
+						horizontalAlignment : "FILL"
 					},
 					onAction : controllermethod onVariableRemove
 				},
@@ -97,13 +107,16 @@ component SupplementaryTab controlledby at.bestsolution.efxclipse.tooling.modele
 			static rowIndex : 4
 		},
 		AnchorPane {
-			VBox {
+			GridLayoutPane {
 				Button {
 					text : "Up",
 					graphic : ImageView {
 						image : Image {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_up.png"
 						}
+					},
+					static constraint : GridData {
+						horizontalAlignment : "FILL"
 					},
 					onAction : controllermethod onTagUp
 				},
@@ -114,6 +127,9 @@ component SupplementaryTab controlledby at.bestsolution.efxclipse.tooling.modele
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/arrow_down.png" 
 						}
 					},
+					static constraint : GridData {
+						horizontalAlignment : "FILL"
+					},
 					onAction : controllermethod onTagDown
 				},
 				Button {
@@ -122,6 +138,9 @@ component SupplementaryTab controlledby at.bestsolution.efxclipse.tooling.modele
 						image : Image {
 							url : location "/at/bestsolution/efxclipse/tooling/modeleditor/icons/table_delete.png"
 						}
+					},
+					static constraint : GridData {
+						horizontalAlignment : "FILL"
 					},
 					onAction : controllermethod onTagRemove
 				},
