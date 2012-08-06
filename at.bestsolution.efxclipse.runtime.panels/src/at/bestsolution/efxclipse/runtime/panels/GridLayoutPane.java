@@ -12,6 +12,7 @@
 package at.bestsolution.efxclipse.runtime.panels;
 
 
+import at.bestsolution.efxclipse.runtime.panels.GridData.Alignment;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -331,7 +332,7 @@ public class GridLayoutPane extends AbstractLayoutPane<GridData> {
 								currentWidth += widths [j-k];
 							}
 							currentWidth += (hSpan - 1) * horizontalSpacing.get() - data.horizontalIndent.get();
-							if ((currentWidth != data.cacheWidth && data.horizontalAlignment.get() == FX_FILL) || (data.cacheWidth > currentWidth)) {
+							if ((currentWidth != data.cacheWidth && data.horizontalAlignment.get() == Alignment.FILL) || (data.cacheWidth > currentWidth)) {
 								int trim = 0;
 //FIXME								
 //								if (child instanceof Scrollable) {
@@ -523,34 +524,34 @@ public class GridLayoutPane extends AbstractLayoutPane<GridData> {
 						double childX = gridX + data.horizontalIndent.get();
 						double childWidth = Math.min (data.cacheWidth, cellWidth);
 						switch (data.horizontalAlignment.get()) {
-							case FX_CENTER:
-							case GridData.CENTER:
+							case CENTER:
 								childX += Math.max (0, (cellWidth - data.horizontalIndent.get() - childWidth) / 2);
 								break;
-							case FX_RIGHT:
-							case FX_END:
-							case GridData.END:
+							case END:
 								childX += Math.max (0, cellWidth - data.horizontalIndent.get() - childWidth);
 								break;
-							case FX_FILL:
+							case FILL:
 								childWidth = cellWidth - data.horizontalIndent.get();
+								break;
+							case BEGINNING:
+								// Nothing todo
 								break;
 						}
 						cellHeight += verticalSpacing.get() * (vSpan - 1);
 						double childY = gridY + data.verticalIndent.get();
 						double childHeight = Math.min (data.cacheHeight, cellHeight);
 						switch (data.verticalAlignment.get()) {
-							case FX_CENTER:
-							case GridData.CENTER:
+							case CENTER:
 								childY += Math.max (0, (cellHeight - data.verticalIndent.get() - childHeight) / 2);
 								break;
-							case FX_BOTTOM:
-							case FX_END:
-							case GridData.END:
+							case END:
 								childY += Math.max (0, cellHeight - data.verticalIndent.get() - childHeight);
 								break;
-							case FX_FILL:
+							case FILL:
 								childHeight = cellHeight - data.verticalIndent.get();
+								break;
+							case BEGINNING:
+								// Nothing todo
 								break;
 						}
 						Node child = grid [i][j];

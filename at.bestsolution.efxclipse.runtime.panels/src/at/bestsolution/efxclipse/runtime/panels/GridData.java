@@ -2,12 +2,21 @@ package at.bestsolution.efxclipse.runtime.panels;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import static at.bestsolution.efxclipse.runtime.panels.AbstractLayoutPane.*;
 
 public class GridData {
+	public enum Alignment {
+		BEGINNING,
+		CENTER,
+		END,
+		FILL
+	}
+	
 	/**
 	 * verticalAlignment specifies how controls will be positioned vertically
 	 * within a cell.
@@ -24,7 +33,7 @@ public class GridData {
 	 * <li>SWT.FILL: Resize the control to fill the cell vertically</li>
 	 * </ul>
 	 */
-	public IntegerProperty verticalAlignment = new SimpleIntegerProperty(this, "verticalAlignment", CENTER);
+	public ObjectProperty<Alignment> verticalAlignment = new SimpleObjectProperty<Alignment>(this, "verticalAlignment", Alignment.CENTER);
 
 	/**
 	 * horizontalAlignment specifies how controls will be positioned
@@ -43,7 +52,7 @@ public class GridData {
 	 * <li>SWT.FILL: Resize the control to fill the cell horizontally</li>
 	 * </ul>
 	 */
-	public IntegerProperty horizontalAlignment = new SimpleIntegerProperty(this, "horizontalAlignment", BEGINNING);
+	public ObjectProperty<Alignment> horizontalAlignment = new SimpleObjectProperty<Alignment>(this, "horizontalAlignment", Alignment.BEGINNING);
 
 	/**
 	 * widthHint specifies the preferred width in pixels. This value is the
@@ -213,34 +222,6 @@ public class GridData {
 	public BooleanProperty exclude = new SimpleBooleanProperty(this, "exclude", false);
 
 	/**
-	 * Value for horizontalAlignment or verticalAlignment. Position the control
-	 * at the top or left of the cell. Not recommended. Use SWT.BEGINNING,
-	 * SWT.TOP or SWT.LEFT instead.
-	 */
-	public static final int BEGINNING = FX_BEGINNING;
-
-	/**
-	 * Value for horizontalAlignment or verticalAlignment. Position the control
-	 * in the vertical or horizontal center of the cell Not recommended. Use
-	 * SWT.CENTER instead.
-	 */
-	public static final int CENTER = 2;
-
-	/**
-	 * Value for horizontalAlignment or verticalAlignment. Position the control
-	 * at the bottom or right of the cell Not recommended. Use SWT.END,
-	 * SWT.BOTTOM or SWT.RIGHT instead.
-	 */
-	public static final int END = 3;
-
-	/**
-	 * Value for horizontalAlignment or verticalAlignment. Resize the control to
-	 * fill the cell horizontally or vertically. Not recommended. Use SWT.FILL
-	 * instead.
-	 */
-	public static final int FILL = FX_FILL;
-
-	/**
 	 * Style bit for <code>new GridData(int)</code>. Position the control at the
 	 * top of the cell. Not recommended. Use
 	 * <code>new GridData(int, SWT.BEGINNING, boolean, boolean)</code> instead.
@@ -357,21 +338,21 @@ public class GridData {
 	public GridData(int style) {
 		super();
 		if ((style & VERTICAL_ALIGN_BEGINNING) != 0)
-			verticalAlignment.set(BEGINNING);
+			verticalAlignment.set(Alignment.BEGINNING);
 		if ((style & VERTICAL_ALIGN_CENTER) != 0)
-			verticalAlignment.set(CENTER);
+			verticalAlignment.set(Alignment.CENTER);
 		if ((style & VERTICAL_ALIGN_FILL) != 0)
-			verticalAlignment.set(FILL);
+			verticalAlignment.set(Alignment.FILL);
 		if ((style & VERTICAL_ALIGN_END) != 0)
-			verticalAlignment.set(END);
+			verticalAlignment.set(Alignment.END);
 		if ((style & HORIZONTAL_ALIGN_BEGINNING) != 0)
-			horizontalAlignment.set(BEGINNING);
+			horizontalAlignment.set(Alignment.BEGINNING);
 		if ((style & HORIZONTAL_ALIGN_CENTER) != 0)
-			horizontalAlignment.set(CENTER);
+			horizontalAlignment.set(Alignment.CENTER);
 		if ((style & HORIZONTAL_ALIGN_FILL) != 0)
-			horizontalAlignment.set(FILL);
+			horizontalAlignment.set(Alignment.FILL);
 		if ((style & HORIZONTAL_ALIGN_END) != 0)
-			horizontalAlignment.set(END);
+			horizontalAlignment.set(Alignment.END);
 		grabExcessHorizontalSpace.set((style & GRAB_HORIZONTAL) != 0);
 		grabExcessVerticalSpace.set((style & GRAB_VERTICAL) != 0);
 	}
@@ -396,7 +377,7 @@ public class GridData {
 	 * 
 	 * @since 3.0
 	 */
-	public GridData(int horizontalAlignment, int verticalAlignment, boolean grabExcessHorizontalSpace, boolean grabExcessVerticalSpace) {
+	public GridData(Alignment horizontalAlignment, Alignment verticalAlignment, boolean grabExcessHorizontalSpace, boolean grabExcessVerticalSpace) {
 		this(horizontalAlignment, verticalAlignment, grabExcessHorizontalSpace, grabExcessVerticalSpace, 1, 1);
 	}
 
@@ -424,7 +405,7 @@ public class GridData {
 	 * 
 	 * @since 3.0
 	 */
-	public GridData(int horizontalAlignment, int verticalAlignment, boolean grabExcessHorizontalSpace, boolean grabExcessVerticalSpace, int horizontalSpan, int verticalSpan) {
+	public GridData(Alignment horizontalAlignment, Alignment verticalAlignment, boolean grabExcessHorizontalSpace, boolean grabExcessVerticalSpace, int horizontalSpan, int verticalSpan) {
 		super();
 		this.horizontalAlignment.set(horizontalAlignment);
 		this.verticalAlignment.set(verticalAlignment);
@@ -545,15 +526,15 @@ public class GridData {
 	}
 
 	// ----
-	public void setHorizontalAlignment(int value) {
+	public void setHorizontalAlignment(Alignment value) {
 		horizontalAlignment.set(value);
 	}
 
-	public int getHorizontalAlignment() {
+	public Alignment getHorizontalAlignment() {
 		return horizontalAlignment.get();
 	}
 
-	public IntegerProperty horizontalAlignmentProperty() {
+	public ObjectProperty<Alignment> horizontalAlignmentProperty() {
 		return horizontalAlignment;
 	}
 
@@ -610,15 +591,15 @@ public class GridData {
 	}
 
 	// ----
-	public void setVerticalAlignment(int value) {
+	public void setVerticalAlignment(Alignment value) {
 		verticalAlignment.set(value);
 	}
 
-	public int getVerticalAlignment() {
+	public Alignment getVerticalAlignment() {
 		return verticalAlignment.get();
 	}
 
-	public IntegerProperty verticalAlignmentProperty() {
+	public ObjectProperty<Alignment> verticalAlignmentProperty() {
 		return verticalAlignment;
 	}
 	
@@ -670,26 +651,14 @@ public class GridData {
 	public String toString() {
 		String hAlign = "";
 		switch (horizontalAlignment.get()) {
-		case FX_FILL:
+		case FILL:
 			hAlign = "SWT.FILL";
 			break;
-		case FX_BEGINNING:
+		case BEGINNING:
 			hAlign = "SWT.BEGINNING";
-			break;
-		case FX_LEFT:
-			hAlign = "SWT.LEFT";
-			break;
-		case FX_END:
-			hAlign = "SWT.END";
 			break;
 		case END:
 			hAlign = "GridData.END";
-			break;
-		case FX_RIGHT:
-			hAlign = "SWT.RIGHT";
-			break;
-		case FX_CENTER:
-			hAlign = "SWT.CENTER";
 			break;
 		case CENTER:
 			hAlign = "GridData.CENTER";
@@ -700,29 +669,17 @@ public class GridData {
 		}
 		String vAlign = "";
 		switch (verticalAlignment.get()) {
-		case FX_FILL:
+		case FILL:
 			vAlign = "SWT.FILL";
 			break;
-		case FX_BEGINNING:
+		case BEGINNING:
 			vAlign = "SWT.BEGINNING";
 			break;
-		case FX_TOP:
-			vAlign = "SWT.TOP";
-			break;
-		case FX_END:
+		case END:
 			vAlign = "SWT.END";
 			break;
-		case END:
-			vAlign = "GridData.END";
-			break;
-		case FX_BOTTOM:
-			vAlign = "SWT.BOTTOM";
-			break;
-		case FX_CENTER:
-			vAlign = "SWT.CENTER";
-			break;
 		case CENTER:
-			vAlign = "GridData.CENTER";
+			vAlign = "SWT.CENTER";
 			break;
 		default:
 			vAlign = "Undefined " + verticalAlignment;
