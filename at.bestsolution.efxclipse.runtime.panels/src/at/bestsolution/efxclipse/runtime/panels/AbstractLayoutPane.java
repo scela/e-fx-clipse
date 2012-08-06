@@ -27,16 +27,6 @@ public abstract class AbstractLayoutPane<D> extends Pane {
 		}
 	}
 	
-	private WeakHashMap<Node, D> constraints = new WeakHashMap<Node, D>();
-	
-	public void setConstraint(Node n, D griddata) {
-		constraints.put(n, griddata);
-	}
-	
-	public D getConstraint(Node n) {
-		return constraints.get(n);
-	}
-	
 	protected abstract Size computeSize(double width, double height, boolean flushCache);
 	
 	@Override

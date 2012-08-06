@@ -11,6 +11,8 @@
  *******************************************************************************/
 package at.bestsolution.efxclipse.runtime.panels;
 
+import java.util.WeakHashMap;
+
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.WritableBooleanValue;
@@ -99,6 +101,16 @@ public class FillLayoutPane extends AbstractLayoutPane<FillLayoutPane.FillData> 
 			defaultWidth = defaultHeight = -1;
 			currentWidth = currentHeight = -1;
 		}
+	}
+
+	private static WeakHashMap<Node, FillData> CONSTRAINTS = new WeakHashMap<Node, FillData>();
+	
+	public static void setConstraint(Node n, FillData griddata) {
+		CONSTRAINTS.put(n, griddata);
+	}
+	
+	public static FillData getConstraint(Node n) {
+		return CONSTRAINTS.get(n);
 	}
 
 		

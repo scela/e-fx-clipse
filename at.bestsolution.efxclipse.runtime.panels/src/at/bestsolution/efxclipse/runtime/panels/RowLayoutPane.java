@@ -1,5 +1,7 @@
 package at.bestsolution.efxclipse.runtime.panels;
 
+import java.util.WeakHashMap;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -139,6 +141,16 @@ public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 	 */
 	public IntegerProperty marginBottom = new SimpleIntegerProperty(this, "marginBottom", 3);
 
+	private static WeakHashMap<Node, RowData> CONSTRAINTS = new WeakHashMap<Node, RowData>();
+	
+	public static void setConstraint(Node n, RowData griddata) {
+		CONSTRAINTS.put(n, griddata);
+	}
+	
+	public static RowData getConstraint(Node n) {
+		return CONSTRAINTS.get(n);
+	}
+	
 	@Override
 	protected at.bestsolution.efxclipse.runtime.panels.AbstractLayoutPane.Size computeSize(double wHint, double hHint, boolean flushCache) {
 		Size extent;

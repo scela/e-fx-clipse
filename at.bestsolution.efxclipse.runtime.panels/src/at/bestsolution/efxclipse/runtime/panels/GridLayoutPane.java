@@ -12,6 +12,8 @@
 package at.bestsolution.efxclipse.runtime.panels;
 
 
+import java.util.WeakHashMap;
+
 import at.bestsolution.efxclipse.runtime.panels.GridData.Alignment;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -35,6 +37,16 @@ public class GridLayoutPane extends AbstractLayoutPane<GridData> {
 	
 	private IntegerProperty horizontalSpacing = new SimpleIntegerProperty(this, "horizontalSpacing", 5);
 	private IntegerProperty verticalSpacing = new SimpleIntegerProperty(this, "verticalSpacing", 5);
+	
+	private static WeakHashMap<Node, GridData> CONSTRAINTS = new WeakHashMap<Node, GridData>();
+	
+	public static void setConstraint(Node n, GridData griddata) {
+		CONSTRAINTS.put(n, griddata);
+	}
+	
+	public static GridData getConstraint(Node n) {
+		return CONSTRAINTS.get(n);
+	}
 	
 	@Override
 	protected at.bestsolution.efxclipse.runtime.panels.AbstractLayoutPane.Size computeSize(
@@ -728,18 +740,5 @@ public class GridLayoutPane extends AbstractLayoutPane<GridData> {
 	
 	public IntegerProperty getVerticalSpacingProperty() {
 		return verticalSpacing;
-	}
-	
-	public static void setLayoutData(Node n, GridData data) {
-		if( n.getParent() instanceof GridLayoutPane ) {
-			((GridLayoutPane)n.getParent()).setConstraint(n, data);
-		}
-	}
-	
-	public static GridData getLayoutData(Node n) {
-		if( n.getParent() instanceof GridLayoutPane ) {
-			return ((GridLayoutPane)n.getParent()).getConstraint(n);
-		}
-		return null;
 	}
 }
