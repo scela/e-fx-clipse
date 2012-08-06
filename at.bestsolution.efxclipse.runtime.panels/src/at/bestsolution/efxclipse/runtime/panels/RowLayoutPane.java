@@ -1,94 +1,15 @@
 package at.bestsolution.efxclipse.runtime.panels;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 
-public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
-	public static class RowData {
-		/**
-		 * width specifies the desired width in pixels. This value is the wHint
-		 * passed into Control.computeSize(int, int, boolean) to determine the
-		 * preferred size of the control.
-		 * 
-		 * The default value is SWT.DEFAULT.
-		 * 
-		 * @see org.eclipse.swt.widgets.Control#computeSize(int, int, boolean)
-		 */
-		public int width = FX_DEFAULT;
-		/**
-		 * height specifies the preferred height in pixels. This value is the
-		 * hHint passed into Control.computeSize(int, int, boolean) to determine
-		 * the preferred size of the control.
-		 * 
-		 * The default value is SWT.DEFAULT.
-		 * 
-		 * @see org.eclipse.swt.widgets.Control#computeSize(int, int, boolean)
-		 */
-		public int height = FX_DEFAULT;
-
-		/**
-		 * exclude informs the layout to ignore this control when sizing and
-		 * positioning controls. If this value is <code>true</code>, the size
-		 * and position of the control will not be managed by the layout. If
-		 * this value is <code>false</code>, the size and position of the
-		 * control will be computed and assigned.
-		 * 
-		 * The default value is <code>false</code>.
-		 * 
-		 * @since 3.1
-		 */
-		public boolean exclude = false;
-
-		/**
-		 * Constructs a new instance of RowData using default values.
-		 */
-		public RowData() {
-		}
-
-		/**
-		 * Constructs a new instance of RowData according to the parameters. A
-		 * value of SWT.DEFAULT indicates that no minimum width or no minimum
-		 * height is specified.
-		 * 
-		 * @param width
-		 *            a minimum width for the control
-		 * @param height
-		 *            a minimum height for the control
-		 */
-		public RowData(int width, int height) {
-			this.width = width;
-			this.height = height;
-		}
-
-		String getName() {
-			String string = getClass().getName();
-			int index = string.lastIndexOf('.');
-			if (index == -1)
-				return string;
-			return string.substring(index + 1, string.length());
-		}
-
-		/**
-		 * Returns a string containing a concise, human-readable description of
-		 * the receiver.
-		 * 
-		 * @return a string representation of the RowData object
-		 */
-		public String toString() {
-			String string = getName() + " {";
-			if (width != FX_DEFAULT)
-				string += "width=" + width + " ";
-			if (height != FX_DEFAULT)
-				string += "height=" + height + " ";
-			if (exclude)
-				string += "exclude=" + exclude + " ";
-			string = string.trim();
-			string += "}";
-			return string;
-		}
-	}
-
+public class RowLayoutPane extends AbstractLayoutPane<RowData> {
+	
 	/**
 	 * type specifies whether the layout places controls in rows or columns.
 	 * 
@@ -102,7 +23,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	 * 
 	 * @since 2.0
 	 */
-	public int type = FX_HORIZONTAL;
+	public IntegerProperty type = new SimpleIntegerProperty(this, "type", FX_HORIZONTAL);
 
 	/**
 	 * marginWidth specifies the number of pixels of horizontal margin that will
@@ -112,7 +33,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	 * 
 	 * @since 3.0
 	 */
-	public int marginWidth = 0;
+	public IntegerProperty marginWidth = new SimpleIntegerProperty(this, "marginWidth", 0);
 
 	/**
 	 * marginHeight specifies the number of pixels of vertical margin that will
@@ -122,7 +43,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	 * 
 	 * @since 3.0
 	 */
-	public int marginHeight = 0;
+	public IntegerProperty marginHeight = new SimpleIntegerProperty(this, "marginHeight", 0);
 
 	/**
 	 * spacing specifies the number of pixels between the edge of one cell and
@@ -130,7 +51,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	 * 
 	 * The default value is 3.
 	 */
-	public int spacing = 3;
+	public IntegerProperty spacing = new SimpleIntegerProperty(this, "spacing", 3);
 
 	/**
 	 * wrap specifies whether a control will be wrapped to the next row if there
@@ -138,7 +59,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	 * 
 	 * The default value is true.
 	 */
-	public boolean wrap = true;
+	public BooleanProperty wrap = new SimpleBooleanProperty(this, "wrap", true);
 
 	/**
 	 * pack specifies whether all controls in the layout take their preferred
@@ -148,7 +69,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	 * 
 	 * The default value is true.
 	 */
-	public boolean pack = true;
+	public BooleanProperty pack = new SimpleBooleanProperty(this, "pack", true);
 
 	/**
 	 * fill specifies whether the controls in a row should be all the same
@@ -158,7 +79,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	 * 
 	 * @since 3.0
 	 */
-	public boolean fill = false;
+	public BooleanProperty fill = new SimpleBooleanProperty(this, "fill", false);
 
 	/**
 	 * center specifies whether the controls in a row should be centered
@@ -169,7 +90,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	 * 
 	 * @since 3.4
 	 */
-	public boolean center = false;
+	public BooleanProperty center = new SimpleBooleanProperty(this, "center", false);
 
 	/**
 	 * justify specifies whether the controls in a row should be fully
@@ -177,7 +98,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	 * 
 	 * The default value is false.
 	 */
-	public boolean justify = false;
+	public BooleanProperty justify = new SimpleBooleanProperty(this, "justify", false);
 
 	/**
 	 * marginLeft specifies the number of pixels of horizontal margin that will
@@ -185,7 +106,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	 * 
 	 * The default value is 3.
 	 */
-	public int marginLeft = 3;
+	public IntegerProperty marginLeft = new SimpleIntegerProperty(this, "marginLeft", 3);
 
 	/**
 	 * marginTop specifies the number of pixels of vertical margin that will be
@@ -193,7 +114,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	 * 
 	 * The default value is 3.
 	 */
-	public int marginTop = 3;
+	public IntegerProperty marginTop = new SimpleIntegerProperty(this, "marginTop", 3);
 
 	/**
 	 * marginRight specifies the number of pixels of horizontal margin that will
@@ -201,7 +122,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	 * 
 	 * The default value is 3.
 	 */
-	public int marginRight = 3;
+	public IntegerProperty marginRight = new SimpleIntegerProperty(this, "marginRight", 3);
 
 	/**
 	 * marginBottom specifies the number of pixels of vertical margin that will
@@ -209,17 +130,17 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	 * 
 	 * The default value is 3.
 	 */
-	public int marginBottom = 3;
+	public IntegerProperty marginBottom = new SimpleIntegerProperty(this, "marginBottom", 3);
 
 	@Override
 	protected at.bestsolution.efxclipse.runtime.panels.AbstractLayoutPane.Size computeSize(
 			double wHint, double hHint, boolean flushCache) {
 		Size extent;
-		if (type == FX_HORIZONTAL) {
-			extent = layoutHorizontal(false, (wHint != FX_DEFAULT) && wrap,
+		if (type.get() == FX_HORIZONTAL) {
+			extent = layoutHorizontal(false, (wHint != FX_DEFAULT) && wrap.get(),
 					wHint, flushCache);
 		} else {
-			extent = layoutVertical(false, (hHint != FX_DEFAULT) && wrap,
+			extent = layoutVertical(false, (hHint != FX_DEFAULT) && wrap.get(),
 					hHint, flushCache);
 		}
 		
@@ -238,8 +159,8 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 		int wHint = FX_DEFAULT, hHint = FX_DEFAULT;
 		RowData data = (RowData) getConstraint(control);
 		if (data != null) {
-			wHint = data.width;
-			hHint = data.height;
+			wHint = data.width.get();
+			hHint = data.height.get();
 		}
 		return new Size(control.prefWidth(wHint), control.prefHeight(hHint));
 	}
@@ -248,10 +169,10 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 	protected void layoutChildren() {
 		super.layoutChildren();
 		Bounds clientArea = getLayoutBounds();
-		if (type == FX_HORIZONTAL) {
-			layoutHorizontal(true, wrap, clientArea.getWidth(), true);
+		if (type.get() == FX_HORIZONTAL) {
+			layoutHorizontal(true, wrap.get(), clientArea.getWidth(), true);
 		} else {
-			layoutVertical(true, wrap, clientArea.getHeight(), true);
+			layoutVertical(true, wrap.get(), clientArea.getHeight(), true);
 		}
 	}
 
@@ -262,16 +183,16 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 		for (int i = 0; i < children.length; i++) {
 			Node control = children[i];
 			RowData data = (RowData) getConstraint(control);
-			if (data == null || !data.exclude) {
+			if (data == null || !data.exclude.get()) {
 				children[count++] = children[i];
 			}
 		}
 		if (count == 0) {
-			return new Size(marginLeft + marginWidth * 2 + marginRight,
-					marginTop + marginHeight * 2 + marginBottom);
+			return new Size(marginLeft.get() + marginWidth.get() * 2 + marginRight.get(),
+					marginTop.get() + marginHeight.get() * 2 + marginBottom.get());
 		}
 		double childWidth = 0, childHeight = 0, maxHeight = 0;
-		if (!pack) {
+		if (!pack.get()) {
 			for (int i = 0; i < count; i++) {
 				Node child = children[i];
 				Size size = computeSize(child, flushCache);
@@ -289,34 +210,34 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 		double[] wraps = null;
 		boolean wrapped = false;
 		Bounds[] bounds = null;
-		if (move && (justify || fill || center)) {
+		if (move && (justify.get() || fill.get() || center.get())) {
 			bounds = new Bounds[count];
 			wraps = new double[count];
 		}
-		double maxX = 0, x = marginLeft + marginWidth, y = marginTop
-				+ marginHeight;
+		double maxX = 0, x = marginLeft.get() + marginWidth.get(), y = marginTop.get()
+				+ marginHeight.get();
 		for (int i = 0; i < count; i++) {
 			Node child = children[i];
-			if (pack) {
+			if (pack.get()) {
 				Size size = computeSize(child, flushCache);
 				childWidth = size.width;
 				childHeight = size.height;
 			}
 			if (wrap && (i != 0) && (x + childWidth > width)) {
 				wrapped = true;
-				if (move && (justify || fill || center))
+				if (move && (justify.get() || fill.get() || center.get()))
 					wraps[i - 1] = maxHeight;
-				x = marginLeft + marginWidth;
-				y += spacing + maxHeight;
-				if (pack)
+				x = marginLeft.get() + marginWidth.get();
+				y += spacing.get() + maxHeight;
+				if (pack.get())
 					maxHeight = 0;
 			}
-			if (pack || fill || center) {
+			if (pack.get() || fill.get() || center.get()) {
 				maxHeight = Math.max(maxHeight, childHeight);
 			}
 			if (move) {
 				double childX = x + clientX, childY = y + clientY;
-				if (justify || fill || center) {
+				if (justify.get() || fill.get() || center.get()) {
 					bounds[i] = new BoundingBox(childX, childY, childWidth,
 							childHeight);
 				} else {
@@ -324,29 +245,29 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 							childHeight);
 				}
 			}
-			x += spacing + childWidth;
+			x += spacing.get() + childWidth;
 			maxX = Math.max(maxX, x);
 		}
-		maxX = Math.max(clientX + marginLeft + marginWidth, maxX - spacing);
+		maxX = Math.max(clientX + marginLeft.get() + marginWidth.get(), maxX - spacing.get());
 		if (!wrapped)
-			maxX += marginRight + marginWidth;
-		if (move && (justify || fill || center)) {
+			maxX += marginRight.get() + marginWidth.get();
+		if (move && (justify.get() || fill.get() || center.get())) {
 			double space = 0, margin = 0;
 			if (!wrapped) {
 				space = Math.max(0, (width - maxX) / (count + 1));
 				margin = Math.max(0, ((width - maxX) % (count + 1)) / 2);
 			} else {
-				if (fill || justify || center) {
+				if (fill.get() || justify.get() || center.get()) {
 					int last = 0;
 					if (count > 0)
 						wraps[count - 1] = maxHeight;
 					for (int i = 0; i < count; i++) {
 						if (wraps[i] != 0) {
 							int wrapCount = i - last + 1;
-							if (justify) {
+							if (justify.get()) {
 								int wrapX = 0;
 								for (int j = last; j <= i; j++) {
-									wrapX += bounds[j].getWidth() + spacing;
+									wrapX += bounds[j].getWidth() + spacing.get();
 								}
 								space = Math.max(0, (width - wrapX)
 										/ (wrapCount + 1));
@@ -355,15 +276,15 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 												((width - wrapX) % (wrapCount + 1)) / 2);
 							}
 							for (int j = last; j <= i; j++) {
-								if (justify)
+								if (justify.get())
 									bounds[j] = changeX(bounds[j], (space * (j
 											- last + 1))
 											+ margin);
-								if (fill) {
+								if (fill.get()) {
 									bounds[j] = changeHeight(bounds[j],
 											wraps[i]);
 								} else {
-									if (center) {
+									if (center.get()) {
 										bounds[j] = changeY(
 												bounds[j],
 												Math.max(
@@ -380,13 +301,13 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 			}
 			for (int i = 0; i < count; i++) {
 				if (!wrapped) {
-					if (justify)
+					if (justify.get())
 						bounds[i] = changeX(bounds[i], (space * (i + 1))
 								+ margin);
-					if (fill) {
+					if (fill.get()) {
 						bounds[i] = changeHeight(bounds[i], maxHeight);
 					} else {
-						if (center) {
+						if (center.get()) {
 							bounds[i] = changeY(bounds[i], Math.max(0,
 									(maxHeight - bounds[i].getHeight()) / 2));
 						}
@@ -397,7 +318,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 						bounds[i].getHeight());
 			}
 		}
-		return new Size(maxX, y + maxHeight + marginBottom + marginHeight);
+		return new Size(maxX, y + maxHeight + marginBottom.get() + marginHeight.get());
 	}
 	
 	Size layoutVertical (boolean move, boolean wrap, double height, boolean flushCache) {
@@ -406,15 +327,15 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 		for (int i=0; i<children.length; i++) {
 			Node control = children [i];
 			RowData data = (RowData) getConstraint(control);
-			if (data == null || !data.exclude) {
+			if (data == null || !data.exclude.get()) {
 				children [count++] = children [i];
 			} 
 		}
 		if (count == 0) {
-			return new Size (marginLeft + marginWidth * 2 + marginRight, marginTop + marginHeight * 2 + marginBottom);
+			return new Size (marginLeft.get() + marginWidth.get() * 2 + marginRight.get(), marginTop.get() + marginHeight.get() * 2 + marginBottom.get());
 		}
 		double childWidth = 0, childHeight = 0, maxWidth = 0;
-		if (!pack) {
+		if (!pack.get()) {
 			for (int i=0; i<count; i++) {
 				Node child = children [i];
 				Size size = computeSize (child, flushCache);
@@ -432,67 +353,67 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 		double [] wraps = null;
 		boolean wrapped = false;
 		Bounds [] bounds = null;
-		if (move && (justify || fill || center)) {
+		if (move && (justify.get() || fill.get() || center.get())) {
 			bounds = new Bounds [count];
 			wraps = new double [count];
 		}
-		double maxY = 0, x = marginLeft + marginWidth, y = marginTop + marginHeight;
+		double maxY = 0, x = marginLeft.get() + marginWidth.get(), y = marginTop.get() + marginHeight.get();
 		for (int i=0; i<count; i++) {
 			Node child = children [i];
-			if (pack) {
+			if (pack.get()) {
 				Size size = computeSize (child, flushCache);
 				childWidth = size.width;
 				childHeight = size.height;
 			}
 			if (wrap && (i != 0) && (y + childHeight > height)) {
 				wrapped = true;
-				if (move && (justify || fill || center)) wraps [i - 1] = maxWidth;
-				x += spacing + maxWidth;
-				y = marginTop + marginHeight;
-				if (pack) maxWidth = 0;
+				if (move && (justify.get() || fill.get() || center.get())) wraps [i - 1] = maxWidth;
+				x += spacing.get() + maxWidth;
+				y = marginTop.get() + marginHeight.get();
+				if (pack.get()) maxWidth = 0;
 			}
-			if (pack || fill || center) {
+			if (pack.get() || fill.get() || center.get()) {
 				maxWidth = Math.max (maxWidth, childWidth);
 			}
 			if (move) {
 				double childX = x + clientX, childY = y + clientY;
-				if (justify || fill || center) {
+				if (justify.get() || fill.get() || center.get()) {
 					bounds [i] = new BoundingBox(childX, childY, childWidth, childHeight);
 				} else {
 					child.resizeRelocate(childX, childY, childWidth, childHeight);
 				}
 			}
-			y += spacing + childHeight;
+			y += spacing.get() + childHeight;
 			maxY = Math.max (maxY, y);
 		}
-		maxY = Math.max (clientY + marginTop + marginHeight, maxY - spacing);
-		if (!wrapped) maxY += marginBottom + marginHeight;
-		if (move && (justify || fill || center)) {
+		maxY = Math.max (clientY + marginTop.get() + marginHeight.get(), maxY - spacing.get());
+		if (!wrapped) maxY += marginBottom.get() + marginHeight.get();
+		if (move && (justify.get() || fill.get() || center.get())) {
 			double space = 0, margin = 0;
 			if (!wrapped) {
 				space = Math.max (0, (height - maxY) / (count + 1));
 				margin = Math.max (0, ((height - maxY) % (count + 1)) / 2);
 			} else {
-				if (fill || justify || center) {
+				if (fill.get() || justify.get() || center.get()) {
 					int last = 0;
 					if (count > 0) wraps [count - 1] = maxWidth;
 					for (int i=0; i<count; i++) {
 						if (wraps [i] != 0) {
 							int wrapCount = i - last + 1;
-							if (justify) {
+							if (justify.get()) {
 								int wrapY = 0;
 								for (int j=last; j<=i; j++) {
-									wrapY += bounds [j].getHeight() + spacing;
+									wrapY += bounds [j].getHeight() + spacing.get();
 								}
 								space = Math.max (0, (height - wrapY) / (wrapCount + 1));
 								margin = Math.max (0, ((height - wrapY) % (wrapCount + 1)) / 2);
 							}
 							for (int j=last; j<=i; j++) {
-								if (justify) bounds [j] = changeY(bounds [j], (space * (j - last + 1)) + margin);
-								if (fill) {
+								if (justify.get()) bounds [j] = changeY(bounds [j], (space * (j - last + 1)) + margin);
+								if (fill.get()) {
 									bounds [j] = changeWidth(bounds [j],wraps [i]);
 								} else {
-									if (center) {
+									if (center.get()) {
 										bounds [j] = changeX(bounds [j],Math.max (0, (wraps [i] - bounds [j].getWidth()) / 2));
 									}
 								}
@@ -504,11 +425,11 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 			}
 			for (int i=0; i<count; i++) {
 				if (!wrapped) {
-					if (justify) bounds [i] = changeY(bounds [i],(space * (i + 1)) + margin);
-					if (fill) {
+					if (justify.get()) bounds [i] = changeY(bounds [i],(space * (i + 1)) + margin);
+					if (fill.get()) {
 						bounds [i] = changeWidth(bounds [i], maxWidth);
 					} else {
-						if (center) {
+						if (center.get()) {
 							bounds [i] = changeX(bounds [i],Math.max (0, (maxWidth - bounds [i].getWidth()) / 2));
 						}
 					}
@@ -517,7 +438,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowLayoutPane.RowData> {
 				children [i].resizeRelocate(bounds [i].getMinX(),bounds [i].getMinY(), bounds [i].getWidth(), bounds [i].getHeight());
 			}
 		}
-		return new Size (x + maxWidth + marginRight + marginWidth, maxY);
+		return new Size (x + maxWidth + marginRight.get() + marginWidth.get(), maxY);
 	}
 
 	private static Bounds changeX(Bounds original, double amount) {

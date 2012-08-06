@@ -493,6 +493,20 @@ public class GridData {
 		return string.substring(index + 1, string.length());
 	}
 
+	public void setExclude(boolean value) {
+		exclude.set(value);
+	}
+	
+	public boolean isExclude() {
+		return exclude.get();
+	}
+	
+	public BooleanProperty excludeProperty() {
+		return exclude;
+	}
+	
+	
+	
 	/**
 	 * Returns a string containing a concise, human-readable description of the
 	 * receiver.

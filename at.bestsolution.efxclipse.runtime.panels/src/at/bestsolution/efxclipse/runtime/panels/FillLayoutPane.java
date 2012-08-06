@@ -101,12 +101,17 @@ public class FillLayoutPane extends AbstractLayoutPane<FillLayoutPane.FillData> 
 		}
 	}
 
-	public void setMarginHeight(int marginHeight) {
-		this.marginHeight.set(marginHeight);
+		
+	public void setHorizontal(boolean horizontal) {
+		this.horizontal.set(horizontal);
 	}
 	
-	public int getMarginHeight() {
-		return this.marginHeight.get();
+	public boolean isHorizontal() {
+		return this.horizontal.get();
+	}
+	
+	public WritableBooleanValue horizontalProperty() {
+		return horizontal;
 	}
 	
 	public void setMarginWidth(int marginWidth) {
@@ -117,25 +122,22 @@ public class FillLayoutPane extends AbstractLayoutPane<FillLayoutPane.FillData> 
 		return this.marginWidth.get();
 	}
 	
-	public void setHorizontal(boolean horizontal) {
-		this.horizontal.set(horizontal);
-	}
-	
-	public boolean isHorizontal() {
-		return this.horizontal.get();
-	}
-	
-	public WritableIntegerValue marginHeight() {
+	public WritableIntegerValue marginHeightProperty() {
 		return marginHeight;
 	}
 	
-	public WritableIntegerValue marginWidth() {
+	public void setMarginHeight(int marginHeight) {
+		this.marginHeight.set(marginHeight);
+	}
+	
+	public int getMarginHeight() {
+		return this.marginHeight.get();
+	}
+	
+	public WritableIntegerValue marginWidthProperty() {
 		return marginWidth;
 	}
 	
-	public WritableBooleanValue horizontal() {
-		return horizontal;
-	}
 	
 	protected Size computeSize(double wHint, double hHint, boolean flushCache) {
 		Node[] children = getChildren().toArray(new Node[0]);
