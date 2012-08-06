@@ -105,19 +105,7 @@ public class LivePreviewSynchronizer implements IPartListener, IPropertyListener
 		extraJarPath.addAll(previewUrls);
 		
 		if( file != null ) {
-//			boolean pluginProject = false;
-//			try {
-//				if (file.getProject().hasNature("org.eclipse.pde.PluginNature")) {
-//					pluginProject = true;
-//				}
-//			} catch (CoreException e2) {
-//				// TODO Auto-generated catch block
-//				e2.printStackTrace();
-//			}
-//			
-//			if( !pluginProject ) {
-				extraJarPath.addAll(calculateProjectClasspath(JavaCore.create(file.getProject())));
-//			}
+			extraJarPath.addAll(calculateProjectClasspath(JavaCore.create(file.getProject())));
 		}
 		
 		return new ContentData(contents, previewSceneSetup, cssFiles, resourceBundle, extraJarPath, file);
