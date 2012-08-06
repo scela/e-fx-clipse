@@ -82,7 +82,7 @@ public class ResourceServiceImpl implements ResourceService {
 		public Image getImageUnchecked(String imageKey) {
 			try {
 				return getImage(imageKey);
-			} catch (CoreException e) {
+			} catch (Throwable e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
