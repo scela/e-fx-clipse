@@ -9,7 +9,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.Node;
 
 public class RowLayoutPane extends AbstractLayoutPane<RowData> {
-	
+
 	/**
 	 * type specifies whether the layout places controls in rows or columns.
 	 * 
@@ -133,26 +133,23 @@ public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 	public IntegerProperty marginBottom = new SimpleIntegerProperty(this, "marginBottom", 3);
 
 	@Override
-	protected at.bestsolution.efxclipse.runtime.panels.AbstractLayoutPane.Size computeSize(
-			double wHint, double hHint, boolean flushCache) {
+	protected at.bestsolution.efxclipse.runtime.panels.AbstractLayoutPane.Size computeSize(double wHint, double hHint, boolean flushCache) {
 		Size extent;
 		if (type.get() == FX_HORIZONTAL) {
-			extent = layoutHorizontal(false, (wHint != FX_DEFAULT) && wrap.get(),
-					wHint, flushCache);
+			extent = layoutHorizontal(false, (wHint != FX_DEFAULT) && wrap.get(), wHint, flushCache);
 		} else {
-			extent = layoutVertical(false, (hHint != FX_DEFAULT) && wrap.get(),
-					hHint, flushCache);
+			extent = layoutVertical(false, (hHint != FX_DEFAULT) && wrap.get(), hHint, flushCache);
 		}
-		
-		double width = extent.width; 
-		double height = extent.height; 
-		
+
+		double width = extent.width;
+		double height = extent.height;
+
 		if (wHint != FX_DEFAULT)
 			width = wHint;
 		if (hHint != FX_DEFAULT)
 			height = hHint;
-		
-		return new Size(width,height);
+
+		return new Size(width, height);
 	}
 
 	Size computeSize(Node control, boolean flushCache) {
@@ -176,8 +173,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 		}
 	}
 
-	Size layoutHorizontal(boolean move, boolean wrap, double width,
-			boolean flushCache) {
+	Size layoutHorizontal(boolean move, boolean wrap, double width, boolean flushCache) {
 		Node[] children = getChildren().toArray(new Node[0]);
 		int count = 0;
 		for (int i = 0; i < children.length; i++) {
@@ -188,8 +184,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 			}
 		}
 		if (count == 0) {
-			return new Size(marginLeft.get() + marginWidth.get() * 2 + marginRight.get(),
-					marginTop.get() + marginHeight.get() * 2 + marginBottom.get());
+			return new Size(marginLeft.get() + marginWidth.get() * 2 + marginRight.get(), marginTop.get() + marginHeight.get() * 2 + marginBottom.get());
 		}
 		double childWidth = 0, childHeight = 0, maxHeight = 0;
 		if (!pack.get()) {
@@ -214,8 +209,7 @@ public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 			bounds = new Bounds[count];
 			wraps = new double[count];
 		}
-		double maxX = 0, x = marginLeft.get() + marginWidth.get(), y = marginTop.get()
-				+ marginHeight.get();
+		double maxX = 0, x = marginLeft.get() + marginWidth.get(), y = marginTop.get() + marginHeight.get();
 		for (int i = 0; i < count; i++) {
 			Node child = children[i];
 			if (pack.get()) {
@@ -238,11 +232,9 @@ public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 			if (move) {
 				double childX = x + clientX, childY = y + clientY;
 				if (justify.get() || fill.get() || center.get()) {
-					bounds[i] = new BoundingBox(childX, childY, childWidth,
-							childHeight);
+					bounds[i] = new BoundingBox(childX, childY, childWidth, childHeight);
 				} else {
-					child.resizeRelocate(childX, childY, childWidth,
-							childHeight);
+					child.resizeRelocate(childX, childY, childWidth, childHeight);
 				}
 			}
 			x += spacing.get() + childWidth;
@@ -269,28 +261,17 @@ public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 								for (int j = last; j <= i; j++) {
 									wrapX += bounds[j].getWidth() + spacing.get();
 								}
-								space = Math.max(0, (width - wrapX)
-										/ (wrapCount + 1));
-								margin = Math
-										.max(0,
-												((width - wrapX) % (wrapCount + 1)) / 2);
+								space = Math.max(0, (width - wrapX) / (wrapCount + 1));
+								margin = Math.max(0, ((width - wrapX) % (wrapCount + 1)) / 2);
 							}
 							for (int j = last; j <= i; j++) {
 								if (justify.get())
-									bounds[j] = changeX(bounds[j], (space * (j
-											- last + 1))
-											+ margin);
+									bounds[j] = changeX(bounds[j], (space * (j - last + 1)) + margin);
 								if (fill.get()) {
-									bounds[j] = changeHeight(bounds[j],
-											wraps[i]);
+									bounds[j] = changeHeight(bounds[j], wraps[i]);
 								} else {
 									if (center.get()) {
-										bounds[j] = changeY(
-												bounds[j],
-												Math.max(
-														0,
-														(wraps[i] - bounds[j]
-																.getHeight()) / 2));
+										bounds[j] = changeY(bounds[j], Math.max(0, (wraps[i] - bounds[j].getHeight()) / 2));
 									}
 								}
 							}
@@ -302,45 +283,41 @@ public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 			for (int i = 0; i < count; i++) {
 				if (!wrapped) {
 					if (justify.get())
-						bounds[i] = changeX(bounds[i], (space * (i + 1))
-								+ margin);
+						bounds[i] = changeX(bounds[i], (space * (i + 1)) + margin);
 					if (fill.get()) {
 						bounds[i] = changeHeight(bounds[i], maxHeight);
 					} else {
 						if (center.get()) {
-							bounds[i] = changeY(bounds[i], Math.max(0,
-									(maxHeight - bounds[i].getHeight()) / 2));
+							bounds[i] = changeY(bounds[i], Math.max(0, (maxHeight - bounds[i].getHeight()) / 2));
 						}
 					}
 				}
-				children[i].resizeRelocate(bounds[i].getMinX(),
-						bounds[i].getMinY(), bounds[i].getWidth(),
-						bounds[i].getHeight());
+				children[i].resizeRelocate(bounds[i].getMinX(), bounds[i].getMinY(), bounds[i].getWidth(), bounds[i].getHeight());
 			}
 		}
 		return new Size(maxX, y + maxHeight + marginBottom.get() + marginHeight.get());
 	}
-	
-	Size layoutVertical (boolean move, boolean wrap, double height, boolean flushCache) {
-		Node [] children = getChildren ().toArray(new Node[0]);
+
+	Size layoutVertical(boolean move, boolean wrap, double height, boolean flushCache) {
+		Node[] children = getChildren().toArray(new Node[0]);
 		int count = 0;
-		for (int i=0; i<children.length; i++) {
-			Node control = children [i];
+		for (int i = 0; i < children.length; i++) {
+			Node control = children[i];
 			RowData data = (RowData) getConstraint(control);
 			if (data == null || !data.exclude.get()) {
-				children [count++] = children [i];
-			} 
+				children[count++] = children[i];
+			}
 		}
 		if (count == 0) {
-			return new Size (marginLeft.get() + marginWidth.get() * 2 + marginRight.get(), marginTop.get() + marginHeight.get() * 2 + marginBottom.get());
+			return new Size(marginLeft.get() + marginWidth.get() * 2 + marginRight.get(), marginTop.get() + marginHeight.get() * 2 + marginBottom.get());
 		}
 		double childWidth = 0, childHeight = 0, maxWidth = 0;
 		if (!pack.get()) {
-			for (int i=0; i<count; i++) {
-				Node child = children [i];
-				Size size = computeSize (child, flushCache);
-				childWidth = Math.max (childWidth, size.width);
-				childHeight = Math.max (childHeight, size.height);
+			for (int i = 0; i < count; i++) {
+				Node child = children[i];
+				Size size = computeSize(child, flushCache);
+				childWidth = Math.max(childWidth, size.width);
+				childHeight = Math.max(childHeight, size.height);
 			}
 			maxWidth = childWidth;
 		}
@@ -350,71 +327,76 @@ public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 			clientX = rect.getMinX();
 			clientY = rect.getMinY();
 		}
-		double [] wraps = null;
+		double[] wraps = null;
 		boolean wrapped = false;
-		Bounds [] bounds = null;
+		Bounds[] bounds = null;
 		if (move && (justify.get() || fill.get() || center.get())) {
-			bounds = new Bounds [count];
-			wraps = new double [count];
+			bounds = new Bounds[count];
+			wraps = new double[count];
 		}
 		double maxY = 0, x = marginLeft.get() + marginWidth.get(), y = marginTop.get() + marginHeight.get();
-		for (int i=0; i<count; i++) {
-			Node child = children [i];
+		for (int i = 0; i < count; i++) {
+			Node child = children[i];
 			if (pack.get()) {
-				Size size = computeSize (child, flushCache);
+				Size size = computeSize(child, flushCache);
 				childWidth = size.width;
 				childHeight = size.height;
 			}
 			if (wrap && (i != 0) && (y + childHeight > height)) {
 				wrapped = true;
-				if (move && (justify.get() || fill.get() || center.get())) wraps [i - 1] = maxWidth;
+				if (move && (justify.get() || fill.get() || center.get()))
+					wraps[i - 1] = maxWidth;
 				x += spacing.get() + maxWidth;
 				y = marginTop.get() + marginHeight.get();
-				if (pack.get()) maxWidth = 0;
+				if (pack.get())
+					maxWidth = 0;
 			}
 			if (pack.get() || fill.get() || center.get()) {
-				maxWidth = Math.max (maxWidth, childWidth);
+				maxWidth = Math.max(maxWidth, childWidth);
 			}
 			if (move) {
 				double childX = x + clientX, childY = y + clientY;
 				if (justify.get() || fill.get() || center.get()) {
-					bounds [i] = new BoundingBox(childX, childY, childWidth, childHeight);
+					bounds[i] = new BoundingBox(childX, childY, childWidth, childHeight);
 				} else {
 					child.resizeRelocate(childX, childY, childWidth, childHeight);
 				}
 			}
 			y += spacing.get() + childHeight;
-			maxY = Math.max (maxY, y);
+			maxY = Math.max(maxY, y);
 		}
-		maxY = Math.max (clientY + marginTop.get() + marginHeight.get(), maxY - spacing.get());
-		if (!wrapped) maxY += marginBottom.get() + marginHeight.get();
+		maxY = Math.max(clientY + marginTop.get() + marginHeight.get(), maxY - spacing.get());
+		if (!wrapped)
+			maxY += marginBottom.get() + marginHeight.get();
 		if (move && (justify.get() || fill.get() || center.get())) {
 			double space = 0, margin = 0;
 			if (!wrapped) {
-				space = Math.max (0, (height - maxY) / (count + 1));
-				margin = Math.max (0, ((height - maxY) % (count + 1)) / 2);
+				space = Math.max(0, (height - maxY) / (count + 1));
+				margin = Math.max(0, ((height - maxY) % (count + 1)) / 2);
 			} else {
 				if (fill.get() || justify.get() || center.get()) {
 					int last = 0;
-					if (count > 0) wraps [count - 1] = maxWidth;
-					for (int i=0; i<count; i++) {
-						if (wraps [i] != 0) {
+					if (count > 0)
+						wraps[count - 1] = maxWidth;
+					for (int i = 0; i < count; i++) {
+						if (wraps[i] != 0) {
 							int wrapCount = i - last + 1;
 							if (justify.get()) {
 								int wrapY = 0;
-								for (int j=last; j<=i; j++) {
-									wrapY += bounds [j].getHeight() + spacing.get();
+								for (int j = last; j <= i; j++) {
+									wrapY += bounds[j].getHeight() + spacing.get();
 								}
-								space = Math.max (0, (height - wrapY) / (wrapCount + 1));
-								margin = Math.max (0, ((height - wrapY) % (wrapCount + 1)) / 2);
+								space = Math.max(0, (height - wrapY) / (wrapCount + 1));
+								margin = Math.max(0, ((height - wrapY) % (wrapCount + 1)) / 2);
 							}
-							for (int j=last; j<=i; j++) {
-								if (justify.get()) bounds [j] = changeY(bounds [j], (space * (j - last + 1)) + margin);
+							for (int j = last; j <= i; j++) {
+								if (justify.get())
+									bounds[j] = changeY(bounds[j], (space * (j - last + 1)) + margin);
 								if (fill.get()) {
-									bounds [j] = changeWidth(bounds [j],wraps [i]);
+									bounds[j] = changeWidth(bounds[j], wraps[i]);
 								} else {
 									if (center.get()) {
-										bounds [j] = changeX(bounds [j],Math.max (0, (wraps [i] - bounds [j].getWidth()) / 2));
+										bounds[j] = changeX(bounds[j], Math.max(0, (wraps[i] - bounds[j].getWidth()) / 2));
 									}
 								}
 							}
@@ -423,41 +405,195 @@ public class RowLayoutPane extends AbstractLayoutPane<RowData> {
 					}
 				}
 			}
-			for (int i=0; i<count; i++) {
+			for (int i = 0; i < count; i++) {
 				if (!wrapped) {
-					if (justify.get()) bounds [i] = changeY(bounds [i],(space * (i + 1)) + margin);
+					if (justify.get())
+						bounds[i] = changeY(bounds[i], (space * (i + 1)) + margin);
 					if (fill.get()) {
-						bounds [i] = changeWidth(bounds [i], maxWidth);
+						bounds[i] = changeWidth(bounds[i], maxWidth);
 					} else {
 						if (center.get()) {
-							bounds [i] = changeX(bounds [i],Math.max (0, (maxWidth - bounds [i].getWidth()) / 2));
+							bounds[i] = changeX(bounds[i], Math.max(0, (maxWidth - bounds[i].getWidth()) / 2));
 						}
 					}
 
 				}
-				children [i].resizeRelocate(bounds [i].getMinX(),bounds [i].getMinY(), bounds [i].getWidth(), bounds [i].getHeight());
+				children[i].resizeRelocate(bounds[i].getMinX(), bounds[i].getMinY(), bounds[i].getWidth(), bounds[i].getHeight());
 			}
 		}
-		return new Size (x + maxWidth + marginRight.get() + marginWidth.get(), maxY);
+		return new Size(x + maxWidth + marginRight.get() + marginWidth.get(), maxY);
 	}
 
 	private static Bounds changeX(Bounds original, double amount) {
-		return new BoundingBox(original.getMinX() + amount, original.getMinY(),
-				original.getWidth(), original.getHeight());
+		return new BoundingBox(original.getMinX() + amount, original.getMinY(), original.getWidth(), original.getHeight());
 	}
 
 	private static Bounds changeY(Bounds original, double amount) {
-		return new BoundingBox(original.getMinX(), original.getMinY() + amount,
-				original.getWidth(), original.getHeight());
+		return new BoundingBox(original.getMinX(), original.getMinY() + amount, original.getWidth(), original.getHeight());
 	}
 
 	private static Bounds changeHeight(Bounds original, double amount) {
-		return new BoundingBox(original.getMinX(), original.getMinY(),
-				original.getWidth(), original.getHeight() + amount);
+		return new BoundingBox(original.getMinX(), original.getMinY(), original.getWidth(), original.getHeight() + amount);
+	}
+
+	private static Bounds changeWidth(Bounds original, double amount) {
+		return new BoundingBox(original.getMinX(), original.getMinY(), original.getWidth() + amount, original.getHeight());
+	}
+
+	// ----
+	public void setCenterHint(boolean value) {
+		center.set(value);
+	}
+
+	public boolean isCenterHint() {
+		return center.get();
+	}
+
+	public BooleanProperty centerProperty() {
+		return center;
 	}
 	
-	private static Bounds changeWidth(Bounds original, double amount) {
-		return new BoundingBox(original.getMinX(), original.getMinY(),
-				original.getWidth() + amount, original.getHeight());
+	// ----
+	public void setFill(boolean value) {
+		fill.set(value);
 	}
+
+	public boolean isFill() {
+		return fill.get();
+	}
+
+	public BooleanProperty fillProperty() {
+		return fill;
+	}
+	
+	// ----
+	public void setJustify(boolean value) {
+		justify.set(value);
+	}
+
+	public boolean isJustify() {
+		return justify.get();
+	}
+
+	public BooleanProperty justifyProperty() {
+		return justify;
+	}
+	
+	// ----
+	public void setMarginBottom(int value) {
+		marginBottom.set(value);
+	}
+
+	public int getMarginBottom() {
+		return marginBottom.get();
+	}
+
+	public IntegerProperty marginBottomProperty() {
+		return marginBottom;
+	}
+	
+	// ----
+	public void setMarginHeight(int value) {
+		marginHeight.set(value);
+	}
+
+	public int getMarginHeight() {
+		return marginHeight.get();
+	}
+
+	public IntegerProperty marginHeightProperty() {
+		return marginHeight;
+	}
+	
+	// ----
+	public void setMarginLeft(int value) {
+		marginLeft.set(value);
+	}
+
+	public int getMarginLeft() {
+		return marginLeft.get();
+	}
+
+	public IntegerProperty marginLeftProperty() {
+		return marginLeft;
+	}
+	
+	// ----
+	public void setMarginRight(int value) {
+		marginRight.set(value);
+	}
+
+	public int getMarginRight() {
+		return marginRight.get();
+	}
+
+	public IntegerProperty marginRightProperty() {
+		return marginRight;
+	}
+	
+	// ----
+	public void setMarginTop(int value) {
+		marginTop.set(value);
+	}
+
+	public int getMarginTop() {
+		return marginTop.get();
+	}
+
+	public IntegerProperty marginTopProperty() {
+		return marginTop;
+	}
+	
+	// ----
+	public void setMarginWidth(int value) {
+		marginWidth.set(value);
+	}
+
+	public int getMarginWidth() {
+		return marginWidth.get();
+	}
+
+	public IntegerProperty marginWidthProperty() {
+		return marginWidth;
+	}
+	
+	// ----
+	public void setPack(boolean value) {
+		pack.set(value);
+	}
+
+	public boolean isPack() {
+		return pack.get();
+	}
+
+	public BooleanProperty packProperty() {
+		return pack;
+	}
+
+	// ----
+	public void setSpacing(int value) {
+		spacing.set(value);
+	}
+
+	public int getSpacing() {
+		return spacing.get();
+	}
+
+	public IntegerProperty spacingProperty() {
+		return spacing;
+	}
+
+	// ----
+	public void setWrap(boolean value) {
+		wrap.set(value);
+	}
+
+	public boolean isWrap() {
+		return wrap.get();
+	}
+
+	public BooleanProperty wrapProperty() {
+		return wrap;
+	}
+
 }
