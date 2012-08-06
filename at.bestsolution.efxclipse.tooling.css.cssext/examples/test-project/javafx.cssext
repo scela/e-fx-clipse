@@ -12,7 +12,7 @@ package javafx {
 		 */
 		Node {
 			/**
-			 * lala blabla docu
+			 * lala blabla docu 
 			 */
 			-fx-blend-mode add | blue | color-burn | colordodge;
 			-fx-cursor <fx-cursor> | <uri> default: null;

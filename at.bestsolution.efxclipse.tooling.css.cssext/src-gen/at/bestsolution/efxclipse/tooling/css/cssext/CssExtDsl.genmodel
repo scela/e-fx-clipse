@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/at.bestsolution.efxclipse.tooling.css.cssext/src-gen"
     editDirectory="/at.bestsolution.efxclipse.tooling.css.cssext.edit/src" editorDirectory="/at.bestsolution.efxclipse.tooling.css.cssext.editor/src"
     modelPluginID="at.bestsolution.efxclipse.tooling.css.cssext" forceOverwrite="true"
     modelName="CssExtDsl" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="at.bestsolution.efxclipse.tooling.css.cssext.edit"
-    editorPluginID="at.bestsolution.efxclipse.tooling.css.cssext.editor" runtimeVersion="2.8">
+    editorPluginID="at.bestsolution.efxclipse.tooling.css.cssext.editor" runtimeVersion="2.7">
   <genPackages prefix="CssExtDsl" basePackage="at.bestsolution.efxclipse.tooling.css.cssext"
       disposableProviderFactory="true" ecorePackage="CssExtDsl.ecore#/">
     <genClasses ecoreClass="CssExtDsl.ecore#//CssExtension">
@@ -27,11 +28,12 @@
     <genClasses ecoreClass="CssExtDsl.ecore#//CSSRule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSRule/type"/>
     </genClasses>
-    <genClasses ecoreClass="CssExtDsl.ecore#//ElementDeclartion">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//ElementDeclartion/doku"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//ElementDeclartion/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//ElementDeclartion/properties"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//ElementDeclartion/pseudoClasses"/>
+    <genClasses ecoreClass="CssExtDsl.ecore#//ElementDefinition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//ElementDefinition/doku"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//ElementDefinition/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//ElementDefinition/super"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//ElementDefinition/properties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//ElementDefinition/pseudoClasses"/>
     </genClasses>
     <genClasses ecoreClass="CssExtDsl.ecore#//PropertyDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//PropertyDefinition/doku"/>
@@ -53,6 +55,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSRuleDefinition/doku"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSRuleDefinition/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSRuleDefinition/rule"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSRuleDefinition/func"/>
     </genClasses>
     <genClasses ecoreClass="CssExtDsl.ecore#//CSSDefaultValue">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSDefaultValue/val"/>
@@ -88,14 +91,17 @@
     <genClasses ecoreClass="CssExtDsl.ecore#//CSSRuleBracket">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSRuleBracket/inner"/>
     </genClasses>
-    <genClasses ecoreClass="CssExtDsl.ecore#//CSSRuleParanthesis">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSRuleParanthesis/inner"/>
+    <genClasses ecoreClass="CssExtDsl.ecore#//NumLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//NumLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="CssExtDsl.ecore#//CSSRuleRegex">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSRuleRegex/regex"/>
     </genClasses>
     <genClasses ecoreClass="CssExtDsl.ecore#//CSSRuleLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSRuleLiteral/value"/>
     </genClasses>
-    <genClasses ecoreClass="CssExtDsl.ecore#//CSSRuleRegex">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSRuleRegex/regex"/>
+    <genClasses ecoreClass="CssExtDsl.ecore#//CSSRuleSymbol">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSRuleSymbol/symbol"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -46,10 +46,6 @@ public class CssExtDslOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		return "<" + model.getRef().getName() + ">";
 	}
 	
-	protected Object _text(CSSRuleDefinition model) {
-		return model.getName().getName() + " =";
-	}
-	
 	protected Object _text(CSSRulePostfix model) {
 		return "CSSRulePostfix " + model.getCardinality();
 	}

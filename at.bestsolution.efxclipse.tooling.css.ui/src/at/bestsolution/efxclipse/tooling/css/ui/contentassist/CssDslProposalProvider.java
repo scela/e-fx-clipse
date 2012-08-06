@@ -13,12 +13,16 @@ package at.bestsolution.efxclipse.tooling.css.ui.contentassist;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.text.IRegion;
+import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.common.types.xtext.ui.JdtHoverProvider.JavadocHoverWrapper;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
+import org.eclipse.xtext.ui.editor.hover.IEObjectHover;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
@@ -51,7 +55,13 @@ public class CssDslProposalProvider extends AbstractCssDslProposalProvider {
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		if( model instanceof ruleset ) {
 			for( Property property : extension.getProperties(model.eResource().getURI()) ) {
-				acceptor.accept(createCompletionProposal(property.getName(), property.getName(), null, context));
+				
+				
+				ConfigurableCompletionProposal cp = (ConfigurableCompletionProposal) createCompletionProposal(property.getName(), property.getName(), null, context);
+				cp.setAdditionalProposalInfo(model);
+				cp.setHover(new HoverImpl(property.getDescription()));
+				
+				acceptor.accept(cp);
 			}
 			
 		}
@@ -274,4 +284,24 @@ public class CssDslProposalProvider extends AbstractCssDslProposalProvider {
 //		}
 //		return Collections.emptyList();
 //	}
+	
+	public static class HoverImpl implements IEObjectHover {
+		private JavadocHoverWrapper javadocHover = new JavadocHoverWrapper();
+		private String doc;
+
+		public HoverImpl(String doc) {
+			this.doc = doc;
+		}
+
+		@Override
+		public Object getHoverInfo(EObject eObject, ITextViewer textViewer, IRegion hoverRegion) {
+			//javadocHover.setJavaElement(javaElement);
+			return doc; //javadocHover.getHoverInfo2(textViewer, hoverRegion);
+		}
+
+//		@Override
+//		public IInformationControlCreator getHoverControlCreator() {
+//			return javadocHover.getHoverControlCreator();
+//		}
+	}
 }

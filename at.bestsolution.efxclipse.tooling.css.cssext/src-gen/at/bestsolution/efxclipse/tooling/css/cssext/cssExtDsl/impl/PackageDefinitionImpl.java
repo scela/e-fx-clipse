@@ -1,10 +1,13 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl;
 
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleDefinition;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtDslPackage;
-import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDeclartion;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDefinition;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.PackageDefinition;
 
 import java.util.Collection;
@@ -89,7 +92,7 @@ public class PackageDefinitionImpl extends MinimalEObjectImpl.Container implemen
    * @generated
    * @ordered
    */
-  protected EList<ElementDeclartion> elements;
+  protected EList<ElementDefinition> elements;
 
   /**
    * <!-- begin-user-doc -->
@@ -168,11 +171,11 @@ public class PackageDefinitionImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ElementDeclartion> getElements()
+  public EList<ElementDefinition> getElements()
   {
     if (elements == null)
     {
-      elements = new EObjectContainmentEList<ElementDeclartion>(ElementDeclartion.class, this, CssExtDslPackage.PACKAGE_DEFINITION__ELEMENTS);
+      elements = new EObjectContainmentEList<ElementDefinition>(ElementDefinition.class, this, CssExtDslPackage.PACKAGE_DEFINITION__ELEMENTS);
     }
     return elements;
   }
@@ -243,7 +246,7 @@ public class PackageDefinitionImpl extends MinimalEObjectImpl.Container implemen
         return;
       case CssExtDslPackage.PACKAGE_DEFINITION__ELEMENTS:
         getElements().clear();
-        getElements().addAll((Collection<? extends ElementDeclartion>)newValue);
+        getElements().addAll((Collection<? extends ElementDefinition>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

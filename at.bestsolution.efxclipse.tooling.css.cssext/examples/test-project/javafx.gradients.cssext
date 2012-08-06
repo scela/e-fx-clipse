@@ -21,16 +21,16 @@ package javafx {
 	 * </ul>
 	 * Absolute
 	 * <ul>
-	 * <li>in: inches — 1 inch is equal to 2.54 centimeters.</li>
+	 * <li>in: inches ï¿½ 1 inch is equal to 2.54 centimeters.</li>
 	 * <li>cm: centimeters</li>
 	 * <li>mm: millimeters</li>
-	 * <li>pt: points — the points used by CSS 2.1 are equal to 1/72nd of an inch.</li>
-	 * <li>pc: picas — 1 pica is equal to 12 points.</li>
+	 * <li>pt: points ï¿½ the points used by CSS 2.1 are equal to 1/72nd of an inch.</li>
+	 * <li>pc: picas ï¿½ 1 pica is equal to 12 points.</li>
 	 * </ul>
 	 * Percentages
 	 * These are a percentage of some length, they are context sensitive so what they are relative to depends on where they are specified. Each property that supports a percentage should specify if percentage is supported and if it is what it is relative to.
 	 */
-	size = double [ $%$ | px | mm | cm | in | pt | pc | em | ex ]?;
+	size =double[ $%$ | px | mm | cm | in | pt | pc | em | ex ]?;
 	
 	
 	
@@ -47,6 +47,20 @@ package javafx {
 		-fx-font-style <font-style>;
 		-fx-font-weight <font-weight>;
 	}
+	
+	length = TODO;
+	percentage = TODO;
+	
+	side-or-corner = [left | right] || [top | bottom];
+	 
+	point = [ [ <length> <length> ] | [ <percentage> | <percentage> ] ];
+	
+	color-stop = [ <color> [ <percentage> | <length>]? ];
+	
+	linear-gradient = linear-gradient( [ [from <point> to <point>] | [ to <side-or-corner>], ]? [ [ repeat | reflect ], ]? <color-stop>[, <color-stop>]+);
+	
+	radial-gradient = radial-gradient([ focus-angle <angle>, ]? [ focus-distance <percentage>, ]? [ center <point>, ]? radius [ <length> | <percentage> ] [ [ repeat | reflect ], ]? <color-stop>[, <color-stop>]+);
+
 	
 	//lineargradient = linear ( <size>, <size> ) to ( <size>, <size> ) stops [ ( int, <color> ) ]+ [ repeat | reflect ]?;
 	

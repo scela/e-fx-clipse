@@ -4,6 +4,7 @@ package css3.color {
 	
 	rgb = rgb(int(0->255), int(0->255), int(0->255), int(0->255)); /* |
 		  rgb(<percentage>, <percentage>, <percentage>);*/
+	
 		  
 	rgba = rgba(int(0->255), int(0->255), int(0->255), double(.0->1.0));/* |
 		  rgba(<percentage>, <percentage>, <percentage>, double(.0->1.0));*/

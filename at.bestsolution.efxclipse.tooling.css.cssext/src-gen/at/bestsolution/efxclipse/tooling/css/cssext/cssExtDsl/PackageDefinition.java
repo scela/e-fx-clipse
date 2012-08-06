@@ -1,4 +1,7 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl;
 
@@ -87,7 +90,7 @@ public interface PackageDefinition extends EObject
 
   /**
    * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
-   * The list contents are of type {@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDeclartion}.
+   * The list contents are of type {@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDefinition}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Elements</em>' containment reference list isn't clear,
@@ -99,6 +102,6 @@ public interface PackageDefinition extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<ElementDeclartion> getElements();
+  EList<ElementDefinition> getElements();
 
 } // PackageDefinition

@@ -1,4 +1,7 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl;
 
@@ -69,7 +72,7 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
       case CssExtDslPackage.PACKAGE_DEFINITION: return createPackageDefinition();
       case CssExtDslPackage.DOKU: return createDoku();
       case CssExtDslPackage.CSS_RULE: return createCSSRule();
-      case CssExtDslPackage.ELEMENT_DECLARTION: return createElementDeclartion();
+      case CssExtDslPackage.ELEMENT_DEFINITION: return createElementDefinition();
       case CssExtDslPackage.PROPERTY_DEFINITION: return createPropertyDefinition();
       case CssExtDslPackage.PSEUDO_CLASS_DEFINITION: return createPseudoClassDefinition();
       case CssExtDslPackage.CSS_RULE_ID: return createCSSRuleId();
@@ -84,9 +87,10 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
       case CssExtDslPackage.CSS_RULE_CONCAT: return createCSSRuleConcat();
       case CssExtDslPackage.CSS_RULE_POSTFIX: return createCSSRulePostfix();
       case CssExtDslPackage.CSS_RULE_BRACKET: return createCSSRuleBracket();
-      case CssExtDslPackage.CSS_RULE_PARANTHESIS: return createCSSRuleParanthesis();
-      case CssExtDslPackage.CSS_RULE_LITERAL: return createCSSRuleLiteral();
+      case CssExtDslPackage.NUM_LITERAL: return createNumLiteral();
       case CssExtDslPackage.CSS_RULE_REGEX: return createCSSRuleRegex();
+      case CssExtDslPackage.CSS_RULE_LITERAL: return createCSSRuleLiteral();
+      case CssExtDslPackage.CSS_RULE_SYMBOL: return createCSSRuleSymbol();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -152,10 +156,10 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public ElementDeclartion createElementDeclartion()
+  public ElementDefinition createElementDefinition()
   {
-    ElementDeclartionImpl elementDeclartion = new ElementDeclartionImpl();
-    return elementDeclartion;
+    ElementDefinitionImpl elementDefinition = new ElementDefinitionImpl();
+    return elementDefinition;
   }
 
   /**
@@ -317,10 +321,21 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public CSSRuleParanthesis createCSSRuleParanthesis()
+  public NumLiteral createNumLiteral()
   {
-    CSSRuleParanthesisImpl cssRuleParanthesis = new CSSRuleParanthesisImpl();
-    return cssRuleParanthesis;
+    NumLiteralImpl numLiteral = new NumLiteralImpl();
+    return numLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CSSRuleRegex createCSSRuleRegex()
+  {
+    CSSRuleRegexImpl cssRuleRegex = new CSSRuleRegexImpl();
+    return cssRuleRegex;
   }
 
   /**
@@ -339,10 +354,10 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
-  public CSSRuleRegex createCSSRuleRegex()
+  public CSSRuleSymbol createCSSRuleSymbol()
   {
-    CSSRuleRegexImpl cssRuleRegex = new CSSRuleRegexImpl();
-    return cssRuleRegex;
+    CSSRuleSymbolImpl cssRuleSymbol = new CSSRuleSymbolImpl();
+    return cssRuleSymbol;
   }
 
   /**

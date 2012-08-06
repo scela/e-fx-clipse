@@ -1,4 +1,7 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl;
 
@@ -233,14 +236,14 @@ public interface CssExtDslPackage extends EPackage
   int CSS_RULE_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.ElementDeclartionImpl <em>Element Declartion</em>}' class.
+   * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.ElementDefinitionImpl <em>Element Definition</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.ElementDeclartionImpl
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getElementDeclartion()
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.ElementDefinitionImpl
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getElementDefinition()
    * @generated
    */
-  int ELEMENT_DECLARTION = 5;
+  int ELEMENT_DEFINITION = 5;
 
   /**
    * The feature id for the '<em><b>Doku</b></em>' containment reference.
@@ -249,7 +252,7 @@ public interface CssExtDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ELEMENT_DECLARTION__DOKU = 0;
+  int ELEMENT_DEFINITION__DOKU = 0;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -258,7 +261,16 @@ public interface CssExtDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ELEMENT_DECLARTION__NAME = 1;
+  int ELEMENT_DEFINITION__NAME = 1;
+
+  /**
+   * The feature id for the '<em><b>Super</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ELEMENT_DEFINITION__SUPER = 2;
 
   /**
    * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -267,7 +279,7 @@ public interface CssExtDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ELEMENT_DECLARTION__PROPERTIES = 2;
+  int ELEMENT_DEFINITION__PROPERTIES = 3;
 
   /**
    * The feature id for the '<em><b>Pseudo Classes</b></em>' containment reference list.
@@ -276,16 +288,16 @@ public interface CssExtDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ELEMENT_DECLARTION__PSEUDO_CLASSES = 3;
+  int ELEMENT_DEFINITION__PSEUDO_CLASSES = 4;
 
   /**
-   * The number of structural features of the '<em>Element Declartion</em>' class.
+   * The number of structural features of the '<em>Element Definition</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ELEMENT_DECLARTION_FEATURE_COUNT = 4;
+  int ELEMENT_DEFINITION_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.PropertyDefinitionImpl <em>Property Definition</em>}' class.
@@ -482,13 +494,22 @@ public interface CssExtDslPackage extends EPackage
   int CSS_RULE_DEFINITION__RULE = 2;
 
   /**
+   * The feature id for the '<em><b>Func</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CSS_RULE_DEFINITION__FUNC = 3;
+
+  /**
    * The number of structural features of the '<em>CSS Rule Definition</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CSS_RULE_DEFINITION_FEATURE_COUNT = 3;
+  int CSS_RULE_DEFINITION_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSDefaultValueImpl <em>CSS Default Value</em>}' class.
@@ -666,7 +687,7 @@ public interface CssExtDslPackage extends EPackage
   int CSS_RULE_FUNC__NAME = CSS_RULE_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Params</b></em>' containment reference list.
+   * The feature id for the '<em><b>Params</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -878,14 +899,14 @@ public interface CssExtDslPackage extends EPackage
   int CSS_RULE_BRACKET_FEATURE_COUNT = CSS_RULE_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleParanthesisImpl <em>CSS Rule Paranthesis</em>}' class.
+   * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.NumLiteralImpl <em>Num Literal</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleParanthesisImpl
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getCSSRuleParanthesis()
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.NumLiteralImpl
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getNumLiteral()
    * @generated
    */
-  int CSS_RULE_PARANTHESIS = 20;
+  int NUM_LITERAL = 20;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -894,25 +915,62 @@ public interface CssExtDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CSS_RULE_PARANTHESIS__TYPE = CSS_RULE__TYPE;
+  int NUM_LITERAL__TYPE = CSS_RULE__TYPE;
 
   /**
-   * The feature id for the '<em><b>Inner</b></em>' containment reference.
+   * The feature id for the '<em><b>Value</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CSS_RULE_PARANTHESIS__INNER = CSS_RULE_FEATURE_COUNT + 0;
+  int NUM_LITERAL__VALUE = CSS_RULE_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>CSS Rule Paranthesis</em>' class.
+   * The number of structural features of the '<em>Num Literal</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CSS_RULE_PARANTHESIS_FEATURE_COUNT = CSS_RULE_FEATURE_COUNT + 1;
+  int NUM_LITERAL_FEATURE_COUNT = CSS_RULE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleRegexImpl <em>CSS Rule Regex</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleRegexImpl
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getCSSRuleRegex()
+   * @generated
+   */
+  int CSS_RULE_REGEX = 21;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CSS_RULE_REGEX__TYPE = CSS_RULE__TYPE;
+
+  /**
+   * The feature id for the '<em><b>Regex</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CSS_RULE_REGEX__REGEX = CSS_RULE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>CSS Rule Regex</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CSS_RULE_REGEX_FEATURE_COUNT = CSS_RULE_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleLiteralImpl <em>CSS Rule Literal</em>}' class.
@@ -922,7 +980,7 @@ public interface CssExtDslPackage extends EPackage
    * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getCSSRuleLiteral()
    * @generated
    */
-  int CSS_RULE_LITERAL = 21;
+  int CSS_RULE_LITERAL = 22;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -952,14 +1010,14 @@ public interface CssExtDslPackage extends EPackage
   int CSS_RULE_LITERAL_FEATURE_COUNT = CSS_RULE_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleRegexImpl <em>CSS Rule Regex</em>}' class.
+   * The meta object id for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleSymbolImpl <em>CSS Rule Symbol</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleRegexImpl
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getCSSRuleRegex()
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleSymbolImpl
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getCSSRuleSymbol()
    * @generated
    */
-  int CSS_RULE_REGEX = 22;
+  int CSS_RULE_SYMBOL = 23;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -968,25 +1026,25 @@ public interface CssExtDslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CSS_RULE_REGEX__TYPE = CSS_RULE__TYPE;
+  int CSS_RULE_SYMBOL__TYPE = CSS_RULE__TYPE;
 
   /**
-   * The feature id for the '<em><b>Regex</b></em>' attribute.
+   * The feature id for the '<em><b>Symbol</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CSS_RULE_REGEX__REGEX = CSS_RULE_FEATURE_COUNT + 0;
+  int CSS_RULE_SYMBOL__SYMBOL = CSS_RULE_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>CSS Rule Regex</em>' class.
+   * The number of structural features of the '<em>CSS Rule Symbol</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CSS_RULE_REGEX_FEATURE_COUNT = CSS_RULE_FEATURE_COUNT + 1;
+  int CSS_RULE_SYMBOL_FEATURE_COUNT = CSS_RULE_FEATURE_COUNT + 1;
 
 
   /**
@@ -1139,58 +1197,69 @@ public interface CssExtDslPackage extends EPackage
   EAttribute getCSSRule_Type();
 
   /**
-   * Returns the meta object for class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDeclartion <em>Element Declartion</em>}'.
+   * Returns the meta object for class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDefinition <em>Element Definition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Element Declartion</em>'.
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDeclartion
+   * @return the meta object for class '<em>Element Definition</em>'.
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDefinition
    * @generated
    */
-  EClass getElementDeclartion();
+  EClass getElementDefinition();
 
   /**
-   * Returns the meta object for the containment reference '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDeclartion#getDoku <em>Doku</em>}'.
+   * Returns the meta object for the containment reference '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDefinition#getDoku <em>Doku</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Doku</em>'.
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDeclartion#getDoku()
-   * @see #getElementDeclartion()
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDefinition#getDoku()
+   * @see #getElementDefinition()
    * @generated
    */
-  EReference getElementDeclartion_Doku();
+  EReference getElementDefinition_Doku();
 
   /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDeclartion#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDefinition#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDeclartion#getName()
-   * @see #getElementDeclartion()
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDefinition#getName()
+   * @see #getElementDefinition()
    * @generated
    */
-  EAttribute getElementDeclartion_Name();
+  EAttribute getElementDefinition_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDeclartion#getProperties <em>Properties</em>}'.
+   * Returns the meta object for the reference list '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDefinition#getSuper <em>Super</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Super</em>'.
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDefinition#getSuper()
+   * @see #getElementDefinition()
+   * @generated
+   */
+  EReference getElementDefinition_Super();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDefinition#getProperties <em>Properties</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Properties</em>'.
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDeclartion#getProperties()
-   * @see #getElementDeclartion()
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDefinition#getProperties()
+   * @see #getElementDefinition()
    * @generated
    */
-  EReference getElementDeclartion_Properties();
+  EReference getElementDefinition_Properties();
 
   /**
-   * Returns the meta object for the containment reference list '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDeclartion#getPseudoClasses <em>Pseudo Classes</em>}'.
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDefinition#getPseudoClasses <em>Pseudo Classes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Pseudo Classes</em>'.
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDeclartion#getPseudoClasses()
-   * @see #getElementDeclartion()
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.ElementDefinition#getPseudoClasses()
+   * @see #getElementDefinition()
    * @generated
    */
-  EReference getElementDeclartion_PseudoClasses();
+  EReference getElementDefinition_PseudoClasses();
 
   /**
    * Returns the meta object for class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.PropertyDefinition <em>Property Definition</em>}'.
@@ -1364,6 +1433,17 @@ public interface CssExtDslPackage extends EPackage
   EReference getCSSRuleDefinition_Rule();
 
   /**
+   * Returns the meta object for the containment reference '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleDefinition#getFunc <em>Func</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Func</em>'.
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleDefinition#getFunc()
+   * @see #getCSSRuleDefinition()
+   * @generated
+   */
+  EReference getCSSRuleDefinition_Func();
+
+  /**
    * Returns the meta object for class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSDefaultValue <em>CSS Default Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1503,10 +1583,10 @@ public interface CssExtDslPackage extends EPackage
   EAttribute getCSSRuleFunc_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleFunc#getParams <em>Params</em>}'.
+   * Returns the meta object for the containment reference '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleFunc#getParams <em>Params</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Params</em>'.
+   * @return the meta object for the containment reference '<em>Params</em>'.
    * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleFunc#getParams()
    * @see #getCSSRuleFunc()
    * @generated
@@ -1630,25 +1710,46 @@ public interface CssExtDslPackage extends EPackage
   EReference getCSSRuleBracket_Inner();
 
   /**
-   * Returns the meta object for class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleParanthesis <em>CSS Rule Paranthesis</em>}'.
+   * Returns the meta object for class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.NumLiteral <em>Num Literal</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>CSS Rule Paranthesis</em>'.
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleParanthesis
+   * @return the meta object for class '<em>Num Literal</em>'.
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.NumLiteral
    * @generated
    */
-  EClass getCSSRuleParanthesis();
+  EClass getNumLiteral();
 
   /**
-   * Returns the meta object for the containment reference '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleParanthesis#getInner <em>Inner</em>}'.
+   * Returns the meta object for the attribute '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.NumLiteral#getValue <em>Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Inner</em>'.
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleParanthesis#getInner()
-   * @see #getCSSRuleParanthesis()
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.NumLiteral#getValue()
+   * @see #getNumLiteral()
    * @generated
    */
-  EReference getCSSRuleParanthesis_Inner();
+  EAttribute getNumLiteral_Value();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleRegex <em>CSS Rule Regex</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>CSS Rule Regex</em>'.
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleRegex
+   * @generated
+   */
+  EClass getCSSRuleRegex();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleRegex#getRegex <em>Regex</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Regex</em>'.
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleRegex#getRegex()
+   * @see #getCSSRuleRegex()
+   * @generated
+   */
+  EAttribute getCSSRuleRegex_Regex();
 
   /**
    * Returns the meta object for class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleLiteral <em>CSS Rule Literal</em>}'.
@@ -1672,25 +1773,25 @@ public interface CssExtDslPackage extends EPackage
   EAttribute getCSSRuleLiteral_Value();
 
   /**
-   * Returns the meta object for class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleRegex <em>CSS Rule Regex</em>}'.
+   * Returns the meta object for class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleSymbol <em>CSS Rule Symbol</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>CSS Rule Regex</em>'.
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleRegex
+   * @return the meta object for class '<em>CSS Rule Symbol</em>'.
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleSymbol
    * @generated
    */
-  EClass getCSSRuleRegex();
+  EClass getCSSRuleSymbol();
 
   /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleRegex#getRegex <em>Regex</em>}'.
+   * Returns the meta object for the attribute '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleSymbol#getSymbol <em>Symbol</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Regex</em>'.
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleRegex#getRegex()
-   * @see #getCSSRuleRegex()
+   * @return the meta object for the attribute '<em>Symbol</em>'.
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleSymbol#getSymbol()
+   * @see #getCSSRuleSymbol()
    * @generated
    */
-  EAttribute getCSSRuleRegex_Regex();
+  EAttribute getCSSRuleSymbol_Symbol();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1838,14 +1939,14 @@ public interface CssExtDslPackage extends EPackage
     EAttribute CSS_RULE__TYPE = eINSTANCE.getCSSRule_Type();
 
     /**
-     * The meta object literal for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.ElementDeclartionImpl <em>Element Declartion</em>}' class.
+     * The meta object literal for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.ElementDefinitionImpl <em>Element Definition</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.ElementDeclartionImpl
-     * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getElementDeclartion()
+     * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.ElementDefinitionImpl
+     * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getElementDefinition()
      * @generated
      */
-    EClass ELEMENT_DECLARTION = eINSTANCE.getElementDeclartion();
+    EClass ELEMENT_DEFINITION = eINSTANCE.getElementDefinition();
 
     /**
      * The meta object literal for the '<em><b>Doku</b></em>' containment reference feature.
@@ -1853,7 +1954,7 @@ public interface CssExtDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ELEMENT_DECLARTION__DOKU = eINSTANCE.getElementDeclartion_Doku();
+    EReference ELEMENT_DEFINITION__DOKU = eINSTANCE.getElementDefinition_Doku();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -1861,7 +1962,15 @@ public interface CssExtDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ELEMENT_DECLARTION__NAME = eINSTANCE.getElementDeclartion_Name();
+    EAttribute ELEMENT_DEFINITION__NAME = eINSTANCE.getElementDefinition_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Super</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ELEMENT_DEFINITION__SUPER = eINSTANCE.getElementDefinition_Super();
 
     /**
      * The meta object literal for the '<em><b>Properties</b></em>' containment reference list feature.
@@ -1869,7 +1978,7 @@ public interface CssExtDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ELEMENT_DECLARTION__PROPERTIES = eINSTANCE.getElementDeclartion_Properties();
+    EReference ELEMENT_DEFINITION__PROPERTIES = eINSTANCE.getElementDefinition_Properties();
 
     /**
      * The meta object literal for the '<em><b>Pseudo Classes</b></em>' containment reference list feature.
@@ -1877,7 +1986,7 @@ public interface CssExtDslPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ELEMENT_DECLARTION__PSEUDO_CLASSES = eINSTANCE.getElementDeclartion_PseudoClasses();
+    EReference ELEMENT_DEFINITION__PSEUDO_CLASSES = eINSTANCE.getElementDefinition_PseudoClasses();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.PropertyDefinitionImpl <em>Property Definition</em>}' class.
@@ -2018,6 +2127,14 @@ public interface CssExtDslPackage extends EPackage
     EReference CSS_RULE_DEFINITION__RULE = eINSTANCE.getCSSRuleDefinition_Rule();
 
     /**
+     * The meta object literal for the '<em><b>Func</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CSS_RULE_DEFINITION__FUNC = eINSTANCE.getCSSRuleDefinition_Func();
+
+    /**
      * The meta object literal for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSDefaultValueImpl <em>CSS Default Value</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2130,7 +2247,7 @@ public interface CssExtDslPackage extends EPackage
     EAttribute CSS_RULE_FUNC__NAME = eINSTANCE.getCSSRuleFunc_Name();
 
     /**
-     * The meta object literal for the '<em><b>Params</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Params</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2236,22 +2353,40 @@ public interface CssExtDslPackage extends EPackage
     EReference CSS_RULE_BRACKET__INNER = eINSTANCE.getCSSRuleBracket_Inner();
 
     /**
-     * The meta object literal for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleParanthesisImpl <em>CSS Rule Paranthesis</em>}' class.
+     * The meta object literal for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.NumLiteralImpl <em>Num Literal</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleParanthesisImpl
-     * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getCSSRuleParanthesis()
+     * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.NumLiteralImpl
+     * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getNumLiteral()
      * @generated
      */
-    EClass CSS_RULE_PARANTHESIS = eINSTANCE.getCSSRuleParanthesis();
+    EClass NUM_LITERAL = eINSTANCE.getNumLiteral();
 
     /**
-     * The meta object literal for the '<em><b>Inner</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference CSS_RULE_PARANTHESIS__INNER = eINSTANCE.getCSSRuleParanthesis_Inner();
+    EAttribute NUM_LITERAL__VALUE = eINSTANCE.getNumLiteral_Value();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleRegexImpl <em>CSS Rule Regex</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleRegexImpl
+     * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getCSSRuleRegex()
+     * @generated
+     */
+    EClass CSS_RULE_REGEX = eINSTANCE.getCSSRuleRegex();
+
+    /**
+     * The meta object literal for the '<em><b>Regex</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute CSS_RULE_REGEX__REGEX = eINSTANCE.getCSSRuleRegex_Regex();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleLiteralImpl <em>CSS Rule Literal</em>}' class.
@@ -2272,22 +2407,22 @@ public interface CssExtDslPackage extends EPackage
     EAttribute CSS_RULE_LITERAL__VALUE = eINSTANCE.getCSSRuleLiteral_Value();
 
     /**
-     * The meta object literal for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleRegexImpl <em>CSS Rule Regex</em>}' class.
+     * The meta object literal for the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleSymbolImpl <em>CSS Rule Symbol</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleRegexImpl
-     * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getCSSRuleRegex()
+     * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleSymbolImpl
+     * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CssExtDslPackageImpl#getCSSRuleSymbol()
      * @generated
      */
-    EClass CSS_RULE_REGEX = eINSTANCE.getCSSRuleRegex();
+    EClass CSS_RULE_SYMBOL = eINSTANCE.getCSSRuleSymbol();
 
     /**
-     * The meta object literal for the '<em><b>Regex</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Symbol</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute CSS_RULE_REGEX__REGEX = eINSTANCE.getCSSRuleRegex_Regex();
+    EAttribute CSS_RULE_SYMBOL__SYMBOL = eINSTANCE.getCSSRuleSymbol_Symbol();
 
   }
 

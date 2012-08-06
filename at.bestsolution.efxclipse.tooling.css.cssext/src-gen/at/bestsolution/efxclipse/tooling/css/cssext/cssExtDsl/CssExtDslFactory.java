@@ -1,4 +1,7 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl;
 
@@ -68,13 +71,13 @@ public interface CssExtDslFactory extends EFactory
   CSSRule createCSSRule();
 
   /**
-   * Returns a new object of class '<em>Element Declartion</em>'.
+   * Returns a new object of class '<em>Element Definition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Element Declartion</em>'.
+   * @return a new object of class '<em>Element Definition</em>'.
    * @generated
    */
-  ElementDeclartion createElementDeclartion();
+  ElementDefinition createElementDefinition();
 
   /**
    * Returns a new object of class '<em>Property Definition</em>'.
@@ -203,13 +206,22 @@ public interface CssExtDslFactory extends EFactory
   CSSRuleBracket createCSSRuleBracket();
 
   /**
-   * Returns a new object of class '<em>CSS Rule Paranthesis</em>'.
+   * Returns a new object of class '<em>Num Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>CSS Rule Paranthesis</em>'.
+   * @return a new object of class '<em>Num Literal</em>'.
    * @generated
    */
-  CSSRuleParanthesis createCSSRuleParanthesis();
+  NumLiteral createNumLiteral();
+
+  /**
+   * Returns a new object of class '<em>CSS Rule Regex</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>CSS Rule Regex</em>'.
+   * @generated
+   */
+  CSSRuleRegex createCSSRuleRegex();
 
   /**
    * Returns a new object of class '<em>CSS Rule Literal</em>'.
@@ -221,13 +233,13 @@ public interface CssExtDslFactory extends EFactory
   CSSRuleLiteral createCSSRuleLiteral();
 
   /**
-   * Returns a new object of class '<em>CSS Rule Regex</em>'.
+   * Returns a new object of class '<em>CSS Rule Symbol</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>CSS Rule Regex</em>'.
+   * @return a new object of class '<em>CSS Rule Symbol</em>'.
    * @generated
    */
-  CSSRuleRegex createCSSRuleRegex();
+  CSSRuleSymbol createCSSRuleSymbol();
 
   /**
    * Returns the package supported by this factory.

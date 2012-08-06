@@ -40,7 +40,7 @@ PackageDefinition:
 		(
 		rules+=CSSRuleDefinition |
 		subpackages+=PackageDefinition |
-		elements+=ElementDeclartion
+		elements+=ElementDefinition
 		)*
 	'}'
 ;
@@ -54,20 +54,20 @@ CSSBaseType returns CSSRule hidden(WS, SL_COMMENT, ML_COMMENT):
 ;
 
 CSSType returns CSSRule hidden(SL_COMMENT, ML_COMMENT):
-	{CSSRangedIntType} type='int' '(' from=INT '->' to=INT ')' |
-	{CSSRangedDoubleType} type='double' '(' from=DOUBLE '->' to=DOUBLE ')' |
-	type='int'
-//	 |
-//	type='double'
+	{CSSRangedIntType} type='int' '(' WS* from=INT WS* '->' WS* to=INT WS* ')' |
+	{CSSRangedDoubleType} type='double' '(' WS* from=DOUBLE WS* '->' WS* to=DOUBLE WS* ')' |
+	type='int' |
+	type='double'
 ;
 
 //CSSRangedType returns CSSRule hidden(SL_COMMENT, ML_COMMENT):
 //	
 //;
 
-ElementDeclartion: 
+ElementDefinition: 
+	{ElementDefinition}
 	doku=Doku?
-	name=QualifiedName 
+	name=QualifiedName ('extends' super+=[ElementDefinition|QualifiedName] (',' super+=[ElementDefinition|QualifiedName])*)?
 	'{'
 		(
 			properties+=PropertyDefinition |
@@ -79,11 +79,13 @@ ElementDeclartion:
 
 
 PropertyDefinition: 
+	{PropertyDefinition}
 	doku=Doku?
 	name=ID rule=CSSRuleOr ('default:' default=CSSDefaultValue)? ';'
 ;
 
 PseudoClassDefinition:
+	{PseudoClassDefinition}
 	doku=Doku?
 	name=PSEUDO
 ;
@@ -98,13 +100,17 @@ CSSRuleRef hidden():
 
 
 CSSRuleDefinition hidden(WS, SL_COMMENT, ML_COMMENT):
-	{CSSRuleDefinition}
-	doku=Doku?
-	name=CSSRuleId '=' rule=CSSRuleOr';'
+	doku=Doku? 
+	name=CSSRuleId '='
+	(
+		rule=CSSRuleOr | 
+		func=CSSRuleFunc
+	)';'
 ;
 
 CSSRuleFunc returns CSSRule hidden(ML_COMMENT, SL_COMMENT):
-	{CSSRuleFunc} name=ID '(' WS* params+=CSSRuleOr ( ',' WS* params+=CSSRuleOr)* ')'
+	//{CSSRuleFunc} name=ValidID '(' WS* params+=CSSRuleOr ( ',' WS* params+=CSSRuleOr)* ')' // PARAMS disabled in favor of ',' as literal
+	{CSSRuleFunc} name=ValidID '(' WS* params=CSSRuleOr ')'
 ;
 
 CSSRuleOr returns CSSRule hidden(WS, ML_COMMENT, SL_COMMENT):
@@ -127,19 +133,19 @@ CSSRuleBracket returns CSSRule hidden(WS, SL_COMMENT, ML_COMMENT):
 	{CSSRuleBracket} '[' inner=CSSRuleOr ']'
 ;
 
-CSSRuleParenthesis returns CSSRule hidden(WS, SL_COMMENT, ML_COMMENT):
-	{CSSRuleParanthesis} '(' inner=CSSRuleOr ')'
-;
+//CSSRuleParenthesis returns CSSRule hidden(WS, SL_COMMENT, ML_COMMENT):
+//	{CSSRuleParanthesis} '(' inner=CSSRuleOr ')'
+//;
 
 CSSRulePrimary returns CSSRule hidden(SL_COMMENT, ML_COMMENT):
 	CSSRuleRef |
 	CSSRuleBracket |
-	CSSRuleParenthesis |
-	{CSSRuleLiteral} value=ID |
+//	CSSRuleParenthesis |
+	CSSRuleLiteral |
+	CSSRuleSymbol |
 	CSSBaseType |
-	CSSRuleRegex 
-//	| 
-//	{CSSRuleFunc} name=ID => '(' WS* params+=CSSRuleOr ( ',' WS* params+=CSSRuleOr)* ')'
+	CSSRuleRegex |
+	{NumLiteral} value=INT
 ;
 
 CSSRuleRegex returns CSSRule hidden(WS, SL_COMMENT, ML_COMMENT):
@@ -148,6 +154,10 @@ CSSRuleRegex returns CSSRule hidden(WS, SL_COMMENT, ML_COMMENT):
 
 CSSRuleLiteral returns CSSRule:
 	{CSSRuleLiteral} value=ID
+;
+
+CSSRuleSymbol returns CSSRule:
+	{CSSRuleSymbol} symbol=(',')
 ;
 
 CSSDefaultValue:

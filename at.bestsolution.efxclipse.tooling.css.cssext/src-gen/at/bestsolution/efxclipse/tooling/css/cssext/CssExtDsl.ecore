@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="cssExtDsl" nsURI="http://www.bestsolution.at/efxclipse/tooling/css/cssext/CssExtDsl"
-    nsPrefix="cssExtDsl">
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="cssExtDsl"
+    nsURI="http://www.bestsolution.at/efxclipse/tooling/css/cssext/CssExtDsl" nsPrefix="cssExtDsl">
   <eClassifiers xsi:type="ecore:EClass" name="CssExtension">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
         eType="#//Import" containment="true"/>
@@ -18,7 +19,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="subpackages" upperBound="-1"
         eType="#//PackageDefinition" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
-        eType="#//ElementDeclartion" containment="true"/>
+        eType="#//ElementDefinition" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Doku">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -26,9 +27,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="CSSRule">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ElementDeclartion">
+  <eClassifiers xsi:type="ecore:EClass" name="ElementDefinition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="doku" eType="#//Doku" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="super" unique="false" upperBound="-1"
+        eType="#//ElementDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
         eType="#//PropertyDefinition" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pseudoClasses" upperBound="-1"
@@ -58,6 +61,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rule" eType="#//CSSRule"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="func" eType="#//CSSRule"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CSSDefaultValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="val" eType="#//CSSRule"
@@ -76,8 +81,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CSSRuleFunc" eSuperTypes="#//CSSRule">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="params" upperBound="-1"
-        eType="#//CSSRule" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="params" eType="#//CSSRule"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CSSRuleOr" eSuperTypes="#//CSSRule">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ors" upperBound="-1" eType="#//CSSRule"
@@ -100,14 +105,16 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="inner" eType="#//CSSRule"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CSSRuleParanthesis" eSuperTypes="#//CSSRule">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inner" eType="#//CSSRule"
-        containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NumLiteral" eSuperTypes="#//CSSRule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CSSRuleRegex" eSuperTypes="#//CSSRule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="regex" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CSSRuleLiteral" eSuperTypes="#//CSSRule">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CSSRuleRegex" eSuperTypes="#//CSSRule">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="regex" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CSSRuleSymbol" eSuperTypes="#//CSSRule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="symbol" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

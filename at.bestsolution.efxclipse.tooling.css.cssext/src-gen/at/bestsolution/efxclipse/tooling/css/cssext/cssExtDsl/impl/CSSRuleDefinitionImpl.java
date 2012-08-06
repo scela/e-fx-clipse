@@ -1,4 +1,7 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl;
 
@@ -27,6 +30,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleDefinitionImpl#getDoku <em>Doku</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleDefinitionImpl#getRule <em>Rule</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleDefinitionImpl#getFunc <em>Func</em>}</li>
  * </ul>
  * </p>
  *
@@ -63,6 +67,16 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
    * @ordered
    */
   protected CSSRule rule;
+
+  /**
+   * The cached value of the '{@link #getFunc() <em>Func</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFunc()
+   * @generated
+   * @ordered
+   */
+  protected CSSRule func;
 
   /**
    * <!-- begin-user-doc -->
@@ -234,6 +248,54 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
+  public CSSRule getFunc()
+  {
+    return func;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetFunc(CSSRule newFunc, NotificationChain msgs)
+  {
+    CSSRule oldFunc = func;
+    func = newFunc;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CssExtDslPackage.CSS_RULE_DEFINITION__FUNC, oldFunc, newFunc);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFunc(CSSRule newFunc)
+  {
+    if (newFunc != func)
+    {
+      NotificationChain msgs = null;
+      if (func != null)
+        msgs = ((InternalEObject)func).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CssExtDslPackage.CSS_RULE_DEFINITION__FUNC, null, msgs);
+      if (newFunc != null)
+        msgs = ((InternalEObject)newFunc).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CssExtDslPackage.CSS_RULE_DEFINITION__FUNC, null, msgs);
+      msgs = basicSetFunc(newFunc, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CssExtDslPackage.CSS_RULE_DEFINITION__FUNC, newFunc, newFunc));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -245,6 +307,8 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
         return basicSetName(null, msgs);
       case CssExtDslPackage.CSS_RULE_DEFINITION__RULE:
         return basicSetRule(null, msgs);
+      case CssExtDslPackage.CSS_RULE_DEFINITION__FUNC:
+        return basicSetFunc(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -265,6 +329,8 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
         return getName();
       case CssExtDslPackage.CSS_RULE_DEFINITION__RULE:
         return getRule();
+      case CssExtDslPackage.CSS_RULE_DEFINITION__FUNC:
+        return getFunc();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -287,6 +353,9 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
         return;
       case CssExtDslPackage.CSS_RULE_DEFINITION__RULE:
         setRule((CSSRule)newValue);
+        return;
+      case CssExtDslPackage.CSS_RULE_DEFINITION__FUNC:
+        setFunc((CSSRule)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -311,6 +380,9 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
       case CssExtDslPackage.CSS_RULE_DEFINITION__RULE:
         setRule((CSSRule)null);
         return;
+      case CssExtDslPackage.CSS_RULE_DEFINITION__FUNC:
+        setFunc((CSSRule)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -331,6 +403,8 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
         return name != null;
       case CssExtDslPackage.CSS_RULE_DEFINITION__RULE:
         return rule != null;
+      case CssExtDslPackage.CSS_RULE_DEFINITION__FUNC:
+        return func != null;
     }
     return super.eIsSet(featureID);
   }

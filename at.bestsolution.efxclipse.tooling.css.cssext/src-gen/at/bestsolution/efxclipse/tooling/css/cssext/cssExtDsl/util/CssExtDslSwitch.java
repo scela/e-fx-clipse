@@ -1,4 +1,7 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.util;
 
@@ -107,10 +110,10 @@ public class CssExtDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CssExtDslPackage.ELEMENT_DECLARTION:
+      case CssExtDslPackage.ELEMENT_DEFINITION:
       {
-        ElementDeclartion elementDeclartion = (ElementDeclartion)theEObject;
-        T result = caseElementDeclartion(elementDeclartion);
+        ElementDefinition elementDefinition = (ElementDefinition)theEObject;
+        T result = caseElementDefinition(elementDefinition);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -221,11 +224,19 @@ public class CssExtDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CssExtDslPackage.CSS_RULE_PARANTHESIS:
+      case CssExtDslPackage.NUM_LITERAL:
       {
-        CSSRuleParanthesis cssRuleParanthesis = (CSSRuleParanthesis)theEObject;
-        T result = caseCSSRuleParanthesis(cssRuleParanthesis);
-        if (result == null) result = caseCSSRule(cssRuleParanthesis);
+        NumLiteral numLiteral = (NumLiteral)theEObject;
+        T result = caseNumLiteral(numLiteral);
+        if (result == null) result = caseCSSRule(numLiteral);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CssExtDslPackage.CSS_RULE_REGEX:
+      {
+        CSSRuleRegex cssRuleRegex = (CSSRuleRegex)theEObject;
+        T result = caseCSSRuleRegex(cssRuleRegex);
+        if (result == null) result = caseCSSRule(cssRuleRegex);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -237,11 +248,11 @@ public class CssExtDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CssExtDslPackage.CSS_RULE_REGEX:
+      case CssExtDslPackage.CSS_RULE_SYMBOL:
       {
-        CSSRuleRegex cssRuleRegex = (CSSRuleRegex)theEObject;
-        T result = caseCSSRuleRegex(cssRuleRegex);
-        if (result == null) result = caseCSSRule(cssRuleRegex);
+        CSSRuleSymbol cssRuleSymbol = (CSSRuleSymbol)theEObject;
+        T result = caseCSSRuleSymbol(cssRuleSymbol);
+        if (result == null) result = caseCSSRule(cssRuleSymbol);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -330,17 +341,17 @@ public class CssExtDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Element Declartion</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Element Definition</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Element Declartion</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Element Definition</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseElementDeclartion(ElementDeclartion object)
+  public T caseElementDefinition(ElementDefinition object)
   {
     return null;
   }
@@ -570,17 +581,33 @@ public class CssExtDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Paranthesis</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Num Literal</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>CSS Rule Paranthesis</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Num Literal</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseCSSRuleParanthesis(CSSRuleParanthesis object)
+  public T caseNumLiteral(NumLiteral object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Regex</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>CSS Rule Regex</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCSSRuleRegex(CSSRuleRegex object)
   {
     return null;
   }
@@ -602,17 +629,17 @@ public class CssExtDslSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Regex</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Symbol</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>CSS Rule Regex</em>'.
+   * @return the result of interpreting the object as an instance of '<em>CSS Rule Symbol</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseCSSRuleRegex(CSSRuleRegex object)
+  public T caseCSSRuleSymbol(CSSRuleSymbol object)
   {
     return null;
   }

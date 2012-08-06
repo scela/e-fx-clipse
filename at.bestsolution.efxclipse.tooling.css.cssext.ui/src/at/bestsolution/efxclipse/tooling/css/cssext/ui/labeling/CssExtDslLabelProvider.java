@@ -6,6 +6,8 @@ package at.bestsolution.efxclipse.tooling.css.cssext.ui.labeling;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleDefinition;
+
 import com.google.inject.Inject;
 
 /**
@@ -20,6 +22,10 @@ public class CssExtDslLabelProvider extends DefaultEObjectLabelProvider {
 		super(delegate);
 	}
 
+	
+	String text(CSSRuleDefinition model) {
+		return model.getName().getName() + " =";
+	}
 	
 /*
 	//Labels and icons can be computed like this:

@@ -1,5 +1,61 @@
+
+
 package KuddelMuddel {
  	
+ 	package martin {
+ 		
+ 		gnu = gnu?;
+ 		
+ 		
+ 		m = a |  c || d;
+ 		
+ 		l = int(0->5) px;
+ 		
+ 		Div {
+ 			/**
+ 			 * 
+ 			 */
+ 			m <m>;
+ 			
+ 			/**
+ 			 * 	-fx-border-width: 4px 4px 1px 2px, 5px 4px 3px 1px;
+ 			 */
+ 			 btest [<l> | <l> <l> <l> <l>] [, [<l> | <l> <l> <l> <l> ] ]*;
+ 		}
+ 		
+ 		/** */
+ 		Table extends Div ,KuddelMuddel.Gnu {
+ 			/**
+ 			 * 
+ 			 * @SeeAlso <m>
+ 			 */
+ 			m <m> | b | c; 
+ 		}
+ 		
+ 		
+ 		
+ 		Hallo {
+ 			
+ 			/**
+ 			 * super toll
+ 			 */
+ 			-martin-a a | b cd <gnu>;
+ 		}
+ 	}
+ 	
+ 	/**
+ 	 * Das Gnu element ist auch ein Element, auch wenn es Gnu heisst.
+ 	 */
+ 	Gnu {
+ 		
+ 		/**
+ 		 * TODO: Roflcopter beschreiben.
+ 		 */
+ 		-roflkopter a | b | c default: c;
+ 		
+ 	}
+ 	
+ 	RuleComma = ,;
  	
  	RuleAssignment0 = a;
  	
@@ -18,6 +74,7 @@ package KuddelMuddel {
  	postfix2 = a?;
  	postfix3 = a* | b*;
  	postfix4 = a* | b* | c*;
+ 	postfix5 = [a | b]?;
  
  	simple = a | b | c;
 	
