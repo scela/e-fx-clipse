@@ -7,7 +7,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Node;
 import static at.bestsolution.efxclipse.runtime.panels.AbstractLayoutPane.*;
 
-
 public class GridData {
 	/**
 	 * verticalAlignment specifies how controls will be positioned vertically
@@ -92,7 +91,7 @@ public class GridData {
 	 * 
 	 * The default value is 1.
 	 */
-	public IntegerProperty horizontalSpan = new SimpleIntegerProperty(this, "horizontalSpan",1);
+	public IntegerProperty horizontalSpan = new SimpleIntegerProperty(this, "horizontalSpan", 1);
 
 	/**
 	 * verticalSpan specifies the number of row cells that the control will take
@@ -100,7 +99,7 @@ public class GridData {
 	 * 
 	 * The default value is 1.
 	 */
-	public IntegerProperty verticalSpan = new SimpleIntegerProperty(this, "verticalSpan",1);
+	public IntegerProperty verticalSpan = new SimpleIntegerProperty(this, "verticalSpan", 1);
 
 	/**
 	 * <p>
@@ -135,7 +134,7 @@ public class GridData {
 	 * @see GridData#minimumWidth
 	 * @see GridData#widthHint
 	 */
-	public BooleanProperty grabExcessHorizontalSpace = new SimpleBooleanProperty(this,"grabExcessHorizontalSpace",false);
+	public BooleanProperty grabExcessHorizontalSpace = new SimpleBooleanProperty(this, "grabExcessHorizontalSpace", false);
 
 	/**
 	 * <p>
@@ -170,7 +169,7 @@ public class GridData {
 	 * @see GridData#minimumHeight
 	 * @see GridData#heightHint
 	 */
-	public BooleanProperty grabExcessVerticalSpace = new SimpleBooleanProperty(this,"grabExcessVerticalSpace",false);
+	public BooleanProperty grabExcessVerticalSpace = new SimpleBooleanProperty(this, "grabExcessVerticalSpace", false);
 
 	/**
 	 * minimumWidth specifies the minimum width in pixels. This value applies
@@ -184,7 +183,7 @@ public class GridData {
 	 * @see Control#computeSize(int, int, boolean)
 	 * @see GridData#widthHint
 	 */
-	public IntegerProperty minimumWidth = new SimpleIntegerProperty(this,"minimumWidth",0);
+	public IntegerProperty minimumWidth = new SimpleIntegerProperty(this, "minimumWidth", 0);
 
 	/**
 	 * minimumHeight specifies the minimum height in pixels. This value applies
@@ -198,7 +197,7 @@ public class GridData {
 	 * @see Control#computeSize(int, int, boolean)
 	 * @see GridData#heightHint
 	 */
-	public IntegerProperty minimumHeight = new SimpleIntegerProperty(this,"minimumHeight",0);
+	public IntegerProperty minimumHeight = new SimpleIntegerProperty(this, "minimumHeight", 0);
 
 	/**
 	 * exclude informs the layout to ignore this control when sizing and
@@ -493,20 +492,175 @@ public class GridData {
 		return string.substring(index + 1, string.length());
 	}
 
+	// ----
 	public void setExclude(boolean value) {
 		exclude.set(value);
 	}
-	
+
 	public boolean isExclude() {
 		return exclude.get();
 	}
-	
+
 	public BooleanProperty excludeProperty() {
 		return exclude;
 	}
+
+	// ----
+	public void setGrabHorizontalSpace(boolean value) {
+		grabExcessHorizontalSpace.set(value);
+	}
+
+	public boolean isGrabHorizontalSpace() {
+		return grabExcessHorizontalSpace.get();
+	}
+
+	public BooleanProperty grabHorizontalSpaceProperty() {
+		return grabExcessHorizontalSpace;
+	}
+
+	// ----
+	public void setGrabVerticalSpace(boolean value) {
+		grabExcessVerticalSpace.set(value);
+	}
+
+	public boolean isGrabVerticalSapce() {
+		return grabExcessVerticalSpace.get();
+	}
+
+	public BooleanProperty grabExcessVerticalSpaceProperty() {
+		return grabExcessVerticalSpace;
+	}
+
+	// ----
+	public void setHeightHint(int value) {
+		heightHint.set(value);
+	}
+
+	public int getHeightHint() {
+		return heightHint.get();
+	}
+
+	public IntegerProperty heightHintProperty() {
+		return heightHint;
+	}
+
+	// ----
+	public void setHorizontalAlignment(int value) {
+		horizontalAlignment.set(value);
+	}
+
+	public int getHorizontalAlignment() {
+		return horizontalAlignment.get();
+	}
+
+	public IntegerProperty horizontalAlignmentProperty() {
+		return horizontalAlignment;
+	}
+
+	// ----
+	public void setHorizontalIdent(int value) {
+		horizontalIndent.set(value);
+	}
+
+	public int getHorizontalIdent() {
+		return horizontalIndent.get();
+	}
+
+	public IntegerProperty horizontalIdentProperty() {
+		return horizontalIndent;
+	}
+
+	// ----
+	public void setHorizontalSpan(int value) {
+		horizontalSpan.set(value);
+	}
+
+	public int getHorizontalSpan() {
+		return horizontalSpan.get();
+	}
+
+	public IntegerProperty horizontalSpanProperty() {
+		return horizontalSpan;
+	}
+
+	// ----
+	public void setMinimumHeight(int value) {
+		minimumHeight.set(value);
+	}
+
+	public int getMinimumHeight() {
+		return minimumHeight.get();
+	}
+
+	public IntegerProperty minimumHeightProperty() {
+		return minimumHeight;
+	}
+
+	// ----
+	public void setMinimumWidth(int value) {
+		minimumWidth.set(value);
+	}
+
+	public int getMinimumWidth() {
+		return minimumWidth.get();
+	}
+
+	public IntegerProperty minimumWidthProperty() {
+		return minimumWidth;
+	}
+
+	// ----
+	public void setVerticalAlignment(int value) {
+		verticalAlignment.set(value);
+	}
+
+	public int getVerticalAlignment() {
+		return verticalAlignment.get();
+	}
+
+	public IntegerProperty verticalAlignmentProperty() {
+		return verticalAlignment;
+	}
 	
-	
-	
+	// ----
+	public void setVerticalIndent(int value) {
+		verticalIndent.set(value);
+	}
+
+	public int getVerticalIndent() {
+		return verticalIndent.get();
+	}
+
+	public IntegerProperty verticalIndentProperty() {
+		return verticalIndent;
+	}
+
+	// ----
+	public void setVerticalSpan(int value) {
+		verticalSpan.set(value);
+	}
+
+	public int getVerticalSpan() {
+		return verticalSpan.get();
+	}
+
+	public IntegerProperty verticalSpanProperty() {
+		return verticalSpan;
+	}
+
+	// ----
+	public void setWidthHint(int value) {
+		widthHint.set(value);
+	}
+
+	public int getWidthHint() {
+		return widthHint.get();
+	}
+
+	public IntegerProperty widthHintProperty() {
+		return widthHint;
+	}
+
 	/**
 	 * Returns a string containing a concise, human-readable description of the
 	 * receiver.
