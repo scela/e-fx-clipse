@@ -76,12 +76,17 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
       case CssExtDslPackage.CSS_RULE_REF: return createCSSRuleRef();
       case CssExtDslPackage.CSS_RULE_DEFINITION: return createCSSRuleDefinition();
       case CssExtDslPackage.CSS_DEFAULT_VALUE: return createCSSDefaultValue();
+      case CssExtDslPackage.CSS_RANGED_INT_TYPE: return createCSSRangedIntType();
+      case CssExtDslPackage.CSS_RANGED_DOUBLE_TYPE: return createCSSRangedDoubleType();
+      case CssExtDslPackage.CSS_RULE_FUNC: return createCSSRuleFunc();
       case CssExtDslPackage.CSS_RULE_OR: return createCSSRuleOr();
       case CssExtDslPackage.CSS_RULE_XOR: return createCSSRuleXor();
       case CssExtDslPackage.CSS_RULE_CONCAT: return createCSSRuleConcat();
       case CssExtDslPackage.CSS_RULE_POSTFIX: return createCSSRulePostfix();
       case CssExtDslPackage.CSS_RULE_BRACKET: return createCSSRuleBracket();
+      case CssExtDslPackage.CSS_RULE_PARANTHESIS: return createCSSRuleParanthesis();
       case CssExtDslPackage.CSS_RULE_LITERAL: return createCSSRuleLiteral();
+      case CssExtDslPackage.CSS_RULE_REGEX: return createCSSRuleRegex();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -224,6 +229,39 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
+  public CSSRangedIntType createCSSRangedIntType()
+  {
+    CSSRangedIntTypeImpl cssRangedIntType = new CSSRangedIntTypeImpl();
+    return cssRangedIntType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CSSRangedDoubleType createCSSRangedDoubleType()
+  {
+    CSSRangedDoubleTypeImpl cssRangedDoubleType = new CSSRangedDoubleTypeImpl();
+    return cssRangedDoubleType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CSSRuleFunc createCSSRuleFunc()
+  {
+    CSSRuleFuncImpl cssRuleFunc = new CSSRuleFuncImpl();
+    return cssRuleFunc;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public CSSRuleOr createCSSRuleOr()
   {
     CSSRuleOrImpl cssRuleOr = new CSSRuleOrImpl();
@@ -279,10 +317,32 @@ public class CssExtDslFactoryImpl extends EFactoryImpl implements CssExtDslFacto
    * <!-- end-user-doc -->
    * @generated
    */
+  public CSSRuleParanthesis createCSSRuleParanthesis()
+  {
+    CSSRuleParanthesisImpl cssRuleParanthesis = new CSSRuleParanthesisImpl();
+    return cssRuleParanthesis;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public CSSRuleLiteral createCSSRuleLiteral()
   {
     CSSRuleLiteralImpl cssRuleLiteral = new CSSRuleLiteralImpl();
     return cssRuleLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CSSRuleRegex createCSSRuleRegex()
+  {
+    CSSRuleRegexImpl cssRuleRegex = new CSSRuleRegexImpl();
+    return cssRuleRegex;
   }
 
   /**

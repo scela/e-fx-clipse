@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleDefinition#getDoku <em>Doku</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleDefinition#getName <em>Name</em>}</li>
- *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleDefinition#getR <em>R</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleDefinition#getRule <em>Rule</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,29 +77,29 @@ public interface CSSRuleDefinition extends EObject
   void setName(CSSRuleId value);
 
   /**
-   * Returns the value of the '<em><b>R</b></em>' containment reference.
+   * Returns the value of the '<em><b>Rule</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>R</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Rule</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>R</em>' containment reference.
-   * @see #setR(CSSRule)
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtDslPackage#getCSSRuleDefinition_R()
+   * @return the value of the '<em>Rule</em>' containment reference.
+   * @see #setRule(CSSRule)
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtDslPackage#getCSSRuleDefinition_Rule()
    * @model containment="true"
    * @generated
    */
-  CSSRule getR();
+  CSSRule getRule();
 
   /**
-   * Sets the value of the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleDefinition#getR <em>R</em>}' containment reference.
+   * Sets the value of the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleDefinition#getRule <em>Rule</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>R</em>' containment reference.
-   * @see #getR()
+   * @param value the new value of the '<em>Rule</em>' containment reference.
+   * @see #getRule()
    * @generated
    */
-  void setR(CSSRule value);
+  void setRule(CSSRule value);
 
 } // CSSRuleDefinition

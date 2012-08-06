@@ -10,6 +10,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,33 +19,33 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class CSSRuleImpl extends CSSDefaultValueImpl implements CSSRule
+public class CSSRuleImpl extends MinimalEObjectImpl.Container implements CSSRule
 {
   /**
-   * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
+   * The default value of the '{@link #getType() <em>Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getValue()
+   * @see #getType()
    * @generated
    * @ordered
    */
-  protected static final String VALUE_EDEFAULT = null;
+  protected static final String TYPE_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
+   * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getValue()
+   * @see #getType()
    * @generated
    * @ordered
    */
-  protected String value = VALUE_EDEFAULT;
+  protected String type = TYPE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -72,9 +73,9 @@ public class CSSRuleImpl extends CSSDefaultValueImpl implements CSSRule
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getValue()
+  public String getType()
   {
-    return value;
+    return type;
   }
 
   /**
@@ -82,12 +83,12 @@ public class CSSRuleImpl extends CSSDefaultValueImpl implements CSSRule
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(String newValue)
+  public void setType(String newType)
   {
-    String oldValue = value;
-    value = newValue;
+    String oldType = type;
+    type = newType;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CssExtDslPackage.CSS_RULE__VALUE, oldValue, value));
+      eNotify(new ENotificationImpl(this, Notification.SET, CssExtDslPackage.CSS_RULE__TYPE, oldType, type));
   }
 
   /**
@@ -100,8 +101,8 @@ public class CSSRuleImpl extends CSSDefaultValueImpl implements CSSRule
   {
     switch (featureID)
     {
-      case CssExtDslPackage.CSS_RULE__VALUE:
-        return getValue();
+      case CssExtDslPackage.CSS_RULE__TYPE:
+        return getType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -116,8 +117,8 @@ public class CSSRuleImpl extends CSSDefaultValueImpl implements CSSRule
   {
     switch (featureID)
     {
-      case CssExtDslPackage.CSS_RULE__VALUE:
-        setValue((String)newValue);
+      case CssExtDslPackage.CSS_RULE__TYPE:
+        setType((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -133,8 +134,8 @@ public class CSSRuleImpl extends CSSDefaultValueImpl implements CSSRule
   {
     switch (featureID)
     {
-      case CssExtDslPackage.CSS_RULE__VALUE:
-        setValue(VALUE_EDEFAULT);
+      case CssExtDslPackage.CSS_RULE__TYPE:
+        setType(TYPE_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -150,8 +151,8 @@ public class CSSRuleImpl extends CSSDefaultValueImpl implements CSSRule
   {
     switch (featureID)
     {
-      case CssExtDslPackage.CSS_RULE__VALUE:
-        return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+      case CssExtDslPackage.CSS_RULE__TYPE:
+        return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
     }
     return super.eIsSet(featureID);
   }
@@ -167,8 +168,8 @@ public class CSSRuleImpl extends CSSDefaultValueImpl implements CSSRule
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (value: ");
-    result.append(value);
+    result.append(" (type: ");
+    result.append(type);
     result.append(')');
     return result.toString();
   }

@@ -135,6 +135,21 @@ public class CssExtDslAdapterFactory extends AdapterFactoryImpl
         return createCSSDefaultValueAdapter();
       }
       @Override
+      public Adapter caseCSSRangedIntType(CSSRangedIntType object)
+      {
+        return createCSSRangedIntTypeAdapter();
+      }
+      @Override
+      public Adapter caseCSSRangedDoubleType(CSSRangedDoubleType object)
+      {
+        return createCSSRangedDoubleTypeAdapter();
+      }
+      @Override
+      public Adapter caseCSSRuleFunc(CSSRuleFunc object)
+      {
+        return createCSSRuleFuncAdapter();
+      }
+      @Override
       public Adapter caseCSSRuleOr(CSSRuleOr object)
       {
         return createCSSRuleOrAdapter();
@@ -160,9 +175,19 @@ public class CssExtDslAdapterFactory extends AdapterFactoryImpl
         return createCSSRuleBracketAdapter();
       }
       @Override
+      public Adapter caseCSSRuleParanthesis(CSSRuleParanthesis object)
+      {
+        return createCSSRuleParanthesisAdapter();
+      }
+      @Override
       public Adapter caseCSSRuleLiteral(CSSRuleLiteral object)
       {
         return createCSSRuleLiteralAdapter();
+      }
+      @Override
+      public Adapter caseCSSRuleRegex(CSSRuleRegex object)
+      {
+        return createCSSRuleRegexAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -367,6 +392,51 @@ public class CssExtDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRangedIntType <em>CSS Ranged Int Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRangedIntType
+   * @generated
+   */
+  public Adapter createCSSRangedIntTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRangedDoubleType <em>CSS Ranged Double Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRangedDoubleType
+   * @generated
+   */
+  public Adapter createCSSRangedDoubleTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleFunc <em>CSS Rule Func</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleFunc
+   * @generated
+   */
+  public Adapter createCSSRuleFuncAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleOr <em>CSS Rule Or</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -442,6 +512,21 @@ public class CssExtDslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleParanthesis <em>CSS Rule Paranthesis</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleParanthesis
+   * @generated
+   */
+  public Adapter createCSSRuleParanthesisAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleLiteral <em>CSS Rule Literal</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -452,6 +537,21 @@ public class CssExtDslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createCSSRuleLiteralAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleRegex <em>CSS Rule Regex</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleRegex
+   * @generated
+   */
+  public Adapter createCSSRuleRegexAdapter()
   {
     return null;
   }

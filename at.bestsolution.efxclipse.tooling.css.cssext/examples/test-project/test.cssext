@@ -1,0 +1,52 @@
+package KuddelMuddel {
+ 	
+ 	
+ 	RuleAssignment0 = a;
+ 	
+ 	RuleOr0 = a | b;
+ 	RuleOr1 = a | b | c;
+ 	RuleOr2 = <RuleOr0> | <RuleOr1>;
+ 	
+ 	RuleXor0 = a || b;
+ 	RuleXor1 = a || b || c;
+ 	 
+ 	RuleConcat0 = a b;
+ 	RuleConcat1 = a b a;
+ 	
+ 	postfix0 = a*;
+ 	postfix1 = a+;
+ 	postfix2 = a?;
+ 	postfix3 = a* | b*;
+ 	postfix4 = a* | b* | c*;
+ 
+ 	simple = a | b | c;
+	
+	simple1 = [ a ];
+	
+	simple2 = <simple1>;
+	
+	concat1 = a b;
+	concat2 = a b c;
+	concat3 = [ a | b ] c;
+	concat4 = [ a | b ] [ c | d ];
+	concat5 = [ a | b ] c d;
+	
+	complex = [ a | b ] <simple> [ halli || galli ];
+	
+	size-unit = px | em | mm;
+	
+	size = DOUBLE <size-unit>;
+	
+	root = <bg-position> [ , <bg-position> ]*;
+ 
+ bg-position = [
+    [ [ <size> | left | center | right ] [ <size> | top | center | bottom ]? ]
+    | [ [ center | [ left | right ] <size>? ] || [ center | [ top | bottom ] <size>? ]
+] ];
+
+
+	package subpackage {
+		 
+		
+	}
+}

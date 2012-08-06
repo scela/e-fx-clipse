@@ -2,6 +2,7 @@
  */
 package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl;
 
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -11,7 +12,7 @@ package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRule#getValue <em>Value</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRule#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -19,32 +20,32 @@ package at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl;
  * @model
  * @generated
  */
-public interface CSSRule extends CSSDefaultValue
+public interface CSSRule extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Value</b></em>' attribute.
+   * Returns the value of the '<em><b>Type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Value</em>' attribute isn't clear,
+   * If the meaning of the '<em>Type</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Value</em>' attribute.
-   * @see #setValue(String)
-   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtDslPackage#getCSSRule_Value()
+   * @return the value of the '<em>Type</em>' attribute.
+   * @see #setType(String)
+   * @see at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtDslPackage#getCSSRule_Type()
    * @model
    * @generated
    */
-  String getValue();
+  String getType();
 
   /**
-   * Sets the value of the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRule#getValue <em>Value</em>}' attribute.
+   * Sets the value of the '{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRule#getType <em>Type</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Value</em>' attribute.
-   * @see #getValue()
+   * @param value the new value of the '<em>Type</em>' attribute.
+   * @see #getType()
    * @generated
    */
-  void setValue(String value);
+  void setType(String value);
 
 } // CSSRule

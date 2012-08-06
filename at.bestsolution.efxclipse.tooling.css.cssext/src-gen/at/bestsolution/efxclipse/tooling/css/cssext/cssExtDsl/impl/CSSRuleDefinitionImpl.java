@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleDefinitionImpl#getDoku <em>Doku</em>}</li>
  *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleDefinitionImpl#getName <em>Name</em>}</li>
- *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleDefinitionImpl#getR <em>R</em>}</li>
+ *   <li>{@link at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.impl.CSSRuleDefinitionImpl#getRule <em>Rule</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,14 +55,14 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
   protected CSSRuleId name;
 
   /**
-   * The cached value of the '{@link #getR() <em>R</em>}' containment reference.
+   * The cached value of the '{@link #getRule() <em>Rule</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getR()
+   * @see #getRule()
    * @generated
    * @ordered
    */
-  protected CSSRule r;
+  protected CSSRule rule;
 
   /**
    * <!-- begin-user-doc -->
@@ -186,9 +186,9 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public CSSRule getR()
+  public CSSRule getRule()
   {
-    return r;
+    return rule;
   }
 
   /**
@@ -196,13 +196,13 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetR(CSSRule newR, NotificationChain msgs)
+  public NotificationChain basicSetRule(CSSRule newRule, NotificationChain msgs)
   {
-    CSSRule oldR = r;
-    r = newR;
+    CSSRule oldRule = rule;
+    rule = newRule;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CssExtDslPackage.CSS_RULE_DEFINITION__R, oldR, newR);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, CssExtDslPackage.CSS_RULE_DEFINITION__RULE, oldRule, newRule);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -213,20 +213,20 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setR(CSSRule newR)
+  public void setRule(CSSRule newRule)
   {
-    if (newR != r)
+    if (newRule != rule)
     {
       NotificationChain msgs = null;
-      if (r != null)
-        msgs = ((InternalEObject)r).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CssExtDslPackage.CSS_RULE_DEFINITION__R, null, msgs);
-      if (newR != null)
-        msgs = ((InternalEObject)newR).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CssExtDslPackage.CSS_RULE_DEFINITION__R, null, msgs);
-      msgs = basicSetR(newR, msgs);
+      if (rule != null)
+        msgs = ((InternalEObject)rule).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - CssExtDslPackage.CSS_RULE_DEFINITION__RULE, null, msgs);
+      if (newRule != null)
+        msgs = ((InternalEObject)newRule).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - CssExtDslPackage.CSS_RULE_DEFINITION__RULE, null, msgs);
+      msgs = basicSetRule(newRule, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, CssExtDslPackage.CSS_RULE_DEFINITION__R, newR, newR));
+      eNotify(new ENotificationImpl(this, Notification.SET, CssExtDslPackage.CSS_RULE_DEFINITION__RULE, newRule, newRule));
   }
 
   /**
@@ -243,8 +243,8 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
         return basicSetDoku(null, msgs);
       case CssExtDslPackage.CSS_RULE_DEFINITION__NAME:
         return basicSetName(null, msgs);
-      case CssExtDslPackage.CSS_RULE_DEFINITION__R:
-        return basicSetR(null, msgs);
+      case CssExtDslPackage.CSS_RULE_DEFINITION__RULE:
+        return basicSetRule(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -263,8 +263,8 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
         return getDoku();
       case CssExtDslPackage.CSS_RULE_DEFINITION__NAME:
         return getName();
-      case CssExtDslPackage.CSS_RULE_DEFINITION__R:
-        return getR();
+      case CssExtDslPackage.CSS_RULE_DEFINITION__RULE:
+        return getRule();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -285,8 +285,8 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
       case CssExtDslPackage.CSS_RULE_DEFINITION__NAME:
         setName((CSSRuleId)newValue);
         return;
-      case CssExtDslPackage.CSS_RULE_DEFINITION__R:
-        setR((CSSRule)newValue);
+      case CssExtDslPackage.CSS_RULE_DEFINITION__RULE:
+        setRule((CSSRule)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -308,8 +308,8 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
       case CssExtDslPackage.CSS_RULE_DEFINITION__NAME:
         setName((CSSRuleId)null);
         return;
-      case CssExtDslPackage.CSS_RULE_DEFINITION__R:
-        setR((CSSRule)null);
+      case CssExtDslPackage.CSS_RULE_DEFINITION__RULE:
+        setRule((CSSRule)null);
         return;
     }
     super.eUnset(featureID);
@@ -329,8 +329,8 @@ public class CSSRuleDefinitionImpl extends MinimalEObjectImpl.Container implemen
         return doku != null;
       case CssExtDslPackage.CSS_RULE_DEFINITION__NAME:
         return name != null;
-      case CssExtDslPackage.CSS_RULE_DEFINITION__R:
-        return r != null;
+      case CssExtDslPackage.CSS_RULE_DEFINITION__RULE:
+        return rule != null;
     }
     return super.eIsSet(featureID);
   }

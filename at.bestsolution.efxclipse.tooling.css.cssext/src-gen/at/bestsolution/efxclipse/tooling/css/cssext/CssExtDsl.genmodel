@@ -25,7 +25,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//Doku/content"/>
     </genClasses>
     <genClasses ecoreClass="CssExtDsl.ecore#//CSSRule">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSRule/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSRule/type"/>
     </genClasses>
     <genClasses ecoreClass="CssExtDsl.ecore#//ElementDeclartion">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//ElementDeclartion/doku"/>
@@ -52,9 +52,26 @@
     <genClasses ecoreClass="CssExtDsl.ecore#//CSSRuleDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSRuleDefinition/doku"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSRuleDefinition/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSRuleDefinition/r"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSRuleDefinition/rule"/>
     </genClasses>
-    <genClasses ecoreClass="CssExtDsl.ecore#//CSSDefaultValue"/>
+    <genClasses ecoreClass="CssExtDsl.ecore#//CSSDefaultValue">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSDefaultValue/val"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSDefaultValue/ival"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSDefaultValue/dval"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSDefaultValue/sval"/>
+    </genClasses>
+    <genClasses ecoreClass="CssExtDsl.ecore#//CSSRangedIntType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSRangedIntType/from"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSRangedIntType/to"/>
+    </genClasses>
+    <genClasses ecoreClass="CssExtDsl.ecore#//CSSRangedDoubleType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSRangedDoubleType/from"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSRangedDoubleType/to"/>
+    </genClasses>
+    <genClasses ecoreClass="CssExtDsl.ecore#//CSSRuleFunc">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSRuleFunc/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSRuleFunc/params"/>
+    </genClasses>
     <genClasses ecoreClass="CssExtDsl.ecore#//CSSRuleOr">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSRuleOr/ors"/>
     </genClasses>
@@ -71,6 +88,14 @@
     <genClasses ecoreClass="CssExtDsl.ecore#//CSSRuleBracket">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSRuleBracket/inner"/>
     </genClasses>
-    <genClasses ecoreClass="CssExtDsl.ecore#//CSSRuleLiteral"/>
+    <genClasses ecoreClass="CssExtDsl.ecore#//CSSRuleParanthesis">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CssExtDsl.ecore#//CSSRuleParanthesis/inner"/>
+    </genClasses>
+    <genClasses ecoreClass="CssExtDsl.ecore#//CSSRuleLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSRuleLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="CssExtDsl.ecore#//CSSRuleRegex">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CssExtDsl.ecore#//CSSRuleRegex/regex"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

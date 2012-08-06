@@ -104,7 +104,6 @@ public class CssExtDslSwitch<T> extends Switch<T>
       {
         CSSRule cssRule = (CSSRule)theEObject;
         T result = caseCSSRule(cssRule);
-        if (result == null) result = caseCSSDefaultValue(cssRule);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -141,7 +140,6 @@ public class CssExtDslSwitch<T> extends Switch<T>
         CSSRuleRef cssRuleRef = (CSSRuleRef)theEObject;
         T result = caseCSSRuleRef(cssRuleRef);
         if (result == null) result = caseCSSRule(cssRuleRef);
-        if (result == null) result = caseCSSDefaultValue(cssRuleRef);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -159,12 +157,35 @@ public class CssExtDslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case CssExtDslPackage.CSS_RANGED_INT_TYPE:
+      {
+        CSSRangedIntType cssRangedIntType = (CSSRangedIntType)theEObject;
+        T result = caseCSSRangedIntType(cssRangedIntType);
+        if (result == null) result = caseCSSRule(cssRangedIntType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CssExtDslPackage.CSS_RANGED_DOUBLE_TYPE:
+      {
+        CSSRangedDoubleType cssRangedDoubleType = (CSSRangedDoubleType)theEObject;
+        T result = caseCSSRangedDoubleType(cssRangedDoubleType);
+        if (result == null) result = caseCSSRule(cssRangedDoubleType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CssExtDslPackage.CSS_RULE_FUNC:
+      {
+        CSSRuleFunc cssRuleFunc = (CSSRuleFunc)theEObject;
+        T result = caseCSSRuleFunc(cssRuleFunc);
+        if (result == null) result = caseCSSRule(cssRuleFunc);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case CssExtDslPackage.CSS_RULE_OR:
       {
         CSSRuleOr cssRuleOr = (CSSRuleOr)theEObject;
         T result = caseCSSRuleOr(cssRuleOr);
         if (result == null) result = caseCSSRule(cssRuleOr);
-        if (result == null) result = caseCSSDefaultValue(cssRuleOr);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -173,7 +194,6 @@ public class CssExtDslSwitch<T> extends Switch<T>
         CSSRuleXor cssRuleXor = (CSSRuleXor)theEObject;
         T result = caseCSSRuleXor(cssRuleXor);
         if (result == null) result = caseCSSRule(cssRuleXor);
-        if (result == null) result = caseCSSDefaultValue(cssRuleXor);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -182,7 +202,6 @@ public class CssExtDslSwitch<T> extends Switch<T>
         CSSRuleConcat cssRuleConcat = (CSSRuleConcat)theEObject;
         T result = caseCSSRuleConcat(cssRuleConcat);
         if (result == null) result = caseCSSRule(cssRuleConcat);
-        if (result == null) result = caseCSSDefaultValue(cssRuleConcat);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -191,7 +210,6 @@ public class CssExtDslSwitch<T> extends Switch<T>
         CSSRulePostfix cssRulePostfix = (CSSRulePostfix)theEObject;
         T result = caseCSSRulePostfix(cssRulePostfix);
         if (result == null) result = caseCSSRule(cssRulePostfix);
-        if (result == null) result = caseCSSDefaultValue(cssRulePostfix);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -200,7 +218,14 @@ public class CssExtDslSwitch<T> extends Switch<T>
         CSSRuleBracket cssRuleBracket = (CSSRuleBracket)theEObject;
         T result = caseCSSRuleBracket(cssRuleBracket);
         if (result == null) result = caseCSSRule(cssRuleBracket);
-        if (result == null) result = caseCSSDefaultValue(cssRuleBracket);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CssExtDslPackage.CSS_RULE_PARANTHESIS:
+      {
+        CSSRuleParanthesis cssRuleParanthesis = (CSSRuleParanthesis)theEObject;
+        T result = caseCSSRuleParanthesis(cssRuleParanthesis);
+        if (result == null) result = caseCSSRule(cssRuleParanthesis);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -209,7 +234,14 @@ public class CssExtDslSwitch<T> extends Switch<T>
         CSSRuleLiteral cssRuleLiteral = (CSSRuleLiteral)theEObject;
         T result = caseCSSRuleLiteral(cssRuleLiteral);
         if (result == null) result = caseCSSRule(cssRuleLiteral);
-        if (result == null) result = caseCSSDefaultValue(cssRuleLiteral);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case CssExtDslPackage.CSS_RULE_REGEX:
+      {
+        CSSRuleRegex cssRuleRegex = (CSSRuleRegex)theEObject;
+        T result = caseCSSRuleRegex(cssRuleRegex);
+        if (result == null) result = caseCSSRule(cssRuleRegex);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -410,6 +442,54 @@ public class CssExtDslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>CSS Ranged Int Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>CSS Ranged Int Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCSSRangedIntType(CSSRangedIntType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>CSS Ranged Double Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>CSS Ranged Double Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCSSRangedDoubleType(CSSRangedDoubleType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Func</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>CSS Rule Func</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCSSRuleFunc(CSSRuleFunc object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>CSS Rule Or</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -490,6 +570,22 @@ public class CssExtDslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Paranthesis</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>CSS Rule Paranthesis</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCSSRuleParanthesis(CSSRuleParanthesis object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>CSS Rule Literal</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -501,6 +597,22 @@ public class CssExtDslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseCSSRuleLiteral(CSSRuleLiteral object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>CSS Rule Regex</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>CSS Rule Regex</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCSSRuleRegex(CSSRuleRegex object)
   {
     return null;
   }

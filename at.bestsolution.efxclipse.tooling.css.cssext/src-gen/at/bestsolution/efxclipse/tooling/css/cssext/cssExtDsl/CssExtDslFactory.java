@@ -131,6 +131,33 @@ public interface CssExtDslFactory extends EFactory
   CSSDefaultValue createCSSDefaultValue();
 
   /**
+   * Returns a new object of class '<em>CSS Ranged Int Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>CSS Ranged Int Type</em>'.
+   * @generated
+   */
+  CSSRangedIntType createCSSRangedIntType();
+
+  /**
+   * Returns a new object of class '<em>CSS Ranged Double Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>CSS Ranged Double Type</em>'.
+   * @generated
+   */
+  CSSRangedDoubleType createCSSRangedDoubleType();
+
+  /**
+   * Returns a new object of class '<em>CSS Rule Func</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>CSS Rule Func</em>'.
+   * @generated
+   */
+  CSSRuleFunc createCSSRuleFunc();
+
+  /**
    * Returns a new object of class '<em>CSS Rule Or</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -176,6 +203,15 @@ public interface CssExtDslFactory extends EFactory
   CSSRuleBracket createCSSRuleBracket();
 
   /**
+   * Returns a new object of class '<em>CSS Rule Paranthesis</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>CSS Rule Paranthesis</em>'.
+   * @generated
+   */
+  CSSRuleParanthesis createCSSRuleParanthesis();
+
+  /**
    * Returns a new object of class '<em>CSS Rule Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -183,6 +219,15 @@ public interface CssExtDslFactory extends EFactory
    * @generated
    */
   CSSRuleLiteral createCSSRuleLiteral();
+
+  /**
+   * Returns a new object of class '<em>CSS Rule Regex</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>CSS Rule Regex</em>'.
+   * @generated
+   */
+  CSSRuleRegex createCSSRuleRegex();
 
   /**
    * Returns the package supported by this factory.
