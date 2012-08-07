@@ -21,8 +21,8 @@
 	<TextField fx:id="accessField" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS"/> 
 	<Label text="Variables" GridPane.columnIndex="0" GridPane.rowIndex="1"/> 
 	<TextField fx:id="variablesField" GridPane.columnIndex="1" GridPane.rowIndex="1"/> 
-	<Button text="Add" GridPane.columnIndex="2" GridPane.rowIndex="1"/> 
-	<ListView GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.hgrow="ALWAYS"/> 
+	<Button text="Add" onAction="#onVariableAdd" GridPane.columnIndex="2" GridPane.rowIndex="1"/> 
+	<ListView fx:id="variablesList" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.hgrow="ALWAYS"/> 
 	<AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="2"> 
 		<GridLayoutPane AnchorPane.bottomAnchor="1.0"> 
 			<Button text="Up" alignment="CENTER_LEFT" onAction="#onVariableUp"> 
@@ -63,10 +63,10 @@
 			</Button>
 		</GridLayoutPane>
 	</AnchorPane>
-	<Label text="Tags" GridPane.columnIndex="0" GridPane.rowIndex="3"/> 
-	<TextField fx:id="variablesField" GridPane.columnIndex="1" GridPane.rowIndex="3"/> 
+	<Label text="Tags" onAction="#onTagAdd" GridPane.columnIndex="0" GridPane.rowIndex="3"/> 
+	<TextField fx:id="tagsField" GridPane.columnIndex="1" GridPane.rowIndex="3"/> 
 	<Button text="Add" GridPane.columnIndex="2" GridPane.rowIndex="3"/> 
-	<ListView GridPane.columnIndex="1" GridPane.rowIndex="4"/> 
+	<ListView fx:id="tagsList" GridPane.columnIndex="1" GridPane.rowIndex="4"/> 
 	<AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="4"> 
 		<GridLayoutPane AnchorPane.bottomAnchor="1.0"> 
 			<Button text="Up" alignment="CENTER_LEFT" onAction="#onTagUp"> 
