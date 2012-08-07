@@ -6,14 +6,11 @@ import java.util.List;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
 import javax.annotation.PostConstruct;
@@ -77,13 +74,16 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 
 				@Override
 				public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
+					StackItemImpl w = (StackItemImpl) newValue.getUserData();
+					w.handleSelection();
+					
 					if( inKeyTraversal ) {
 						if( keySelectedItemCallback != null ) {
-							keySelectedItemCallback.call((WStackItem<Tab>) newValue.getUserData());
+							keySelectedItemCallback.call(w);
 						}
 					} else {
 						if( mouseSelectedItemCallback != null ) {
-							mouseSelectedItemCallback.call((WStackItem<Tab>) newValue.getUserData());
+							mouseSelectedItemCallback.call(w);
 						}
 					}
 				}
@@ -149,26 +149,15 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 		
 		protected Tab createWidget() {
 			final Tab t = new Tab();
-			t.setOnSelectionChanged(new EventHandler<Event>() {
-				
-				@Override
-				public void handle(Event event) {
-					handleSelection();
-				}
-			});
 			return t;
 		}
 		
 		void handleSelection() {
-			if( tab.isSelected() ) {
-				if( initCallback != null ) {
-					tab.setContent(initCallback.call(this));
-					initCallback = null;	
-				}
-			}
-			
+			if( initCallback != null ) {
+				tab.setContent(initCallback.call(this));
+				initCallback = null;	
+			}	
 		}
-		
 		
 		public void setInitCallback(Callback<WStackItem<Tab>, Node> initCallback) {
 			this.initCallback = initCallback;

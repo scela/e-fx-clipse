@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javafx.application.Platform;
 import javafx.scene.Node;
-import javafx.scene.control.TabPane;
 import javafx.util.Callback;
 
 import javax.annotation.PostConstruct;
@@ -37,8 +35,6 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 	@Inject
 	RendererFactory factory;
 	
-	volatile MPart inActivation;
-
 	@PostConstruct
 	void init(IEventBroker eventBroker) {
 		eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_CHILDREN, new EventHandler() {
@@ -97,7 +93,6 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 				int idx = widget.indexOf(param);
 
 				if (idx >= 0 && idx < element.getChildren().size()) {
-					System.err.println("SELECTION CALLBACK");
 					activatationJob((MPart) element.getChildren().get(idx),true);
 				}
 
@@ -123,10 +118,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 			@Override
 			public Void call(Boolean param) {
 				if( param.booleanValue() ) {
-					if( inActivation != null ) {
-						System.err.println("ACTIVATION CALLBACK");
-						activatationJob((MPart) element.getSelectedElement(), false);	
-					}
+					activatationJob((MPart) element.getSelectedElement(), false);	
 				}
 				return null;
 			}
@@ -134,37 +126,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 	}
 	
 	private void activatationJob(final MPart p, final boolean focus) {
-		if( inActivation != null ) {
-			System.err.println("skip because we are already in activation");
-			return;
-		}
-		
-		inActivation = p;
-		//FIXME Mega Hacky!!!!!
-		Thread t = new Thread() {
-			public void run() {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				Platform.runLater(new Runnable() {
-					
-					@Override
-					public void run() {
-						try {
-							System.err.println("Activating: " + p);
-							activate(p, focus);	
-						} finally {
-							inActivation = null;	
-						}
-					}
-				});
-			}
-		};
-		t.setDaemon(true);
-		t.start();
+		activate(p, focus);
 	}
 
 	@Override

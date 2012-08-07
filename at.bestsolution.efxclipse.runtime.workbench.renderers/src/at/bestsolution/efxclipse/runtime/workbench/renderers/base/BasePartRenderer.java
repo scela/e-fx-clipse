@@ -23,30 +23,10 @@ public abstract class BasePartRenderer<N> extends BaseRenderer<MPart, WPart<N>> 
 			public Void call(Boolean param) {
 				if( param.booleanValue() ) {
 					boolean requiresFocus = requiresFocus(widget);
-					if( requiresFocus ) {
-						//FIXME Mega Hacky!!!!!
-						Thread t = new Thread() {
-							public void run() {
-								try {
-									Thread.sleep(100);
-								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-								Platform.runLater(new Runnable() {
-									
-									@Override
-									public void run() {
-										activate(element, true);
-										
-									}
-								});
-							}
-						};
-						t.setDaemon(true);
-						t.start();
+					if(requiresFocus) {
+						activate(element, true);
 					} else {
-						activate(element, requiresFocus);	
+						activate(element, false);
 					}
 				}
 				return null;
