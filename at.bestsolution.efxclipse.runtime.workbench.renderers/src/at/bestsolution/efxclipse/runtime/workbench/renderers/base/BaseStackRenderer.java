@@ -118,7 +118,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 			@Override
 			public Void call(Boolean param) {
 				if( param.booleanValue() ) {
-					activatationJob((MPart) element.getSelectedElement(), false);	
+					activatationJob((MPart) element.getSelectedElement(), true);	
 				}
 				return null;
 			}

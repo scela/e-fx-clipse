@@ -74,16 +74,30 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 
 				@Override
 				public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-					StackItemImpl w = (StackItemImpl) newValue.getUserData();
+					final StackItemImpl w = (StackItemImpl) newValue.getUserData();
 					w.handleSelection();
 					
+					final Callback<WStackItem<Tab>, Void> cb;
 					if( inKeyTraversal ) {
-						if( keySelectedItemCallback != null ) {
-							keySelectedItemCallback.call(w);
-						}
+						cb = keySelectedItemCallback;
 					} else {
-						if( mouseSelectedItemCallback != null ) {
-							mouseSelectedItemCallback.call(w);
+						cb = mouseSelectedItemCallback;
+					}
+					
+					if( cb != null ) {
+						if( ! w.tab.getContent().isVisible() ) {
+							w.tab.getContent().visibleProperty().addListener(new ChangeListener<Boolean>() {
+
+								@Override
+								public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+									w.tab.getContent().visibleProperty().removeListener(this);
+									if( newValue ) {
+										cb.call(w);
+									}
+								}
+							});
+						} else {
+							cb.call(w);
 						}
 					}
 				}
@@ -155,7 +169,7 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 		void handleSelection() {
 			if( initCallback != null ) {
 				tab.setContent(initCallback.call(this));
-				initCallback = null;	
+				initCallback = null;
 			}	
 		}
 		
