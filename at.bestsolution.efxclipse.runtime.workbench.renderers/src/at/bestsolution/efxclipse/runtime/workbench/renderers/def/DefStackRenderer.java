@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -78,14 +79,16 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 					w.handleSelection();
 					
 					final Callback<WStackItem<Tab>, Void> cb;
-					if( inKeyTraversal ) {
-						cb = keySelectedItemCallback;
-					} else {
+					if( ! inKeyTraversal ) {
 						cb = mouseSelectedItemCallback;
+					} else {
+						cb = keySelectedItemCallback;
 					}
 					
 					if( cb != null ) {
-						if( ! w.tab.getContent().isVisible() ) {
+						if( w.tab.getContent() != null && ! w.tab.getContent().isVisible() ) {
+							// At the moment the visibility changes the content is not yet
+							// made visible
 							w.tab.getContent().visibleProperty().addListener(new ChangeListener<Boolean>() {
 
 								@Override
@@ -97,7 +100,16 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 								}
 							});
 						} else {
-							cb.call(w);
+							// Delay if the subcontrol just got created
+							// isVisible() reports true while it is not really
+							Platform.runLater(new Runnable() {
+								
+								@Override
+								public void run() {
+									cb.call(w);
+								}
+							});
+							
 						}
 					}
 				}

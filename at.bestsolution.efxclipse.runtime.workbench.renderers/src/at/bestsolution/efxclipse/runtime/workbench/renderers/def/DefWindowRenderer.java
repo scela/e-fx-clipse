@@ -75,6 +75,7 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 				@Override
 				public void changed(ObservableValue<? extends Node> observable, Node oldValue, Node newValue) {
 					if( newValue != null ) {
+						System.err.println("Focus to: " + newValue);
 						List<WWidget<?>> activationTree = new ArrayList<WWidget<?>>();
 						
 						do {
@@ -111,12 +112,10 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 							lastActivationTree = activationTree;
 							
 							for( WWidget<?> w : oldTreeReversed ) {
-//								System.err.println("DEActivating: " + w);
 								w.deactivate();
 							}
 							
 							for( WWidget<?> w : newTreeReversed ) {
-								System.err.println("Activating: " + w);
 								w.activate();
 							}
 						}
