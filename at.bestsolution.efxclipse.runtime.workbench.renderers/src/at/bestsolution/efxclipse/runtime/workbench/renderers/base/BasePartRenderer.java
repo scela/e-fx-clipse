@@ -1,6 +1,5 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.base;
 
-import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 

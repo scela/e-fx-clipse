@@ -2,16 +2,16 @@ package at.bestsolution.efxclipse.runtime.workbench.renderers.def;
 
 import java.util.List;
 
-import javax.annotation.PreDestroy;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.e4.ui.model.application.ui.menu.ItemType;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
 
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioMenuItem;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseMenuItemRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WMenuItem;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl.WWidgetImpl;
