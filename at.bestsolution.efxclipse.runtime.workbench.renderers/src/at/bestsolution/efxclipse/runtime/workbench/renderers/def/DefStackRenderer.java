@@ -18,21 +18,22 @@ import javax.annotation.PostConstruct;
 
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 
+import at.bestsolution.efxclipse.runtime.panels.ETabPane;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseStackRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WStack;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WStack.WStackItem;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl.WLayoutedWidgetImpl;
 
 @SuppressWarnings("restriction")
-public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
+public class DefStackRenderer extends BaseStackRenderer<ETabPane,Tab> {
 
 	@Override
-	protected Class<? extends WStack<TabPane,Tab>> getWidgetClass() {
+	protected Class<? extends WStack<ETabPane,Tab>> getWidgetClass() {
 		return StackWidgetImpl.class;
 	}
 
 	
-	public static class StackWidgetImpl extends WLayoutedWidgetImpl<TabPane, TabPane, MPartStack> implements WStack<TabPane, Tab> {
+	public static class StackWidgetImpl extends WLayoutedWidgetImpl<ETabPane, TabPane, MPartStack> implements WStack<ETabPane, Tab> {
 		
 		private Callback<WStackItem<Tab>, Void> mouseSelectedItemCallback;
 		private Callback<WStackItem<Tab>, Void> keySelectedItemCallback;
@@ -52,8 +53,8 @@ public class DefStackRenderer extends BaseStackRenderer<TabPane,Tab> {
 		}
 		
 		@Override
-		protected TabPane createWidget() {
-			TabPane p = new TabPane();
+		protected ETabPane createWidget() {
+			ETabPane p = new ETabPane();
 			p.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
 				@Override
