@@ -1,5 +1,7 @@
 package at.bestsolution.efxclipse.runtime.dialogs;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,68 @@ public class MessageDialog extends Dialog {
 		INFORMATION,
 		WARNING,
 		ERROR,
-		CONFIRM
+		CONFIRM,
+		QUESTION_CANCEL
+	}
+	
+	public enum Question {
+		YES(0),
+		NO(1);
+		
+		private final int index;
+		
+		private Question(int index) {
+			this.index = index;
+		}
+		
+		static Question fromIndex(int index) {
+			if( index == YES.index ) {
+				return YES;
+			} else {
+				return NO;
+			}
+		}
+	}
+	
+	public enum QuestionCancel {
+		YES(0),
+		NO(1),
+		CANCEL(2);
+		
+		private final int index;
+		
+		private QuestionCancel(int index) {
+			this.index = index;
+		}
+		
+		static QuestionCancel fromIndex(int index) {
+			if( index == YES.index ) {
+				return YES;
+			} else if( index == NO.index ) {
+				return NO;
+			} else {
+				return CANCEL;
+			}
+		}
+	}
+	
+	public enum Confirm {
+		OK(0),
+		CANCEL(1);
+		
+		private final int index;
+		
+		private Confirm(int index) {
+			this.index = index;
+		}
+		
+		static Confirm fromIndex(int index) {
+			if( index == OK.index ) {
+				return OK;
+			} else {
+				return CANCEL;
+			}
+		}
 	}
 	
 	private final Type type;
@@ -56,23 +119,41 @@ public class MessageDialog extends Dialog {
 	}
 
 	private Image getGraphic(Type type) {
+		String imgUrl = null;
 		switch (type) {
 		case CONFIRM:
-			return new Image(getClass().getResourceAsStream("icons/preferences-desktop-notification.png"));
+			imgUrl = "icons/preferences-desktop-notification.png";
+			break;
 		case CUSTOM:
 			break;
 		case ERROR:
-			return new Image(getClass().getResourceAsStream("icons/dialog-error.png"));
+			imgUrl = "icons/dialog-error.png";
+			break;
 		case INFORMATION:
-			return new Image(getClass().getResourceAsStream("icons/dialog-information.png"));
+			imgUrl = "icons/dialog-information.png";
+			break;
 		case QUESTION:
-			return new Image(getClass().getResourceAsStream("icons/help-contents.png"));
+		case QUESTION_CANCEL:
+			imgUrl = "icons/help-contents.png";
+			break;
 		case WARNING:
-			return new Image(getClass().getResourceAsStream("icons/dialog-warning.png"));
+			imgUrl = "icons/dialog-warning.png";
+			break;
 		default:
 			break;
 		}
 		
+		if( imgUrl != null ) {
+			InputStream in = getClass().getResourceAsStream(imgUrl);
+			Image img = new Image(in);
+			try {
+				in.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return img;
+		}
 		return null;
 	}
 	
@@ -88,11 +169,15 @@ public class MessageDialog extends Dialog {
 		new MessageDialog(parent, title, message, Type.INFORMATION, "Ok").open();
 	}
 	
-	public static int openQuestionDialog(Window parent, String title, String message) {
-		return new MessageDialog(parent, title, message, Type.QUESTION, "Yes", "No").open();
+	public static Question openQuestionDialog(Window parent, String title, String message) {
+		return Question.fromIndex(new MessageDialog(parent, title, message, Type.QUESTION, "Yes", "No").open());
 	}
 	
-	public static int openConfirmDialog(Window parent, String title, String message) {
-		return new MessageDialog(parent, title, message, Type.CONFIRM, "Ok", "Cancel").open();
+	public static QuestionCancel openQuestionCancelDialog(Window parent, String title, String message) {
+		return QuestionCancel.fromIndex(new MessageDialog(parent, title, message, Type.QUESTION, "Yes", "No", "Cancel").open());
+	}
+	
+	public static Confirm openConfirmDialog(Window parent, String title, String message) {
+		return Confirm.fromIndex(new MessageDialog(parent, title, message, Type.CONFIRM, "Ok", "Cancel").open());
 	}
 }

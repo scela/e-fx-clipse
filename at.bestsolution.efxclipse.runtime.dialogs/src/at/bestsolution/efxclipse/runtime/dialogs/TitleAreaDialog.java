@@ -47,12 +47,14 @@ public abstract class TitleAreaDialog extends Dialog {
 		messageArea.getChildren().add(new Label(message));
 		
 		titleArea.setCenter(messageArea);
-		try(InputStream in = imageURI.openStream();) {
-			titleArea.setRight(new ImageView(new Image(in)));	 
+		try {
+			InputStream in = imageURI.openStream();
+			titleArea.setRight(new ImageView(new Image(in)));
+			in.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}	 
 		
 		titleArea.setStyle("-fx-border-style: none none solid none; -fx-border-color: lightgray; -fx-border-width: 2px;");
 		
