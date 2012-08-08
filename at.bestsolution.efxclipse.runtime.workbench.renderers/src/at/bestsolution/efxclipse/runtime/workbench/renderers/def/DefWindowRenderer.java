@@ -75,8 +75,7 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 				@Override
 				public void changed(ObservableValue<? extends Node> observable, Node oldValue, Node newValue) {
 					if( newValue != null ) {
-						System.err.println("Focus to: " + newValue);
-						List<WWidget<?>> activationTree = new ArrayList<WWidget<?>>();
+						final List<WWidget<?>> activationTree = new ArrayList<WWidget<?>>();
 						
 						do {
 							if( newValue.getUserData() instanceof WWidget<?> ) {
@@ -86,8 +85,8 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 						
 						
 						if( ! lastActivationTree.equals(activationTree) ) {
-							List<WWidget<?>> oldTreeReversed = new ArrayList<WWidget<?>>(lastActivationTree);
-							List<WWidget<?>> newTreeReversed = new ArrayList<WWidget<?>>(activationTree);
+							final List<WWidget<?>> oldTreeReversed = new ArrayList<WWidget<?>>(lastActivationTree);
+							final List<WWidget<?>> newTreeReversed = new ArrayList<WWidget<?>>(activationTree);
 							Collections.reverse(oldTreeReversed);
 							Collections.reverse(newTreeReversed);
 							Iterator<WWidget<?>> it = newTreeReversed.iterator();
@@ -111,13 +110,26 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 							
 							lastActivationTree = activationTree;
 							
-							for( WWidget<?> w : oldTreeReversed ) {
-								w.deactivate();
-							}
-							
-							for( WWidget<?> w : newTreeReversed ) {
-								w.activate();
-							}
+							// Delay the execution maybe there's an intermediate
+							// state we are not interested in
+							// http://javafx-jira.kenai.com/browse/RT-24069
+							Platform.runLater(new Runnable() {
+								
+								@Override
+								public void run() {
+									if( lastActivationTree == activationTree ) {
+										for( WWidget<?> w : oldTreeReversed ) {
+											w.deactivate();
+										}
+										
+										for( WWidget<?> w : newTreeReversed ) {
+											w.activate();
+										}	
+									} else {
+										System.err.println("Canceled intermediate state");
+									}
+								}
+							});
 						}
 					}
 				}
