@@ -7,11 +7,11 @@ import java.util.List;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Window;
+import at.bestsolution.efxclipse.runtime.panels.GridLayoutPane;
 
 public class MessageDialog extends Dialog {
 	public enum Type {
@@ -98,9 +98,18 @@ public class MessageDialog extends Dialog {
 	@Override
 	protected Node createDialogArea() {
 		Image img = getGraphic(type);
-		Label l = new Label(message, img != null ? new ImageView(img) : null);
-		l.setContentDisplay(ContentDisplay.CENTER);
-		return l;
+		
+		if( img != null ) {
+			GridLayoutPane b = new GridLayoutPane();
+			b.setHorizontalSpacing(20);
+			b.setNumColumns(2);
+			b.getChildren().add(new ImageView(img));
+			b.getChildren().add(new Label(message));
+			
+			return b;
+		} else {
+			return new Label(message);
+		}
 	}
 	
 	@Override
@@ -134,7 +143,7 @@ public class MessageDialog extends Dialog {
 			break;
 		case QUESTION:
 		case QUESTION_CANCEL:
-			imgUrl = "icons/help-contents.png";
+			imgUrl = "icons/system-help.png";
 			break;
 		case WARNING:
 			imgUrl = "icons/dialog-warning.png";

@@ -7,7 +7,6 @@ import java.util.List;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
@@ -56,6 +55,7 @@ public class DefStackRenderer extends BaseStackRenderer<FXTabPane,FXTab> {
 		@Override
 		protected FXTabPane createWidget() {
 			FXTabPane p = new FXTabPane();
+//			p.setTabClosingPolicy(TabClosingPolicy.ALL_TABS);
 			p.setSkin(new MinMaxTabPaneSkin(p));
 			p.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 
@@ -78,6 +78,9 @@ public class DefStackRenderer extends BaseStackRenderer<FXTabPane,FXTab> {
 
 				@Override
 				public void changed(ObservableValue<? extends FXTab> observable, FXTab oldValue, FXTab newValue) {
+					if( newValue == null ) {
+						return;
+					}
 					final StackItemImpl w = (StackItemImpl) newValue.getUserData();
 					w.handleSelection();
 					 

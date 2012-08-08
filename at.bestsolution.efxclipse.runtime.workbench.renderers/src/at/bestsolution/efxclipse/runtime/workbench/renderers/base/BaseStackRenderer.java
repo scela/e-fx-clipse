@@ -19,6 +19,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 import org.eclipse.e4.ui.workbench.UIEvents;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
@@ -185,7 +186,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 
 			@Override
 			public Boolean call(WStackItem<I> param) {
-				return Boolean.TRUE;
+				return ! handleStackItemClose(e, param);
 			}
 		});
 		if (e instanceof MUILabel) {
@@ -223,15 +224,31 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 		stack.selectItem(idx);
 	}
 
+	boolean handleStackItemClose(MStackElement e, WStackItem<I> item) {
+		MPart part = (MPart) e;
+		if( ! part.isCloseable() ) {
+			return false;
+		}
+		
+		IEclipseContext partContext = part.getContext();
+		IEclipseContext parentContext = getContextForParent(part);
+		// a part may not have a context if it hasn't been rendered
+		IEclipseContext context = partContext == null ? parentContext : partContext;
+		// Allow closes to be 'canceled'
+		EPartService partService = (EPartService) context
+				.get(EPartService.class.getName());
+		if (partService.savePart(part, true)) {
+			partService.hidePart(part);
+			return true;
+		}
+		// the user has canceled out of the save operation, so don't close the
+		// part
+		return false;
+		
+	}
+	
 	@Override
 	public void childRendered(MPartStack parentElement, MUIElement element) {
-		// // Skip while we are in initing
-		// if( inInit ) {
-		// return;
-		// }
-		//
-		// if( lazyCreate ) {
-		// return;
-		// }
+		
 	}
 }
