@@ -1,19 +1,19 @@
-package at.bestsolution.efxclipse.runtime.panels.internal;
+package at.bestsolution.efxclipse.runtime.panels.skins;
 
 import javafx.scene.Group;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import at.bestsolution.efxclipse.runtime.panels.ETabPane;
+import at.bestsolution.efxclipse.runtime.panels.fx.FXTabPane;
+import at.bestsolution.efxclipse.runtime.panels.fx.FXTabPaneSkin;
 
-import com.sun.javafx.scene.control.skin.TabPaneSkin;
 
-public class ETabPaneSkin extends TabPaneSkin {
+public class MinMaxTabPaneSkin extends FXTabPaneSkin {
 	private final HBox minMaxGroup = new HBox(3);
 	private final Group maxButton;
 	private final Group minButton;
 
-	public ETabPaneSkin(ETabPane pane) {
+	public MinMaxTabPaneSkin(FXTabPane pane) {
 		super(pane);
 
 		maxButton = new MaxButton();

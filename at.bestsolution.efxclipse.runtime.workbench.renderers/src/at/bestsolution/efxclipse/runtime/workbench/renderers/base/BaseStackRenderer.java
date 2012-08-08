@@ -181,6 +181,13 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 
 			}
 		});
+		item.setOnCloseCallback(new Callback<WStack.WStackItem<I>, Boolean>() {
+
+			@Override
+			public Boolean call(WStackItem<I> param) {
+				return Boolean.TRUE;
+			}
+		});
 		if (e instanceof MUILabel) {
 			item.setLabel(((MUILabel) e).getLocalizedLabel());
 		}
