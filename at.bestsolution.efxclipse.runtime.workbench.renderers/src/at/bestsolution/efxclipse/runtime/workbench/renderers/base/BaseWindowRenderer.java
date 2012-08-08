@@ -1,7 +1,6 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.base;
 
 import java.util.Collection;
-import java.util.Collections;
 
 import javafx.scene.image.Image;
 
@@ -38,9 +37,9 @@ public abstract class BaseWindowRenderer<N> extends BaseRenderer<MWindow,WWindow
 			public Save promptToSave(MPart dirtyPart) {
 				@SuppressWarnings("unchecked")
 				IResourceUtilities<Image> resourceUtilities = getModelContext(element).get(IResourceUtilities.class);
-//				return BaseWindowRenderer.this.promptToSave(resourceUtilities, dirtyPart, widget);
-				Collection<MPart> c = Collections.singleton(dirtyPart);
-				return BaseWindowRenderer.this.promptToSave(resourceUtilities,c, widget)[0];
+				return BaseWindowRenderer.this.promptToSave(resourceUtilities, dirtyPart, widget);
+//				Collection<MPart> c = Collections.singleton(dirtyPart);
+//				return BaseWindowRenderer.this.promptToSave(resourceUtilities,c, widget)[0];
 			}
 		});
 	}
