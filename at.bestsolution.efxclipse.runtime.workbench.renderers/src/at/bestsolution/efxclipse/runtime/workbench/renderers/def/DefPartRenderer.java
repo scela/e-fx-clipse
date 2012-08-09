@@ -1,8 +1,6 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.def;
 
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;

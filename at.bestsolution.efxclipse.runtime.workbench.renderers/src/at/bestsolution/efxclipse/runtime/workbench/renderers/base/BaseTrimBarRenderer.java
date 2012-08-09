@@ -6,7 +6,6 @@ import org.eclipse.e4.ui.model.application.ui.basic.MTrimElement;
 
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WLayoutedWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WTrimBar;
-import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
 
 @SuppressWarnings("restriction")
 public abstract class BaseTrimBarRenderer<N> extends BaseRenderer<MTrimBar, WTrimBar<N>> {

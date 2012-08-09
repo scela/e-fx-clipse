@@ -2,7 +2,6 @@ package at.bestsolution.efxclipse.runtime.workbench.renderers.widgets;
 
 import java.util.List;
 
-import javafx.scene.Node;
 import javafx.util.Callback;
 
 import org.eclipse.e4.ui.model.application.ui.MUIElement;

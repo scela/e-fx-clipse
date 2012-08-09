@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javafx.application.Platform;
 import javafx.scene.Node;
-import javafx.scene.control.TabPane;
 import javafx.util.Callback;
 
 import javax.annotation.PostConstruct;
@@ -21,6 +19,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 import org.eclipse.e4.ui.workbench.UIEvents;
+import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
@@ -37,8 +36,6 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 	@Inject
 	RendererFactory factory;
 	
-	volatile MPart inActivation;
-
 	@PostConstruct
 	void init(IEventBroker eventBroker) {
 		eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_CHILDREN, new EventHandler() {
@@ -97,7 +94,6 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 				int idx = widget.indexOf(param);
 
 				if (idx >= 0 && idx < element.getChildren().size()) {
-					System.err.println("SELECTION CALLBACK");
 					activatationJob((MPart) element.getChildren().get(idx),true);
 				}
 
@@ -123,10 +119,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 			@Override
 			public Void call(Boolean param) {
 				if( param.booleanValue() ) {
-					if( inActivation != null ) {
-						System.err.println("ACTIVATION CALLBACK");
-						activatationJob((MPart) element.getSelectedElement(), false);	
-					}
+					activatationJob((MPart) element.getSelectedElement(), true);	
 				}
 				return null;
 			}
@@ -134,37 +127,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 	}
 	
 	private void activatationJob(final MPart p, final boolean focus) {
-		if( inActivation != null ) {
-			System.err.println("skip because we are already in activation");
-			return;
-		}
-		
-		inActivation = p;
-		//FIXME Mega Hacky!!!!!
-		Thread t = new Thread() {
-			public void run() {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				Platform.runLater(new Runnable() {
-					
-					@Override
-					public void run() {
-						try {
-							System.err.println("Activating: " + p);
-							activate(p, focus);	
-						} finally {
-							inActivation = null;	
-						}
-					}
-				});
-			}
-		};
-		t.setDaemon(true);
-		t.start();
+		activate(p, focus);
 	}
 
 	@Override
@@ -219,6 +182,13 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 
 			}
 		});
+		item.setOnCloseCallback(new Callback<WStack.WStackItem<I>, Boolean>() {
+
+			@Override
+			public Boolean call(WStackItem<I> param) {
+				return ! handleStackItemClose(e, param);
+			}
+		});
 		if (e instanceof MUILabel) {
 			item.setLabel(((MUILabel) e).getLocalizedLabel());
 		}
@@ -254,15 +224,31 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 		stack.selectItem(idx);
 	}
 
+	boolean handleStackItemClose(MStackElement e, WStackItem<I> item) {
+		MPart part = (MPart) e;
+		if( ! part.isCloseable() ) {
+			return false;
+		}
+		
+		IEclipseContext partContext = part.getContext();
+		IEclipseContext parentContext = getContextForParent(part);
+		// a part may not have a context if it hasn't been rendered
+		IEclipseContext context = partContext == null ? parentContext : partContext;
+		// Allow closes to be 'canceled'
+		EPartService partService = (EPartService) context
+				.get(EPartService.class.getName());
+		if (partService.savePart(part, true)) {
+			partService.hidePart(part);
+			return true;
+		}
+		// the user has canceled out of the save operation, so don't close the
+		// part
+		return false;
+		
+	}
+	
 	@Override
 	public void childRendered(MPartStack parentElement, MUIElement element) {
-		// // Skip while we are in initing
-		// if( inInit ) {
-		// return;
-		// }
-		//
-		// if( lazyCreate ) {
-		// return;
-		// }
+		
 	}
 }
