@@ -15,6 +15,7 @@ import javafx.util.Callback;
 import javax.annotation.PostConstruct;
 
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 
 import at.bestsolution.efxclipse.runtime.panels.fx.FXTab;
 import at.bestsolution.efxclipse.runtime.panels.fx.FXTabPane;
@@ -166,10 +167,21 @@ public class DefStackRenderer extends BaseStackRenderer<FXTabPane,FXTab> {
 		private FXTab tab;
 		private Callback<WStackItem<FXTab>, Node> initCallback;
 		private Callback<WStackItem<FXTab>, Boolean> closeCallback;
+		private MStackElement domElement;
 		
 		@PostConstruct
 		void init() {
 			getWidget();
+		}
+		
+		@Override
+		public void setDomElement(MStackElement domElement) {
+			this.domElement = domElement;
+		}
+		
+		@Override
+		public MStackElement getDomElement() {
+			return domElement;
 		}
 
 		protected FXTab getWidget() {

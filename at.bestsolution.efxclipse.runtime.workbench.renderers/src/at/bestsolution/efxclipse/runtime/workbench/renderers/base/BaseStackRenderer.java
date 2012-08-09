@@ -82,6 +82,16 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 				}
 			}
 		});
+		eventBroker.subscribe(UIEvents.UIElement.TOPIC_TOBERENDERED, new EventHandler() {
+			
+			@Override
+			public void handleEvent(Event event) {
+				// TODO Auto-generated method stub
+				MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
+				System.err.println("MODIFIED TO: " + changedElement.isToBeRendered());
+				System.err.println("RENDER: " + changedElement);
+			}
+		});
 	}
 
 	@Override
@@ -91,10 +101,8 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 
 			@Override
 			public Void call(WStackItem<I> param) {
-				int idx = widget.indexOf(param);
-
-				if (idx >= 0 && idx < element.getChildren().size()) {
-					activatationJob((MPart) element.getChildren().get(idx),true);
+				if (param.getDomElement() != null) {
+					activatationJob((MPart) param.getDomElement(),true);
 				}
 
 				return null;
@@ -104,10 +112,8 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 
 			@Override
 			public Void call(WStackItem<I> param) {
-				int idx = widget.indexOf(param);
-
-				if (idx >= 0 && idx < element.getChildren().size()) {
-					activatationJob((MPart) element.getChildren().get(idx),false);
+				if (param.getDomElement() != null) {
+					activatationJob((MPart) param.getDomElement(),false);
 				}
 
 				return null;
@@ -118,8 +124,8 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 			
 			@Override
 			public Void call(Boolean param) {
-				if( param.booleanValue() ) {
-					activatationJob((MPart) element.getSelectedElement(), true);	
+				if( param.booleanValue() && element.getSelectedElement() != null ) {
+					activatationJob((MPart) element.getSelectedElement(), true);
 				}
 				return null;
 			}
@@ -139,7 +145,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 		for (MStackElement e : element.getChildren()) {
 			// Precreate the rendering context for the subitem
 			AbstractRenderer<MStackElement, ?> renderer = factory.getRenderer(e);
-			if (renderer != null) {
+			if (renderer != null && e.isToBeRendered() ) {
 				WStackItem<I> item = createStackItem(stack, e, renderer);
 				items.add(item);
 
@@ -170,6 +176,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 	private WStackItem<I> createStackItem(WStack<N, I> stack, final MStackElement e, AbstractRenderer<MStackElement, ?> renderer) {
 		IEclipseContext context = renderer.setupRenderingContext(e);
 		WStackItem<I> item = ContextInjectionFactory.make(stack.getStackItemClass(), context);
+		item.setDomElement(e);
 		item.setInitCallback(new Callback<WStack.WStackItem<I>, Node>() {
 
 			@Override

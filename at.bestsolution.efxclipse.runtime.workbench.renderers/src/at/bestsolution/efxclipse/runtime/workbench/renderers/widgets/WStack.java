@@ -6,11 +6,14 @@ import javafx.scene.Node;
 import javafx.util.Callback;
 
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 
 @SuppressWarnings("restriction")
 public interface WStack<N,I> extends WWidget<MPartStack> {
 	public interface WStackItem<I> {
 		public I getNativeItem();
+		public void setDomElement(MStackElement domElement);
+		public MStackElement getDomElement();
 		public void setInitCallback(Callback<WStackItem<I>, Node> callback);
 		public void setLabel(String label);
 		public void setOnCloseCallback(Callback<WStackItem<I>, Boolean> callback);
