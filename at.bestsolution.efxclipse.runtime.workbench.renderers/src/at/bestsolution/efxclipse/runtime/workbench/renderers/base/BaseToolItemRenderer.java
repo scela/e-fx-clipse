@@ -10,13 +10,16 @@ public abstract class BaseToolItemRenderer<N> extends BaseRenderer<MToolItem, WT
 
 	@Override
 	public void processContent(MToolItem element) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void childRendered(MToolItem parentElement, MUIElement element) {
-		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void hideChild(MToolItem container, MUIElement changedObj) {
 		
 	}
 

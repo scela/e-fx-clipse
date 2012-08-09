@@ -32,8 +32,11 @@ public abstract class BaseMenuItemRenderer<N> extends BaseRenderer<MMenuItem, WM
 
 	@Override
 	public void childRendered(MMenuItem parentElement, MUIElement element) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
+	public void hideChild(MMenuItem container, MUIElement changedObj) {
+		
+	}
 }

@@ -105,4 +105,8 @@ public abstract class BaseWindowRenderer<N> extends BaseRenderer<MWindow,WWindow
 	@Override
 	public void childRendered(MWindow parentElement, MUIElement element) {
 	}
+	
+	@Override
+	public void hideChild(MWindow container, MUIElement changedObj) {
+	}
 }

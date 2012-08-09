@@ -82,16 +82,6 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 				}
 			}
 		});
-		eventBroker.subscribe(UIEvents.UIElement.TOPIC_TOBERENDERED, new EventHandler() {
-			
-			@Override
-			public void handleEvent(Event event) {
-				// TODO Auto-generated method stub
-				MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
-				System.err.println("MODIFIED TO: " + changedElement.isToBeRendered());
-				System.err.println("RENDER: " + changedElement);
-			}
-		});
 	}
 
 	@Override
@@ -257,5 +247,27 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 	@Override
 	public void childRendered(MPartStack parentElement, MUIElement element) {
 		
+	}
+	
+	@Override
+	public void hideChild(MPartStack container, MUIElement changedObj) {
+		WStack<N, I> stack = getWidget(container);
+		if( stack == null ) {
+			return;
+		}
+		
+		WStackItem<I> item = null;
+		
+		for( WStackItem<I> i : stack.getItems() ) {
+			if( i.getDomElement() == changedObj ) {
+				item = i;
+				break;
+			}
+		}
+		
+		if( item != null ) {
+			List<WStackItem<I>> l = Collections.singletonList(item);
+			stack.removeItems(l); 
+		}
 	}
 }

@@ -23,6 +23,9 @@ public abstract class BaseTrimBarRenderer<N> extends BaseRenderer<MTrimBar, WTri
 
 	@Override
 	public void childRendered(MTrimBar parentElement, MUIElement element) {
-		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public void hideChild(MTrimBar container, MUIElement changedObj) {
 	}
 }

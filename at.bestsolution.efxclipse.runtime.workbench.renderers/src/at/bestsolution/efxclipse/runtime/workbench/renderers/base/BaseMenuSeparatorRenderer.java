@@ -17,8 +17,11 @@ public abstract class BaseMenuSeparatorRenderer<N> extends BaseRenderer<MMenuSep
 
 	@Override
 	public void childRendered(MMenuSeparator parentElement, MUIElement element) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
+	public void hideChild(MMenuSeparator container, MUIElement changedObj) {
+		
+	}
 }

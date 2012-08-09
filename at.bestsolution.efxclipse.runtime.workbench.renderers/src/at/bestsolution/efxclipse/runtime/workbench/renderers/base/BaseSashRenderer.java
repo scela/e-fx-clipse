@@ -51,8 +51,11 @@ public abstract class BaseSashRenderer<N> extends BaseRenderer<MPartSashContaine
 
 	@Override
 	public void childRendered(MPartSashContainer parentElement, MUIElement element) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
+	public void hideChild(MPartSashContainer container, MUIElement changedObj) {
+		
+	}
 }

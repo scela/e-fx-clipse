@@ -99,7 +99,7 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 		return modelService.getContainingContext(element);
 	}
 
-	protected IEclipseContext getModelContext(MUIElement part) {
+	public IEclipseContext getModelContext(MUIElement part) { 
 		if (part instanceof MContext) {
 			return ((MContext) part).getContext();
 		}

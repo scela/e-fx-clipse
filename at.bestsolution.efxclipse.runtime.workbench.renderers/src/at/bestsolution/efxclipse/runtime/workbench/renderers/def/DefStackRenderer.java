@@ -161,6 +161,28 @@ public class DefStackRenderer extends BaseStackRenderer<FXTabPane,FXTab> {
 		public void selectItem(int idx) {
 			getWidget().getSelectionModel().select(idx);
 		}
+
+		@Override
+		public List<WStackItem<FXTab>> getItems() {
+			List<WStackItem<FXTab>> rv = new ArrayList<WStackItem<FXTab>>();
+			for( FXTab t : getWidget().getTabs() ) {
+				@SuppressWarnings("unchecked")
+				WStackItem<FXTab> i = (WStackItem<FXTab>) t.getUserData();
+				if( i != null ) {
+					rv.add(i);	
+				}
+			}
+			return Collections.unmodifiableList(rv);
+		}
+
+		@Override
+		public void removeItems(List<WStackItem<FXTab>> items) {
+			List<FXTab> l = new ArrayList<FXTab>();
+			for( WStackItem<FXTab> i : items ) {
+				l.add(i.getNativeItem());
+			}
+			getWidget().getTabs().removeAll(l);
+		}
 	}
 	
 	public static class StackItemImpl implements WStackItem<FXTab> {

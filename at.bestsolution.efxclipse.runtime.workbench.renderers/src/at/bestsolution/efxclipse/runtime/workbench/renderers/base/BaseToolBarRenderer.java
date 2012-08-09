@@ -22,8 +22,11 @@ public abstract class BaseToolBarRenderer<N> extends BaseRenderer<MToolBar, WToo
 
 	@Override
 	public void childRendered(MToolBar parentElement, MUIElement element) {
-		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
+	public void hideChild(MToolBar container, MUIElement changedObj) {
+		
+	}
 }

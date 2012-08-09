@@ -48,7 +48,11 @@ public abstract class BasePartRenderer<N> extends BaseRenderer<MPart, WPart<N>> 
 
 	@Override
 	public void childRendered(MPart parentElement, MUIElement element) {
-		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void hideChild(MPart container, MUIElement changedObj) {
 		
 	}
 
