@@ -5,10 +5,10 @@
     <children xsi:type="basic:PartSashContainer" xmi:id="_A7Q9oOL-EeGP-5z69KadAQ" horizontal="true">
       <children xsi:type="basic:Part" xmi:id="_A7Q9oeL-EeGP-5z69KadAQ" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ControlPanel"/>
       <children xsi:type="basic:PartStack" xmi:id="_A7Q9ouL-EeGP-5z69KadAQ" elementId="content.stack">
-        <children xsi:type="basic:Part" xmi:id="_ZHcNwOL-EeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.part.0" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ContentPanel" label="C1"/>
-        <children xsi:type="basic:Part" xmi:id="_cjVs4OL-EeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.part.1" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ContentPanel" label="C2"/>
-        <children xsi:type="basic:Part" xmi:id="_f5-RgOL-EeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.part.2" toBeRendered="false" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ContentPanel" label="C3"/>
-        <children xsi:type="basic:Part" xmi:id="_jRKPwOL-EeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.part.3" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ContentPanel" label="C4"/>
+        <children xsi:type="basic:Part" xmi:id="_ZHcNwOL-EeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.part.0" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ContentPanel" label="C0"/>
+        <children xsi:type="basic:Part" xmi:id="_cjVs4OL-EeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.part.1" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ContentPanel" label="C1"/>
+        <children xsi:type="basic:Part" xmi:id="_f5-RgOL-EeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.part.2" toBeRendered="false" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ContentPanel" label="C2"/>
+        <children xsi:type="basic:Part" xmi:id="_jRKPwOL-EeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.part.3" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ContentPanel" label="C3"/>
       </children>
     </children>
     <trimBars xmi:id="_A7Q9o-L-EeGP-5z69KadAQ">
