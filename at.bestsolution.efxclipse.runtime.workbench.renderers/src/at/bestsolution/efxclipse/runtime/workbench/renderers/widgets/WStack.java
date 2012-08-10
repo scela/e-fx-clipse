@@ -30,5 +30,6 @@ public interface WStack<N,I> extends WWidget<MPartStack> {
 	
 	public void setMouseSelectedItemCallback(Callback<WStackItem<I>, Void> selectedItemCallback);
 	public void setKeySelectedItemCallback(Callback<WStackItem<I>, Void> selectedItemCallback);
+	public int getItemCount();
 	
 }

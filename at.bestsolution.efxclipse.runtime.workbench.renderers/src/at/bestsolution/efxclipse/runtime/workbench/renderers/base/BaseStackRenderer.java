@@ -269,28 +269,9 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 			}
 		}
 		
-		int idx = parentElement.getChildren().indexOf(element);
-		if( idx == 0 ) {
-			AbstractRenderer<MStackElement, ?> renderer = factory.getRenderer(element);
-			stack.addItems(0, Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));
-		} else {
-			while( --idx != 0 ) {
-				if( parentElement.getChildren().get(idx).isToBeRendered() ) {
-					AbstractRenderer<MStackElement, ?> renderer = factory.getRenderer(element);
-					int newIdx = ++idx;
-					if( newIdx > stack.getItems().size() ) {
-						stack.addItems(Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));
-					} else {
-						stack.addItems(newIdx, Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));	
-					}
-					
-					return;
-				}
-			}
-			
-			AbstractRenderer<MStackElement, ?> renderer = factory.getRenderer(element);
-			stack.addItems(0, Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));
-		}
+		int idx = getRenderedIndex(parentElement, element);
+		AbstractRenderer<MStackElement, ?> renderer = factory.getRenderer(element);
+		stack.addItems(idx, Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));
 	}
 	
 	@Override

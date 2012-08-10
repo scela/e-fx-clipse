@@ -54,6 +54,11 @@ public class DefStackRenderer extends BaseStackRenderer<FXTabPane,FXTab> {
 		}
 		
 		@Override
+		public int getItemCount() {
+			return getWidget().getTabs().size();
+		}
+		
+		@Override
 		protected FXTabPane createWidget() {
 			FXTabPane p = new FXTabPane();
 //			p.setTabClosingPolicy(TabClosingPolicy.ALL_TABS);

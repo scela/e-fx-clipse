@@ -1,5 +1,7 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.base;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -10,6 +12,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.emf.ecore.EObject;
 
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
 import at.bestsolution.efxclipse.runtime.workbench.rendering.AbstractRenderer;
@@ -143,6 +146,24 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 	
 	protected boolean isInContentProcessing() {
 		return inContentProcessing;
+	}
+	
+	protected int getRenderedIndex(MUIElement parent, MUIElement element) {
+		EObject eElement = (EObject) element;
+		
+		EObject container = eElement.eContainer();
+		@SuppressWarnings("unchecked")
+		List<MUIElement> list = (List<MUIElement>) container.eGet(eElement.eContainmentFeature());
+		int idx = 0;
+		for( MUIElement u : list ) {
+			if( u.isToBeRendered() && u.isVisible() ) {
+				if( u == element ) {
+					return idx;
+				}
+				idx++;
+			}
+		}
+		return -1;
 	}
 	
 	protected abstract void doProcessContent(M element);
