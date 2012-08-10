@@ -27,6 +27,8 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 	@Inject
 	EModelService modelService;
 	
+	boolean inContentProcessing;
+	
 	@Override
 	public final W createWidget(M element) {
 		IEclipseContext context = setupRenderingContext(element);
@@ -57,6 +59,7 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void destroyWidget(M element) {
 		if( element.getTransientData().containsKey(RENDERING_CONTEXT_KEY) ) {
@@ -127,4 +130,20 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 				ps.activate(element, requiresFocus);
 		}
 	}
+	
+	@Override
+	public final void processContent(M element) {
+		try {
+			inContentProcessing = true;
+			doProcessContent(element);
+		} finally {
+			inContentProcessing = false;
+		}
+	}
+	
+	protected boolean isInContentProcessing() {
+		return inContentProcessing;
+	}
+	
+	protected abstract void doProcessContent(M element);
 }

@@ -12,7 +12,7 @@ public abstract class BaseMenuBarRenderer<N> extends BaseRenderer<MMenu, WMenuBa
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void processContent(MMenu element) {
+	public void doProcessContent(MMenu element) {
 		WMenuBar<N> menuBar = getWidget(element);
 		for( MMenuElement e : element.getChildren() ) {
 			Object widget = engineCreateWidget(e);

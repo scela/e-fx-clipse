@@ -17,7 +17,7 @@ public abstract class BaseMenuRenderer<N> extends BaseRenderer<MMenu, WMenu<N>> 
 	}
 	
 	@Override
-	public void processContent(MMenu element) {
+	public void doProcessContent(MMenu element) {
 		// TODO Should we do this creation lazy????
 		WMenu<N> menu = getWidget(element);
 		for( MMenuElement e : element.getChildren() ) {

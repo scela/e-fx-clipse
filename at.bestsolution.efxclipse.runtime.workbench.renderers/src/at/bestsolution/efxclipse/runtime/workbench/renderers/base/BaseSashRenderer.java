@@ -14,7 +14,7 @@ import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WSash;
 public abstract class BaseSashRenderer<N> extends BaseRenderer<MPartSashContainer, WSash<N>> {
 
 	@Override
-	public void processContent(MPartSashContainer element) {
+	public void doProcessContent(MPartSashContainer element) {
 		WSash<N> sash = getWidget(element);
 		
 		List<Double> layoutData = new ArrayList<Double>();

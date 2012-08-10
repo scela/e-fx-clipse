@@ -10,7 +10,7 @@ import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WToolBar;
 @SuppressWarnings("restriction")
 public abstract class BaseToolBarRenderer<N> extends BaseRenderer<MToolBar, WToolBar<N>> {
 	@Override
-	public void processContent(MToolBar element) {
+	public void doProcessContent(MToolBar element) {
 		WToolBar<N> toolbar = getWidget(element);
 		for( MToolBarElement item : element.getChildren() ) {
 			WLayoutedWidget<MToolBarElement> itemWidget = engineCreateWidget(item);

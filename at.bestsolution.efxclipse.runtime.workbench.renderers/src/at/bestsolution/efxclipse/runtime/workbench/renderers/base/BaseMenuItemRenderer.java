@@ -25,7 +25,7 @@ public abstract class BaseMenuItemRenderer<N> extends BaseRenderer<MMenuItem, WM
 	}
 	
 	@Override
-	public void processContent(MMenuItem element) {
+	public void doProcessContent(MMenuItem element) {
 		// TODO Auto-generated method stub
 		
 	}

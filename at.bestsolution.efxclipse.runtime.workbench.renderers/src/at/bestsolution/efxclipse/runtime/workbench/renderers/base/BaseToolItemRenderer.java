@@ -9,7 +9,7 @@ import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WToolItem;
 public abstract class BaseToolItemRenderer<N> extends BaseRenderer<MToolItem, WToolItem<N>> {
 
 	@Override
-	public void processContent(MToolItem element) {
+	public void doProcessContent(MToolItem element) {
 		
 	}
 

@@ -36,7 +36,7 @@ public abstract class BasePartRenderer<N> extends BaseRenderer<MPart, WPart<N>> 
 	protected abstract boolean requiresFocus(WPart<N> widget);
 	
 	@Override
-	public void processContent(MPart element) {
+	public void doProcessContent(MPart element) {
 		WPart<N> widget = getWidget(element);
 		
 		element.getContext().set(BorderPane.class.getName(), widget.getWidget());

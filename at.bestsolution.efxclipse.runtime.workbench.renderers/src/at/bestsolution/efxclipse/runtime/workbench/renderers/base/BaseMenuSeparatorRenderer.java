@@ -10,7 +10,7 @@ public abstract class BaseMenuSeparatorRenderer<N> extends BaseRenderer<MMenuSep
 
 
 	@Override
-	public void processContent(MMenuSeparator element) {
+	public void doProcessContent(MMenuSeparator element) {
 		// TODO Auto-generated method stub
 		
 	}

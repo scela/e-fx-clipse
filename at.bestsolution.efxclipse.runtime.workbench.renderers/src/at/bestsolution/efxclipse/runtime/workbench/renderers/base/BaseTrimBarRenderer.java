@@ -11,7 +11,7 @@ import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WTrimBar;
 public abstract class BaseTrimBarRenderer<N> extends BaseRenderer<MTrimBar, WTrimBar<N>> {
 
 	@Override
-	public void processContent(MTrimBar element) {
+	public void doProcessContent(MTrimBar element) {
 		WTrimBar<N> trimBar = getWidget(element);
 		for( MTrimElement e : element.getChildren() ) {
 			WLayoutedWidget<MTrimElement> trimElementWidget = engineCreateWidget(e);

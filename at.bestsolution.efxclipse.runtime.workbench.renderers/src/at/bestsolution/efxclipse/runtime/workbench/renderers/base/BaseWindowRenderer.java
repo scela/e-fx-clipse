@@ -48,7 +48,7 @@ public abstract class BaseWindowRenderer<N> extends BaseRenderer<MWindow,WWindow
 	protected abstract Save promptToSave(IResourceUtilities<Image> resourceUtilities, MPart dirtyPart, WWindow<N> widget);
 
 	@Override
-	public void processContent(MWindow element) {
+	public void doProcessContent(MWindow element) {
 		WWindow<N> windowWidget = getWidget(element);
 		
 		if (element.getMainMenu() != null) {

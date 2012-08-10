@@ -129,7 +129,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 	}
 
 	@Override
-	public void processContent(MPartStack element) {
+	public void doProcessContent(MPartStack element) {
 		WStack<N, I> stack = getWidget(element);
 		List<WStackItem<I>> items = new ArrayList<WStackItem<I>>();
 		WStackItem<I> initalItem = null;
@@ -258,36 +258,38 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 	
 	@Override
 	public void childRendered(MPartStack parentElement, MUIElement element) {
-		if( ! inLazyInit ) {
-			WStack<N, I> stack = getWidget(parentElement);
-			for( WStackItem<I> i : stack.getItems() ) {
-				if( i.getDomElement() == element ) {
+		if( inLazyInit || isInContentProcessing() ) {
+			return;
+		}
+
+		WStack<N, I> stack = getWidget(parentElement);
+		for( WStackItem<I> i : stack.getItems() ) {
+			if( i.getDomElement() == element ) {
+				return;
+			}
+		}
+		
+		int idx = parentElement.getChildren().indexOf(element);
+		if( idx == 0 ) {
+			AbstractRenderer<MStackElement, ?> renderer = factory.getRenderer(element);
+			stack.addItems(0, Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));
+		} else {
+			while( --idx != 0 ) {
+				if( parentElement.getChildren().get(idx).isToBeRendered() ) {
+					AbstractRenderer<MStackElement, ?> renderer = factory.getRenderer(element);
+					int newIdx = ++idx;
+					if( newIdx > stack.getItems().size() ) {
+						stack.addItems(Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));
+					} else {
+						stack.addItems(newIdx, Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));	
+					}
+					
 					return;
 				}
 			}
 			
-			int idx = parentElement.getChildren().indexOf(element);
-			if( idx == 0 ) {
-				AbstractRenderer<MStackElement, ?> renderer = factory.getRenderer(element);
-				stack.addItems(0, Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));
-			} else {
-				while( --idx != 0 ) {
-					if( parentElement.getChildren().get(idx).isToBeRendered() ) {
-						AbstractRenderer<MStackElement, ?> renderer = factory.getRenderer(element);
-						int newIdx = ++idx;
-						if( newIdx > stack.getItems().size() ) {
-							stack.addItems(Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));
-						} else {
-							stack.addItems(newIdx, Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));	
-						}
-						
-						return;
-					}
-				}
-				
-				AbstractRenderer<MStackElement, ?> renderer = factory.getRenderer(element);
-				stack.addItems(0, Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));
-			}
+			AbstractRenderer<MStackElement, ?> renderer = factory.getRenderer(element);
+			stack.addItems(0, Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));
 		}
 	}
 	
