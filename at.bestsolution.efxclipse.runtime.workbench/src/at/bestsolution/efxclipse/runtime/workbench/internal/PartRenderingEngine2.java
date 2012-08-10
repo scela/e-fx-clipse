@@ -86,7 +86,7 @@ public class PartRenderingEngine2 implements IPresentationEngine {
 			createContext((MContext) element, parentContext);
 		}
 		
-		Object widget = createWidget(element, parentWidget);
+		Object widget = createWidget(element);
 		if( widget != null ) {
 			AbstractRenderer<MUIElement, Object> r = getRendererFor(element);
 			r.processContent(element);
@@ -114,8 +114,8 @@ public class PartRenderingEngine2 implements IPresentationEngine {
 		return widget;
 	}
 	
-	private Object createWidget(MUIElement element, Object parent) {
-		AbstractRenderer<MUIElement,Object> renderer = getRenderer(element, parent);
+	private Object createWidget(MUIElement element) {
+		AbstractRenderer<MUIElement,Object> renderer = getRenderer(element);
 		if (renderer != null) {
 			// Remember which renderer is responsible for this widget
 			element.setRenderer(renderer);
@@ -129,7 +129,7 @@ public class PartRenderingEngine2 implements IPresentationEngine {
 		return null;
 	}
 	
-	private AbstractRenderer<MUIElement,Object> getRenderer(MUIElement uiElement, Object parent) {
+	private AbstractRenderer<MUIElement,Object> getRenderer(MUIElement uiElement) {
 		return factory.getRenderer(uiElement);
 	}
 	
