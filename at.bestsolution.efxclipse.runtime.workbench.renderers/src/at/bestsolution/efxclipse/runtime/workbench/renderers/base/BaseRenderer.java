@@ -60,10 +60,22 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 	@Override
 	public void destroyWidget(M element) {
 		if( element.getTransientData().containsKey(RENDERING_CONTEXT_KEY) ) {
+			unbindWidget(element, (W) element.getWidget());
+			
 			IEclipseContext ctx = (IEclipseContext) element.getTransientData().get(RENDERING_CONTEXT_KEY);
 			ctx.dispose();
 			element.getTransientData().remove(RENDERING_CONTEXT_KEY);
+			
 		}
+	}
+	
+	private void unbindWidget(M me, W widget) {
+		widget.setDomElement(null);
+//		widget.removeStyleClasses(me.getTags());
+//		if( me.getElementId() != null ) {
+//			widget.setStyleId(me.getElementId());
+//		}
+		me.setWidget(null);
 	}
 	
 	@Override

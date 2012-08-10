@@ -36,6 +36,8 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 	@Inject
 	RendererFactory factory;
 	
+	boolean inLazyInit;
+	
 	@PostConstruct
 	void init(IEventBroker eventBroker) {
 		eventBroker.subscribe(UIEvents.ElementContainer.TOPIC_CHILDREN, new EventHandler() {
@@ -171,12 +173,16 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 
 			@Override
 			public Node call(WStackItem<I> param) {
-				WLayoutedWidget<MStackElement> widget = engineCreateWidget(e);
-				if (widget != null) {
-					return widget.getStaticLayoutNode();
+				inLazyInit = true;
+				try {
+					WLayoutedWidget<MStackElement> widget = engineCreateWidget(e);
+					if (widget != null) {
+						return widget.getStaticLayoutNode();
+					}
+					return null;					
+				} finally {
+					inLazyInit = false;
 				}
-				return null;
-
 			}
 		});
 		item.setOnCloseCallback(new Callback<WStack.WStackItem<I>, Boolean>() {
@@ -217,8 +223,14 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 
 	void handleSelectedElement(MPartStack parent, MStackElement oldElement, MStackElement newElement) {
 		WStack<N, I> stack = getWidget(parent);
-		int idx = parent.getChildren().indexOf(newElement);
-		stack.selectItem(idx);
+		int idx = 0;
+		for( WStackItem<I> i : stack.getItems() ) {
+			if( i.getDomElement() == newElement ) {
+				stack.selectItem(idx);
+				break;
+			}
+			idx++;
+		}
 	}
 
 	boolean handleStackItemClose(MStackElement e, WStackItem<I> item) {
@@ -246,7 +258,28 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 	
 	@Override
 	public void childRendered(MPartStack parentElement, MUIElement element) {
-		
+		if( ! inLazyInit ) {
+			WStack<N, I> stack = getWidget(parentElement);
+			for( WStackItem<I> i : stack.getItems() ) {
+				if( i.getDomElement() == element ) {
+					return;
+				}
+			}
+			
+			int idx = parentElement.getChildren().indexOf(element);
+			if( idx == 0 ) {
+				AbstractRenderer<MStackElement, ?> renderer = factory.getRenderer(element);
+				stack.addItems(0, Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));
+			} else {
+				while( --idx != 0 ) {
+					if( parentElement.getChildren().get(idx).isToBeRendered() ) {
+						AbstractRenderer<MStackElement, ?> renderer = factory.getRenderer(element);
+						stack.addItems(++idx, Collections.singletonList(createStackItem(stack, (MStackElement)element, renderer)));
+						break;
+					}
+				}	
+			}
+		}
 	}
 	
 	@Override
