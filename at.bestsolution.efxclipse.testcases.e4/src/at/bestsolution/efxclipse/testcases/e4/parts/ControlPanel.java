@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import javax.inject.Inject;
@@ -25,6 +26,32 @@ public class ControlPanel {
 				@Override
 				public void handle(ActionEvent event) {
 					MPart p0 = service.findPart("at.bestsolution.efxclipse.testcases.e4.part.0");
+					p0.setToBeRendered(! p0.isToBeRendered());
+				}
+			});
+			box.getChildren().add(but);
+		}
+		
+		{
+			Button but = new Button("Show/hide Id-1");
+			but.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					MPart p0 = service.findPart("at.bestsolution.efxclipse.testcases.e4.part.1");
+					p0.setToBeRendered(! p0.isToBeRendered());
+				}
+			});
+			box.getChildren().add(but);
+		}
+		
+		{
+			Button but = new Button("Show/hide Id-2");
+			but.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					MPart p0 = service.findPart("at.bestsolution.efxclipse.testcases.e4.part.2");
 					p0.setToBeRendered(! p0.isToBeRendered());
 				}
 			});
