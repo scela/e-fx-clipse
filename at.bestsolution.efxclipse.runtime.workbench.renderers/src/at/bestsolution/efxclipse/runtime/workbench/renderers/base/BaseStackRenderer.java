@@ -14,7 +14,6 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
-import org.eclipse.e4.ui.model.application.ui.MUILabel;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
@@ -192,9 +191,6 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 				return ! handleStackItemClose(e, param);
 			}
 		});
-		if (e instanceof MUILabel) {
-			item.setLabel(((MUILabel) e).getLocalizedLabel());
-		}
 
 		return item;
 	}

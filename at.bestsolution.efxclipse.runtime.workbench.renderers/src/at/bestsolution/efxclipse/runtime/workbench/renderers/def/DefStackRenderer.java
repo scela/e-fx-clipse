@@ -13,6 +13,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
@@ -250,8 +252,8 @@ public class DefStackRenderer extends BaseStackRenderer<FXTabPane,FXTab> {
 			return getWidget();
 		}
 
-		@Override
-		public void setLabel(String label) {
+		@Inject
+		public void setLabel(@Named(ATTRIBUTE_localizedLabel)String label) {
 			getWidget().setText(label);
 		}
 		

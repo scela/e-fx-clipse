@@ -15,7 +15,6 @@ public interface WStack<N,I> extends WWidget<MPartStack> {
 		public void setDomElement(MStackElement domElement);
 		public MStackElement getDomElement();
 		public void setInitCallback(Callback<WStackItem<I>, Node> callback);
-		public void setLabel(String label);
 		public void setOnCloseCallback(Callback<WStackItem<I>, Boolean> callback);
 	}
 	
