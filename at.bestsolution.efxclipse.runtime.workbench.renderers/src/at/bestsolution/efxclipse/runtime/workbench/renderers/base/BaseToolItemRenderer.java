@@ -10,7 +10,9 @@ public abstract class BaseToolItemRenderer<N> extends BaseRenderer<MToolItem, WT
 
 	@Override
 	public void doProcessContent(MToolItem element) {
-		
+		if( element.getMenu() != null ) {
+			engineCreateWidget(element.getMenu());
+		}
 	}
 
 	@Override

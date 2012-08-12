@@ -2,6 +2,7 @@ package at.bestsolution.efxclipse.runtime.workbench.renderers.def;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SplitMenuButton;
@@ -26,7 +27,7 @@ public class DefToolItemRenderer extends BaseToolItemRenderer<Node> {
 	}
 
 	
-	public static class ToolItemImpl extends WLayoutedWidgetImpl<Node, Node, MToolItem> implements WToolItem<Node> {
+	public static class ToolItemImpl extends WLayoutedWidgetImpl<ButtonBase, ButtonBase, MToolItem> implements WToolItem<Node> {
 		private ItemType type;
 		private boolean menuButton;
 		
@@ -37,7 +38,7 @@ public class DefToolItemRenderer extends BaseToolItemRenderer<Node> {
 		}
 		
 		@Override
-		protected Node createWidget() {
+		protected ButtonBase createWidget() {
 			switch (type) {
 			case CHECK:
 				return new CheckBox("CheckBox");
@@ -56,9 +57,9 @@ public class DefToolItemRenderer extends BaseToolItemRenderer<Node> {
 			}
 			return null;
 		}
-
+		
 		@Override
-		protected Node getWidgetNode() {
+		protected ButtonBase getWidgetNode() {
 			return getWidget();
 		}
 	}
