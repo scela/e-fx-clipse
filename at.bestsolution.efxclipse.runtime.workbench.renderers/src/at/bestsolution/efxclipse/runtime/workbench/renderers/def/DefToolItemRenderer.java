@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SplitMenuButton;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,10 +28,12 @@ public class DefToolItemRenderer extends BaseToolItemRenderer<Node> {
 	
 	public static class ToolItemImpl extends WLayoutedWidgetImpl<Node, Node, MToolItem> implements WToolItem<Node> {
 		private ItemType type;
+		private boolean menuButton;
 		
 		@Inject
 		public ToolItemImpl(@Named(BaseRenderer.CONTEXT_DOM_ELEMENT) MToolItem domElement) {
 			type = domElement.getType();
+			menuButton = domElement.getMenu() != null;
 		}
 		
 		@Override
@@ -39,7 +42,13 @@ public class DefToolItemRenderer extends BaseToolItemRenderer<Node> {
 			case CHECK:
 				return new CheckBox("CheckBox");
 			case PUSH:
-				return new Button("Button");
+				if( menuButton ) {
+					SplitMenuButton b = new SplitMenuButton();
+					b.setText("Push/Menu Button");
+					return b;
+				} else {
+					return new Button("Push Button");	
+				}
 			case RADIO:
 				return new RadioButton("RadioButton");
 			default:

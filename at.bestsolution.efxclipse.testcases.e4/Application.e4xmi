@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_A7QWkOL-EeGP-5z69KadAQ" elementId="org.eclipse.e4.ide.application" bindingContexts="_A7QWkeL-EeGP-5z69KadAQ">
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_A7QWoOL-EeGP-5z69KadAQ" label="at.bestsolution.efxclipse.testcases.e4" x="0" y="0" width="500" height="400">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_A7QWoOL-EeGP-5z69KadAQ" label="at.bestsolution.efxclipse.testcases.e4" x="0" y="0" width="1024" height="800">
     <tags>decoration#at/bestsolution/efxclipse/testcases/e4/decoration/TopArea.fxml</tags>
     <children xsi:type="basic:PartSashContainer" xmi:id="_A7Q9oOL-EeGP-5z69KadAQ" horizontal="true">
-      <children xsi:type="basic:Part" xmi:id="_A7Q9oeL-EeGP-5z69KadAQ" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ControlPanel"/>
-      <children xsi:type="basic:PartStack" xmi:id="_A7Q9ouL-EeGP-5z69KadAQ" elementId="content.stack">
+      <children xsi:type="basic:Part" xmi:id="_A7Q9oeL-EeGP-5z69KadAQ" containerData="10" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ControlPanel" label="Control Stack"/>
+      <children xsi:type="basic:PartStack" xmi:id="_A7Q9ouL-EeGP-5z69KadAQ" elementId="content.stack" containerData="80">
         <children xsi:type="basic:Part" xmi:id="_ZHcNwOL-EeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.part.0" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ContentPanel" label="C0"/>
         <children xsi:type="basic:Part" xmi:id="_cjVs4OL-EeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.part.1" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ContentPanel" label="C1"/>
         <children xsi:type="basic:Part" xmi:id="_f5-RgOL-EeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.part.2" toBeRendered="false" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ContentPanel" label="C2"/>
         <children xsi:type="basic:Part" xmi:id="_jRKPwOL-EeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.part.3" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ContentPanel" label="C3"/>
       </children>
+      <children xsi:type="basic:Part" xmi:id="_txxY4OMsEeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.part.4" toBeRendered="false" containerData="10" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.parts.ContentPanel" label="C4"/>
     </children>
+    <mainMenu xmi:id="_W8hHoORZEeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.menu.0">
+      <children xsi:type="menu:Menu" xmi:id="_Xwuy0ORZEeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.menu.0" label="M1"/>
+    </mainMenu>
     <trimBars xmi:id="_A7Q9o-L-EeGP-5z69KadAQ">
       <children xsi:type="menu:ToolBar" xmi:id="_A7Q9pOL-EeGP-5z69KadAQ" elementId="org.efxclipse.e4.maintoolbar">
-        <children xsi:type="menu:HandledToolItem" xmi:id="_A7Q9peL-EeGP-5z69KadAQ" iconURI="platform:/plugin/at.bestsolution.efxclipse.testcases.e4/icons/edit-image-face-show.png" command="_A7QWmeL-EeGP-5z69KadAQ"/>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_A7Q9puL-EeGP-5z69KadAQ" iconURI="platform:/plugin/at.bestsolution.efxclipse.testcases.e4/icons/system-reboot.png" command="_A7QWneL-EeGP-5z69KadAQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_fbkNAORYEeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.handledtoolitem.0" label="Push - HI 0"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_gbQvcORYEeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.handledtoolitem.1" label="Check - HI 1" type="Check"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_suBhkORYEeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.handledtoolitem.2" label="Radio - HI 2" type="Radio"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_3aRo4ORYEeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.handledtoolitem.3" label="Radio - HI 3" type="Radio"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_88IH4ORYEeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.handledtoolitem.4" label="Split - HI 4">
+          <menu xmi:id="_WI3gUORdEeGcrYrtitkVHQ" elementId="at.bestsolution.efxclipse.testcases.e4.menu.0">
+            <children xsi:type="menu:HandledMenuItem" xmi:id="_9EluEORdEeGcrYrtitkVHQ" elementId="at.bestsolution.efxclipse.testcases.e4.handledmenuitem.0" label="ToolItem Menu 1"/>
+            <children xsi:type="menu:HandledMenuItem" xmi:id="_Eei-MOReEeGcrYrtitkVHQ" elementId="at.bestsolution.efxclipse.testcases.e4.handledmenuitem.0" label="ToolItem Menu 2"/>
+          </menu>
+        </children>
       </children>
     </trimBars>
   </children>
