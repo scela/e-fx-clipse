@@ -58,7 +58,6 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 			EObject eo = (EObject) element;
 			for( EAttribute e : eo.eClass().getEAllAttributes() ) {
 				context.set(e.getName(), eo.eGet(e));
-				System.err.println(e.getName());
 			}
 			
 			// Localized Label/Tooltip treatment
