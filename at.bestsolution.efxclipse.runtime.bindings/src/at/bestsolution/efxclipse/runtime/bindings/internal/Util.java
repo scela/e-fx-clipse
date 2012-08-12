@@ -7,6 +7,11 @@ import java.util.ResourceBundle;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.eclipse.osgi.service.environment.Constants;
+import org.osgi.framework.FrameworkUtil;
+
+import at.bestsolution.efxclipse.runtime.bindings.fx.FxKeyLookup;
+
 /**
  * <p>
  * A static class providing utility methods to all of JFace.
@@ -94,39 +99,9 @@ public final class Util {
 		return left - right;
 	}
 
-	/**
-	 * Compares to comparable objects -- defending against <code>null</code>.
-	 * 
-	 * @param left
-	 *            The left object to compare; may be <code>null</code>.
-	 * @param right
-	 *            The right object to compare; may be <code>null</code>.
-	 * @return The result of the comparison. <code>null</code> is considered to be the least
-	 *         possible value.
-	 */
-	public static final int compare(final Comparable left, final Comparable right) {
-		if (left == null && right == null) {
-			return 0;
-		} else if (left == null) {
-			return -1;
-		} else if (right == null) {
-			return 1;
-		} else {
-			return left.compareTo(right);
-		}
-	}
 
-	/**
-	 * Compares two arrays of comparable objects -- accounting for <code>null</code>.
-	 * 
-	 * @param left
-	 *            The left array to be compared; may be <code>null</code>.
-	 * @param right
-	 *            The right array to be compared; may be <code>null</code>.
-	 * @return The result of the comparison. <code>null</code> is considered to be the least
-	 *         possible value. A shorter array is considered less than a longer array.
-	 */
-	public static final int compare(final Comparable[] left, final Comparable[] right) {
+	public static final <T extends Comparable<T>> int compare(final T[] left,
+			final T[] right) {
 		if (left == null && right == null) {
 			return 0;
 		} else if (left == null) {
@@ -153,6 +128,29 @@ public final class Util {
 		}
 	}
 
+	/**
+	 * Compares to comparable objects -- defending against <code>null</code>.
+	 * 
+	 * @param left
+	 *            The left object to compare; may be <code>null</code>.
+	 * @param right
+	 *            The right object to compare; may be <code>null</code>.
+	 * @return The result of the comparison. <code>null</code> is considered
+	 *         to be the least possible value.
+	 */
+	public static final <T extends Comparable<T>> int compare(final T left,
+			final T right) {
+		if (left == null && right == null) {
+			return 0;
+		} else if (left == null) {
+			return -1;
+		} else if (right == null) {
+			return 1;
+		} else {
+			return left.compareTo(right);
+		}
+	}
+	
 	/**
 	 * Compares two lists -- account for <code>null</code>. The lists must contain comparable
 	 * objects.
@@ -641,10 +639,16 @@ public final class Util {
 //		return SWT.getPlatform();
 //	}
 
+	static final boolean MAC = FrameworkUtil.getBundle(FxKeyLookup.class).getBundleContext().getProperty("osgi.os").equals(Constants.OS_MACOSX);
+	
 	/**
 	 * This class should never be constructed.
 	 */
 	private Util() {
-		// Not allowed.
+		
+	}
+
+	public static boolean isMac() {
+		return MAC;
 	}
 }

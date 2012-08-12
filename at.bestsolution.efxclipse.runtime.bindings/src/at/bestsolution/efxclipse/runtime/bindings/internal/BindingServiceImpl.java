@@ -30,6 +30,7 @@ import at.bestsolution.efxclipse.runtime.bindings.EParseException;
 import at.bestsolution.efxclipse.runtime.bindings.api.EBinding;
 import at.bestsolution.efxclipse.runtime.bindings.api.EKeySequence;
 import at.bestsolution.efxclipse.runtime.bindings.api.ETriggerSequence;
+import at.bestsolution.efxclipse.runtime.bindings.api.impl.KeyBindingImpl;
 
 /**
  *
@@ -81,8 +82,9 @@ public class BindingServiceImpl implements EBindingService {
 					bindingType = EBinding.USER;
 				}
 			}
-			return factory.createKeyBinding((EKeySequence) sequence, command, schemeId, contextId, locale,
-					platform, null, bindingType);
+			return new KeyBindingImpl((EKeySequence) sequence, command, schemeId, contextId);
+//			return factory.createKeyBinding((EKeySequence) sequence, command, schemeId, contextId, locale,
+//					platform, null, bindingType);
 		}
 		return null;
 	}
