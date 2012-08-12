@@ -23,7 +23,6 @@ public abstract class BaseWindowRenderer<N> extends BaseRenderer<MWindow,WWindow
 
 	@Override
 	protected void initWidget(final MWindow element, final WWindow<N> widget) {
-		widget.setBounds(element.getX(), element.getY(), element.getWidth(), element.getHeight());
 		getModelContext(element).set(ISaveHandler.class, new ISaveHandler() {
 			
 			@Override

@@ -37,6 +37,11 @@ public class DefToolItemRenderer extends BaseToolItemRenderer<Node> {
 			menuButton = domElement.getMenu() != null;
 		}
 		
+		@Inject
+		public void setLabel(@Named(ATTRIBUTE_localizedLabel)String label) {
+			getWidget().setText(label);
+		}
+		
 		@Override
 		protected ButtonBase createWidget() {
 			switch (type) {

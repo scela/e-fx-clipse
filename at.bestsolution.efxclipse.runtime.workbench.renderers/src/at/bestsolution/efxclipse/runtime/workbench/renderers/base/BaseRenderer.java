@@ -8,10 +8,12 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
+import org.eclipse.e4.ui.model.application.ui.MUILabel;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
@@ -23,6 +25,9 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 	
 	public static final String CONTEXT_DOM_ELEMENT = "fx.rendering.domElement";
 //	public static final String CONTEXT_WIDGET_ELEMENT = "fx.rendering.widget";
+	
+	public static final String ATTRIBUTE_localizedLabel = "localizedLabel";
+	public static final String ATTRIBUTE_localizedTooltip = "localizedTooltip";
 	
 	@Inject
 	IEclipseContext _context; // The rendering context
@@ -49,7 +54,19 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 			context = _context.createChild("Element RenderingContext");
 			element.getTransientData().put(RENDERING_CONTEXT_KEY, context);
 			context.set(CONTEXT_DOM_ELEMENT, element);
-			initRenderingContext(element, context);			
+			initRenderingContext(element, context);
+			EObject eo = (EObject) element;
+			for( EAttribute e : eo.eClass().getEAllAttributes() ) {
+				context.set(e.getName(), eo.eGet(e));
+				System.err.println(e.getName());
+			}
+			
+			// Localized Label/Tooltip treatment
+			if( element instanceof MUILabel ) {
+				MUILabel l = (MUILabel) element;
+				context.set("localizedLabel", l.getLocalizedLabel());
+				context.set("localizedTooltip", l.getLocalizedTooltip());
+			}
 		}
 		return context;
 	}

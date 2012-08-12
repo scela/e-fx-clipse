@@ -45,6 +45,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.workbench.IResourceUtilities;
+import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.modeling.ISaveHandler.Save;
 import org.eclipse.emf.common.util.URI;
 
@@ -209,34 +210,26 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 			return rootPane;
 		}
 		
-		@Override
-		public void setX(double x) {
+		@Inject
+		public void setX(@Named(UIEvents.Window.X) int x) {
 			getWidget().setX(x);
 		}
 
-		@Override
-		public void setY(double y) {
+		@Inject
+		public void setY(@Named(UIEvents.Window.Y) int y) {
 			getWidget().setY(y);
 		}
 
-		@Override
-		public void setWidth(double w) {
+		@Inject
+		public void setWidth(@Named(UIEvents.Window.WIDTH) int w) {
 			getWidget().setWidth(w);
 		}
 
-		@Override
-		public void setHeight(double h) {
+		@Inject
+		public void setHeight(@Named(UIEvents.Window.HEIGHT) int h) {
 			getWidget().setHeight(h);
 		}
-
-		@Override
-		public void setBounds(double x, double y, double w, double h) {
-			setX(x);
-			setY(y);
-			setWidth(w);
-			setHeight(h);
-		}
-
+		
 		@Override
 		public void addStyleClasses(List<String> classnames) {
 			rootPane.getStyleClass().addAll(classnames);
@@ -253,8 +246,8 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 			getWidget().show();
 		}
 		
-		@Override
-		public void setTitle(String title) {
+		@Inject
+		public void setTitle(@Named(ATTRIBUTE_localizedLabel) String title) {
 			getWidget().setTitle(title);
 		}
 		

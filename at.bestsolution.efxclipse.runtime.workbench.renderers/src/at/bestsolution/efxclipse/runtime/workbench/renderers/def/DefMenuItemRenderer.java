@@ -59,8 +59,8 @@ public class DefMenuItemRenderer extends BaseMenuItemRenderer<MenuItem> {
 			}
 		}
 		
-		@Override
-		public void setLabel(String label) {
+		@Inject
+		public void setLabel(@Named(ATTRIBUTE_localizedLabel) String label) {
 			getWidget().setText(label);
 		}
 

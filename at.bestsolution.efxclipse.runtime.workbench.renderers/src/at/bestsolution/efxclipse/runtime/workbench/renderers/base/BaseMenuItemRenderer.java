@@ -17,13 +17,7 @@ public abstract class BaseMenuItemRenderer<N> extends BaseRenderer<MMenuItem, WM
 		super.initRenderingContext(element, context);
 		context.set(MenuPackageImpl.Literals.ITEM__TYPE.getName(), element.getType());
 	}
-	
-	@Override
-	protected void initWidget(MMenuItem element, WMenuItem<MenuItem> widget) {
-		super.initWidget(element, widget);
-		widget.setLabel(element.getLocalizedLabel());
-	}
-	
+		
 	@Override
 	public void doProcessContent(MMenuItem element) {
 		// TODO Auto-generated method stub
