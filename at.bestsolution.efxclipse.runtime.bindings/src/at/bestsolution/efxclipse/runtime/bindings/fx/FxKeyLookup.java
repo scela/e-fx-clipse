@@ -3,6 +3,7 @@ package at.bestsolution.efxclipse.runtime.bindings.fx;
 import java.util.HashMap;
 import java.util.Map;
 
+import at.bestsolution.efxclipse.runtime.bindings.EKeyLookup;
 import at.bestsolution.efxclipse.runtime.bindings.internal.Util;
 
 
@@ -18,7 +19,7 @@ import at.bestsolution.efxclipse.runtime.bindings.internal.Util;
  * @since 3.1
  * @see org.eclipse.jface.bindings.keys.KeyLookupFactory
  */
-public final class FxKeyLookup implements IKeyLookup {
+public final class FxKeyLookup implements EKeyLookup {
 
 	/**
 	 * The look-up table for modifier keys. This is a map of formal name (<code>String</code>)

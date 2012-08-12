@@ -25,12 +25,13 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 
 import at.bestsolution.efxclipse.runtime.bindings.EBindingService;
-import at.bestsolution.efxclipse.runtime.bindings.EKeyServiceFactory;
+import at.bestsolution.efxclipse.runtime.bindings.EKeyLookup;
 import at.bestsolution.efxclipse.runtime.bindings.EParseException;
 import at.bestsolution.efxclipse.runtime.bindings.api.EBinding;
 import at.bestsolution.efxclipse.runtime.bindings.api.EKeySequence;
 import at.bestsolution.efxclipse.runtime.bindings.api.ETriggerSequence;
 import at.bestsolution.efxclipse.runtime.bindings.api.impl.KeyBindingImpl;
+import at.bestsolution.efxclipse.runtime.bindings.api.impl.KeySequenceImpl;
 
 /**
  *
@@ -51,7 +52,7 @@ public class BindingServiceImpl implements EBindingService {
 	private ContextManager contextManager;
 	
 	@Inject
-	private EKeyServiceFactory factory;
+	private EKeyLookup keylookup;
 
 	private ContextSet contextSet = ContextSet.EMPTY;
 
@@ -129,7 +130,7 @@ public class BindingServiceImpl implements EBindingService {
 	 */
 	public ETriggerSequence createSequence(String sequence) {
 		try {
-			return factory.getInstance(sequence);
+			return KeySequenceImpl.getInstance(keylookup, sequence);
 		} catch (EParseException e) {
 			// should probably log
 		}

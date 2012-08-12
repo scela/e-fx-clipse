@@ -1,6 +1,6 @@
-package at.bestsolution.efxclipse.runtime.bindings.fx;
+package at.bestsolution.efxclipse.runtime.bindings;
 
-public interface IKeyLookup {
+public interface EKeyLookup {
 	/**
 	 * The formal name of the 'Alt' key.
 	 */
