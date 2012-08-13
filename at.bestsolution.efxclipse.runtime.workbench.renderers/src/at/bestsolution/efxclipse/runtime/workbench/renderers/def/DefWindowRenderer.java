@@ -206,6 +206,15 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 		}
 		
 		@Override
+		protected void bindProperties(Stage widget) {
+			super.bindProperties(widget);
+			bindProperty(UIEvents.Window.X,widget.xProperty());
+			bindProperty(UIEvents.Window.Y,widget.yProperty());
+			bindProperty(UIEvents.Window.WIDTH,widget.widthProperty());
+			bindProperty(UIEvents.Window.HEIGHT,widget.heightProperty());
+		}
+		
+		@Override
 		public void setMainMenu(WLayoutedWidget<MMenu> menuWidget) {
 			this.rootPane.setTop(menuWidget.getStaticLayoutNode());
 		}

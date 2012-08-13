@@ -3,6 +3,8 @@ package at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.util.Callback;
 
 import javax.annotation.PostConstruct;
@@ -10,7 +12,9 @@ import javax.annotation.PreDestroy;
 
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WPropertyChangeHandler;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WPropertyChangeHandler.WPropertyChangeEvent;
 
 @SuppressWarnings("restriction")
 public abstract class WWidgetImpl<N,M extends MUIElement> implements WWidget<M> {
@@ -18,6 +22,8 @@ public abstract class WWidgetImpl<N,M extends MUIElement> implements WWidget<M> 
 	private M domElement;
 	private List<Callback<Boolean, Void>> activationCallbacks = new ArrayList<Callback<Boolean,Void>>();
 	private boolean active;
+	
+	private WPropertyChangeHandler<? extends WWidget<M>> propertyChangeHandler;
 	
 	protected abstract N createWidget();
 	
@@ -77,10 +83,36 @@ public abstract class WWidgetImpl<N,M extends MUIElement> implements WWidget<M> 
 	public N getWidget() {
 		if( nativeWidget == null ) {
 			nativeWidget = createWidget();
+			bindProperties(nativeWidget);
 			setUserData(this);
 		}
 		return nativeWidget;
 	}
 	
+	protected void bindProperties(N widget) {
+		
+	}
+	
+	protected void bindProperty(final String propertyName, ObservableValue<? extends Object> value) {
+		value.addListener(new ChangeListener<Object>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
+				fireChange(propertyName, newValue);
+			}
+		});
+	}
+	
 	protected abstract void setUserData(WWidgetImpl<N,M> widget);
+	
+	public void setPropertyChangeHandler(WPropertyChangeHandler<? extends WWidget<M>> propertyChangeHandler) {
+		this.propertyChangeHandler = propertyChangeHandler;
+	}
+	
+	protected void fireChange(String propertyName, Object newValue) {
+		if( propertyChangeHandler != null ) {
+			WPropertyChangeEvent<WWidget<M>> e = new WPropertyChangeEvent<WWidget<M>>(this, propertyName, newValue);
+			propertyChangeHandler.propertyObjectChanged(e);
+		}
+	}
 }

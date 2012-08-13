@@ -1,6 +1,8 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.base;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -15,7 +17,9 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WPropertyChangeHandler;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
 import at.bestsolution.efxclipse.runtime.workbench.rendering.AbstractRenderer;
 
@@ -24,7 +28,6 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 	private static final String RENDERING_CONTEXT_KEY = "fx.rendering.context";
 	
 	public static final String CONTEXT_DOM_ELEMENT = "fx.rendering.domElement";
-//	public static final String CONTEXT_WIDGET_ELEMENT = "fx.rendering.widget";
 	
 	public static final String ATTRIBUTE_localizedLabel = "localizedLabel";
 	public static final String ATTRIBUTE_localizedTooltip = "localizedTooltip";
@@ -37,12 +40,41 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 	
 	boolean inContentProcessing;
 	
+	boolean inContextModification;
+	
+	private Map<String,EAttribute> attributeMap = new HashMap<String, EAttribute>();
+	
+	
 	@Override
-	public final W createWidget(M element) {
+	public final W createWidget(final M element) {
 		IEclipseContext context = setupRenderingContext(element);
 		
 		W widget =  ContextInjectionFactory.make(getWidgetClass(), context);
-//		context.set(CONTEXT_WIDGET_ELEMENT, widget);
+		widget.setPropertyChangeHandler(new WPropertyChangeHandler<W>() {
+
+			@Override
+			public void propertyObjectChanged(WPropertyChangeEvent<W> event) {
+				EAttribute attribute = attributeMap.get(event.propertyname);
+				EObject eo = (EObject)element;
+				
+				if( attribute == null ) {
+					EStructuralFeature f = eo.eClass().getEStructuralFeature(event.propertyname);
+					if( f instanceof EAttribute ) {
+						attribute = (EAttribute) f;
+						attributeMap.put(event.propertyname, attribute);
+					}
+				}
+				
+				if( attribute != null ) {
+					if( attribute.getEType().getInstanceClass() == int.class ) {
+						eo.eSet(attribute, ((Number)event.newValue).intValue());
+					} else {
+						eo.eSet(attribute, event.newValue);
+					}
+				}
+			}
+			
+		});
 		initWidget(element, widget);
 		
 		return widget;
@@ -55,16 +87,22 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 			element.getTransientData().put(RENDERING_CONTEXT_KEY, context);
 			context.set(CONTEXT_DOM_ELEMENT, element);
 			initRenderingContext(element, context);
-			EObject eo = (EObject) element;
-			for( EAttribute e : eo.eClass().getEAllAttributes() ) {
-				context.set(e.getName(), eo.eGet(e));
-			}
 			
-			// Localized Label/Tooltip treatment
-			if( element instanceof MUILabel ) {
-				MUILabel l = (MUILabel) element;
-				context.set("localizedLabel", l.getLocalizedLabel());
-				context.set("localizedTooltip", l.getLocalizedTooltip());
+			try {
+				inContextModification = true;
+				EObject eo = (EObject) element;
+				for( EAttribute e : eo.eClass().getEAllAttributes() ) {
+					context.set(e.getName(), eo.eGet(e));
+				}
+				
+				// Localized Label/Tooltip treatment
+				if( element instanceof MUILabel ) {
+					MUILabel l = (MUILabel) element;
+					context.set("localizedLabel", l.getLocalizedLabel());
+					context.set("localizedTooltip", l.getLocalizedTooltip());
+				}
+			} finally {
+				inContextModification = false;
 			}
 		}
 		return context;
