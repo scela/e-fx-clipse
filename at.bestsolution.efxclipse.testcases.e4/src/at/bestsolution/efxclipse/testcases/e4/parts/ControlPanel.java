@@ -148,6 +148,24 @@ public class ControlPanel {
 				vbox.getChildren().add(hbox);
 			}
 			
+			{
+				HBox hbox = new HBox(10);
+				hbox.getChildren().add(new Label("Title"));
+				final TextField f = new TextField(window.getLabel()+"");
+				hbox.getChildren().add(f);
+				
+				Button b = new Button("Set");
+				b.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+						window.setLabel(f.getText());
+					}
+				});
+				hbox.getChildren().add(b);
+				vbox.getChildren().add(hbox);
+			}
+			
 			
 			pane.setContent(vbox);
 			box.getChildren().add(pane);
