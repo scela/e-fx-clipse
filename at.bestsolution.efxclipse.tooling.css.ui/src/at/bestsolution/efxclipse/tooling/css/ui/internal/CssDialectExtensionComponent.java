@@ -16,7 +16,9 @@ import java.util.List;
 import org.eclipse.emf.common.util.URI;
 
 import at.bestsolution.efxclipse.tooling.css.CssDialectExtension;
+import at.bestsolution.efxclipse.tooling.css.CssExtendedDialectExtension;
 import at.bestsolution.efxclipse.tooling.css.CssDialectExtension.Property;
+import at.bestsolution.efxclipse.tooling.css.CssExtendedDialectExtension.CssProperty;
 
 public class CssDialectExtensionComponent {
 	private List<CssDialectExtension> extensions = new ArrayList<CssDialectExtension>();
@@ -53,6 +55,25 @@ public class CssDialectExtensionComponent {
 			}
 		}
 		return exts.toArray(new CssDialectExtension[0]);
+	}
+	
+	public String getDocForProperty(URI uri, String propertyName) {
+		for( CssDialectExtension ext : getExtensions(uri) ) {
+			if (ext instanceof CssExtendedDialectExtension) {
+				return ((CssExtendedDialectExtension)ext).getDocForProperty(propertyName);
+			}
+		}
+		return "no extension capable :/";
+	}
+	
+	public List<CssProperty> getValuesForProperty(URI uri, String propertyName) {
+		List<CssProperty> result = new ArrayList<CssProperty>();
+		for( CssDialectExtension ext : getExtensions(uri) ) {
+			if (ext instanceof CssExtendedDialectExtension) {
+				result.addAll(((CssExtendedDialectExtension)ext).getValuesForProperty(propertyName));
+			}
+		}
+		return result;
 	}
 
 }

@@ -11,6 +11,7 @@
 package at.bestsolution.efxclipse.tooling.css.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHover;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightingConfiguration;
@@ -19,6 +20,7 @@ import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculato
 import at.bestsolution.efxclipse.tooling.css.ui.highlighting.CssDslHighlightingCalculator;
 import at.bestsolution.efxclipse.tooling.css.ui.highlighting.CssDslHighlightingConfiguration;
 import at.bestsolution.efxclipse.tooling.css.ui.hover.CssHoverProvider;
+import at.bestsolution.efxclipse.tooling.css.ui.hover.CssObjectDocumentationProvider;
 
 import com.google.inject.Binder;
 
@@ -36,5 +38,10 @@ public class CssDslUiModule extends at.bestsolution.efxclipse.tooling.css.ui.Abs
 		binder.bind(ISemanticHighlightingCalculator.class).to(CssDslHighlightingCalculator.class);
 		binder.bind(IHighlightingConfiguration.class).to(CssDslHighlightingConfiguration.class);
 		binder.bind(IEObjectHoverProvider.class).to(CssHoverProvider.class);
+		binder.bind(IEObjectDocumentationProvider.class).to(CssObjectDocumentationProvider.class);
+	}
+	
+	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.IContentProposalProvider> bindIContentProposalProvider() {
+		return at.bestsolution.efxclipse.tooling.css.ui.contentassist.CssDslRealtimeProposalProvider.class;
 	}
 }

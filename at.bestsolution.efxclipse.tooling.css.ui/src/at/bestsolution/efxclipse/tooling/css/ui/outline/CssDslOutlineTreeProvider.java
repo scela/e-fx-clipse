@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 
-import at.bestsolution.efxclipse.tooling.css.cssDsl.css_generic_declaration;
+import at.bestsolution.efxclipse.tooling.css.cssDsl.css_declaration;
 import at.bestsolution.efxclipse.tooling.css.cssDsl.ruleset;
 import at.bestsolution.efxclipse.tooling.css.cssDsl.selector;
 import at.bestsolution.efxclipse.tooling.css.cssDsl.simple_selector;
@@ -76,8 +76,8 @@ public class CssDslOutlineTreeProvider extends DefaultOutlineTreeProvider {
 				}
 				return;
 			}
-		} else if( modelElement instanceof css_generic_declaration ) {
-			css_generic_declaration dec = (css_generic_declaration) modelElement;
+		} else if( modelElement instanceof css_declaration ) {
+			css_declaration dec = (css_declaration) modelElement;
 			if( dec.getExpression().getTermGroups().size() == 1 ) {
 				for( term t : dec.getExpression().getTermGroups().get(0).getTerms() ) {
 					createNode(parentNode, t);

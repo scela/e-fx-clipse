@@ -12,16 +12,21 @@ package at.bestsolution.efxclipse.tooling.css.ui.contentassist;
 
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.viewers.StyledString;
+import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.common.types.xtext.ui.JdtHoverProvider.JavadocHoverWrapper;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.contentassist.ReplacementTextApplier;
+import org.eclipse.xtext.ui.editor.hover.AbstractEObjectHover;
+import org.eclipse.xtext.ui.editor.hover.AbstractHover;
+import org.eclipse.xtext.ui.editor.hover.DispatchingEObjectTextHover;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHover;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -41,37 +46,42 @@ import at.bestsolution.efxclipse.tooling.css.ui.internal.CssDslActivator;
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */
-public class CssDslProposalProvider extends AbstractCssDslProposalProvider {
+public class CssDslRealtimeProposalProvider extends AbstractCssDslProposalProvider {
 	private CssDialectExtensionComponent extension;
 	
-	public CssDslProposalProvider() {
+	public CssDslRealtimeProposalProvider() {
 		BundleContext context = CssDslActivator.getInstance().getBundle().getBundleContext();
 		ServiceReference<CssDialectExtensionComponent> ref = context.getServiceReference(CssDialectExtensionComponent.class);
 		extension = context.getService(ref);
 	}
 	
-	@Override
-	public void complete_css_property(EObject model, RuleCall ruleCall,
-			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		if( model instanceof ruleset ) {
-			for( Property property : extension.getProperties(model.eResource().getURI()) ) {
-				
-				
-				ConfigurableCompletionProposal cp = (ConfigurableCompletionProposal) createCompletionProposal(property.getName(), property.getName(), null, context);
-				cp.setAdditionalProposalInfo(model);
-				cp.setHover(new HoverImpl(property.getDescription()));
-				
-				acceptor.accept(cp);
-			}
+	public void complete_css_property(ruleset model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		System.err.println("this is reflective");
+		
+		URI uri = model.eResource().getURI();
+		
+		for( Property property : extension.getProperties(uri) ) {
 			
+			
+			ConfigurableCompletionProposal cp = (ConfigurableCompletionProposal) createCompletionProposal(property.getName(), property.getName(), null, context);
+			cp.setAdditionalProposalInfo(model);
+			//cp.setHover(new HoverImpl(extension.getDocForProperty(model.eResource().getURI(), property.getName())));
+		
+			cp.setHover(new PropertyHover(uri, property.getName()));
+			acceptor.accept(cp);
 		}
-		super.complete_css_property(model, ruleCall, context, acceptor);
+		
+	}
+	
+	
+	public void completecss_property_name(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		System.err.println("compl: " + model);
 	}
 	
 	@Override
 	public void complete_expr(EObject model, RuleCall ruleCall,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-//		System.err.println("Expression Proposal: " + model);
+		System.err.println("Expression Proposal: " + model);
 //		if( context.getCurrentModel() instanceof css_declaration ) {
 //			css_declaration o = (css_declaration) model;
 //			Property p = getProperty(extension.getProperties(), o.getProperty());
@@ -89,11 +99,12 @@ public class CssDslProposalProvider extends AbstractCssDslProposalProvider {
 	@Override
 	public void complete_termGroup(EObject model, RuleCall ruleCall,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-//		System.err.println("TermGroup proposal: " + context.getCurrentModel());
+		System.err.println("TermGroup proposal: " + context.getCurrentModel());
 //		if( context.getCurrentModel() instanceof css_declaration ) {
 //			css_declaration dec = (css_declaration) context.getCurrentModel();
 //			
 //		}
+		
 //		
 		super.complete_termGroup(model, ruleCall, context, acceptor);
 	}
@@ -102,7 +113,7 @@ public class CssDslProposalProvider extends AbstractCssDslProposalProvider {
 	public void complete_term(EObject model, RuleCall ruleCall,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		
-//		System.err.println("Term proposal: " + context.getCurrentModel());
+		System.err.println("Term proposal: " + context.getCurrentModel());
 		
 ////		System.err.println(ruleCall.eContainer());
 		
@@ -284,6 +295,24 @@ public class CssDslProposalProvider extends AbstractCssDslProposalProvider {
 //		}
 //		return Collections.emptyList();
 //	}
+	
+	public class PropertyHover extends AbstractEObjectHover {
+
+		private URI uri;
+		private String propertyName;
+		
+		public PropertyHover(URI uri, String propertyName) {
+			this.uri = uri;
+			this.propertyName = propertyName;
+		}
+			
+		@Override
+		public Object getHoverInfo(EObject eObject, ITextViewer textViewer, IRegion hoverRegion) {
+			return extension.getDocForProperty(uri, propertyName);
+		}
+
+		
+	}
 	
 	public static class HoverImpl implements IEObjectHover {
 		private JavadocHoverWrapper javadocHover = new JavadocHoverWrapper();
