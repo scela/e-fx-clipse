@@ -36,6 +36,9 @@
 		<module>../at.bestsolution.efxclipse.runtime.workbench</module>
 		<module>../at.bestsolution.efxclipse.runtime.workbench.renderers</module>
 		<module>../at.bestsolution.efxclipse.runtime.workbench3</module>
+		<module>../at.bestsolution.efxclipse.runtime.bindings</module>
+		<module>../at.bestsolution.efxclipse.runtime.bindings.e4</module>
+		<module>../at.bestsolution.efxclipse.runtime.bindings.generic</module>
 		
 		<module>../at.bestsolution.efxclipse.formats.svg</module>
 		<module>../at.bestsolution.efxclipse.formats.fxg</module>
