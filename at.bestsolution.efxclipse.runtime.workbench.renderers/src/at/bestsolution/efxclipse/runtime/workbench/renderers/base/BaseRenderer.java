@@ -129,7 +129,6 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 			
 			@Override
 			public void handleEvent(Event event) {
-				System.err.println("CHANGED");
 				// There is already a modification in process
 				if( inContextModification ) {
 					return;
