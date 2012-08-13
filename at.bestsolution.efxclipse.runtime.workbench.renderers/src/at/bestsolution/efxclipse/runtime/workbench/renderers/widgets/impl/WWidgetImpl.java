@@ -66,7 +66,10 @@ public abstract class WWidgetImpl<N,M extends MUIElement> implements WWidget<M> 
 		if( nativeWidget != null ) {
 			setUserData(null);
 		}
+		propertyChangeHandler = null;
+		domElement = null;
 		activationCallbacks.clear();
+		activationCallbacks = null;
 	}
 	
 	@Override
