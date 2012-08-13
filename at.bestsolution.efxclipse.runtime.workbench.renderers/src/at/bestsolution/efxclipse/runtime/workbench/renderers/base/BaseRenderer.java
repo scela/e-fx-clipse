@@ -8,16 +8,20 @@ import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.MContext;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.MUILabel;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.IPresentationEngine;
+import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
 
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WPropertyChangeHandler;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
@@ -42,35 +46,47 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 	
 	boolean inContextModification;
 	
-	private Map<String,EAttribute> attributeMap = new HashMap<String, EAttribute>();
+	boolean inUIModification;
 	
+	private Map<String,EAttribute> attributeMap = new HashMap<String, EAttribute>();
 	
 	@Override
 	public final W createWidget(final M element) {
-		IEclipseContext context = setupRenderingContext(element);
+		final IEclipseContext context = setupRenderingContext(element);
 		
 		W widget =  ContextInjectionFactory.make(getWidgetClass(), context);
 		widget.setPropertyChangeHandler(new WPropertyChangeHandler<W>() {
 
 			@Override
 			public void propertyObjectChanged(WPropertyChangeEvent<W> event) {
-				EAttribute attribute = attributeMap.get(event.propertyname);
-				EObject eo = (EObject)element;
-				
-				if( attribute == null ) {
-					EStructuralFeature f = eo.eClass().getEStructuralFeature(event.propertyname);
-					if( f instanceof EAttribute ) {
-						attribute = (EAttribute) f;
-						attributeMap.put(event.propertyname, attribute);
-					}
+				// There is already a modification in process
+				if( inUIModification || inContextModification ) {
+					return;
 				}
 				
-				if( attribute != null ) {
-					if( attribute.getEType().getInstanceClass() == int.class ) {
-						eo.eSet(attribute, ((Number)event.newValue).intValue());
-					} else {
-						eo.eSet(attribute, event.newValue);
+				try {
+					inUIModification = true;
+					
+					EAttribute attribute = attributeMap.get(event.propertyname);
+					EObject eo = (EObject)element;
+					
+					if( attribute == null ) {
+						EStructuralFeature f = eo.eClass().getEStructuralFeature(event.propertyname);
+						if( f instanceof EAttribute ) {
+							attribute = (EAttribute) f;
+							attributeMap.put(event.propertyname, attribute);
+						}
 					}
+					
+					if( attribute != null ) {
+						if( attribute.getEType().getInstanceClass() == int.class ) {
+							eo.eSet(attribute, ((Number)event.newValue).intValue());
+						} else {
+							eo.eSet(attribute, event.newValue);
+						}
+					}
+				} finally {
+					inUIModification = false;
 				}
 			}
 			
@@ -106,6 +122,35 @@ public abstract class BaseRenderer<M extends MUIElement, W extends WWidget<M>> e
 			}
 		}
 		return context;
+	}
+	
+	protected void registerEventListener(IEventBroker broker, String topic) {
+		broker.subscribe(topic, new EventHandler() {
+			
+			@Override
+			public void handleEvent(Event event) {
+				// There is already a modification in process
+				if( inContextModification ) {
+					return;
+				}
+				
+				try {
+					inContextModification = true;
+					Object changedObj = event.getProperty(UIEvents.EventTags.ELEMENT);
+					if( changedObj instanceof MUIElement ) {
+						MUIElement e = (MUIElement) changedObj;
+						if( e.getRenderer() == BaseRenderer.this ) {
+							IEclipseContext ctx = (IEclipseContext) e.getTransientData().get(RENDERING_CONTEXT_KEY);
+							if( ctx != null ) {
+								ctx.set(event.getProperty(UIEvents.EventTags.ATTNAME).toString(), event.getProperty(UIEvents.EventTags.NEW_VALUE));
+							}
+						}
+					}
+				} finally {
+					inContextModification = false;
+				}
+			}
+		});
 	}
 	
 	protected void initRenderingContext(M element, IEclipseContext context) {

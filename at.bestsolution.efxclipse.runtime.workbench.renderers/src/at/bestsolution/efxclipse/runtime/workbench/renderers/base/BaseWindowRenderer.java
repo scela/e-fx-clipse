@@ -2,8 +2,11 @@ package at.bestsolution.efxclipse.runtime.workbench.renderers.base;
 
 import java.util.Collection;
 
+import javax.annotation.PostConstruct;
+
 import javafx.scene.image.Image;
 
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MTrimBar;
@@ -12,6 +15,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.workbench.IResourceUtilities;
+import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.e4.ui.workbench.modeling.ISaveHandler;
 import org.eclipse.e4.ui.workbench.modeling.ISaveHandler.Save;
 
@@ -20,7 +24,14 @@ import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWindow;
 
 @SuppressWarnings("restriction")
 public abstract class BaseWindowRenderer<N> extends BaseRenderer<MWindow,WWindow<N>> {
-
+	@PostConstruct
+	void init(IEventBroker eventBroker) {
+		registerEventListener(eventBroker, UIEvents.Window.TOPIC_X);
+		registerEventListener(eventBroker, UIEvents.Window.TOPIC_Y);
+		registerEventListener(eventBroker, UIEvents.Window.TOPIC_WIDTH);
+		registerEventListener(eventBroker, UIEvents.Window.TOPIC_HEIGHT);
+	}
+	
 	@Override
 	protected void initWidget(final MWindow element, final WWindow<N> widget) {
 		getModelContext(element).set(ISaveHandler.class, new ISaveHandler() {
