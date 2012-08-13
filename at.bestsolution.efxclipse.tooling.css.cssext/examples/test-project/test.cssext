@@ -37,9 +37,57 @@ package KuddelMuddel {
  		Hallo {
  			
  			/**
+			 * No whitespace is allowed between the number and units if provided.
+			 *  TODO wie bau ma so was ein!?
+			 * Sizes can either be a percentage or a length with units. If units are not specified then specified the 'px' is assumed. Some units are relative and others absolute.
+			 * 
+			 * Relative
+			 * <ul>
+			 * <li>px: pixels, relative to the viewing device</li>
+			 * <li>em: the 'font-size' of the relevant font</li>
+			 * <li>ex: the 'x-height' of the relevant font</li>
+			 * </ul>
+			 * Absolute
+			 * <ul>
+			 * <li>in: inches � 1 inch is equal to 2.54 centimeters.</li>
+			 * <li>cm: centimeters</li>
+			 * <li>mm: millimeters</li>
+			 * <li>pt: points � the points used by CSS 2.1 are equal to 1/72nd of an inch.</li>
+			 * <li>pc: picas � 1 pica is equal to 12 points.</li>
+			 * </ul>
+			 * Percentages
+			 * These are a percentage of some length, they are context sensitive so what they are relative to depends on where they are specified. Each property that supports a percentage should specify if percentage is supported and if it is what it is relative to.
+			 */
+			dingdong x double [ $%$ | px | mm | cm | in | pt | pc | em | ex ]?;
+ 			
+ 			/**
  			 * super toll
  			 */
  			-martin-a a | b cd <gnu>;
+ 			
+ 			/**
+			 * No whitespace is allowed between the number and units if provided.
+			 *  TODO wie bau ma so was ein!?
+			 * Sizes can either be a percentage or a length with units. If units are not specified then specified the 'px' is assumed. Some units are relative and others absolute.
+			 * 
+			 * Relative
+			 * <ul>
+			 * <li>px: pixels, relative to the viewing device</li>
+			 * <li>em: the 'font-size' of the relevant font</li>
+			 * <li>ex: the 'x-height' of the relevant font</li>
+			 * </ul>
+			 * Absolute
+			 * <ul>
+			 * <li>in: inches � 1 inch is equal to 2.54 centimeters.</li>
+			 * <li>cm: centimeters</li>
+			 * <li>mm: millimeters</li>
+			 * <li>pt: points � the points used by CSS 2.1 are equal to 1/72nd of an inch.</li>
+			 * <li>pc: picas � 1 pica is equal to 12 points.</li>
+			 * </ul>
+			 * Percentages
+			 * These are a percentage of some length, they are context sensitive so what they are relative to depends on where they are specified. Each property that supports a percentage should specify if percentage is supported and if it is what it is relative to.
+			 */
+ 			-complex-doku xxx;
  		}
  	}
  	

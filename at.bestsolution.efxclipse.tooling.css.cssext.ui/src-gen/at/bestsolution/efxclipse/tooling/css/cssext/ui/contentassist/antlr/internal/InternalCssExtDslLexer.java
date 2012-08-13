@@ -1573,11 +1573,11 @@ public class InternalCssExtDslLexer extends Lexer {
 
     protected DFA17 dfa17 = new DFA17(this);
     static final String DFA17_eotS =
-        "\4\uffff\1\44\1\45\1\44\3\uffff\1\44\1\uffff\1\44\2\uffff\1\44"+
-        "\3\uffff\1\67\2\uffff\1\36\1\uffff\1\36\1\75\3\36\5\uffff\2\44\3"+
-        "\uffff\1\44\4\uffff\1\44\1\uffff\1\44\2\uffff\2\44\13\uffff\1\75"+
-        "\3\uffff\1\44\1\113\4\44\2\uffff\1\44\1\uffff\11\44\1\132\3\44\1"+
-        "\136\1\uffff\1\137\1\140\1\44\4\uffff";
+        "\4\uffff\1\44\1\45\1\44\3\uffff\1\44\1\uffff\1\44\2\uffff\1\44\3"+
+        "\uffff\1\67\2\uffff\1\36\1\uffff\1\36\1\75\3\36\5\uffff\2\44\3\uffff"+
+        "\1\44\4\uffff\1\44\1\uffff\1\44\2\uffff\2\44\13\uffff\1\75\3\uffff"+
+        "\1\44\1\113\4\44\2\uffff\1\44\1\uffff\11\44\1\132\3\44\1\136\1\uffff"+
+        "\1\137\1\140\1\44\4\uffff";
     static final String DFA17_eofS =
         "\142\uffff";
     static final String DFA17_minS =
@@ -1589,13 +1589,13 @@ public class InternalCssExtDslLexer extends Lexer {
         "\164\1\147\1\144\1\154\1\145\1\55\1\145\1\163\1\164\1\55\1\uffff"+
         "\2\55\1\72\4\uffff";
     static final String DFA17_maxS =
-        "\1\uffff\3\uffff\1\156\1\71\1\141\3\uffff\1\76\1\uffff\1\170\2"+
-        "\uffff\1\157\3\uffff\1\174\2\uffff\1\uffff\1\uffff\1\57\1\71\1\175"+
-        "\2\uffff\5\uffff\1\160\1\164\3\uffff\1\143\4\uffff\1\71\1\uffff"+
-        "\1\164\2\uffff\1\146\1\165\10\uffff\1\uffff\2\uffff\1\71\3\uffff"+
-        "\1\157\1\172\1\153\1\145\1\141\1\142\2\uffff\1\162\1\uffff\1\141"+
-        "\1\156\1\165\1\154\1\164\1\147\1\144\1\154\1\145\1\172\1\145\1\163"+
-        "\1\164\1\172\1\uffff\2\172\1\72\4\uffff";
+        "\1\uffff\3\uffff\1\156\1\71\1\141\3\uffff\1\76\1\uffff\1\170\2\uffff"+
+        "\1\157\3\uffff\1\174\2\uffff\1\uffff\1\uffff\1\57\1\71\1\175\2\uffff"+
+        "\5\uffff\1\160\1\164\3\uffff\1\143\4\uffff\1\71\1\uffff\1\164\2"+
+        "\uffff\1\146\1\165\10\uffff\1\uffff\2\uffff\1\71\3\uffff\1\157\1"+
+        "\172\1\153\1\145\1\141\1\142\2\uffff\1\162\1\uffff\1\141\1\156\1"+
+        "\165\1\154\1\164\1\147\1\144\1\154\1\145\1\172\1\145\1\163\1\164"+
+        "\1\172\1\uffff\2\172\1\72\4\uffff";
     static final String DFA17_acceptS =
         "\1\uffff\1\1\1\2\1\3\3\uffff\1\7\1\10\1\11\1\uffff\1\13\1\uffff"+
         "\1\15\1\16\1\uffff\1\20\1\21\1\22\1\uffff\1\25\1\26\1\uffff\1\32"+
@@ -1678,8 +1678,7 @@ public class InternalCssExtDslLexer extends Lexer {
             "",
             "",
             "\1\112",
-            "\1\44\2\uffff\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32"+
-            "\44",
+            "\1\44\2\uffff\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
             "\1\114",
             "\1\115",
             "\1\116",
@@ -1697,18 +1696,14 @@ public class InternalCssExtDslLexer extends Lexer {
             "\1\127",
             "\1\130",
             "\1\131",
-            "\1\44\2\uffff\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32"+
-            "\44",
+            "\1\44\2\uffff\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
             "\1\133",
             "\1\134",
             "\1\135",
-            "\1\44\2\uffff\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32"+
-            "\44",
+            "\1\44\2\uffff\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
             "",
-            "\1\44\2\uffff\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32"+
-            "\44",
-            "\1\44\2\uffff\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32"+
-            "\44",
+            "\1\44\2\uffff\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\1\44\2\uffff\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
             "\1\141",
             "",
             "",

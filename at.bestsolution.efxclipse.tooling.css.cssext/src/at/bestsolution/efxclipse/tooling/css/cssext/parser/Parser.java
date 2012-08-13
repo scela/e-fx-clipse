@@ -1,8 +1,10 @@
 package at.bestsolution.efxclipse.tooling.css.cssext.parser;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import org.antlr.runtime.RuleReturnScope;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -15,10 +17,18 @@ import com.google.inject.spi.Element;
 import at.bestsolution.efxclipse.tooling.css.CssDialectExtension;
 import at.bestsolution.efxclipse.tooling.css.CssDialectExtension.Property;
 import at.bestsolution.efxclipse.tooling.css.CssDialectExtension.Proposal;
+import at.bestsolution.efxclipse.tooling.css.CssExtendedDialectExtension.CssProperty;
+import at.bestsolution.efxclipse.tooling.css.CssExtendedDialectExtension.CssValuePart;
+import at.bestsolution.efxclipse.tooling.css.cssext.JavaDocParser;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRule;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleBracket;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleConcat;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleLiteral;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleOr;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRulePostfix;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleRef;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleRegex;
+import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleSymbol;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CSSRuleXor;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtDslPackage;
 import at.bestsolution.efxclipse.tooling.css.cssext.cssExtDsl.CssExtension;
@@ -127,6 +137,8 @@ public class Parser extends XtextSwitch<CssExtension> {
 		}
 	}
 	
+	
+	
 	public static void doIt() {
 		System.err.println("DO IT!");
 		
@@ -163,8 +175,126 @@ public class Parser extends XtextSwitch<CssExtension> {
 				
 				
 			});
-			System.err.println("adding " + pr.getName() + " with doku: " + pr.getDoku().getContent() );
+//			System.err.println("adding " + pr.getName() + " with doku: " + pr.getDoku().getContent() );
 		}
 		return result;
+	}
+	
+	private List<String> findElementsInSelector(String selector) {
+		return new ArrayList<String>();
+	}
+	
+	public static List<CssProperty> getPropertiesForSelector(String selector) {
+	return null;
+//		final Parser p = new Parser(URI.createPlatformResourceURI("test-project/test.cssext", true));
+//		
+//		List<String> elements = p.findElementsInSelector(selector);
+//		
+//		if (elements.size() == 0) {
+//		
+//			p.nfo();
+//			
+//			List<PropertyDefinition> props = p.findProperties();
+//			
+//			 List<CssProperty> result = new ArrayList<CssProperty>();
+//			
+//			for (final PropertyDefinition pr : props) {
+//				result.add(new CssProperty(pr.getName(), pr.getDoku().getContent()) {
+//					
+//					@Override
+//					public List<Proposal> getInitialTermProposals() {
+//						return p.findProposals(pr);
+//					}
+//					
+//					
+//				});
+//				System.err.println("adding " + pr.getName() + " with doku: " + pr.getDoku().getContent() );
+//			}
+//		}
+//		return result;
+	}
+	
+	public String translateRule(CSSRule r) {
+		System.err.println("translateRule " + r);
+		String result = "";
+		if (r instanceof CSSRuleOr) {
+			Iterator<CSSRule> it =((CSSRuleOr) r).getOrs().iterator();
+			while (it.hasNext()) {
+				result += translateRule(it.next());
+				if (it.hasNext()) {
+					result +=" | ";
+				}
+			}
+		}
+		else if (r instanceof CSSRuleConcat) {
+			Iterator<CSSRule> it =((CSSRuleConcat) r).getConc().iterator();
+			while (it.hasNext()) {
+				result += translateRule(it.next());
+				if (it.hasNext()) {
+					result +=" ";
+				}
+			}
+		}
+		else if (r instanceof CSSRuleBracket) {
+			result +="[ " + translateRule(((CSSRuleBracket) r).getInner()) + " ]";
+		}
+		else if (r instanceof CSSRuleXor) {
+			Iterator<CSSRule> it =((CSSRuleXor) r).getXors().iterator();
+			while (it.hasNext()) {
+				result += translateRule(it.next());
+				if (it.hasNext()) {
+					result +=" || ";
+				}
+			}
+		}
+		else if (r instanceof CSSRuleLiteral) {
+			result += ((CSSRuleLiteral) r).getValue();
+		}
+		else if (r instanceof CSSRuleRef) {
+			result += "<a href=\"laal\" >&lt;" + ((CSSRuleRef)r).getRef().getName() + "&gt;</a>";
+		}
+		else if (r instanceof CSSRulePostfix) {
+			result += translateRule(((CSSRulePostfix) r).getRule()) + ((CSSRulePostfix) r).getCardinality();
+		}
+		else if (r instanceof CSSRuleRegex) {
+			result += ((CSSRuleRegex) r).getRegex();
+		}
+		else if (r instanceof CSSRuleSymbol) {
+			result += ((CSSRuleSymbol) r).getSymbol();
+		}
+		else {
+			result = r.getType();
+		}
+		return result;
+	}
+	
+	
+
+	public String getDocForProperty(String propertyName) {
+		for (final PropertyDefinition property : findProperties()) {
+			if (property.getName().equals(propertyName)) {
+				String rule = "syntax = " +translateRule(property.getRule()) + "<br>";
+				String javadoc =  new JavaDocParser().parse(property.getDoku().getContent());
+				String defaultVal = property.getDefault()==null?"":"default = " + property.getDefault() + "<br>";
+				return rule  + defaultVal + javadoc;
+			}
+		}
+		
+		return "not found";
+	}
+	
+	public static String getDocForPropertyx(String propertyName) {
+	
+		final Parser p = new Parser(URI.createPlatformResourceURI("test-project/test.cssext", true));
+		
+		return p.getDocForProperty(propertyName);
+		
+	}
+
+	public static List<CssValuePart> getValuesForProperty(String propertyName) {
+		final Parser p = new Parser(URI.createPlatformResourceURI("test-project/test.cssext", true));
+		
+		return null
+				;
 	}
 }
