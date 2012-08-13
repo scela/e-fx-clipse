@@ -56,6 +56,22 @@ public class KeySequenceImpl extends TriggerSequenceImpl implements KeySequence 
 	public static final KeySequence getInstance(final KeyStroke[] keyStrokes) {
 		return new KeySequenceImpl(keyStrokes);
 	}
+	
+	public static final KeySequence getInstance(final KeySequence keySequence,
+			final KeyStroke keyStroke) {
+		if (keySequence == null || keyStroke == null) {
+			throw new NullPointerException();
+		}
+
+		final KeyStroke[] oldKeyStrokes = keySequence.getKeyStrokes();
+		final int oldKeyStrokeLength = oldKeyStrokes.length;
+		final KeyStroke[] newKeyStrokes = new KeyStroke[oldKeyStrokeLength + 1];
+		System
+				.arraycopy(oldKeyStrokes, 0, newKeyStrokes, 0,
+						oldKeyStrokeLength);
+		newKeyStrokes[oldKeyStrokeLength] = keyStroke;
+		return new KeySequenceImpl(newKeyStrokes);
+	}
 
 	public static final KeySequence getInstance(KeyLookup lookup, final String string)
 			throws ParseException {
@@ -85,5 +101,13 @@ public class KeySequenceImpl extends TriggerSequenceImpl implements KeySequence 
 					"Could not construct key sequence with these key strokes: " //$NON-NLS-1$
 							+ keyStrokes);
 		}
+	}
+
+	@Override
+	public final KeyStroke[] getKeyStrokes() {
+		final int triggerLength = getTriggers().length;
+		final KeyStroke[] keyStrokes = new KeyStroke[triggerLength];
+		System.arraycopy(getTriggers(), 0, keyStrokes, 0, triggerLength);
+		return keyStrokes;
 	}
 }

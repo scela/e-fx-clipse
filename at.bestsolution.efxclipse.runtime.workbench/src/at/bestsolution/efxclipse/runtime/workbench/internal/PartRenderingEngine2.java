@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
+import at.bestsolution.efxclipse.runtime.workbench.internal.key.KeyBindingDispatcher;
 import at.bestsolution.efxclipse.runtime.workbench.rendering.AbstractRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.rendering.RendererFactory;
 
@@ -55,6 +56,8 @@ public class PartRenderingEngine2 implements IPresentationEngine {
 		IContributionFactory contribFactory = context.get(IContributionFactory.class);
 		this.factory = (RendererFactory) contribFactory.create(factoryUrl, context);
 		this.modelService = modelService;
+		KeyBindingDispatcher dispatcher = ContextInjectionFactory.make(KeyBindingDispatcher.class, context);
+		context.set(KeyBindingDispatcher.class, dispatcher);
 		setupEventListener(eventBroker);
 	}
 	

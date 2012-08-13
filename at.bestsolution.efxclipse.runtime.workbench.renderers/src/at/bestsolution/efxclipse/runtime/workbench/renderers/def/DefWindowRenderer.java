@@ -25,11 +25,12 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -53,6 +54,7 @@ import at.bestsolution.efxclipse.runtime.dialogs.Dialog;
 import at.bestsolution.efxclipse.runtime.dialogs.MessageDialog;
 import at.bestsolution.efxclipse.runtime.dialogs.MessageDialog.QuestionCancel;
 import at.bestsolution.efxclipse.runtime.panels.FillLayoutPane;
+import at.bestsolution.efxclipse.runtime.workbench.internal.key.KeyBindingDispatcher;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseWindowRenderer;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WLayoutedWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
@@ -104,15 +106,18 @@ public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 		private BorderPane rootPane;
 		private BorderPane trimPane;
 		private FillLayoutPane contentPane;
+		private KeyBindingDispatcher dispatcher;
 		
 		@Inject
-		public WWindowImpl(@Named("fx.scene.3d") @Optional Boolean support3d) {
+		public WWindowImpl(@Named("fx.scene.3d") @Optional Boolean support3d, KeyBindingDispatcher dispatcher) {
 			this.support3d = support3d != null && support3d.booleanValue();
+			this.dispatcher = dispatcher;
 		}
 
 		@Override
 		protected Stage createWidget() {
 			Stage stage = new Stage();
+			stage.addEventFilter(KeyEvent.KEY_PRESSED, dispatcher.getKeyHandler());
 			this.rootPane = new BorderPane();
 			this.trimPane = new BorderPane();
 			this.rootPane.setCenter(trimPane);

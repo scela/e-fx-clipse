@@ -68,6 +68,10 @@ public class KeyStrokeImpl extends TriggerImpl implements KeyStroke {
 		return new KeyStrokeImpl(lookup, modifierKeys, naturalKey);
 	}
 	
+	public static KeyStrokeImpl getInstance(KeyLookup lookup, int modifierKeys, int naturalKey) {
+		return new KeyStrokeImpl(lookup,modifierKeys,naturalKey);
+	}
+	
 	/**
 	 * An integer representation of the modifier keys; <code>NO_KEY</code>
 	 * means that there is no modifier key.
@@ -102,6 +106,7 @@ public class KeyStrokeImpl extends TriggerImpl implements KeyStroke {
 		this.lookup = lookup;
 	}
 
+	
     /*
      * (non-Javadoc)
      * 
@@ -158,5 +163,10 @@ public class KeyStrokeImpl extends TriggerImpl implements KeyStroke {
 
 	public final int hashCode() {
 		return modifierKeys << 4 + naturalKey;
+	}
+	
+	@Override
+	public String toString() {
+		return "Modifiers: " + modifierKeys + "; NatKey: " + naturalKey;
 	}
 }

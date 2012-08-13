@@ -1,4 +1,4 @@
-package at.bestsolution.efxclipse.runtime.workbench.internal;
+package at.bestsolution.efxclipse.runtime.workbench.internal.key;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,10 +40,12 @@ public final class FxKeyLookup implements KeyLookup {
 	 */
 	private final Map<String,Integer> naturalKeyTable = new HashMap<String,Integer>();
 
-	private static final int ALT = 1 << 16;
-	private static final int SHIFT = 1 << 17;
-	private static final int CTRL = 1 << 18;
-	private static final int COMMAND = 1 << 22;
+	public static final int ALT = 1 << 16;
+	public static final int SHIFT = 1 << 17;
+	public static final int CTRL = 1 << 18;
+	public static final int COMMAND = 1 << 22;
+	public static final int MODIFIER_MASK = ALT | SHIFT | CTRL | COMMAND;
+	public static final int NO_KEY = 0;
 	
 	private static final boolean isMac = Constants.OS_MACOSX.equals(FrameworkUtil.getBundle(FxKeyLookup.class).getBundleContext().getProperty("osgi.os"));
 	private static final String ZERO_LENGTH_STRING = ""; //$NON-NLS-1$
@@ -54,7 +56,7 @@ public final class FxKeyLookup implements KeyLookup {
 	 * 
 	 * @see KeyLookupFactory
 	 */
-	FxKeyLookup() {
+	public FxKeyLookup() {
 		final Integer alt = new Integer(ALT);
 		final Integer command = new Integer(COMMAND);
 		final Integer ctrl = new Integer(CTRL);

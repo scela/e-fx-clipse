@@ -41,21 +41,19 @@
       </children>
     </trimBars>
   </children>
-  <handlers xmi:id="_A7QWmuL-EeGP-5z69KadAQ" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.handlers.OpenHandler" command="_A7QWmeL-EeGP-5z69KadAQ"/>
-  <handlers xmi:id="_A7QWnuL-EeGP-5z69KadAQ" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.handlers.RefreshHandler" command="_A7QWneL-EeGP-5z69KadAQ"/>
+  <handlers xmi:id="_H2FJYOUcEeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.handler.0" contributionURI="bundleclass://at.bestsolution.efxclipse.testcases.e4/at.bestsolution.efxclipse.testcases.e4.handlers.Handler0" command="_FEZr8OUcEeGP-5z69KadAQ"/>
   <bindingTables xmi:id="_A7QWm-L-EeGP-5z69KadAQ" bindingContext="_A7QWkeL-EeGP-5z69KadAQ">
-    <bindings xmi:id="_A7QWnOL-EeGP-5z69KadAQ" keySequence="M1+O" command="_A7QWmeL-EeGP-5z69KadAQ"/>
-    <bindings xmi:id="_A7QWn-L-EeGP-5z69KadAQ" keySequence="M1+O" command="_A7QWneL-EeGP-5z69KadAQ"/>
+    <bindings xmi:id="_XqO-oOUcEeGP-5z69KadAQ" keySequence="CTRL+I" command="_FEZr8OUcEeGP-5z69KadAQ"/>
   </bindingTables>
   <rootContext xmi:id="_A7QWkeL-EeGP-5z69KadAQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
     <children xmi:id="_A7QWkuL-EeGP-5z69KadAQ" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
     <children xmi:id="_A7QWk-L-EeGP-5z69KadAQ" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
   </rootContext>
-  <commands xmi:id="_A7QWmeL-EeGP-5z69KadAQ" elementId="media.open" commandName="openMedia"/>
-  <commands xmi:id="_A7QWneL-EeGP-5z69KadAQ" elementId="media.refresh" commandName="refreshMedia"/>
+  <commands xmi:id="_FEZr8OUcEeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.testcases.e4.command.0" commandName="CMD 0"/>
   <addons xmi:id="_A7QWlOL-EeGP-5z69KadAQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_A7QWleL-EeGP-5z69KadAQ" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
-  <addons xmi:id="_A7QWluL-EeGP-5z69KadAQ" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_A7QWluL-EeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.runtime.bindings.e4.service" contributionURI="bundleclass://at.bestsolution.efxclipse.runtime.bindings.e4/at.bestsolution.efxclipse.runtime.bindings.e4.BindingServiceAddon"/>
   <addons xmi:id="_A7QWl-L-EeGP-5z69KadAQ" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
   <addons xmi:id="_A7QWmOL-EeGP-5z69KadAQ" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_tQtNQOUbEeGP-5z69KadAQ" elementId="at.bestsolution.efxclipse.runtime.bindings.e4.model" contributionURI="bundleclass://at.bestsolution.efxclipse.runtime.bindings.e4/at.bestsolution.efxclipse.runtime.bindings.e4.BindingProcessingAddon"/>
 </application:Application>
