@@ -7,6 +7,8 @@ import javax.inject.Named;
 
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuElement;
@@ -25,7 +27,8 @@ public class DefMenuRenderer extends BaseMenuRenderer<Menu> {
 	}
 
 	public static class MenuImpl extends WWidgetImpl<Menu, MMenu> implements WMenu<Menu> {
-
+		private ToggleGroup group;
+		
 		@Override
 		protected Menu createWidget() {
 			Menu m = new Menu();
@@ -54,6 +57,14 @@ public class DefMenuRenderer extends BaseMenuRenderer<Menu> {
 		
 		@Override
 		public void addElement(WMenuElement<MMenuElement> widget) {
+			if( widget.getWidget() instanceof Toggle ) {
+				if( group == null ) {
+					group = new ToggleGroup();
+				}
+				// see http://javafx-jira.kenai.com/browse/RT-24256
+//				group.getToggles().add((Toggle) widget.getWidget());
+				((Toggle)widget.getWidget()).setToggleGroup(group);
+			}
 			getWidget().getItems().add((MenuItem) widget.getWidget());
 		}
 		

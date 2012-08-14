@@ -44,6 +44,5 @@ public class DefToolBarRenderer extends BaseToolBarRenderer<ToolBar> {
 			}
 			getWidget().getItems().add(itemWidget.getStaticLayoutNode());
 		}
-		
 	}
 }
