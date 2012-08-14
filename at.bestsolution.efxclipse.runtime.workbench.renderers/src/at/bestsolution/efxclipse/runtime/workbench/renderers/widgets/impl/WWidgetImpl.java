@@ -70,6 +70,11 @@ public abstract class WWidgetImpl<N,M extends MUIElement> implements WWidget<M> 
 		domElement = null;
 		activationCallbacks.clear();
 		activationCallbacks = null;
+		doCleanup();
+	}
+	
+	protected void doCleanup() {
+		
 	}
 	
 	@Override

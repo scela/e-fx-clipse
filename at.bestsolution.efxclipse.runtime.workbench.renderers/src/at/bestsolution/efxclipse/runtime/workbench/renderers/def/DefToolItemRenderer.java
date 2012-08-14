@@ -1,5 +1,7 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.def;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBase;
@@ -30,6 +32,7 @@ public class DefToolItemRenderer extends BaseToolItemRenderer<Node> {
 	public static class ToolItemImpl extends WLayoutedWidgetImpl<ButtonBase, ButtonBase, MToolItem> implements WToolItem<Node> {
 		private ItemType type;
 		private boolean menuButton;
+		private Runnable onActionCallback;
 		
 		@Inject
 		public ToolItemImpl(@Named(BaseRenderer.CONTEXT_DOM_ELEMENT) MToolItem domElement) {
@@ -42,8 +45,34 @@ public class DefToolItemRenderer extends BaseToolItemRenderer<Node> {
 			getWidget().setText(label);
 		}
 		
+		public void setOnActionCallback(Runnable onActionCallback) {
+			this.onActionCallback = onActionCallback;
+		}
+		
+		@Override
+		protected void doCleanup() {
+			super.doCleanup();
+			onActionCallback = null;
+		}
+		
 		@Override
 		protected ButtonBase createWidget() {
+			ButtonBase b = internalCreateWidget();
+			if( b != null ) {
+				b.setOnAction(new EventHandler<ActionEvent>() {
+					
+					@Override
+					public void handle(ActionEvent event) {
+						if( onActionCallback != null ) {
+							onActionCallback.run();
+						}
+					}
+				});
+			}
+			return b;
+		}
+		
+		private ButtonBase internalCreateWidget() {
 			switch (type) {
 			case CHECK:
 				return new CheckBox("CheckBox");
