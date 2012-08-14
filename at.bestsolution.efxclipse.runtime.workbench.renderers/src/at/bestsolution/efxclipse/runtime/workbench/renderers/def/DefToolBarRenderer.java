@@ -1,5 +1,7 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.def;
 
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 
 import org.eclipse.e4.ui.model.application.ui.menu.MToolBar;
@@ -19,7 +21,8 @@ public class DefToolBarRenderer extends BaseToolBarRenderer<ToolBar> {
 	}
 
 	public static class WToolBarImpl extends WLayoutedWidgetImpl<ToolBar, ToolBar, MToolBar> implements WToolBar<ToolBar> {
-
+		private ToggleGroup group;
+		
 		@Override
 		protected ToolBar createWidget() {
 			ToolBar b = new ToolBar();
@@ -33,6 +36,12 @@ public class DefToolBarRenderer extends BaseToolBarRenderer<ToolBar> {
 
 		@Override
 		public void addChild(WLayoutedWidget<MToolBarElement> itemWidget) {
+			if( itemWidget.getWidget() instanceof Toggle ) {
+				if( group == null ) {
+					group = new ToggleGroup();
+				}
+				group.getToggles().add((Toggle) itemWidget.getWidget());
+			}
 			getWidget().getItems().add(itemWidget.getStaticLayoutNode());
 		}
 		
