@@ -36,29 +36,7 @@ public abstract class BaseWindowRenderer<N> extends BaseRenderer<MWindow,WWindow
 	
 	@Override
 	protected void initWidget(final MWindow element, final WWindow<N> widget) {
-		getModelContext(element).set(ISaveHandler.class, new ISaveHandler() {
-			
-			@Override
-			public Save[] promptToSave(Collection<MPart> dirtyParts) {
-				@SuppressWarnings("unchecked")
-				IResourceUtilities<Image> resourceUtilities = getModelContext(element).get(IResourceUtilities.class);
-				return BaseWindowRenderer.this.promptToSave(resourceUtilities, dirtyParts, widget);
-			}
-			
-			@Override
-			public Save promptToSave(MPart dirtyPart) {
-				@SuppressWarnings("unchecked")
-				IResourceUtilities<Image> resourceUtilities = getModelContext(element).get(IResourceUtilities.class);
-				return BaseWindowRenderer.this.promptToSave(resourceUtilities, dirtyPart, widget);
-//				Collection<MPart> c = Collections.singleton(dirtyPart);
-//				return BaseWindowRenderer.this.promptToSave(resourceUtilities,c, widget)[0];
-			}
-		});
 	}
-	
-	protected abstract Save[] promptToSave(IResourceUtilities<Image> resourceUtilities, Collection<MPart> dirtyParts, WWindow<N> widget);
-	protected abstract Save promptToSave(IResourceUtilities<Image> resourceUtilities, MPart dirtyPart, WWindow<N> widget);
-
 	@Override
 	public void doProcessContent(MWindow element) {
 		WWindow<N> windowWidget = getWidget(element);

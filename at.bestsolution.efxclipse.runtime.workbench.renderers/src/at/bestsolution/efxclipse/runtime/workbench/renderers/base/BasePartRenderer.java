@@ -39,7 +39,7 @@ public abstract class BasePartRenderer<N> extends BaseRenderer<MPart, WPart<N>> 
 	public void doProcessContent(MPart element) {
 		WPart<N> widget = getWidget(element);
 		
-		element.getContext().set(BorderPane.class.getName(), widget.getWidget());
+		element.getContext().set(widget.getWidget().getClass().getName(), widget.getWidget());
 		IContributionFactory contributionFactory = (IContributionFactory) element.getContext().get(IContributionFactory.class
 				.getName());
 		Object newPart = contributionFactory.create(element.getContributionURI(), element.getContext());

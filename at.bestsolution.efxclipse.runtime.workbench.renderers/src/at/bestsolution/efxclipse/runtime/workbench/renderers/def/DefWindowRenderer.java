@@ -47,6 +47,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MWindowElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenu;
 import org.eclipse.e4.ui.workbench.IResourceUtilities;
 import org.eclipse.e4.ui.workbench.UIEvents;
+import org.eclipse.e4.ui.workbench.modeling.ISaveHandler;
 import org.eclipse.e4.ui.workbench.modeling.ISaveHandler.Save;
 import org.eclipse.emf.common.util.URI;
 
@@ -64,6 +65,29 @@ import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl.WLayou
 @SuppressWarnings("restriction")
 public class DefWindowRenderer extends BaseWindowRenderer<Stage> {
 	
+	@Override
+	protected void initWidget(final MWindow element, final at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWindow<Stage> widget) {
+		getModelContext(element).set(ISaveHandler.class, new ISaveHandler() {
+		
+			@Override
+			public Save[] promptToSave(Collection<MPart> dirtyParts) {
+				@SuppressWarnings("unchecked")
+				IResourceUtilities<Image> resourceUtilities = getModelContext(element).get(IResourceUtilities.class);
+				return DefWindowRenderer.this.promptToSave(resourceUtilities, dirtyParts, widget);
+			}	
+		
+			@Override
+			public Save promptToSave(MPart dirtyPart) {
+				@SuppressWarnings("unchecked")
+				IResourceUtilities<Image> resourceUtilities = getModelContext(element).get(IResourceUtilities.class);
+				return DefWindowRenderer.this.promptToSave(resourceUtilities, dirtyPart, widget);
+//				Collection<MPart> c = Collections.singleton(dirtyPart);
+//				return BaseWindowRenderer.this.promptToSave(resourceUtilities,c, widget)[0];
+			}
+		});
+	}
+
+
 	protected Save[] promptToSave(IResourceUtilities<Image> resourceUtilities, Collection<MPart> dirtyParts, WWindow<Stage> widget) {
 		Save[] response = new Save[dirtyParts.size()];
 		
