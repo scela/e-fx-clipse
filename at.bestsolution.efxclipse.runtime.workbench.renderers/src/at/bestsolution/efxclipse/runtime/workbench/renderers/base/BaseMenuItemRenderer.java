@@ -1,7 +1,5 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.base;
 
-import javafx.scene.control.MenuItem;
-
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.menu.MMenuItem;
@@ -10,7 +8,7 @@ import org.eclipse.e4.ui.model.application.ui.menu.impl.MenuPackageImpl;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WMenuItem;
 
 @SuppressWarnings("restriction")
-public abstract class BaseMenuItemRenderer<N> extends BaseRenderer<MMenuItem, WMenuItem<MenuItem>> {
+public abstract class BaseMenuItemRenderer<N> extends BaseRenderer<MMenuItem, WMenuItem<N>> {
 
 	@Override
 	protected void initRenderingContext(MMenuItem element, IEclipseContext context) {
