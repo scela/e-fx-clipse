@@ -9,6 +9,8 @@ import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.commands.EHandlerService;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.contexts.RunAndTrack;
+import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.eclipse.e4.ui.internal.workbench.ContributionsAnalyzer;
@@ -25,15 +27,25 @@ import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WToolItem;
 public abstract class BaseToolItemRenderer<N> extends BaseRenderer<MToolItem, WToolItem<N>> {
 
 	@Override
-	protected void initWidget(final MToolItem element, WToolItem<N> widget) {
+	protected void initWidget(final MToolItem element, final WToolItem<N> widget) {
 		super.initWidget(element, widget);
 		
-		final IEclipseContext context = getModelContext(element);
+		final IEclipseContext modelContext = getModelContext(element);
 		widget.setOnActionCallback(new Runnable() {
 			
 			@Override
 			public void run() {
-				executeAction(element,context);
+				executeAction(element,modelContext.getActiveLeaf());
+			}
+		});
+		
+		final IEclipseContext parentContext = getContextForParent(element); 
+		parentContext.runAndTrack(new RunAndTrack() {
+			
+			@Override
+			public boolean changed(IEclipseContext context) {
+				canExecute(element, widget, parentContext.getActiveLeaf());
+				return true;
 			}
 		});
 	}
@@ -53,6 +65,22 @@ public abstract class BaseToolItemRenderer<N> extends BaseRenderer<MToolItem, WT
 		ParameterizedCommand cmd = cmdService.createCommand(item.getCommand()
 				.getElementId(), parameters);
 		return cmd;
+	}
+	
+	protected void canExecute(MToolItem item, WToolItem<N> widget, IEclipseContext context) {
+		if( item instanceof MContribution ) {
+			MContribution contribution = (MContribution) item;
+			Object object = getContributionObject(context, contribution);
+			
+			IEclipseContext runContext = context.createChild("DI-ToolItem");
+			try {
+				ContributionsAnalyzer.populateModelInterfaces(item, runContext, item.getClass().getInterfaces());
+				runContext.set(MItem.class.getName(), item);
+				widget.setHandled(Boolean.TRUE.equals(ContextInjectionFactory.invoke(object, CanExecute.class, context, Boolean.TRUE)));
+			} finally {
+				runContext.dispose();
+			}
+		}
 	}
 	
 	protected void executeAction(MToolItem item, IEclipseContext context) {

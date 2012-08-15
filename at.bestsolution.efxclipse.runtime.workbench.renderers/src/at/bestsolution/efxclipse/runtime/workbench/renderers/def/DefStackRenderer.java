@@ -10,7 +10,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
-import javafx.util.Callback;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -23,6 +22,7 @@ import at.bestsolution.efxclipse.runtime.panels.fx.FXTab;
 import at.bestsolution.efxclipse.runtime.panels.fx.FXTabPane;
 import at.bestsolution.efxclipse.runtime.panels.skins.MinMaxTabPaneSkin;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.base.BaseStackRenderer;
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WCallback;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WStack;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WStack.WStackItem;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.impl.WLayoutedWidgetImpl;
@@ -38,15 +38,15 @@ public class DefStackRenderer extends BaseStackRenderer<FXTabPane,FXTab> {
 	
 	public static class StackWidgetImpl extends WLayoutedWidgetImpl<FXTabPane, FXTabPane, MPartStack> implements WStack<FXTabPane, FXTab> {
 		
-		private Callback<WStackItem<FXTab>, Void> mouseSelectedItemCallback;
-		private Callback<WStackItem<FXTab>, Void> keySelectedItemCallback;
+		private WCallback<WStackItem<FXTab>, Void> mouseSelectedItemCallback;
+		private WCallback<WStackItem<FXTab>, Void> keySelectedItemCallback;
 		private boolean inKeyTraversal;
 		
-		public void setMouseSelectedItemCallback(Callback<WStackItem<FXTab>, Void> mouseSelectedItemCallback) {
+		public void setMouseSelectedItemCallback(WCallback<WStackItem<FXTab>, Void> mouseSelectedItemCallback) {
 			this.mouseSelectedItemCallback = mouseSelectedItemCallback;
 		}
 		
-		public void setKeySelectedItemCallback(Callback<WStackItem<FXTab>, Void> keySelectedItemCallback) {
+		public void setKeySelectedItemCallback(WCallback<WStackItem<FXTab>, Void> keySelectedItemCallback) {
 			this.keySelectedItemCallback = keySelectedItemCallback;
 		}
 		
@@ -92,7 +92,7 @@ public class DefStackRenderer extends BaseStackRenderer<FXTabPane,FXTab> {
 					final StackItemImpl w = (StackItemImpl) newValue.getUserData();
 					w.handleSelection();
 					 
-					final Callback<WStackItem<FXTab>, Void> cb;
+					final WCallback<WStackItem<FXTab>, Void> cb;
 					if( ! inKeyTraversal ) {
 						cb = mouseSelectedItemCallback;
 					} else {
@@ -194,8 +194,8 @@ public class DefStackRenderer extends BaseStackRenderer<FXTabPane,FXTab> {
 	
 	public static class StackItemImpl implements WStackItem<FXTab> {
 		private FXTab tab;
-		private Callback<WStackItem<FXTab>, Node> initCallback;
-		private Callback<WStackItem<FXTab>, Boolean> closeCallback;
+		private WCallback<WStackItem<FXTab>, Node> initCallback;
+		private WCallback<WStackItem<FXTab>, Boolean> closeCallback;
 		private MStackElement domElement;
 		
 		@PostConstruct
@@ -223,7 +223,7 @@ public class DefStackRenderer extends BaseStackRenderer<FXTabPane,FXTab> {
 		
 		protected FXTab createWidget() {
 			final FXTab t = new FXTab();
-			t.setCloseVetoHandler(new Callback<FXTab, Boolean>() {
+			t.setCloseVetoHandler(new javafx.util.Callback<FXTab, Boolean>() {
 				
 				@Override
 				public Boolean call(FXTab param) {
@@ -243,7 +243,7 @@ public class DefStackRenderer extends BaseStackRenderer<FXTabPane,FXTab> {
 			}	
 		}
 		
-		public void setInitCallback(Callback<WStackItem<FXTab>, Node> initCallback) {
+		public void setInitCallback(WCallback<WStackItem<FXTab>, Node> initCallback) {
 			this.initCallback = initCallback;
 		}
 
@@ -258,7 +258,7 @@ public class DefStackRenderer extends BaseStackRenderer<FXTabPane,FXTab> {
 		}
 		
 		@Override
-		public void setOnCloseCallback(final Callback<WStackItem<FXTab>, Boolean> callback) {
+		public void setOnCloseCallback(final WCallback<WStackItem<FXTab>, Boolean> callback) {
 			this.closeCallback = callback;
 		}
 	}

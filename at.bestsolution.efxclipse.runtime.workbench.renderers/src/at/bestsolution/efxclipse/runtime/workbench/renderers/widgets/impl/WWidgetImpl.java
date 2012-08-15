@@ -5,13 +5,13 @@ import java.util.List;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.util.Callback;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WCallback;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WPropertyChangeHandler;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WPropertyChangeHandler.WPropertyChangeEvent;
@@ -20,7 +20,7 @@ import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WPropertyCh
 public abstract class WWidgetImpl<N,M extends MUIElement> implements WWidget<M> {
 	private N nativeWidget;
 	private M domElement;
-	private List<Callback<Boolean, Void>> activationCallbacks = new ArrayList<Callback<Boolean,Void>>();
+	private List<WCallback<Boolean, Void>> activationCallbacks = new ArrayList<WCallback<Boolean,Void>>();
 	private boolean active;
 	
 	private WPropertyChangeHandler<? extends WWidget<M>> propertyChangeHandler;
@@ -34,7 +34,7 @@ public abstract class WWidgetImpl<N,M extends MUIElement> implements WWidget<M> 
 	@Override
 	public void activate() {
 		this.active = true;
-		for( Callback<Boolean, Void> c : activationCallbacks ) {
+		for( WCallback<Boolean, Void> c : activationCallbacks ) {
 			c.call(Boolean.TRUE);
 		}
 	}
@@ -42,7 +42,7 @@ public abstract class WWidgetImpl<N,M extends MUIElement> implements WWidget<M> 
 	@Override
 	public void deactivate() {
 		this.active = false;
-		for( Callback<Boolean, Void> c : activationCallbacks ) {
+		for( WCallback<Boolean, Void> c : activationCallbacks ) {
 			c.call(Boolean.FALSE);
 		}
 	}
@@ -52,7 +52,7 @@ public abstract class WWidgetImpl<N,M extends MUIElement> implements WWidget<M> 
 		return active;
 	}
 	
-	public void registerActivationCallback(Callback<Boolean, Void> callback) {
+	public void registerActivationCallback(WCallback<Boolean, Void> callback) {
 		activationCallbacks.add(callback);
 	}
 	

@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javafx.scene.Node;
-import javafx.util.Callback;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -22,6 +21,7 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WCallback;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WLayoutedWidget;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WStack;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WStack.WStackItem;
@@ -88,7 +88,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 	@Override
 	protected void initWidget(final MPartStack element, final WStack<N, I> widget) {
 		super.initWidget(element, widget);
-		widget.setMouseSelectedItemCallback(new Callback<WStackItem<I>, Void>() {
+		widget.setMouseSelectedItemCallback(new WCallback<WStackItem<I>, Void>() {
 
 			@Override
 			public Void call(WStackItem<I> param) {
@@ -99,7 +99,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 				return null;
 			}
 		});
-		widget.setKeySelectedItemCallback(new Callback<WStackItem<I>, Void>() {
+		widget.setKeySelectedItemCallback(new WCallback<WStackItem<I>, Void>() {
 
 			@Override
 			public Void call(WStackItem<I> param) {
@@ -111,7 +111,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 			}
 		});
 		
-		widget.registerActivationCallback(new Callback<Boolean, Void>() {
+		widget.registerActivationCallback(new WCallback<Boolean, Void>() {
 			
 			@Override
 			public Void call(Boolean param) {
@@ -168,7 +168,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 		IEclipseContext context = renderer.setupRenderingContext(e);
 		WStackItem<I> item = ContextInjectionFactory.make(stack.getStackItemClass(), context);
 		item.setDomElement(e);
-		item.setInitCallback(new Callback<WStack.WStackItem<I>, Node>() {
+		item.setInitCallback(new WCallback<WStack.WStackItem<I>, Node>() {
 
 			@Override
 			public Node call(WStackItem<I> param) {
@@ -184,7 +184,7 @@ public abstract class BaseStackRenderer<N, I> extends BaseRenderer<MPartStack, W
 				}
 			}
 		});
-		item.setOnCloseCallback(new Callback<WStack.WStackItem<I>, Boolean>() {
+		item.setOnCloseCallback(new WCallback<WStack.WStackItem<I>, Boolean>() {
 
 			@Override
 			public Boolean call(WStackItem<I> param) {

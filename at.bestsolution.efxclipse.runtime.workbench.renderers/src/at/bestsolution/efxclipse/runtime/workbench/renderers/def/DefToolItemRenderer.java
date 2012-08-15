@@ -34,10 +34,23 @@ public class DefToolItemRenderer extends BaseToolItemRenderer<Node> {
 		private boolean menuButton;
 		private Runnable onActionCallback;
 		
+		private boolean handled = true;
+		private boolean enabled = true;
+		
 		@Inject
 		public ToolItemImpl(@Named(BaseRenderer.CONTEXT_DOM_ELEMENT) MToolItem domElement) {
 			type = domElement.getType();
 			menuButton = domElement.getMenu() != null;
+		}
+		
+		@Override
+		public void setHandled(boolean handled) {
+			this.handled = handled;
+			updateEnabledState();
+		}
+		
+		private void updateEnabledState() {
+			getWidget().setDisable(!(handled && enabled));
 		}
 		
 		@Inject

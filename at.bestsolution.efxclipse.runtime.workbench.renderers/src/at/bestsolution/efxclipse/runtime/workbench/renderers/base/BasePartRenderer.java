@@ -1,12 +1,12 @@
 package at.bestsolution.efxclipse.runtime.workbench.renderers.base;
 
 import javafx.scene.layout.BorderPane;
-import javafx.util.Callback;
 
 import org.eclipse.e4.core.services.contributions.IContributionFactory;
 import org.eclipse.e4.ui.model.application.ui.MUIElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 
+import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WCallback;
 import at.bestsolution.efxclipse.runtime.workbench.renderers.widgets.WPart;
 
 @SuppressWarnings("restriction")
@@ -16,7 +16,7 @@ public abstract class BasePartRenderer<N> extends BaseRenderer<MPart, WPart<N>> 
 	protected void initWidget(final MPart element, final WPart<N> widget) {
 		super.initWidget(element, widget);		
 		
-		widget.registerActivationCallback(new Callback<Boolean, Void>() {
+		widget.registerActivationCallback(new WCallback<Boolean, Void>() {
 			
 			@Override
 			public Void call(Boolean param) {
